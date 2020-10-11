@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper
+	namespace="com.vastsoft.yingtaidicom.search.orgsearch.systems.his.brand.Zhibang.ver1.config.HisZhibangVer1Mapper">
+	<select id="searchM_BRJBXXByByPatientName" parameterType="map" resultType="M_BRJBXX">
+		select
+			t0.jzxh as jzxh,
+			t0.rbrq as rbrq,
+			t0.zyxs as zyxs,
+			t0.jws as zyxs2,
+			t0.jybs as zyxs3,
+			t1.ysxm as ysxm,
+			t0.ct as ct,
+			t0.zd+t0.zd1+t0.zd2 as diagnosis,
+			t0.sf as doctor_say,
+			t2.ksmc as ksmc,
+			t3.m_ghmc as m_ghmc,
+			t0.notes as notes,
+			t4.*
+		from m_bljl t0
+			left join ysbmk t1 on t1.ysbm = t0.ysbm
+			LEFT JOIN ksbmk t2 on t2.ksbm = t0.ksbm
+			LEFT JOIN m_ghlb t3 on CAST(t3.m_ghlb as decimal(10,0)) = CAST(t0.ghlb as decimal(10,0))
+			left JOIN m_brjbxx t4 on t0.brxh = t4.m_brid
+		where t4.m_brxm like '%'+#{like_patient_name}+'%'
+	</select>
+	
+	<select id="searchB_BASYByPatientName" parameterType="map" resultType="B_BASY">
+		select t1.*,(select ysxm from ysbmk where ysbm=t1.add_zzys) as
+		add_zzys_name,
+		(select ysxm from ysbmk where ysbm=t1.mzys) as mzys_name,
+		(select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name,
+		(select ksmc from ksbmk where ksbm = t1.rykb) as rykb_name
+		from b_basy t1
+		where t1.xm like '%'+#{like_patient_name}+'%'
+	</select>
+	
+	<select id="searchZ_BAHByPatientName" parameterType="map" resultType="Z_BAH">
+		select t1.*,
+		(select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name,
+		(select ysxm from ysbmk where ysbm=t1.ysbm) as ysbm_name
+		from z_bah t1 where t1.z_xm like '%'+#{like_patient_name}+'%'
+	</select>
+	
+	<select id="selectLastZ_BAHByCount" parameterType="integer"
+		resultType="Z_BAH">
+		select top 30 * from z_bah where z_ryrq &lt;= GETDATE()
+		order by z_ryrq desc
+	</select>
+
+	<select id="selectLastM_BRJBXXByCount" parameterType="integer"
+		resultType="M_BRJBXX">
+		select top 30 * from m_brjbxx where card_no !='0000009999'
+		and create_date &lt;= GETDATE() ORDER BY create_date desc
+	</select>
+
+	<select id="selectLastB_BASYByCount" parameterType="integer"
+		resultType="B_BASY">
+		select top 30 * from b_basy where rysj &lt;= GETDATE()
+		order by rysj desc
+	</select>
+
+	<select id="selectZ_BAH" parameterType="map" resultType="Z_BAH">
+		select t1.*,
+		(select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name,
+		(select ysxm from ysbmk where ysbm=t1.ysbm) as ysbm_name
+		from z_bah t1 where
+		1=2
+		<if test="z_bahs !=null">
+			or t1.z_bah in (${z_bahs})
+		</if>
+		<if test="z_sfzhs !=null">
+			or t1.z_sfzh in (${z_sfzhs})
+		</if>
+		<if test="card_nos !=null">
+			or t1.card_no in (${card_nos})
+		</if>
+		<if test="m_brids !=null">
+			or t1.m_brid in (${m_brids})
+		</if>
+	</select>
+
+	<!-- <select id="selectZ_BAHByCardNos" parameterType="string" resultType="Z_BAH"> -->
+	<!-- select t1.*, -->
+	<!-- (select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name, -->
+	<!-- (select ysxm from ysbmk where ysbm=t1.ysbm) as ysbm_name -->
+	<!-- from z_bah t1 where t1.card_no in ('${card_nos}') -->
+	<!-- </select> -->
+
+	<select id="selectB_BASY" parameterType="map" resultType="B_BASY">
+		select t1.*,(select ysxm from ysbmk where ysbm=t1.add_zzys) as
+		add_zzys_name,
+		(select ysxm from ysbmk where ysbm=t1.mzys) as mzys_name,
+		(select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name,
+		(select ksmc from ksbmk where ksbm = t1.rykb) as rykb_name
+		from b_basy t1
+		where 1=2
+		<if test="bahs !=null">
+			or t1.bah in (${bahs})
+		</if>
+		<if test="sfzhs !=null">
+			or t1.sfzh in (${sfzhs})
+		</if>
+	</select>
+
+	<!-- <select id="selectB_BASYByIdentityIds" parameterType="String" resultType="B_BASY"> -->
+	<!-- select t1.*,(select ysxm from ysbmk where ysbm=t1.add_zzys) as add_zzys_name, -->
+	<!-- (select ysxm from ysbmk where ysbm=t1.mzys) as mzys_name, -->
+	<!-- (select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name, -->
+	<!-- (select ksmc from ksbmk where ksbm = t1.rykb) as rykb_name -->
+	<!-- from b_basy t1 where t1.sfzh in ('${sfzhs}') -->
+	<!-- </select> -->
+
+	<!-- <select id="selectZ_BAHByIdentityIds" parameterType="string" resultType="Z_BAH"> -->
+	<!-- select t1.*, -->
+	<!-- (select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name, -->
+	<!-- (select ysxm from ysbmk where ysbm=t1.ysbm) as ysbm_name -->
+	<!-- from z_bah t1 where t1.z_sfzh in ('${z_sfzhs}') -->
+	<!-- </select> -->
+
+	<select id="selectM_BRJBXX" parameterType="map" resultType="M_BRJBXX">
+		select
+			t0.jzxh as jzxh,
+			t0.rbrq as rbrq,
+			t0.zyxs as zyxs,
+			t0.jws as zyxs2,
+			t0.jybs as zyxs3,
+			t1.ysxm as ysxm,
+			t0.ct as ct,
+			t0.zd+t0.zd1+t0.zd2 as diagnosis,
+			t0.sf as doctor_say,
+			t2.ksmc as ksmc,
+			t3.m_ghmc as m_ghmc,
+			t0.notes as notes,
+			t4.*
+		from m_bljl t0
+			left join ysbmk t1 on t1.ysbm = t0.ysbm
+			LEFT JOIN ksbmk t2 on t2.ksbm = t0.ksbm
+			LEFT JOIN m_ghlb t3 on CAST(t3.m_ghlb as decimal(10,0)) = CAST(t0.ghlb as decimal(10,0))
+			left JOIN m_brjbxx t4 on t0.brxh = t4.m_brid
+		where 1=2
+			<if test="m_sfzhs !=null">
+				or t4.m_sfzh in (${m_sfzhs})
+			</if>
+			<if test="m_brids !=null">
+				or t4.m_brid in (${m_brids})
+			</if>
+			<if test="card_nos !=null">
+				or t4.card_no in (${card_nos})
+			</if>
+	</select>
+
+	<!-- <select id="selectM_BRJBXXByBrIds" parameterType="string" resultType="M_BRJBXX"> -->
+	<!-- select t1.*, -->
+	<!-- t6.mzmc as m_mz_name, -->
+	<!-- t2.zd+t2.zd1+t2.zd2 as diagnosis, -->
+	<!-- t2.zyxs as zyxs, -->
+	<!-- t2.notes as doctor_say, -->
+	<!-- t3.m_ghmc as m_ghmc, -->
+	<!-- t4.ysxm as ysxm, -->
+	<!-- t5.ksmc as ksmc, -->
+	<!-- t2.ct as ct -->
+	<!-- from m_brjbxx t1 -->
+	<!-- left join m_bljl t2 on t1.m_brid = t2.brxh -->
+	<!-- left join m_ghlb t3 on t2.ghlb=t3.m_ghlb -->
+	<!-- left join ysbmk t4 on t2.ysbm = t4.ysbm -->
+	<!-- left join ksbmk t5 on t2.ksbm = t5.ksbm -->
+	<!-- left join mzbmk t6 on t1.m_mz = t6.mzbm -->
+	<!-- where t1.m_brid in ('${m_brids}') -->
+	<!-- </select> -->
+
+	<!-- <select id="selectM_BRJBXXByCardNos" parameterType="string" resultType="M_BRJBXX"> -->
+	<!-- select t1.*, -->
+	<!-- t6.mzmc as m_mz_name, -->
+	<!-- t2.zd+t2.zd1+t2.zd2 as diagnosis, -->
+	<!-- t2.zyxs as zyxs, -->
+	<!-- t2.notes as doctor_say, -->
+	<!-- t3.m_ghmc as m_ghmc, -->
+	<!-- t4.ysxm as ysxm, -->
+	<!-- t5.ksmc as ksmc, -->
+	<!-- t2.ct as ct -->
+	<!-- from m_brjbxx t1 -->
+	<!-- left join m_bljl t2 on t1.m_brid = t2.brxh -->
+	<!-- left join m_ghlb t3 on t2.ghlb = t3.m_ghlb -->
+	<!-- left join ysbmk t4 on t2.ysbm = t4.ysbm -->
+	<!-- left join ksbmk t5 on t2.ksbm = t5.ksbm -->
+	<!-- left join mzbmk t6 on t1.m_mz = t6.mzbm -->
+	<!-- where t1.card_no in ('${card_nos}') -->
+	<!-- </select> -->
+
+	<!-- <select id="selectB_BASYByBahs" parameterType="string" resultType="B_BASY"> -->
+	<!-- select t1.*,(select ysxm from ysbmk where ysbm=t1.add_zzys) as add_zzys_name, -->
+	<!-- (select ysxm from ysbmk where ysbm=t1.mzys) as mzys_name, -->
+	<!-- (select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name, -->
+	<!-- (select ksmc from ksbmk where ksbm = t1.rykb) as rykb_name -->
+	<!-- from b_basy t1 where t1.bah in ('${bahs}') -->
+	<!-- </select> -->
+
+	<!-- <select id="selectZ_BAHByBinganNums" parameterType="String" resultType="Z_BAH"> -->
+	<!-- select t1.*, -->
+	<!-- (select mzmc from mzbmk where mzbm=t1.mzbm) as mzbm_name, -->
+	<!-- (select ysxm from ysbmk where ysbm=t1.ysbm) as ysbm_name -->
+	<!-- from z_bah t1 where t1.z_bah in ('${z_bahs}') -->
+	<!-- </select> -->
+</mapper>

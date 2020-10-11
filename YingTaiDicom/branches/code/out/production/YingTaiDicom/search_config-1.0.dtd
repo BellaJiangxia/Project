@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT search_config (config_files,org_configs)>
+	<!ELEMENT config_files (file*)>
+		<!ELEMENT file EMPTY>
+		<!ATTLIST file src CDATA #REQUIRED>
+	<!ELEMENT org_configs (org_config+)>
+		<!ELEMENT org_config (external_systems+)>
+			<!ATTLIST org_config org_code CDATA #REQUIRED>
+			<!ATTLIST org_config org_name CDATA #IMPLIED>
+			<!ELEMENT external_systems (external_system+,depend_adapters+)>
+				<!ELEMENT external_system ()>
+					<!ATTLIST external_system name CDATA #REQUIRED>
+					<!ATTLIST external_system code CDATA #REQUIRED>
+				<!ELEMENT depend_adapters (depend_adapter*)>
+					<!ELEMENT depend_adapter EMPTY>
+						<!ATTLIST depend_adapter depend_from CDATA #REQUIRED>
+						<!ATTLIST depend_adapter depend_to CDATA #REQUIRED>
+						<!ATTLIST depend_adapter adapter CDATA #REQUIRED>

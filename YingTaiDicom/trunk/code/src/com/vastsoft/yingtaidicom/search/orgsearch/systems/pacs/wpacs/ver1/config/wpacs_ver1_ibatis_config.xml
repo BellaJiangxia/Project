@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<!-- <properties resource="ibatis_config.properties" /> -->
+	<typeAliases>
+		<typeAlias type="com.vastsoft.yingtaidicom.search.orgsearch.systems.pacs.wpacs.ver1.entity.Study" alias="Study" />
+		<typeAlias type="com.vastsoft.yingtaidicom.search.orgsearch.systems.pacs.wpacs.ver1.entity.Series" alias="Series" />
+		<typeAlias type="com.vastsoft.yingtaidicom.search.orgsearch.systems.pacs.wpacs.ver1.entity.Image" alias="Image" />
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/vastsoft/yingtaidicom/search/orgsearch/systems/pacs/wpacs/ver1/config/WPacsDataBaseMapper.xml" />
+	</mappers>
+</configuration>

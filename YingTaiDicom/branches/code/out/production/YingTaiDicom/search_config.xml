@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE search_config PUBLIC "-//vastsoft.net//DTD search config 1.0//CH" "search_config-1.0.dtd" > -->
+<!-- 对整个search系统的配置 -->
+<search_config>
+	<!-- 将外部配置文件包含进来，外部配置文件与本文件的格式必须一致-->
+	<config_files>
+		<!-- <file src="com/xx.xml" />
+		<file src="com/xx.xml" />
+		<file src="com/xx.xml" /> -->
+	</config_files>
+	
+	<!-- 数据库配置集合 -->
+	<db_configs>
+		<!-- id是唯一标识，不能重复 -->
+		<db-config id="db-chongzhou-pacs-wpacs-v1">
+			<property name="db_type" value="MYSQL" /><!-- MYSQL,ORACLE,SQLSERVER,DB2等 -->
+			<property name="url" value="jdbc:mysql://192.168.2.11:3306/wpacs?useUnicode=true&amp;characterEncoding=UTF-8" />
+			<property name="username" value="root" />
+			<property name="password" value="12345678" />
+		</db-config>
+	</db_configs>
+	<!-- 包含的机构 -->
+	<org_configs>
+		<!-- 一个机构的配置 -->
+		<!-- 包含的外部系统; 数据优先级依赖控制器（priorty_controller），如不设置将使用默认控制器-->
+		<org_config org_code="112000" org_name="沐川县大楠镇卫生院" priorty_controller="">
+			<external_systems>
+				<!-- 一个外部系统 类型 品牌 版本 上级系统类型  db_config_id-数据库用户名配置-->
+<!-- 				<his brand="智邦" version="v1.0" interface="" db_config_id="db-muchuan-his-zhibang-v1"> -->
+<!-- 				    <ris brand="10" version="10" interface="" db_config_id=""> -->
+<!-- 				        <pacs brand="eps" version="v1.0" org_ae_num="DNYY" interface="" db_config_id="db-muchuan-pacs-eps-v1"  -->
+<!-- 				    		thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp"> -->
+<!-- 				    	</pacs> -->
+<!-- 				    </ris> -->
+<!-- 				    <lis type="10" brand="10" version="10"> -->
+<!-- 				    </lis> -->
+<!-- 				</his> -->
+<!-- 				<pacs brand="eps" version="v1.0" org_ae_num="HWZY,JYQZY,LJZY,MZZY,PACS,SERVER,ZJZY" interface="" db_config_id="db-muchuan-pacs-eps-v1"  -->
+<!-- 		    		thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp"> -->
+<!-- 		    	</pacs> -->
+		    	<!-- wpacs的配置方式，wpacs_host与wpacs_port的属性可选，如果不填将使用缺省值wpacs_host=127.0.0.1和wpacs_port=808 -->
+		    	<pacs brand="wpacs" version="v1.0" org_ae_num="CZRY" 
+		    		wpacs_host="127.0.0.1" wpacs_port="808" interface="" db_config_id="db-chongzhou-pacs-wpacs-v1">
+		    	</pacs>
+			</external_systems> 
+		</org_config>
+		
+		
+		
+		<!-- 另外一个机构的配置 -->
+<!-- 		<org_config org_code="111927" org_name="蒋玉滨测试机构3"> -->
+<!-- 			<external_systems> -->
+<!-- 				<pacs brand="yingtai" version="v1.0" org_ae_num="vvvs" interface="" db_config_id="db-muchuan-pacs-yingtai-v1"> -->
+					
+<!-- 		    	</pacs> -->
+<!-- 			</external_systems> -->
+<!-- 		</org_config> -->
+	</org_configs>
+</search_config>

@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE search_config PUBLIC "-//vastsoft.net//DTD search config 1.0//CH" "search_config-1.0.dtd" > -->
+<!-- 对整个search系统的配置 -->
+<search_config>
+<!-- 将外部配置文件包含进来，外部配置文件与本文件的格式必须一致-->
+<config_files>
+	<!-- <file src="com/xx.xml" />
+    <file src="com/xx.xml" />
+    <file src="com/xx.xml" /> -->
+</config_files>
+
+<!-- 数据库配置集合 -->
+<db_configs>
+	<!-- id是唯一标识，不能重复 -->
+	<db-config id="db-chengdu-pacs-eps-v1">
+		<property name="db_type" value="SQLSERVER" /><!-- MYSQL,ORACLE,SQLSERVER,DB2等 -->
+		<property name="url" value="jdbc:sqlserver://127.0.0.1:1433;databaseName=DICOMDB" />
+		<property name="username" value="sa" />
+		<property name="password" value="yingtai360@" />
+	</db-config>
+</db_configs>
+<!-- 包含的机构 -->
+<org_configs>
+	<!-- 一个机构的配置 -->
+	<!-- 包含的外部系统; 数据优先级依赖控制器（priorty_controller），如不设置将使用默认控制器-->
+	<org_config org_code="111636" org_name="德阳市旌阳区中医院(人民医院)" priorty_controller="">
+		<external_systems>
+			<!-- 一个外部系统 类型 品牌 版本 上级系统类型  db_config_id-数据库用户名配置-->
+			<pacs brand="eps" version="v1.0" org_ae_num="PACS" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112423" org_name="德阳康成中医医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="KCZYYY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111234" org_name="德阳市中西医结合医院远程报告系统">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="CT,ALLTECH" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112332" org_name="什邡国仁医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="SFGR" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112416" org_name="绵竹市第二人民医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="HWZY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111621" org_name="绵竹市中医医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="MZZY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112381" org_name="德阳市旌阳区黄许镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="SERVER1,HXWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111744" org_name="中江县中医医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="ZJZY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111345" org_name="德阳市旌阳区泰山社区卫生服务中心">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="TSSQ" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112374" org_name="德阳经开区人民医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="BJZWS,BJWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112360" org_name="德阳市旌阳区德新镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="DXWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111399" org_name="德阳市旌阳区旌西社区卫生服务中心">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="TYWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111783" org_name="德阳市旌阳区扬嘉镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="YJZWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112353" org_name="德阳市旌阳区孝泉镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="XQWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112346" org_name="德阳市旌阳区柏隆镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="BLWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112339" org_name="德阳市旌阳区东湖乡卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="DHWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111702" org_name="新中镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="XZWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111630" org_name="旌阳区双东镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="DGWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111477" org_name="德阳市旌阳区孝感镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="XGWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111606" org_name="绵竹市第二中医医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="MZZYYE" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112325" org_name="中江县永太中心卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="YTWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111474" org_name="德阳市精神卫生中心">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="JSBYY2" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112318" org_name="德阳市东南社区卫生服务中心">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="KQDNWSY,storeSCU" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111633" org_name="德阳市旌阳区和新镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="HXWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112311" org_name="罗江县中医医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="LJZY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111687" org_name="德阳新铁医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="XTYY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111657" org_name="罗江县金山镇中心卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="JSWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111234" org_name="德阳市中西医结合医院远程报告系统">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="CT,ALLTECH,ZXYJH" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111675" org_name="罗江县新盛镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="XSZWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111705" org_name="旌阳启新医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="DYJS" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112423" org_name="德阳康成中医医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="KCZYYY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112444" org_name="德阳骨科医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="GKYY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112451" org_name="什邡市洛水中心卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="LSYY1,LSYY2" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112458" org_name="阿坝县藏医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="ABZYY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112465" org_name="美年大健康体检中心">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="GDWL" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112479" org_name="中江通山乡卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="TSWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112486" org_name="德阳锦江妇产医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="JJFC" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111753" org_name="什邡市师古中心卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="SGWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112493" org_name="若尔盖县人民医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="REGYY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112500" org_name="蒲江县第二人民医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="PJEY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111771" org_name="中江县继光镇卫生院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="JGZWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112521" org_name="绵竹中医医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="MZZYY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112507" org_name="四川省阿坝监狱医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="ABJY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112514" org_name="成都青白江民信医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="MXYY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112528" org_name="中江民瑞医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="ZJMR" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112535" org_name="成都肛肠专科医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="CDGC" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112549" org_name="越西县第二人民医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="YXWSY" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="111708" org_name="德阳市旌阳区妇幼保健院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="JYFYBJ" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+
+
+	<!-- 另外一个机构的配置 -->
+	<org_config org_code="112542" org_name="德阳高新康复医院">
+		<external_systems>
+			<pacs brand="eps" version="v1.0" org_ae_num="DYKF" interface="" db_config_id="db-chengdu-pacs-eps-v1"
+				  thumbnail_directory="C:\Thumbnails,D:\Thumbnails,E:\Thumbnails,F:\Thumbnails,G:\Thumbnails" thumbnail_suffix="jpg,jpeg,png,dmp">
+			</pacs>
+		</external_systems>
+	</org_config>
+
+
+</org_configs>
+</search_config>

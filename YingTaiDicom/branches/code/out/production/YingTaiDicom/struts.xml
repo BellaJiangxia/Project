@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.multipart.maxSize" value="1073741824" />
+	<package name="main" namespace="/" extends="struts-default,json-default">
+	    <interceptors>
+			<interceptor-stack name="my">
+				<interceptor-ref name="json"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="my"></default-interceptor-ref>
+	    
+		<action name="search" class="com.vastsoft.yingtai.search.action.SearchAction" method="search">
+		    <result type="json" name="success">
+		        <param name="charSet">utf-8</param>
+		        <param name="ignoreHierarchy">false</param>
+		    </result>
+		</action>
+	</package>
+</struts>

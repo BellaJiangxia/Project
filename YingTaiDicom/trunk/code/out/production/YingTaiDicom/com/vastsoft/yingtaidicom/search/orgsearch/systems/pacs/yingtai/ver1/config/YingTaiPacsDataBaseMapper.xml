@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtaidicom.search.orgsearch.systems.pacs.yingtai.ver1.config.YingTaiPacsDataBaseMapper">
+	<select id="selectSeries" parameterType="map" resultType="TSeries">
+		select tse.*
+<!-- 			${number_of_series_related_instances} -->
+		from t_series tse
+		where 1=1
+			<if test="udid !=null">
+				and tse.udid = #{udid}
+			</if>
+			<if test="participant_type !=null">
+				and tse.participant_type = #{participant_type}			
+			</if>
+			<if test="study_uuid !=null">
+				and tse.study_uuid = #{study_uuid}
+			</if>
+			<if test="series_number !=null">
+				and tse.series_number = #{series_number}
+			</if>
+			<if test="series_instance_uid !=null">
+				and tse.series_instance_uid = #{series_instance_uid}
+			</if>
+			<if test="modality !=null">
+				and tse.modality = #{modality}
+			</if>
+			<if test="series_description !=null">
+				and tse.series_description = #{series_description}
+			</if>
+			<if test="series_date !=null">
+				and tse.series_date = #{series_date}
+			</if>
+			<if test="series_time !=null">
+				and tse.series_time = #{series_time}
+			</if>
+			<if test="image_position_patient !=null">
+				and tse.image_position_patient = #{image_position_patient}
+			</if>
+			<if test="image_orientation_patient !=null">
+				and tse.image_orientation_patient = #{image_orientation_patient}
+			</if>
+			<if test="slice_thickness !=null">
+				and tse.slice_thickness = #{slice_thickness}
+			</if>
+			<if test="spacing_between_slices !=null">
+				and tse.spacing_between_slices = #{spacing_between_slices}
+			</if>
+			<if test="slice_location != null">
+				and tse.slice_location = #{slice_location}
+			</if>
+			<if test="mr_acquisition !=null">
+				and tse.mr_acquisition = #{mr_acquisition}
+			</if>
+			<if test="body_part_examined !=null">
+				and tse.body_part_examined = #{body_part_examined}
+			</if>
+			<if test="protocol_name !=null">
+				and tse.protocol_name = #{protocol_name}
+			</if>
+	</select>
+
+	<select id="selectStudy" parameterType="map" resultType="TStudy">
+		select tst.*
+<!-- 			tp.additional_patient_history as additional_patient_history, -->
+<!-- 			tp.patient_id as patient_id, -->
+<!-- 			tp.patient_name as patient_name, -->
+<!-- 			tp.patient_birthdate as patient_birthdate, -->
+<!-- 			tse.body_part_examined as body_part_examined, -->
+<!-- 			ti.referenced_sop_class_uid as referenced_sop_class_uid, -->
+<!-- 			ti.referenced_sop_instance_uid as referenced_sop_instance_uid, -->
+<!-- 			ti.procedure_code_sequence as procedure_code_sequence, -->
+<!-- 			${number_of_study_related_series}, -->
+<!-- 			${number_of_study_related_instances} -->
+		from t_study tst 
+			left join t_patient tp on tst.patient_uuid = tp.uuid
+		where 1=1
+			<if test="udid !=null">
+				and tst.udid = #{udid}
+			</if>
+			<if test="participant_type !=null">
+				and tst.participant_type = #{participant_type}
+			</if>
+			<if test="patient_uuid !=null">
+				and tst.patient_uuid = #{patient_uuid}
+			</if>
+			<if test="study_id !=null">
+				and tst.study_id = #{study_id}
+			</if>
+			<if test="study_instance_uid !=null">
+				and tst.study_instance_uid = #{study_instance_uid}
+			</if>
+			<if test="study_date !=null">
+				and tst.study_date = #{study_date}
+			</if>
+			<if test="study_time !=null">
+				and tst.study_time = #{study_time}
+			</if>
+			<if test="referring_physician_name !=null">
+				and tst.referring_physician_name = #{referring_physician_name}
+			</if>
+			<if test="accession_number !=null">
+				and tst.accession_number = #{accession_number}
+			</if>
+			<if test="study_description !=null">
+				and tst.study_description = #{study_description}
+			</if>
+			<if test="referenced_study_sequence !=null">
+				and tst.referenced_study_sequence = #{referenced_study_sequence}
+			</if>
+			<if test="modalities_in_study !=null">
+				and tst.modalities_in_study = #{modalities_in_study}
+			</if>
+			<if test="patient_age !=null">
+				and tst.patient_age = #{patient_age}
+			</if>
+			<if test="patient_size !=null">
+				and tst.patient_size = #{patient_size}
+			</if>
+			<if test="patient_weight !=null">
+				and tst.patient_weight = #{patient_weight}
+			</if>
+			<if test="pregnancy_status !=null">
+				and tst.pregnancy_status = #{pregnancy_status}
+			</if>
+			<if test="occupation !=null">
+				and tst.occupation = #{occupation}
+			</if>
+			<if test="sop_classes_in_study !=null">
+				and tst.sop_classes_in_study = #{sop_classes_in_study}
+			</if>
+			<if test="other_study_numbers !=null">
+				and tst.other_study_numbers = #{other_study_numbers}
+			</if>
+			<if test="name_of_physicians_reading_study !=null">
+				and tst.name_of_physicians_reading_study = #{name_of_physicians_reading_study}
+			</if>
+			<if test="admitting_diagnoses_description !=null">
+				and tst.admitting_diagnoses_description = #{admitting_diagnoses_description}
+			</if>
+			<if test="additional_patient_history !=null">
+				and tp.additional_patient_history = #{additional_patient_history}
+			</if>
+			<if test="body_part_examined !=null">
+	<!-- 		left join t_series tse on tse.study_uuid = tst.uuid -->
+				and tst.uuid in (select study_uuid from t_series where body_part_examined = #{body_part_examined})
+			</if>
+			<if test="referenced_sop_class_uid !=null">
+	<!-- 		left join t_image ti on tse.uuid = ti.series_uuid -->
+				and tst.uuid in (
+					select study_uuid from t_series where uuid in (
+						select series_uuid from t_image where referenced_sop_class_uid = #{referenced_sop_class_uid}
+					)
+				)
+			</if>
+			<if test="referenced_sop_instance_uid !=null">
+				and tst.uuid in (
+					select study_uuid from t_series where uuid in (
+						select series_uuid from t_image where referenced_sop_instance_uid = #{referenced_sop_instance_uid}
+					)
+				)
+			</if>
+			<if test="procedure_code_sequence !=null">
+				and tst.uuid in (
+					select study_uuid from t_series where uuid in (
+						select series_uuid from t_image where procedure_code_sequence = #{procedure_code_sequence}
+					)
+				)
+			</if>
+	</select>
+
+	<select id="selectPatient" parameterType="map" resultType="TPatient">
+		select tp.*
+		from t_patient tp 
+			left join t_study tst on tp.uuid = tst.patient_uuid
+		where 1=1
+			<if test="udid !=null">
+				and tp.udid = #{udid}
+			</if>
+			<if test="participant_type !=null">
+				and tp.participant_type = #{participant_type}		
+			</if>
+			<if test="patient_id !=null">
+				and tp.patient_id = #{patient_id}
+			</if>
+			<if test="patient_name !=null">
+				and tp.patient_name = #{patient_name}
+			</if>
+			<if test="patient_sex !=null">
+				and tp.patient_sex = #{patient_sex}
+			</if>
+			<if test="patient_birthdate !=null">
+				and tp.patient_birthdate = #{patient_birthdate}
+			</if>
+			<if test="patient_birth_time !=null">
+				and tp.patient_birth_time = #{patient_birth_time}
+			</if>
+			<if test="patient_comments !=null">
+				and tp.patient_comments = #{patient_comments}
+			</if>
+			<if test="issuer_of_patient_id !=null">
+				and tp.issuer_of_patient_id = #{issuer_of_patient_id}
+			</if>
+			<if test="referenced_patient_sequence !=null">
+				and tp.referenced_patient_sequence = #{referenced_patient_sequence}
+			</if>
+			<if test="other_patient_ids !=null">
+				and tp.other_patient_ids = #{other_patient_ids}
+			</if>
+			<if test="other_patient_names !=null">
+				and tp.other_patient_names = #{other_patient_names}
+			</if>
+			<if test="ethnic_group !=null">
+				and tp.ethnic_group = #{ethnic_group}
+			</if>
+			<if test="additional_patient_history !=null">
+				and tp.additional_patient_history = #{additional_patient_history}
+			</if>
+			<if test="patient_size !=null">
+				and tst.patient_size = #{patient_size}
+			</if>
+			<if test="patient_weight !=null">
+				and tst.patient_weight = #{patient_weight}
+			</if>
+			<if test="pregnancy_status !=null">
+				and tst.pregnancy_status = #{pregnancy_status}
+			</if>
+			<if test="occupation !=null">
+				and tst.occupation = #{occupation}
+			</if>
+			<if test="specific_character_set !=null">
+				and tp.specific_character_set = #{specific_character_set}
+			</if>
+			<if test="source_application_entity_titles !=null">
+				and tp.uuid in (
+					select patient_uuid from t_study where uuid in (
+						select study_uuid from t_series where uuid in (
+							select series_uuid from t_image where source_application_entity_title in (${source_application_entity_titles})
+						)
+					)
+				)
+			</if>
+		order by tp.create_time desc
+		<if test="minRow !=null and rowCount !=null">
+			limit #{minRow},#{rowCount}
+		</if>
+	</select>
+
+	<select id="selectImage" parameterType="map" resultType="TImage">
+		select ti.*
+		from t_image ti
+		where 1=1
+			<if test="udid !=null">
+				and ti.udid = #{udid}
+			</if>
+			<if test="participant_type !=null">
+				and ti.participant_type = #{participant_type}
+			</if>
+			<if test="series_uuid !=null">
+				and ti.series_uuid = #{series_uuid}
+			</if>			
+			<if test="image_type !=null">
+				and ti.image_type = #{image_type}
+			</if>
+			<if test="sop_instance_uid !=null">
+				and ti.sop_instance_uid = #{sop_instance_uid}
+			</if>
+			<if test="sop_class_uid !=null">
+				and ti.sop_class_uid = #{sop_class_uid}
+			</if>
+			<if test="alternate_representation_sequence !=null">
+				and ti.alternate_representation_sequence = #{alternate_representation_sequence}
+			</if>
+			<if test="content_date !=null">
+				and ti.content_date = #{content_date} 
+			</if>
+			<if test="content_time !=null">
+				and ti.content_time = #{content_time}
+			</if>
+			<if test="instance_number !=null">
+				and ti.instance_number = #{instance_number}
+			</if>
+			<if test="samples_per_pixel !=null">
+				and ti.samples_per_pixel = #{samples_per_pixel}
+			</if>
+			<if test="photometric_interpretation !=null">
+				and ti.photometric_interpretation = #{photometric_interpretation}
+			</if>
+			<if test="rows !=null">
+				and ti.rows = #{rows}
+			</if>
+			<if test="columns !=null">
+				and ti.columns = #{columns}
+			</if>
+			<if test="pixel_spacing !=null">
+				and ti.pixel_spacing = #{pixel_spacing}
+			</if>
+			<if test="bits_allocated !=null">
+				and ti.bits_allocated = #{bits_allocated}
+			</if>
+			<if test="bits_stored !=null">
+				and ti.bits_stored = #{bits_stored}
+			</if>
+			<if test="high_bit !=null">
+				and ti.high_bit = #{high_bit}
+			</if>
+			<if test="pixel_representation !=null">
+				and ti.pixel_representation = #{pixel_representation}
+			</if>
+			<if test="window_center !=null">
+				and ti.window_center = #{window_center}
+			</if>
+			<if test="window_width !=null">
+				and ti.window_width = #{window_width}
+			</if>
+			<if test="rescale_intercept !=null">
+				and ti.rescale_intercept = #{rescale_intercept}
+			</if>
+			<if test="rescale_slope !=null">
+				and ti.rescale_slope = #{rescale_slope}
+			</if>
+			<if test="rescale_type !=null">
+				and ti.rescale_type = #{rescale_type}
+			</if>
+			<if test="transfer_syntax_uid !=null">
+				and ti.transfer_syntax_uid = #{transfer_syntax_uid}
+			</if>
+			<if test="affected_sop_class_uid !=null">
+				and ti.affected_sop_class_uid = #{affected_sop_class_uid}
+			</if>
+			<if test="referenced_sop_class_uid !=null">
+				and ti.referenced_sop_class_uid = #{referenced_sop_class_uid}
+			</if>
+			<if test="procedure_code_sequence !=null">
+				and ti.procedure_code_sequence = #{procedure_code_sequence}
+			</if>
+			<if test="source_application_entity_title !=null">
+				and ti.source_application_entity_title = #{source_application_entity_title}
+			</if>
+			<if test="key_image !=null">
+				and ti.key_image = #{key_image}
+			</if>
+	</select>
+</mapper>

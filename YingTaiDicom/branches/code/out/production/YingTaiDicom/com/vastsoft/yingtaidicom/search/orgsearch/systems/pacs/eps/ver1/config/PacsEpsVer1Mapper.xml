@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtaidicom.search.orgsearch.systems.pacs.eps.ver1.config.PacsEpsVer1Mapper">
+	<select id="selectLastPatient" parameterType="Map" resultType="Patient">
+		select top 30 t1.* 
+		from patient1 t1
+			LEFT JOIN study1 t2 ON t2.ptn_id_id = t1.ptn_id_id 
+		where t1.ptn_id_id in (
+			select ptn_id_id from study1 where study_uid_id in (
+				select study_uid_id from series1 where series_uid_id in (
+					select series_uid_id from image1 where source_ae in (${source_ae})
+				)
+			)
+		)
+		ORDER BY t2.study_date DESC,t1.ptn_id DESC
+	</select>
+
+	<select id="selectImage" parameterType="Map" resultType="Image">
+		select * from (
+	        select t1.*,
+	        	ROW_NUMBER () OVER (ORDER BY t1.image_number) AS RowNumber
+	        from image1 t1
+	        where 1=1
+	        	<if test="source_ae !=null">
+	        		and t1.source_ae in (${source_ae})
+	        	</if>
+	        	<if test="series_uid_id !=null">
+	        		and t1.series_uid_id = #{series_uid_id}
+	        	</if>
+	        	<if test="instance_uid !=null">
+	        		and t1.instance_uid = #{instance_uid}
+	        	</if>
+        ) as tmp_t
+        	<if test="minRow !=null and maxRow !=null">
+        	    where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+        	</if>
+	</select>
+
+	<select id="selectImageCount" parameterType="Map" resultType="Integer">
+		select count(t1.instance_uid) 
+		from image1 t1 
+		where 1=1
+			<if test="source_ae !=null">
+        		and t1.source_ae in (${source_ae})
+        	</if>
+        	<if test="series_uid_id !=null">
+        		and t1.series_uid_id = #{series_uid_id}
+        	</if>
+        	<if test="instance_uid !=null">
+        		and t1.instance_uid = #{instance_uid}
+        	</if>
+	</select>
+
+	<select id="selectSeriesByStudy_uid_id" parameterType="Integer" resultType="Series">
+		select *
+		from series1 
+		where study_uid_id = #{study_uid_id}
+	</select>
+
+	<select id="selectPatientByPtnId" parameterType="Map" resultType="Patient">
+		select * from patient1 
+		WHERE ptn_id_id IN (
+				SELECT ptn_id_id 
+				FROM study1 
+				WHERE study_uid_id IN (
+					SELECT study_uid_id 
+					FROM series1 
+					WHERE series_uid_id IN (
+						select series_uid_id from image1 where source_ae in (${source_ae})
+					)
+				)
+			)
+			AND UPPER (ptn_id) = UPPER (#{ptn_id}) 
+	</select>
+	
+	<select id="selectStudyByPtn_id_id" parameterType="Integer" resultType="Study">
+		select * from study1 where ptn_id_id = #{ptn_id_id}
+	</select>
+</mapper>

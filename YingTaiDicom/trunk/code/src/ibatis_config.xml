@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<!-- <properties resource="ibatis_config.properties" /> -->
+	<typeAliases>
+		<typeAlias type="com.vastsoft.yingtai.dicom.entity.Patient" alias="Patient" />
+		<typeAlias type="com.vastsoft.yingtai.dicom.entity.Group" alias="Group" />
+		<typeAlias type="com.vastsoft.yingtai.dicom.entity.Image" alias="Image" />
+		<typeAlias type="com.vastsoft.yingtai.dicom.entity.Series" alias="Series" />
+		<typeAlias type="com.vastsoft.yingtai.dicom.entity.Study" alias="Study" />
+		<typeAlias type="com.vastsoft.yingtai.dicom.entity.User" alias="User" />
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/vastsoft/yingtai/dicom/mapper/DicomMapper.xml" />
+	</mappers>
+</configuration>

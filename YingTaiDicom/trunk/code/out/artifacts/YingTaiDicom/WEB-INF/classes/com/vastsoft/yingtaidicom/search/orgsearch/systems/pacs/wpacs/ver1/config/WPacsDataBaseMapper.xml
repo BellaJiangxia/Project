@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtaidicom.search.orgsearch.systems.pacs.wpacs.ver1.config.WPacsDataBaseMapper">
+	<select id="selectSeries" parameterType="map" resultType="Series">
+		select tse.*
+<!-- 			${number_of_series_related_instances} -->
+		from series tse
+		where tse.stuuid in (select stuuid from studys where srcaet in (${srcaet_arr}))
+			<if test="srsuid != null">
+				and tse.srsuid = #{srsuid}
+			</if>
+			<if test="srsid != null">
+				and tse.srsid = #{srsid}
+			</if>
+			<if test="srsdesc != null">
+				and tse.srsdesc = #{srsdesc}
+			</if>
+			<if test="modality != null">
+				and tse.modality = #{modality}
+			</if>
+			<if test="stuuid != null">
+				and tse.stuuid = #{stuuid}
+			</if>
+	</select>
+
+	<select id="selectStudy" parameterType="map" resultType="Study">
+		select tst.*
+<!-- 			tp.additional_patient_history as additional_patient_history, -->
+<!-- 			tp.patient_id as patient_id, -->
+<!-- 			tp.patient_name as patient_name, -->
+<!-- 			tp.patient_birthdate as patient_birthdate, -->
+<!-- 			tse.body_part_examined as body_part_examined, -->
+<!-- 			ti.referenced_sop_class_uid as referenced_sop_class_uid, -->
+<!-- 			ti.referenced_sop_instance_uid as referenced_sop_instance_uid, -->
+<!-- 			ti.procedure_code_sequence as procedure_code_sequence, -->
+<!-- 			${number_of_study_related_series}, -->
+<!-- 			${number_of_study_related_instances} -->
+		from studys tst 
+<!-- 			left join t_patient tp on tst.patient_uuid = tp.uuid -->
+		where tst.srcaet in (${srcaet_arr})
+			<if test="pid !=null">
+				and tst.pid = #{pid}
+			</if>
+			<if test="pname !=null">
+				and tst.pname = #{pname}
+			</if>
+			order by tst.studate desc
+			<if test="minRow !=null and rowCount !=null">
+				limit #{minRow},#{rowCount}
+			</if>
+<!-- 			<if test="participant_type !=null"> -->
+<!-- 				and tst.participant_type = #{participant_type} -->
+<!-- 			</if> -->
+<!-- 			<if test="patient_uuid !=null"> -->
+<!-- 				and tst.patient_uuid = #{patient_uuid} -->
+<!-- 			</if> -->
+<!-- 			<if test="study_id !=null"> -->
+<!-- 				and tst.study_id = #{study_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="study_instance_uid !=null"> -->
+<!-- 				and tst.study_instance_uid = #{study_instance_uid} -->
+<!-- 			</if> -->
+<!-- 			<if test="study_date !=null"> -->
+<!-- 				and tst.study_date = #{study_date} -->
+<!-- 			</if> -->
+<!-- 			<if test="study_time !=null"> -->
+<!-- 				and tst.study_time = #{study_time} -->
+<!-- 			</if> -->
+<!-- 			<if test="referring_physician_name !=null"> -->
+<!-- 				and tst.referring_physician_name = #{referring_physician_name} -->
+<!-- 			</if> -->
+<!-- 			<if test="accession_number !=null"> -->
+<!-- 				and tst.accession_number = #{accession_number} -->
+<!-- 			</if> -->
+<!-- 			<if test="study_description !=null"> -->
+<!-- 				and tst.study_description = #{study_description} -->
+<!-- 			</if> -->
+<!-- 			<if test="referenced_study_sequence !=null"> -->
+<!-- 				and tst.referenced_study_sequence = #{referenced_study_sequence} -->
+<!-- 			</if> -->
+<!-- 			<if test="modalities_in_study !=null"> -->
+<!-- 				and tst.modalities_in_study = #{modalities_in_study} -->
+<!-- 			</if> -->
+<!-- 			<if test="patient_age !=null"> -->
+<!-- 				and tst.patient_age = #{patient_age} -->
+<!-- 			</if> -->
+<!-- 			<if test="patient_size !=null"> -->
+<!-- 				and tst.patient_size = #{patient_size} -->
+<!-- 			</if> -->
+<!-- 			<if test="patient_weight !=null"> -->
+<!-- 				and tst.patient_weight = #{patient_weight} -->
+<!-- 			</if> -->
+<!-- 			<if test="pregnancy_status !=null"> -->
+<!-- 				and tst.pregnancy_status = #{pregnancy_status} -->
+<!-- 			</if> -->
+<!-- 			<if test="occupation !=null"> -->
+<!-- 				and tst.occupation = #{occupation} -->
+<!-- 			</if> -->
+<!-- 			<if test="sop_classes_in_study !=null"> -->
+<!-- 				and tst.sop_classes_in_study = #{sop_classes_in_study} -->
+<!-- 			</if> -->
+<!-- 			<if test="other_study_numbers !=null"> -->
+<!-- 				and tst.other_study_numbers = #{other_study_numbers} -->
+<!-- 			</if> -->
+<!-- 			<if test="name_of_physicians_reading_study !=null"> -->
+<!-- 				and tst.name_of_physicians_reading_study = #{name_of_physicians_reading_study} -->
+<!-- 			</if> -->
+<!-- 			<if test="admitting_diagnoses_description !=null"> -->
+<!-- 				and tst.admitting_diagnoses_description = #{admitting_diagnoses_description} -->
+<!-- 			</if> -->
+<!-- 			<if test="additional_patient_history !=null"> -->
+<!-- 				and tp.additional_patient_history = #{additional_patient_history} -->
+<!-- 			</if> -->
+<!-- 			<if test="body_part_examined !=null"> -->
+	<!-- 		left join t_series tse on tse.study_uuid = tst.uuid -->
+<!-- 				and tst.uuid in (select study_uuid from t_series where body_part_examined = #{body_part_examined}) -->
+<!-- 			</if> -->
+<!-- 			<if test="referenced_sop_class_uid !=null"> -->
+	<!-- 		left join t_image ti on tse.uuid = ti.series_uuid -->
+<!-- 				and tst.uuid in ( -->
+<!-- 					select study_uuid from t_series where uuid in ( -->
+<!-- 						select series_uuid from t_image where referenced_sop_class_uid = #{referenced_sop_class_uid} -->
+<!-- 					) -->
+<!-- 				) -->
+<!-- 			</if> -->
+<!-- 			<if test="referenced_sop_instance_uid !=null"> -->
+<!-- 				and tst.uuid in ( -->
+<!-- 					select study_uuid from t_series where uuid in ( -->
+<!-- 						select series_uuid from t_image where referenced_sop_instance_uid = #{referenced_sop_instance_uid} -->
+<!-- 					) -->
+<!-- 				) -->
+<!-- 			</if> -->
+<!-- 			<if test="procedure_code_sequence !=null"> -->
+<!-- 				and tst.uuid in ( -->
+<!-- 					select study_uuid from t_series where uuid in ( -->
+<!-- 						select series_uuid from t_image where procedure_code_sequence = #{procedure_code_sequence} -->
+<!-- 					) -->
+<!-- 				) -->
+<!-- 			</if> -->
+	</select>
+
+	<select id="selectImage" parameterType="map" resultType="Image">
+		select ti.*
+		from images ti
+		where ti.stuuid in (select stuuid from studys where srcaet in (${srcaet_arr}))
+			<if test="stuuid !=null">
+				and ti.stuuid = #{stuuid}
+			</if>
+			<if test="srsuid !=null">
+				and ti.srsuid = #{srsuid}
+			</if>
+	</select>
+</mapper>
