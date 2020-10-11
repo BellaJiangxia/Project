@@ -1,0 +1,47 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+	<div class="container" data-ng-init="initData();">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<span style="font-size: 20px">个人配置</span>
+			</div>
+			<div class="panel-body">
+				<div style="text-align: left;">
+					<h4>
+						<span class="glyphicon glyphicon-envelope"></span>
+						短信提醒配置
+					</h4>
+				</div>
+				<hr />
+				<div class="form-horizontal" style="text-align:left">
+					<div class="form-group" ng-repeat="sc in userConfig.listSmsConfig">
+						<label class="control-label col-sm-5"></label>
+						<div class="checkbox" style="text-indent:20px">
+							<label title="{{sc.desc}}" style="font-size:larger">
+							
+								<input type="checkbox" ng-model="sc.send" ng-disabled="!sc.edit"/>是否接收{{sc.sms_type_name}}
+								<small style="color:grey;display:block;text-indent:25px">{{sc.desc}}</small>
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"></label>
+						<div class="checkbox col-sm-5" >
+							<button class="btn btn-success" ng-click="savePersonalConfig();">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

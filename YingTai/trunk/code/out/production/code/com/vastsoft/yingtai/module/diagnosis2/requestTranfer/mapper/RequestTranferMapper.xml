@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.vastsoft.yingtai.module.diagnosis2.requestTranfer.mapper.RequestTranferMapper">
+	
+	<select id="selectRequestTranferByNewRequestId" parameterType="long" resultType="TRequestTranfer">
+		select * from T_REQUEST_TRANFER where new_request_id = #{new_request_id}
+	</select>
+	
+	<select id="selectRequestTranferByIdForUpdate" parameterType="long" resultType="TRequestTranfer">
+		select * from T_REQUEST_TRANFER WITH(XLOCK) where id = #{id}
+	</select>
+	
+	<insert id="insertRequestTranfer" parameterType="TRequestTranfer" useGeneratedKeys="true" keyProperty="id">
+		insert into T_REQUEST_TRANFER (
+			old_request_id,
+			new_request_id,
+			create_org_id,
+			create_user_id,
+			create_time
+		) values (
+			#{old_request_id},
+			#{new_request_id},
+			#{create_org_id},
+			#{create_user_id},
+			#{create_time}
+		)
+	</insert>
+	
+	<select id="selectRequestTranfer" parameterType="map" resultType="FRequestTranfer">
+		select * from (
+			select t1.*,
+				t2.USER_NAME as create_user_name,
+				t3.ORG_NAME as create_org_name,
+				ROW_NUMBER () OVER (ORDER BY t1.CREATE_TIME desc) AS RowNumber
+			from T_REQUEST_TRANFER as t1
+				left join T_BASE_USER as t2 on t1.create_user_id = t2.id
+				left join T_ORGANIZATION as t3 on t1.create_org_id = t3.id
+				left join T_DIAGNOSIS_V2 t4 on t1.new_request_id = t4.id
+			where 1=1
+			<if test="id !=null">
+				and t1.id = #{id}
+			</if>
+			<if test="old_request_id !=null">
+				and t1.old_request_id = #{old_request_id}
+			</if>
+			<if test="new_request_id !=null">
+				and t1.new_request_id = #{new_request_id}
+			</if>
+			<if test="create_org_id !=null">
+				and t1.create_org_id = #{create_org_id}
+			</if>
+			<if test="create_user_id !=null">
+				and t1.create_user_id = #{create_user_id}
+			</if>
+			<if test="start !=null and end !=null">
+				and t1.create_time between #{start} and #{end}
+			</if>
+			<if test="new_diagnosis_org_id !=null">
+				and t4.DIAGNOSIS_ORG_ID = #{new_diagnosis_org_id}
+			</if>
+			<if test="new_request_status !=null">
+				and t4.STATUS = #{new_request_status}
+			</if>
+			<if test="new_patient_gender !=null">
+				and t4.patient_gender = #{new_patient_gender}
+			</if>
+			<if test="new_device_type_id !=null">
+				and t4.DICOM_IMG_DEVICE_TYPE_ID = #{new_device_type_id}
+			</if>
+			<if test="new_patient_name !=null">
+				and t4.patient_name = #{new_patient_name}
+			</if>
+			<if test="new_case_his_num !=null">
+				and t4.case_his_num = #{new_case_his_num}
+			</if>
+		) as tmp_t 
+			<if test="minRow !=null and maxRow !=null">
+				where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+			</if>
+	</select>
+
+	<select id="selectRequestTranferCount" parameterType="map" resultType="int">
+		select count(t1.id) 
+		from T_REQUEST_TRANFER as t1
+			left join T_DIAGNOSIS_V2 t2 on t1.new_request_id = t2.id
+		where 1=1
+		<if test="id !=null">
+			and t1.id = #{id}
+		</if>
+		<if test="old_request_id !=null">
+			and t1.old_request_id = #{old_request_id}
+		</if>
+		<if test="new_request_id !=null">
+			and t1.new_request_id = #{new_request_id}
+		</if>
+		<if test="create_org_id !=null">
+			and t1.create_org_id = #{create_org_id}
+		</if>
+		<if test="create_user_id !=null">
+			and t1.create_user_id = #{create_user_id}
+		</if>
+		<if test="start !=null and end !=null">
+			and t1.create_time between #{start} and #{end}
+		</if>
+		<if test="new_diagnosis_org_id !=null">
+			and t2.DIAGNOSIS_ORG_ID = #{new_diagnosis_org_id}
+		</if>
+		<if test="new_request_status !=null">
+			and t2.STATUS = #{new_request_status}
+		</if>
+		<if test="new_patient_gender !=null">
+			and t2.patient_gender = #{new_patient_gender}
+		</if>
+		<if test="new_device_type_id !=null">
+			and t2.DICOM_IMG_DEVICE_TYPE_ID = #{new_device_type_id}
+		</if>
+		<if test="new_patient_name !=null">
+			and t2.patient_name = #{new_patient_name}
+		</if>
+		<if test="new_case_his_num !=null">
+			and t2.case_his_num = #{new_case_his_num}
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

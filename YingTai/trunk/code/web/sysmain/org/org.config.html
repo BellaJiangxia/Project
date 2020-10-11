@@ -1,0 +1,76 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+		<h4>机构配置</h4>
+	</div>
+	<div class="panel-body">
+		<uib-tabset active="active">
+			<uib-tab index="0" heading="设备报告显示映射">
+				<h4 class="text-warning" style="margin-bottom: 0px;">说明：“映射名称”将在打印报告时替换原有“设备名称”！</h4>
+				<hr style="margin: 5px 0px; border-color: black;" />
+				<div class="form-horizontal" style="width: 100%; margin: 0px 0px;">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">设备名称</label>
+						<label class="col-sm-4 control-label" style="text-align: left;">映射名称</label>
+						<label class="col-sm-4 control-label"></label>
+					</div>
+					<div class="form-group" ng-repeat="dm in mapDeviceMapper">
+						<label class="col-sm-4 control-label">{{dm.key}}</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" ng-model="dm.value" placeholder="映射显示名称，可不设置..." />
+						</div>
+						<label class="col-sm-4 control-label"></label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label"></label>
+						<div class="col-sm-4">
+							<button class="btn btn-success" ng-click="saveDeviceMapper();">
+								<i class="glyphicon glyphicon-save"></i> 保存
+							</button>
+							&emsp;
+							<button class="btn btn-warning" ng-click="goback();">
+								<i class="glyphicon glyphicon-remove"></i> 取消
+							</button>
+						</div>
+						<label class="col-sm-4 control-label"></label>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab index="1" heading="机构设备<—>系统设备 映射">
+				<h4 class="text-warning" style="margin-bottom: 0px;">说明：映射名称将在打印报告时替换原有名称！</h4>
+				<hr style="margin: 5px 0px; border-color: black;" />
+				<div class="form-horizontal" style="width: 100%; margin: 0px 0px;">
+					<div class="form-group">
+						<label class="col-sm-6 control-label">机构设备名称</label>
+						<label class="col-sm-6 control-label" style="text-align: left;">系统设备名称</label>
+					</div>
+					<div class="form-group has-feedback"
+						ng-repeat="dm in org_device_name_2_sys_device_name_mapper_config">
+						<label class="col-sm-3 control-label"></label>
+						<div class="col-sm-6">
+							<div class="input-group">
+								<input type="text" class="form-control" ng-model="dm.value" placeholder="机构设备名称，可以是多个，使用“英文逗号”分隔" 
+									aria-describedby="机构设备名称，可以是多个，使用“英文逗号”分隔">
+								<span class="input-group-addon" id="basic-addon2">-->{{dm.key}}</span>
+							</div>
+						</div>
+						<label class="col-sm-3 control-label"></label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label"></label>
+						<div class="col-sm-6">
+							<button class="btn btn-success"
+								ng-click="saveOrg_device_name_2_sys_device_name_mapper_config();">
+								<i class="glyphicon glyphicon-save"></i> 保存
+							</button>
+							&emsp;
+							<button class="btn btn-warning" ng-click="goback();">
+								<i class="glyphicon glyphicon-remove"></i> 取消
+							</button>
+						</div>
+						<label class="col-sm-3 control-label"></label>
+					</div>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+	</div>
+</div>

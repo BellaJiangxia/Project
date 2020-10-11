@@ -1,0 +1,134 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h4><span class="glyphicon glyphicon-list"></span>&nbsp;预约申请</h4>
+  </div>
+  <div class="panel-body">
+    <form name="frmReserve" class="form-horizontal" novalidate>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约人身份证</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" ng-model="reserve.patient_idCard" placeholder="身份证号码" ng-change="checkPatient()" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约人电话</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" ng-model="reserve.patient_mobile" placeholder="手机号码" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约人姓名</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" ng-model="reserve.patient_name" placeholder="姓名" required>
+        </div>
+        <label class="col-sm-2 control-label">性别</label>
+        <div class="col-sm-2">
+          <label class="radio-inline">
+            <input type="radio" name="gender" ng-model="reserve.patient_gender" value="1"> 男
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="gender" ng-model="reserve.patient_gender" value="2"> 女
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">主述</label>
+        <div class="col-sm-6">
+          <textarea class="form-control" style="resize: none" rows="4" ng-model="reserve.complaint" maxlength="500"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">医生电话</label>
+        <div class="col-sm-3">
+          <input type="text" class="form-control" ng-model="reserve.docter_mobile" placeholder="手机号码" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约时间</label>
+        <div class="col-sm-6">
+          <datetimepicker ng-model="reserve.reservation_time" show-meridian="false"  date-format="yyyy-MM-dd" date-options="dateOptions" datepicker-append-to-body="false" date-opened="dateOpened" current-text="今天" clear-text="清除" close-text="关闭">
+          </datetimepicker>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约医院</label>
+        <div class="col-sm-6">
+          <div class="input-group">
+            <input type="text" class="form-control" ng-disabled="true" ng-model="reserve.v_receive_org" placeholder="选择预约医院" required>
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="selectRequestOrg()">选择</button>
+              </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2">
+          <button class="btn-link" style="padding: 5px;" ng-click="addReserveService()"><i class="glyphicon glyphicon-plus"></i> 预约检查项目</button>
+        </div>
+      </div>
+
+      <table class="table table-hover table-striped">
+        <thead style="background-color: #5392A5">
+        <tr class="bg-primary">
+          <th class="col-sm-2">预约服务</th>
+          <th class="col-sm-1">设备类型</th>
+          <th class="col-sm-3">检查部位</th>
+          <th class="col-sm-2">收费方式</th>
+          <th class="col-sm-1">基础价格</th>
+          <th class="col-sm-3">附加费用</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="s in reserve.listService">
+          <td><a href="javascript:void(0);" ng-click="addReserveService(s)" uib-tooltip="{{s.service_name}}">{{s.service_name | limitTo:10}}</a></td>
+          <td>{{s.v_device_name}}</td>
+          <td>{{s.listItem | item2string}}</td>
+          <td>{{s.feeCalcType.name}}</td>
+          <td>{{s.service_price | number:2}}</td>
+          <td>{{s.listFee | fee2string}}</td>
+          <td>
+            <a class="btn-link" title="移除" ng-if="!reserve.reservation_status || reserve.reservation_status===1" href="javascript:void(0);" ng-click="removeService($index)"><i class="glyphicon glyphicon-remove text-danger"></i></a>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr class="bg-danger">
+          <td><b>总计费用</b></td>
+          <td colspan="6"><b>{{reserve.total_price | number:2}}</b></td>
+        </tr>
+        </tfoot>
+      </table>
+    </form>
+
+    <div class="col-sm-offset-2" style="padding-top: 10px;">
+      <button class="btn btn-success" ng-if="!reserve.reservation_status || reserve.reservation_status===1" ng-disabled="!frmReserve.$valid" ng-click="save()"><i class="glyphicon glyphicon-ok"></i>保存</button>
+      <button class="btn btn-info" ng-if="!reserve.reservation_status || reserve.reservation_status===1" ng-disabled="!frmReserve.$valid" ng-click="send()"><i class="glyphicon glyphicon-send"></i>预约</button>
+      <button type="button" class="btn btn-primary" ng-click="goback()">
+        <i class="glyphicon glyphicon-circle-arrow-left"></i>返回
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  <!--
+  .datetimepicker-wrapper {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  .datetimepicker-wrapper > input {
+    margin-bottom: 0 !important;
+    width: 150px;
+  }
+
+  .datetimepicker-wrapper [ng-model=hours],
+  .datetimepicker-wrapper [ng-model=minutes] {
+    width: 56px !important;
+  }
+
+  -->
+</style>

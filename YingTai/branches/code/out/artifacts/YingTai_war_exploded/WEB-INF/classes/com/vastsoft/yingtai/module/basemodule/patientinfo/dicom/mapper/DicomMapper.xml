@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.basemodule.patientinfo.dicom.mapper.DicomMapper">
+	<insert id="insertSeries" keyProperty="id" parameterType="TSeries" useGeneratedKeys="true">
+		insert into t_series (
+			dicom_img_id,
+			mark_char,
+			part_type_id,
+			thumbnail_uid,
+			thumbnail_data,
+			expose_times,
+			create_time,
+			source_type
+		) values (
+			#{dicom_img_id},
+			#{mark_char},
+			#{part_type_id},
+			#{thumbnail_uid},
+			#{thumbnail_data,jdbcType=BLOB},
+			#{expose_times},
+			#{create_time},
+			#{source_type}
+		)
+	</insert>
+
+	<select id="selectSeries" parameterType="Map" resultType="FSeries">
+		select t1.*,
+			t2.value as part_type_name
+		from t_series t1
+			left join T_DIC_VALUE t2 on t1.part_type_id = t2.id
+		where 1=1
+		<if test="id !=null">
+			and t1.id = #{id}
+		</if>
+		<if test="dicom_img_id !=null">
+			and t1.dicom_img_id = #{dicom_img_id}
+		</if>
+		<if test="mark_char !=null">
+			and t1.mark_char = #{mark_char}
+		</if>
+		<if test="part_type_id !=null">
+			and t1.part_type_id = #{part_type_id}
+		</if>
+	</select>
+	
+	<update id="updateSeries" parameterType="TSeries">
+		update t_series set 
+			part_type_id = #{part_type_id},
+			expose_times = #{expose_times},
+			source_type = #{source_type},
+			mark_char = #{mark_char},
+			thumbnail_uid = #{thumbnail_uid},
+			thumbnail_data=#{thumbnail_data,jdbcType=BLOB} 
+		where id = #{id}
+	</update>
+	
+	<select id="selectSeriesByThumbnailUidForUpdate" parameterType="String" resultType="TSeries">
+		select * from t_series WITH(UPDLOCK) where thumbnail_uid = #{thumbnail_uid}
+	</select>
+	
+	<select id="selectSeriesByMarkCharForUpdate" parameterType="String" resultType="TSeries">
+		select * from t_series WITH(UPDLOCK) where mark_char = #{mark_char}
+	</select>
+	
+	<select id="selectSeriesByMarkCharAndImgIdForUpdate" parameterType="TSeries" resultType="TSeries">
+		select * from t_series WITH(UPDLOCK) where mark_char = #{mark_char} and dicom_img_id = ${dicom_img_id}
+	</select>
+	
+	<select id="selectSeriesByIdForUpdate" parameterType="long" resultType="TSeries">
+		select * from t_series WITH(UPDLOCK) where id = #{id}
+	</select>
+
+    <select id="selectDicomImgByMarkCharForUpdate" parameterType="String" resultType="TDicomImg">
+        select * from T_DICOM_IMG WITH(UPDLOCK) where mark_char = #{mark_char}
+    </select>
+     
+    <select id="selectDicomImgByMarkCharAndCaseIdForUpdate" parameterType="TDicomImg" resultType="TDicomImg">
+    	select * from T_DICOM_IMG WITH(UPDLOCK) where mark_char = #{mark_char} and case_id = #{case_id}
+    </select>
+    
+    <select id="updateDicomImg" parameterType="TDicomImg">
+        update T_DICOM_IMG set 
+        	device_type_id = #{device_type_id},
+        	affix_id = #{affix_id},
+        	eps_num = #{eps_num,jdbcType=VARCHAR},
+        	mark_char = #{mark_char},
+        	ae_title = #{ae_title,jdbcType=VARCHAR},
+        	checklist_num = #{checklist_num,jdbcType=VARCHAR},
+        	check_time = #{check_time,jdbcType=TIMESTAMP},
+        	check_pro = #{check_pro,jdbcType=VARCHAR},
+        	status = #{status},
+        	body_part_ids = #{body_part_ids},
+        	piece_amount = #{piece_amount}
+        where id = #{id}
+    </select>
+    
+    <select id="selectDicomImgByIdForUpdate" parameterType="long" resultType="TDicomImg">
+        select * from T_DICOM_IMG WITH(XLOCK) where id = #{id} 
+    </select>
+    
+    <insert id="insertDicomImg" keyProperty="id" useGeneratedKeys="true" parameterType="TDicomImg">
+        INSERT INTO T_DICOM_IMG (
+        	[case_id],
+        	[device_type_id],
+        	[affix_id],
+        	[eps_num],
+        	[mark_char],
+			[ae_title],
+			[checklist_num],
+			[create_time],
+			[check_time],
+			[check_pro],
+			[status],
+			body_part_ids,
+        	piece_amount
+		) VALUES (
+			#{case_id},
+			#{device_type_id},
+			#{affix_id},
+			#{eps_num},
+			#{mark_char},
+			#{ae_title,jdbcType=VARCHAR},
+			#{checklist_num,jdbcType=VARCHAR},
+			#{create_time},
+			#{check_time},
+			#{check_pro,jdbcType=VARCHAR},
+			#{status},
+			#{body_part_ids},
+        	#{piece_amount}
+		);
+    </insert>
+    
+	<select id="selectDicomImgCount" parameterType="map" resultType="int">
+	    select count(id) from T_DICOM_IMG where 1=1
+	    <if test="id !=null">
+	        and id = #{id}
+	    </if>
+	    <if test="case_id !=null">
+	        and case_id = #{case_id}
+	    </if>
+	    <if test="device_type_id !=null">
+	        and device_type_id = #{device_type_id}
+	    </if>
+	    <if test="part_type_id !=null">
+	        and part_type_id = #{part_type_id}
+	    </if>
+	    <if test="affix_id !=null">
+	        and affix_id = #{affix_id}
+	    </if>
+	    <if test="thumbnail_uid !=null">
+	        and thumbnail_uid= #{thumbnail_uid}
+	    </if>
+	    <if test="mark_char !=null">
+	        and mark_char = #{mark_char}
+	    </if>
+	    <if test="ae_title !=null">
+	        and ae_title=#{ae_title}
+	    </if>
+	    <if test="checklist_num !=null">
+	        and checklist_num = #{checklist_num}
+	    </if>
+	    <if test="create_start !=null and create_end !=null">
+	        and create_time between #{create_start} and #{create_end}
+	    </if>
+	    <if test="check_start !=null and check_end !=null">
+	        and check_time between #{check_start} and #{check_end}
+	    </if>
+	    <if test="status !=null">
+	        and status = #{status}
+	    </if>
+	</select>    
+	
+	<select id="selectDicomImg" parameterType="map" resultType="FDicomImg">
+	    select *
+	    from (
+		    select t1.*,
+		    	t2.VALUE as device_type_name,
+		    	ROW_NUMBER () OVER (ORDER BY t1.id DESC) AS RowNumber
+		    from T_DICOM_IMG t1
+		    	left join T_DIC_VALUE t2 on t1.device_type_id = t2.id
+		    where 1=1
+		    <if test="id !=null">
+		        and t1.id = #{id}
+		    </if>
+		    <if test="case_id !=null">
+		        and t1.case_id = #{case_id}
+		    </if>
+		    <if test="device_type_id !=null">
+		        and t1.device_type_id = #{device_type_id}
+		    </if>
+		    <if test="affix_id !=null">
+		        and t1.affix_id = #{affix_id}
+		    </if>
+		    <if test="thumbnail_uid !=null">
+		        and t1.thumbnail_uid= #{thumbnail_uid}
+		    </if>
+		    <if test="mark_char !=null">
+		        and t1.mark_char = #{mark_char}
+		    </if>
+		    <if test="ae_title !=null">
+		        and t1.ae_title=#{ae_title}
+		    </if>
+		    <if test="checklist_num !=null">
+		        and t1.checklist_num = #{checklist_num}
+		    </if>
+		    <if test="create_start !=null and create_end !=null">
+		        and t1.create_time between #{create_start} and #{create_end}
+		    </if>
+		    <if test="check_start !=null and check_end !=null">
+		        and t1.check_time between #{check_start} and #{check_end}
+		    </if>
+		    <if test="status !=null">
+		        and t1.status = #{status}
+		    </if>
+	    ) tmp_t
+	    	<if test="minRow !=null and maxRow !=null">
+        	    where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+        	</if>
+	</select>
+</mapper>

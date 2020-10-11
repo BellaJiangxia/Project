@@ -1,0 +1,114 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+		新增质控表
+		<button class="btn btn-info btn-xs pull-right" ng-click="goback();">
+			<i class="glyphicon glyphicon-arrow-left"></i> 返回
+		</button>
+	</div>
+	<div class="panel-body">
+		<div style="text-align: right; margin-bottom: 10px;">
+			<button class="btn btn-success btn-sm"
+				ng-click="saveQualityControlForm();">
+				<i class="glyphicon glyphicon-floppy-disk"></i> 保存
+			</button>
+			<button class="btn btn-info btn-sm" ng-click="goback();">
+				<i class="glyphicon glyphicon-arrow-left"></i> 取消
+			</button>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-horizontal">
+					<div class="text-danger" style="text-align: center;">
+						<i class="glyphicon glyphicon-warning-sign"></i> 带 <i
+							class="glyphicon glyphicon-asterisk text-danger"></i> 号为必填项！
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4"><i
+							class="glyphicon glyphicon-asterisk text-danger"></i> 质控表名称</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" required
+								ng-model="currQualityControlForm.name" placeholder="问卷名称" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4"><i
+							class="glyphicon glyphicon-asterisk text-danger"></i> 质控表类型</label>
+						<div class="col-sm-8">
+							<select class="form-control"
+								ng-model="currQualityControlForm.target_type"
+								ng-options="q.code as q.name for q in listQualityControlTarget">
+								<option value="">--请选择--</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4"><i
+							class="glyphicon glyphicon-asterisk text-danger"></i> 质控表强制性</label>
+						<div class="col-sm-8">
+							<select class="form-control"
+								ng-model="currQualityControlForm.question_enforceable"
+								ng-options="qc.code as qc.name for qc in listQualityControlEnforceable">
+								<option value="">--请选择--</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-4"><i
+							class="glyphicon glyphicon-asterisk text-danger"></i> 详细说明</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" rows="6" required
+								ng-model="currQualityControlForm.note" placeholder="详细说明"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<div class="well form-horizontal"
+					style="margin-bottom: 10px; padding: 10px 10px;"
+					ng-repeat="qcm in listQualityControlMeasure">
+					质控指标 {{$index+1}}：
+					<div class="form-group" style="margin-bottom: 5px;">
+						<label class="control-label col-sm-2"><i
+							class="glyphicon glyphicon-asterisk text-danger"></i> 问题：</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" required
+								ng-model="qcm.question" placeholder="请填写指标的问题..." />
+
+						</div>
+						<div class="col-sm-2">
+							<button class="btn btn-danger btn-xs"
+								ng-click="removeQualityControlMeasureClick($index);">
+								<i class="glyphicon glyphicon-remove"></i> 删除
+							</button>
+						</div>
+					</div>
+					<div class="form-group" style="margin-bottom: 0px;">
+						<label class="control-label col-sm-2"><i
+							class="glyphicon glyphicon-asterisk text-danger"></i> 问题类型：</label>
+						<div class="col-sm-8">
+							<select class="form-control" ng-model="qcm.question_type"
+								ng-options="qcmqt.code as qcmqt.name for qcmqt in listQualityControlMeasureQuestionType">
+								<option value="">--请选择--</option>
+							</select>
+						</div>
+						<div class="col-sm-2">
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-info btn-sm"
+					ng-click="addQualityControlMeasureClick();">
+					<i class="glyphicon glyphicon-plus"></i> 新增指标
+				</button>
+			</div>
+		</div>
+		<div style="text-align: right;">
+			<button class="btn btn-success btn-sm"
+				ng-click="saveQualityControlForm();">
+				<i class="glyphicon glyphicon-floppy-disk"></i> 保存
+			</button>
+			<button class="btn btn-info btn-sm" ng-click="goback();">
+				<i class="glyphicon glyphicon-arrow-left"></i> 取消
+			</button>
+		</div>
+	</div>
+</div>

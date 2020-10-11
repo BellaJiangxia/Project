@@ -1,0 +1,83 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-th-list"></span>
+		分享</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline" data-ng-init="initData()">
+			<input type="text" class="form-control" style="width: 160px;" placeholder="分享机构" ng-model="searchOpt.shareOrgName"/> 
+			<input type="text" class="form-control" style="width: 160px;" placeholder="症状" ng-model="searchOpt.symptom"/>
+			<div class="input-group" style="width:160px">
+	       		<date-selector ng-model="searchOpt.start" placeholder="起始日期"></date-selector>
+			</div>
+	       	<div class="input-group" style="width:160px">
+	       		<date-selector ng-model="searchOpt.end" placeholder="结束日期"></date-selector>
+			</div> 
+<!-- 		    <div class="form-group" style="width:160px"> -->
+<!-- 		    	<div class="input-group"> -->
+<!-- 					<input type="text" class="form-control" uib-datepicker-popup ng-model="searchOpt.start" placeholder="起始日期" -->
+<!-- 						datepicker-options="dateOptions" ng-required="true" close-text="关闭" current-text="今天" clear-text="清除" -->
+<!-- 						ng-readOnly="true" is-open="selectStartOpened"/> -->
+<!-- 					<span class="input-group-btn"> -->
+<!-- 						<button type="button" class="btn btn-info" ng-click="selectStartOpened=!selectStartOpened;"> -->
+<!-- 							<i class="glyphicon glyphicon-calendar"></i> -->
+<!-- 						</button> -->
+<!-- 					</span> -->
+<!-- 				</div> -->
+<!-- 		    </div> -->
+<!-- 		   	<div class="form-group" style="width:160px"> -->
+<!-- 		   		<div class="input-group"> -->
+<!-- 					<input type="text" class="form-control" uib-datepicker-popup ng-model="searchOpt.end" placeholder="结束日期" -->
+<!-- 						datepicker-options="dateOptions" ng-required="true" close-text="关闭" current-text="今天" clear-text="清除" -->
+<!-- 						ng-readOnly="true" is-open="selectEndOpened"/> -->
+<!-- 					<span class="input-group-btn"> -->
+<!-- 						<button type="button" class="btn btn-info" ng-click="selectEndOpened =! selectEndOpened;"> -->
+<!-- 							<i class="glyphicon glyphicon-calendar"></i> -->
+<!-- 						</button> -->
+<!-- 					</span> -->
+<!-- 				</div> -->
+<!-- 		    </div> -->
+			<button class="btn btn-primary" ng-click="searchReportShare();">
+				<span class="glyphicon glyphicon-search"></span> 检索
+			</button>
+		</div>
+		<br />
+		<table class="table table-hover table-striped table-bordered table-condensed">
+			<thead>
+				<tr class="bg-primary">
+					<th>病历号</th>
+					<th>分享机构</th>
+					<th>分享人</th>
+					<th>病人性别</th>
+					<th>病人年龄</th>
+					<th>症状</th>
+					<th>分享时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="rs in listReportShare">
+					<td>{{rs.case_his_num}}</td>
+					<td>{{rs.share_org_name}}</td>
+					<td>{{rs.share_user_name}}</td>
+					<td>{{rs.patient_genderStr}}</td>
+					<td>{{rs.patient_age}} 岁</td>
+					<td>{{rs.case_symptom}}</td>
+					<td>{{rs.share_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>
+						<a class="btn btn-success btn-sm" ng-href="#/share/detail/{{rs.id}}" title="查看详情">
+							<span class="glyphicon glyphicon-zoom-in"></span>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="searchReportShare();"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</div>

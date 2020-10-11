@@ -1,0 +1,91 @@
+<div class="container-fluid">
+	<uib-alert ng-show="msg" type="info">{{msg}}</uib-alert>
+	<option-pers ng-model="query" on-search="loadOrgList();"></option-pers>
+  <div class="panel panel-primary">
+  	<div class="panel-heading">平台机构列表</div>
+  	<div style="padding:5px">	
+			<uib-tabset>
+				<uib-tab heading="有效机构" select="loadOrgList(1)">
+			  		<div ng-include="template.url"></div>
+				</uib-tab>
+				<!--<uib-tab select="loadOrgList(11)" active="tab.isActive">-->
+					<!--<uib-tab-heading>-->
+						 <!--<span>待审核机构 <span class="badge" style="background-color:#f00;color:#fff" ng-show="waitCount.a_org_count>0" data-ng-bind="waitCount.a_org_count"></span></span>-->
+					<!--</uib-tab-heading>-->
+					<!--<div ng-include="template.url"></div>-->
+				<!--</uib-tab>-->
+				<uib-tab heading="已拒绝机构" select="loadOrgList(12)">
+					<div ng-include="template.url"></div>
+				</uib-tab>
+				<uib-tab heading="已禁用机构" select="loadOrgList(10)">
+					<div ng-include="template.url"></div>
+				</uib-tab>
+				<uib-tab heading="已删除机构" select="loadOrgList(15)">
+					<div ng-include="template.url"></div>
+				</uib-tab>
+				
+				<uib-tab select="loadChangeList()" active="tab.isActive2">
+					<uib-tab-heading>
+						<span>申请认证机构 <span class="badge" style="background-color:#f00;color:#fff" ng-show="waitCount.change_org_count>0" data-ng-bind="waitCount.change_org_count"></span></span>
+					</uib-tab-heading>
+					<form class="form-inline" style="margin: 5px 10px;">
+						<div class="form-group">
+					    <label>机构名称</label>
+					    <input type="text" class="form-control" ng-model="query.orgName" placeholder="机构名称">
+					  </div> 
+					  <div class="form-group">
+					    <label>机构编号</label>
+					    <input type="text" class="form-control" ng-model="query.orgCode" placeholder="机构编号">
+					  </div> 
+					  <div class="form-group">
+				      	<a type="button" class="btn btn-success" ng-click="loadChangeList()"><span class="glyphicon glyphicon-search"></span> 查询</a>
+					  </div>
+					</form>
+			    <table class="table table-bordered table-hover">
+			      <thead>
+			        <tr class="info">
+			          <th>认证机构</th>
+								<th>认证类型</th>
+								<th>机构编号</th>
+								<th>申请人</th>
+			          <th>申请时间</th>
+			          <th>审核人</th>
+			          <th>审核时间</th>
+			          <th>状态</th>
+			          <th>操作</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr ng-repeat="u in orgs">
+								<td><span title="{{u.org_name}}">{{u.org_name | subStr:20}}</span></td>
+								<td>{{u.orgProperty.name}}</td>
+								<td>{{u.org_code}}</td>
+								<td>{{u.v_c_user_name}}</td>
+								<td>{{u.change_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+								<td>{{u.v_v_user_name}}</td>
+								<td>{{u.varify_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+								<td>{{u.changeStatus.name}}</td>
+								<td>
+									<div ng-switch="u.changeStatus.code">
+										<a ng-switch-when="11" class="btn-link" ui-sref="orgInfo({action:'ac',id:u.id})">
+											<span title="审核变更" class="glyphicon glyphicon-question-sign"></span>
+										</a>
+										<a ng-switch-default class="btn-link" ui-sref="orgInfo({action:'vc',id:u.id})">
+											<span title="查看" class="glyphicon glyphicon-eye-open"></span>
+										</a>
+									</div>
+								</td>
+			        </tr>
+			      </tbody>
+			 		</table>
+			 		
+			 		<div class="panel-footer">
+			    	<div style="text-align: right">
+					    <uib-pagination class="pagination-md" total-items="query.total" ng-model="query.pageIdx" ng-change="loadChangeList()" max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+			    	</div>
+			    </div>
+				</uib-tab>
+			</uib-tabset>
+		</div>
+	</div>
+</div>

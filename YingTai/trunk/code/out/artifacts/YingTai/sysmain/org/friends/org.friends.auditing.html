@@ -1,0 +1,52 @@
+<form class="form-inline" data-ng-init="initData();">
+	<div class="form-group">
+		<label>机构名称</label>
+		<input type="text" class="form-control" ng-model="orgName" placeholder="机构名称">
+	</div> 
+	<div class="form-group">
+		<a type="button" class="btn btn-primary" ng-click="loadOrg()"><span class="glyphicon glyphicon-search"></span> 查询</a>
+	</div>
+</form>
+<br/>
+<table class="table table-bordered table-hover">
+	<thead>
+		<tr class="bg-primary">
+			<th>机构名称</th>
+			<th>机构编号</th>
+			<th>机构身份</th>
+			<th>机构类型</th>
+			<th>加入时间</th>
+			<th>报告发布类型</th>
+			<th>是否分享病例库</th>
+			<th>状态</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="o in listOrgRelation">
+			<td>{{o.relation_org_name}}</td>
+			<td>{{o.relation_org_code}}</td>
+			<td><span ng-repeat="p in o.relation_org_permissionList">{{p.name}}&nbsp;</span></td>
+			<td title="{{o.relation_org_type_name">{{o.relation_org_type_name}}</td>
+			<td>{{o.org_relation.create_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+			<td>{{o.org_relation.publish_report_typeStr}}</td>
+			<td>{{o.org_relation_config.share_patient_infoStr}}</td>
+			<td>{{o.org_relation.statusStr}}</td>
+			<td>
+	         	<a ng-if="o.org_relation.friend_org_id==currOrg.id" class="btn btn-success btn-sm" 
+	         		ng-click="confirmFriend(o,true);" href title="同意达成合作机构关系">
+	         		<i class="glyphicon glyphicon-ok-circle"></i></a>
+	         	<a ng-if="o.org_relation.friend_org_id==currOrg.id" class="btn btn-danger btn-sm" 
+	         		ng-click="confirmFriend(o,false);" href title="拒绝达成合作机构关系">
+	         		<i class="glyphicon glyphicon-ban-circle"></i></a>
+         	</td>
+        </tr>
+	</tbody>
+</table>
+<div style="text-align: right">
+	<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+	<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+				items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+				ng-model="searchOpt.spu.currPage" ng-change="loadOrg();"
+				previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+</div>

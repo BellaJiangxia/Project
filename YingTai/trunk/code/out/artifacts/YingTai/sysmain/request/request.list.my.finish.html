@@ -1,0 +1,85 @@
+<div>
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+	<div class="form-inline" style="margin: 15px 0px;">
+		<input type="text" class="form-control" style="width: 120px;" placeholder="病人姓名" ng-model="searchOpt.patient_name"/> 
+		<select class="form-control" ng-model="searchOpt.patient_gender" ng-options="g.code as g.name for g in listGender">
+			<option value="">--性别--</option>
+		</select>
+		<input type="text" class="form-control" style="width: 160px;" placeholder="关键字" ng-model="searchOpt.sick_key_words"/>
+		<input type="text" class="form-control" style="width: 160px;" placeholder="病历号" ng-model="searchOpt.case_his_num"/> 
+		<select class="form-control" style="width: 120px;" ng-model="searchOpt.deviceTypeId"
+			ng-options="device.id as device.value for device in listDeviceType">
+			<option value="">--影像类型--</option>
+		</select> 
+		<select class="form-control" style="width: 180px;" ng-model="searchOpt.diagnosis_org_id"
+			ng-options="org.id as org.org_name for org in arrayOrg">
+			<option value="">--诊断机构--</option>
+		</select>
+		<select class="form-control" style="width: 100px;" ng-model="searchOpt.timelimit"
+			ng-options="tl.code as tl.name for tl in listTimeLimit">
+			<option value="">--全部--</option>
+		</select>
+		<button class="btn btn-primary" ng-click="searchReport();">
+			<span class="glyphicon glyphicon-search"></span>
+			检索
+		</button>
+		<button class="btn btn-info" ng-click="searchReport();">
+			<span class="glyphicon glyphicon-refresh"></span>
+			刷新
+		</button>
+	</div>
+	<table class="table table-hover table-striped table-bordered">
+		<thead>
+			<tr class="bg-primary">
+				<th>病历号</th>
+				<th>病人姓名</th>
+				<th>性别</th>
+				<th>影像类型</th>
+				<th>诊断机构</th>
+				<th>诊断机构</th>
+				<th>报告时间</th>
+				<th>紧急程度</th>
+				<th>打印人</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="r in listReport">
+				<td><a ng-click="showRequestDetailDialog({diagnosisId:r.diagnosis_id});" href>{{r.case_his_num}}</a></td>
+				<td>{{r.patient_name}}</td>
+				<td>{{r.patient_genderStr}}</td>
+				<td>{{r.device_type_name}}</td>
+				<td>{{r.diagnosis_org_name}}</td>
+				<td>{{r.create_time | date :'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td ng-class="r.request_urgent_level==20?'text-danger':'text-default'">{{r.request_urgent_level_name}}</td>
+				<td>{{r.print_user_name}}</td>
+				<td>
+					<a style="margin-left: 5px;" class="btn btn-success btn-sm" href="javascript:void(0);"
+						ng-click="viewDiagnosisReport(r.id);" title="点击查看报告" 
+						uib-popover-template="'../templates/dynamicPopover.previewReport.html'" 
+						popover-title="报告预览" popover-placement="left" popover-trigger="mouseenter">
+						<span class="glyphicon glyphicon-zoom-in"></span>
+					</a>
+					<a style="margin-left: 5px;" class="btn btn-warning btn-sm" 
+						href ng-click="shareReport(r.id)" title="分享此报告">
+						<span class="glyphicon glyphicon-share"></span>
+					</a>
+					<a ng-if="user.id==r.request_user_id" style="margin-left: 5px;"
+						class="btn btn-sm" ng-class="r.report_msg_count?'animation-btn':'btn-primary'" 
+						href ng-click="openChat(r)" title="发送诊断消息">
+						<span class="glyphicon glyphicon-envelope"></span>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div align="right">
+		<div style="float: left;">
+			<span style="font-size: 18px;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+		</div>
+		<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+					items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+					ng-model="searchOpt.spu.currPage" ng-change="searchReport();"
+					previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>

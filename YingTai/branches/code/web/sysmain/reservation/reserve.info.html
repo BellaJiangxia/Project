@@ -1,0 +1,152 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h4><span class="glyphicon glyphicon-list"></span>&nbsp;预约详情</h4>
+  </div>
+  <div class="panel-body">
+    <div class="form-horizontal well well-lg">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约人姓名</label>
+        <div class="col-sm-3 div-content">
+          <span data-ng-bind="reserve.patient_name"></span>
+        </div>
+        <label class="col-sm-2 control-label">联系电话</label>
+        <div class="col-sm-2 div-content">
+          <span data-ng-bind="reserve.patient_mobile"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约人身份证</label>
+        <div class="col-sm-3 div-content">
+          <span data-ng-bind="reserve.patient_idCard"></span>
+        </div>
+        <label class="col-sm-2 control-label">性别</label>
+        <div class="col-sm-2 div-content">
+          <span data-ng-bind="reserve.patientGender.name"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">主述</label>
+        <div class="col-sm-6 div-content">
+          <pre data-ng-bind="reserve.complaint" style="height:120px;white-space: pre-wrap;word-wrap: break-word;" maxlength="500"></pre>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">申请医院</label>
+        <div class="col-sm-3 div-content">
+          <span data-ng-bind="reserve.v_request_org"></span>
+        </div>
+
+        <label class="col-sm-2 control-label">受理医院</label>
+        <div class="col-sm-2 div-content">
+          <span data-ng-bind="reserve.v_receive_org"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约时间</label>
+        <div class="col-sm-3 div-content">
+          <span data-ng-bind="reserve.reservation_time | date:'yyyy-MM-dd HH:mm'"></span>
+        </div>
+        <label class="col-sm-2 control-label">状态</label>
+        <div class="col-sm-2 div-content">
+          <span data-ng-bind="reserve.reservationStatus.name"></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">预约检查号</label>
+        <div class="col-sm-3 div-content">
+          <span data-ng-bind="reserve.reservation_no"></span>
+          &nbsp;&nbsp;<a ng-if="reserve.case_id" href="#/case/info/{{reserve.case_id}}"><i class="glyphicon glyphicon-search"></i> 查看病历</a>
+        </div>
+
+        <label class="col-sm-2 control-label">医生电话</label>
+        <div class="col-sm-2 div-content">
+          <span data-ng-bind="reserve.docter_mobile"></span>
+        </div>
+
+      </div>
+      <div class="form-group" ng-if="reserve.reason">
+        <label class="col-sm-2 control-label">原因描述</label>
+        <div class="col-sm-6 div-content">
+          <pre data-ng-bind="reserve.reason" style="height:80px;white-space: pre-wrap;word-wrap: break-word;" maxlength="500"></pre>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-8">
+          <table class="table table-striped table-bordered">
+            <thead>
+            <tr class="bg-primary">
+              <th class="col-sm-3">预约服务</th>
+              <th class="col-sm-1">设备类型</th>
+              <th class="col-sm-1">检查部位</th>
+              <th class="col-sm-1">检查次数</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat-start="s in reserve.listService | orderBy:'reservation_service_id'">
+                <td rowspan="{{s.listItem.length}}" style="vertical-align: middle">{{s.service_name}}</td>
+                <td rowspan="{{s.listItem.length}}" style="vertical-align: middle">{{s.v_device_name}}</td>
+                <td>{{s.listItem[0].v_item_name}}</td>
+                <td>{{s.listItem[0].item_count===0?'-':s.listItem[0].item_count}}</td>
+              </tr>
+              <tr ng-repeat-end ng-repeat="item in s.listItem.slice(1)">
+                <td>{{item.v_item_name}}</td>
+                <td>{{item.item_count===0?'-':item.item_count}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-8">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr class="bg-primary">
+                <th class="col-sm-3">预约服务</th>
+                <th class="col-sm-1">收费方式</th>
+                <th class="col-sm-1">基础价格</th>
+                <th class="col-sm-1">附加方式</th>
+                <th class="col-sm-1">附加费用</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat-start="s in reserve.listService | orderBy:'reservation_service_id'">
+              <td rowspan="{{s.listFee.length===0?1:s.listFee.length}}" style="vertical-align: middle">{{s.service_name}}</td>
+              <td rowspan="{{s.listFee.length===0?1:s.listFee.length}}" style="vertical-align: middle">{{s.serviceCalcType.name}}</td>
+              <td rowspan="{{s.listFee.length===0?1:s.listFee.length}}" style="vertical-align: middle">{{s.service_price | number:2}}</td>
+              <td>{{s.listFee[0].itemCalcType.name?s.listFee[0].itemCalcType.name:'-'}}</td>
+              <td>{{s.listFee[0].price?(s.listFee[0].price | number:2):'-'}}</td>
+            </tr>
+            <tr ng-repeat-end ng-repeat="fee in s.listFee.slice(1)">
+              <td>{{fee.itemCalcType.name?fee.itemCalcType.name:'-'}}</td>
+              <td>{{fee.price?(fee.price | number:2):'-'}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+              <tr class="bg-danger">
+                <td><b>总计</b></td>
+                <td colspan="4"><b>{{reserve.total_price | number:2}}</b></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-offset-2" style="padding-top: 10px;">
+      <button class="btn btn-primary" ng-click="openConfirmDlg(reserve,11)" ng-if="org.id===reserve.receive_org_id&&reserve.reservation_status==3">
+        <i class="glyphicon glyphicon-ok"></i>确认
+      </button>
+      <button class="btn btn-warning" ng-click="openConfirmDlg(reserve,22)" ng-if="org.id===reserve.receive_org_id&&reserve.reservation_status==4">
+        <i class="glyphicon glyphicon-level-up"></i>检查
+      </button>
+      <button type="button" class="btn btn-primary" ng-click="goback()">
+        <i class="glyphicon glyphicon-circle-arrow-left"></i>返回
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+.div-content{
+  margin: 7px 0px;
+}
+</style>

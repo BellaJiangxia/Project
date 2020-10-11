@@ -1,0 +1,88 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-th-list"></span>
+		病例申请</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline">
+			<input type="text" class="form-control" style="width: 160px;" placeholder="病历号" 
+				ng-model="searchOpt.medicalHisNum" ng-readonly="true"/> 
+			<select class="form-control" ng-model="searchOpt.deviceTypeId"
+				ng-options="device.id as device.value for device in listDeviceType">
+				<option value="">--影像类型--</option>
+			</select> 
+			<select class="form-control" ng-model="searchOpt.diagnosisOrgId"
+				ng-options="org.id as org.org_name for org in arrayOrg">
+				<option value="">--诊断机构--</option>
+			</select>
+			<select class="form-control" ng-model="searchOpt.status" 
+				ng-options="ds.code as ds.name for ds in listDiagnosisStatus">
+				<option value="">--诊断状态--</option>
+			</select>
+			<button class="btn btn-primary" ng-click="searchRequest();">
+				<span class="glyphicon glyphicon-search"></span> 检索
+			</button>
+		</div>
+		<br />
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr class="bg-primary">
+					<th>病历号</th>
+					<th>病人姓名</th>
+					<th>性别</th>
+					<th>影像类型</th>
+					<th>诊断机构</th>
+					<th>申请人员</th>
+					<th>状态</th>
+					<!-- <th>操作</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="r in listRequest">
+					<td><a ng-href="#/medical/detail/{{r.medical_his_id}}">{{r.medical_his_num}}</a></td>
+					<td>{{r.sicker_name}}</td>
+					<td>{{r.sicker_genderStr}}</td>
+					<td>{{r.device_name}}</td>
+					<td>{{r.diagnosis_org_name}}</td>
+					<td>{{r.request_user_name}}</td>
+					<td>{{r.statusStr}}</td>
+					<!-- <td>
+						<a ng-if="r.status ==3" style="margin-left: 5px;" 
+							class="btn btn-info btn-sm" href="javascript:void(0);" 
+							ng-click="showNote(r.note)" title="查看备注">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<a ng-if="r.status ==1" style="margin-left: 5px;" 
+							class="btn btn-danger btn-sm" href="javascript:void(0);" 
+							ng-click="cancelDiagnosis(r)" title="撤回申请">
+							<span class="glyphicon glyphicon-remove"></span>
+						</a>
+						<a ng-if="r.status ==5" style="margin-left: 5px;" 
+							class="btn btn-success btn-sm" href="#/diagnosis/report/{{r.id}}" title="查看报告"
+							uib-popover-template="'../templates/dynamicPopover.previewReport.html'" 
+							popover-title="报告预览" popover-placement="left" popover-trigger="mouseenter">
+							<span class="glyphicon glyphicon-zoom-in"></span>
+						</a>
+						<a ng-if="r.status ==5" style="margin-left: 5px;" 
+							class="btn btn-warning btn-sm" href="javascript:void(0);" 
+							ng-click="shareRequest(request.id)" title="分享此诊断">
+							<span class="glyphicon glyphicon-share"></span>
+						</a>
+						<a ng-if="user.id==r.request_user_id&&r.status==5" 
+							style="margin-left: 5px;" ng-class="request.newMsgCount?'btn btn-danger btn-sm':'btn btn-primary btn-sm'" 
+							href="javascript:void(0);" ng-click="openChat(request)" title="发送诊断消息">
+							<span class="glyphicon glyphicon-envelope"></span>
+						</a>
+					</td> -->
+				</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="searchRequest();"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</div>

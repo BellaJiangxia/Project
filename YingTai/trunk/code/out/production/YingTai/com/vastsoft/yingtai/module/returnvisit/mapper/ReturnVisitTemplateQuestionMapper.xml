@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.returnvisit.mapper.ReturnVisitTemplateQuestionMapper">
+
+	<select id="select" parameterType="TReturnVisitTemplateQuestion" resultType="TReturnVisitTemplateQuestion">
+		select * from t_return_visit_template_question
+		<where>
+		    <if test="question_id != 0">
+		        question_id = #{question_id}
+		    </if>
+		    <if test="template_id != 0">
+		        and template_id = #{template_id}
+		    </if>
+		    <if test="question_type != 0">
+		        and question_type = #{question_type}
+		    </if>
+		</where>
+		order by question_idx
+	</select>
+
+	<select id="selectAndLock" parameterType="TReturnVisitTemplateQuestion" resultType="TReturnVisitTemplateQuestion">
+		select * from t_return_visit_template_question with (xlock)
+		<where>
+		    <if test="question_id != 0">
+		        question_id = #{question_id}
+		    </if>
+		    <if test="template_id != 0">
+		        and template_id = #{template_id}
+		    </if>
+		    <if test="question_type != 0">
+		        and question_type = #{question_type}
+		    </if>
+		</where>
+		order by question_idx
+	</select>
+	
+	<insert id="insert" parameterType="TReturnVisitTemplateQuestion" useGeneratedKeys="true" keyProperty="question_id">
+		insert into t_return_visit_template_question
+		(
+		question_idx,
+		template_id,
+		question_type,
+		question_name,
+		min_score,
+		max_score
+		)
+		values
+		(
+		#{question_idx},
+		#{template_id},
+		#{question_type},
+		#{question_name},
+		#{min_score},
+		#{max_score}
+		)
+	</insert>
+
+	<update id="update" parameterType="TReturnVisitTemplateQuestion">
+		update t_return_visit_template_question
+		<set>
+		    <if test = "question_idx != 0">
+		        question_idx = #{question_idx}，
+		    </if>
+		    <if test = "question_type != 0">
+		        question_type = #{question_type}，
+		    </if>
+		    <if test = "question_name != null">
+		        question_name = #{question_name}，
+		    </if>
+		    <if test = "min_score != 0">
+		        min_score = #{min_score}，
+		    </if>
+		    <if test = "max_score != 0">
+		        max_score = #{max_score}
+		    </if>
+		</set>
+		<where>
+		    <if test="question_id != 0">
+		        question_id = #{question_id}
+		    </if>
+		    <if test="template_id != 0">
+		        and template_id = #{template_id}
+		    </if>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="TReturnVisitTemplateQuestion">
+		delete from t_return_visit_template_question
+		<where>
+		    <if test="template_id != 0">
+		        template_id = #{template_id}
+		    </if>
+		    <if test="question_id != 0">
+		        and question_id = #{question_id}
+		    </if>
+		    <if test="question_type != 0">
+		        and question_type = #{question_type}
+		    </if>
+		</where>
+	</delete>
+    
+
+</mapper>

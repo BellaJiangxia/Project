@@ -1,0 +1,75 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading"><h4>服务列表</h4></div>
+  	<div class="panel-body">
+  		<div class="form-inline" style="margin-bottom: 10px;">
+			<div class="form-group">
+				<label>服务名称</label>
+				<input type="text" class="form-control" ng-model="searchOpt.productName" placeholder="服务名称">
+	    		<label>设备类型</label>
+			 	<select ng-model="searchOpt.deviceTypeId" ng-change="deviceChange()" class="form-control"
+			 		ng-options="d.id as d.value for d in listDeviceType">
+	      			<option value="">--全部--</option>
+		    	</select>
+	  		</div> 
+	  		<label>计费类型</label>
+	  		<select class="form-control" ng-model="searchOpt.charge_type" ng-options="d.code as d.name for d in listOrgProductChargeType">
+	  			<option value="">--全部--</option>
+	  		</select>
+<!-- 	    	<div class="form-group" ng-if="device"> -->
+<!-- 	    		<label>诊断部位</label> -->
+<!--   		 		<select ng-model="part" class="form-control" ng-options="p.id as p.value for p in parts"> -->
+<!-- 	      			<option value="">--全部--</option> -->
+<!-- 		    	</select> -->
+<!-- 	    	</div> -->
+			<div class="form-group">
+				<button type="button" class="btn btn-primary" ng-click="loadProducts();">
+					<span class="glyphicon glyphicon-search"></span> 查询</button>
+				<a class="btn btn-success" ui-sref="org.product.new">
+					<span class="glyphicon glyphicon-plus"></span> 添加服务</a>
+			</div>
+  		</div>
+		<table class="table table-bordered table-hover">
+			<thead>
+		        <tr class="bg-primary">
+					<th>服务名称</th>
+		          	<th>设备类型</th>
+<!-- 		          <th class="col-xs-2" style="text-align: center">诊断部位</th> -->
+					<th>计费类型</th>
+		          	<th>单价</th>
+		          	<th>创建人</th>
+		          	<th>创建时间</th>
+		          	<th>状态</th>
+		          	<th>操作</th>
+		        </tr>
+			</thead>
+			<tbody>
+		        <tr ng-repeat="p in listOrgProduct">
+					<td>{{p.name}}</td>
+					<td>{{p.device_type_name}}</td>
+<!-- 				<td>{{p.part_name}}</td> -->
+					<td>{{p.charge_type_name}}</td>
+					<td>{{p.price | moneyformat}} 元</td>
+					<td>{{p.create_user_name}}</td>
+		         	<td>{{p.create_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+		         	<td>{{p.status_name}}</td>
+		         	<td>
+						<a ng-if="p.status == 2" class="btn btn-success btn-sm" ng-click="enableProduct(p.id,true)" href>
+		         	 		<i title="启用" class="glyphicon glyphicon-ok-circle"></i>
+		         	 	</a>
+		         	 	<a ng-show="p.status == 1" class="btn btn-warning btn-sm" ng-click="enableProduct(p.id,false)" href>
+		         	 		<span title="禁用" class="glyphicon glyphicon-ban-circle"></span></a>
+		         	 	<a ng-show="p.status == 2 || p.status == 1" class="btn btn-danger btn-sm" ng-click="deleteProduct(p.id)" href>
+		         	 		<span title="删除" class="glyphicon glyphicon-trash"></span></a>
+		         	</td>
+		        </tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="loadProducts();"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</div>

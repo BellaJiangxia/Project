@@ -1,0 +1,125 @@
+<div class="form-horizontal">
+	<div class="form-group">
+		<label class="control-label col-sm-2">病历号</label>
+		<div class="col-sm-8">
+			<span class="form-control">{{caseHistory.case_his_num}}</span>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">住院号</label>
+		<div class="col-sm-3">
+			<span class="form-control">{{caseHistory.hospitalized_num}}</span>
+<!-- 			<input type="text" class="form-control" ng-model="caseHistory.hospitalized_num" placeholder="住院号"/> -->
+		</div>
+		<label class="control-label col-sm-2">申请科室</label>
+		<div class="col-sm-3">
+			<span class="form-control">{{caseHistory.reception_section}}</span>
+<!-- 			<input type="text" class="form-control" ng-model="caseHistory.reception_section" placeholder="申请科室"/> -->
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">电子申请单</label>
+		<div class="col-sm-8">
+<!-- 			<button class="btn btn-primary" ng-click="selectFile();"> -->
+<!-- 				<span class="glyphicon glyphicon-export"></span> -->
+<!-- 				选择图片 -->
+<!-- 			</button> -->
+			<ul style="padding-left: 0px;list-style-type: none;margin-top: 10px;" 
+				ng-if="caseHistory.eafFiles && caseHistory.eafFiles.length>0">
+				<li ng-repeat="f in caseHistory.eafFiles">
+					<a href="javascript:void(0);" ng-click="showBrowse(f);">
+						{{f.ori_name}}
+					</a>
+<!-- 					&emsp; -->
+<!-- 					<a href="javascript:void(0);" ng-click="removeFile($index)" title="删除"> -->
+<!-- 						<span class="glyphicon glyphicon-remove text-danger"></span> -->
+<!-- 					</a> -->
+				</li>
+			</ul>
+			<!-- &nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="btn btn-info" ng-click="showElectMedicalList(new_medical_his.medical_his_num)">
+				<span class="glyphicon glyphicon-export"></span>
+				调阅病史资料
+			</button> -->
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">病例类型</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{caseHistory.typeStr}}</span>
+			</div>
+			<label class="control-label col-sm-2">挂号类型</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{caseHistory.guahao_type}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="caseHistory.guahao_type" placeholder="挂号类型"/> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">入院时间</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{caseHistory.enter_time | date:'yyyy-MM-dd'}}</span>
+			</div>
+			<label class="control-label col-sm-2">出院时间</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{caseHistory.leave_time | date:'yyyy-MM-dd'}}</span>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">接诊医生</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{caseHistory.reception_doctor}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="caseHistory.reception_doctor" placeholder="接诊医生"/> -->
+			</div>
+			<label class="control-label col-sm-2">接诊科室</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{caseHistory.reception_section}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="caseHistory.reception_section" placeholder="接诊科室"/> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">查体</label>
+			<div class="col-sm-3">
+				<textarea class="form-control" rows="2" ng-model="caseHistory.check_body" placeholder="查体" readonly="readonly">
+				</textarea>
+			</div>
+			<label class="control-label col-sm-2">医嘱</label>
+			<div class="col-sm-3">
+				<textarea class="form-control" rows="2" ng-model="caseHistory.doctor_advice" placeholder="医嘱" readonly="readonly">
+				</textarea>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">症状</label>
+			<div class="col-sm-3">
+				<textarea class="form-control" rows="3" ng-model="caseHistory.symptom" placeholder="症状" readonly="readonly">
+				</textarea>
+			</div>
+			<label class="control-label col-sm-2">诊断</label>
+			<div class="col-sm-3">
+				<textarea class="form-control" rows="3" ng-model="caseHistory.diagnosis" placeholder="诊断" readonly="readonly">
+				</textarea>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">备注</label>
+			<div class="col-sm-8">
+				<textarea class="form-control" rows="3" ng-model="caseHistory.note" placeholder="备注"></textarea>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">来源</label>
+			<div class="col-sm-8">
+				<span class="form-control">{{caseHistory.sourceType.name}}</span>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+</div>

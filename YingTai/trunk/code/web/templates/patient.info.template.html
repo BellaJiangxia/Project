@@ -1,0 +1,140 @@
+<div class="form-horizontal">
+	<div class="form-group">
+		<label class="control-label col-sm-2"><b style="color:red">*</b>病人姓名</label>
+		<div class="col-sm-3">
+			<span class="form-control">{{patient.name}}</span>
+<!-- 			<input type="text" class="form-control" required ng-model="patient.name" placeholder="病人姓名"/> -->
+		</div>
+		<label class="control-label col-sm-2">身份证号码</label>
+		<div class="col-sm-3">
+			<span class="form-control">{{patient.identity_id}}</span>
+<!-- 			<input type="text" class="form-control" ng-pattern="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/"  -->
+<!-- 				uib-tooltip="请填入15位数字或者18位数字,末尾可含X！"  popover-trigger="focus" -->
+<!-- 				ng-model="patient.identity_id" placeholder="病人身份证号"> -->
+		</div>
+		<div class="col-sm-2">
+<!-- 					<button class="btn btn-info" style="width: 100px;" ng-click="canEdit=!canEdit;" ng-disabled="caseHistory.status!=1"> -->
+<!-- 						<span class="glyphicon glyphicon-pencil"></span> -->
+<!-- 						{{canEdit?'锁定':'编辑'}} -->
+<!-- 					</button> -->
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2"><b style="color:red">*</b>出生日期</label>
+		<div class="col-sm-3">
+			<span class="form-control">{{patient.birthday|date:'yyyy-MM-dd'}}</span>
+<!-- 	       	<date-selector ng-model="patient.birthday" placeholder="出生日期" ng-change="patientBirthdayChange(patient);"></date-selector> -->
+<!-- 		        	<div class="input-group"> -->
+<!-- 						<input type="text" class="form-control" uib-datepicker-popup ng-model="patient.birthday" -->
+<!-- 							datepicker-options="dateOptions" ng-required="true" close-text="关闭" current-text="今天" clear-text="清除" -->
+<!-- 							ng-readOnly="true" is-open="selectdateopened" ng-change="patientBirthdayChange(patient);"/> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 							<button type="button" class="btn btn-info" ng-click="selectdateopened=!selectdateopened;"> -->
+<!-- 								<i class="glyphicon glyphicon-calendar"></i> -->
+<!-- 							</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+		</div>
+        <label class="control-label col-sm-2"><b style="color:red;">*</b>年龄</label>
+		<div class="col-sm-3">
+			<span class="form-control">{{patient.age}}</span>
+<!-- 			<input type="text" class="form-control" ng-change="patientAgeChange(patient)" required -->
+<!-- 				ng-model="patient.age" placeholder="年龄"> -->
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2"><b style="color:red">*</b>病人性别</label>
+		<div class="col-sm-3">
+			<span class="form-control">{{patient.genderStr}}</span>
+<!-- 			<select class="form-control" ng-model="patient.gender" ng-options="g.code as g.name for g in listGender"></select> -->
+		</div>
+		<label class="control-label col-sm-2">工作/职业</label>
+		<div class="col-sm-3">
+			<span class="form-control">{{patient.work}}</span>
+<!-- 			<input type="text" class="form-control" ng-model="patient.work" placeholder="工作/职业"> -->
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+<!-- 	<div style="text-align: center;"> -->
+<!-- 		<button class="btn btn-xs btn-warning" style="border-bottom: 0px;border-top-left-radius: 20px;border-top-right-radius:20px;"  -->
+<!-- 			ng-click="isCollapsed = !isCollapsed"> -->
+<!-- 			&nbsp;&nbsp;更多病人信息 -->
+<!-- 			<i ng-class="!isCollapsed?'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up'"></i>&nbsp;&nbsp; -->
+<!-- 		</button> -->
+<!-- 	</div> -->
+<!-- 	<div uib-collapse="!isCollapsed"> -->
+		<div class="form-group">
+			<label class="control-label col-sm-2">出生地</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.born_address}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.born_address" placeholder="病人出生地"/> -->
+			</div>
+			<label class="control-label col-sm-2">居住地</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.home_address}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.home_address" placeholder="病人居住地"/> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">婚姻状况</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.marital_status}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.marital_status" placeholder="婚姻状况"/> -->
+			</div>
+			<label class="control-label col-sm-2">民族</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.mingzu}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.mingzu" placeholder="民族"/> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">电话号码</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.phone_num}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.phone_num" placeholder="电话号码"/> -->
+			</div>
+			<label class="control-label col-sm-2">病人来源</label>
+			<div class="col-sm-3">
+<!-- 				<span class="form-control">{{patient.phone_num}}</span> -->
+				<span class="form-control">{{patient.sourceType.name}}</span>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">联系人姓名</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.contact_name}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.contact_name" placeholder="联系人姓名"> -->
+			</div>
+			<label class="control-label col-sm-2">联系人地址</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.contact_addr}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.contact_addr" placeholder="联系人地址"> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">联系人电话</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.contact_phone_num}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.contact_phone_num" placeholder="联系人电话"> -->
+			</div>
+			<label class="control-label col-sm-2">与病人关系</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{patient.contact_rela}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="patient.contact_rela" placeholder="与病人关系"> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">其它病史</label>
+			<div class="col-sm-8">
+				<textarea class="form-control" rows="3" ng-model="patient.sick_his" readonly="readonly" placeholder="其它病史"></textarea>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+<!-- 	</div> -->
+</div>

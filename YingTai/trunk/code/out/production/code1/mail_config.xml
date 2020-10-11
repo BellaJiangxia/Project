@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+  <mail-sender class="com.vastsoft.util.service.mail.std_smtp.SmtpSender">
+    <cfg host="smtp.exmail.qq.com" port="465" ssl="true" account="yt@yingtai360.com" pwd="Yt83332921" mailfrom="yt@yingtai360.com" name="影泰科技" />
+  </mail-sender>
+</config>

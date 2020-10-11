@@ -1,0 +1,72 @@
+<div class="panel panel-primary" data-ng-init="initData()">
+	<div class="panel-heading">
+      	<h4><span class="glyphicon glyphicon-th-list"></span>
+      		消息检索
+      	</h4>
+    </div>
+    <div class="panel-body">
+		<div class="form-inline">
+			<div class="input-group" style="width:160px">
+	       		<date-selector ng-model="searchOpt.start" placeholder="起始日期"></date-selector>
+			</div>
+	       	<div class="input-group" style="width:160px">
+	       		<date-selector ng-model="searchOpt.end" placeholder="结束日期"></date-selector>
+			</div>
+<!-- 	       	<div class="input-group" ng-controller="dateSeletor"> -->
+<!-- 				<input id="datepicker" type="text" placeholder="起始日期" class="form-control" datepicker-popup="{{dateFormat}}" -->
+<!-- 					ng-model="searchOpt.start" datepicker-options="dateOptions"  -->
+<!-- 					is-open="opened" date-disabled = "false" current-text="今天" clear-text="清除" close-text="关闭"> -->
+<!-- 				<span class="input-group-btn"> -->
+<!-- 				    <button class="btn btn-info" type="button" ng-click="open($event)">选择</button> -->
+<!-- 				</span> -->
+<!-- 			</div> -->
+<!-- 		   	<div class="form-group" style="width:160px"> -->
+<!-- 		       	<div class="input-group" ng-controller="dateSeletor"> -->
+<!-- 					<input id="datepicker" type="text" placeholder="结束日期" class="form-control" datepicker-popup="{{dateFormat}}" -->
+<!-- 						ng-model="searchOpt.end" datepicker-options="dateOptions"  -->
+<!-- 						is-open="opened" date-disabled = "false" current-text="今天" clear-text="清除" close-text="关闭"> -->
+<!-- 					<span class="input-group-btn"> -->
+<!-- 					    <button class="btn btn-info" type="button" ng-click="open($event)">选择</button> -->
+<!-- 					</span> -->
+<!-- 				</div> -->
+<!-- 		    </div> -->
+			<button class="btn btn-primary" ng-click="searchMessage()">
+				<span class="glyphicon glyphicon-search"></span> 检索
+			</button>
+		</div>
+	</div>
+	<br />
+	<table class="table table-hover table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>消息编号</th>
+				<th>接收人</th>
+				<th>接收号码</th>
+				<th>发送内容</th>
+				<th>计划发送时间</th>
+				<th>发送时间</th>
+				<th>消息类型</th>
+				<th>发送状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="message in listMessage">
+				<td>{{message.id}}</td>
+				<td>{{message.recv_user_name}}</td>
+				<td>{{message.recv_mobile}}</td>
+				<td><span title="{{message.content}}">{{message.contentsp}}</span></td>
+				<td>{{message.plan_time | date :'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td>{{message.sendtime | date :'yyyy-MM-dd HH:mm:ss'}}</td>
+				<td>{{message.msg_typeStr}}</td>
+				<td>{{message.statusStr}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="panel-footer" align="right">
+		<span style="font-size: 18px;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+		<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+					items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+					ng-model="searchOpt.spu.currPage" ng-change="searchMessage()"
+					previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>

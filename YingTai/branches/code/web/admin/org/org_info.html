@@ -1,0 +1,131 @@
+<div class="container-fluid">
+  <div class="panel panel-primary">
+  	<div class="panel-heading">{{title}}</div>
+	<form class="form-horizontal" novalidate style="margin: 5px 10px;">
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">LOGO</label>
+	    <div class="col-sm-5">
+		     <img class="img-thumbnail" ng-src="common!image.action?fileType=16&imageId={{org.logo_file_id}}" style="width: 100px;height:100px;">
+	    </div>
+	  </div>
+	  <div class="form-group" ng-show="org.creator_name">
+	    <label class="col-sm-3 control-label">创建人</label>
+	    <div class="col-sm-5">
+	      <span class="form-control" data-ng-bind="org.creator_name"></span>
+	    </div>
+	  </div>
+	  <div class="form-group" ng-show="org.org_code">
+	    <label class="col-sm-3 control-label">机构编号</label>
+	    <div class="col-sm-5">
+	      <span class="form-control" data-ng-bind="org.org_code"></span>
+	    </div>
+	  </div>
+	  <div class="form-group" ng-show="org.create_time">
+	    <label class="col-sm-3 control-label">创建时间</label>
+	    <div class="col-sm-5">
+	      <span class="form-control" data-ng-bind="org.create_time | date:'yyyy-MM-dd HH:mm:ss'"></span>
+	   	</div>
+	  </div>
+		<div class="form-group" ng-show="!is_change">
+			<label class="col-sm-3 control-label">机构名称</label>
+			<div class="col-sm-5">
+				<span class="form-control" data-ng-bind="org.org_name"></span>
+			</div>
+		</div>
+		<div class="form-group" ng-show="is_change">
+			<label class="col-sm-3 control-label">认证名称</label>
+			<div class="col-sm-5">
+				<span class="form-control" data-ng-bind="org.c_org_name"></span>
+			</div>
+		</div>
+		<div class="form-group" ng-show="!is_change">
+			<label class="col-sm-3 control-label">机构类型</label>
+			<div class="col-sm-5">
+				<span class="form-control" data-ng-bind="org.property.name"></span>
+			</div>
+		</div>
+		<div class="form-group" ng-show="is_change">
+			<label class="col-sm-3 control-label">认证类型</label>
+			<div class="col-sm-5">
+				<span class="form-control" data-ng-bind="org.changeOrgProperty.name"></span>
+			</div>
+		</div>
+	  <!--<div class="form-group has-error" ng-show="is_change">-->
+	    <!--<label class="col-sm-3 control-label">认证类型</label>-->
+	    <!--<div class="col-sm-5">-->
+	    	<!--<span class="form-control" data-ng-bind="org.c_type_name"></span>-->
+	    <!--</div>-->
+	  <!--</div>-->
+	  <div class="form-group" ng-show="!is_change">
+	    <label class="col-sm-3 control-label">机构级别</label>
+	    <div class="col-sm-5">
+	    	<span class="form-control" data-ng-bind="org.level_name"></span>
+	    </div>
+	  </div>
+	  <div class="form-group" ng-show="is_change">
+	    <label class="col-sm-3 control-label">认证级别</label>
+	    <div class="col-sm-5">
+	    	<span class="form-control" data-ng-bind="org.c_level_name"></span>
+	    </div>
+	  </div>
+		<div class="form-group" ng-show="!is_change">
+			<label class="col-sm-3 control-label">机构描述</label>
+			<div class="col-sm-5">
+				<textarea rows="4" class="form-control" ng-model="org.description" ng-readonly="true" style="resize:none"></textarea>
+			</div>
+		</div>
+		<div class="form-group" ng-show="is_change">
+			<label class="col-sm-3 control-label">认证描述</label>
+			<div class="col-sm-5">
+				<textarea rows="4" class="form-control" ng-model="org.c_description" ng-readonly="true" style="resize:none"></textarea>
+			</div>
+		</div>
+	  <div class="form-group" ng-if="org.property.code===11">
+	    <label class="col-sm-3 control-label">相关证件</label>
+	    <div class="col-sm-5">
+	    	 <img ng-repeat="sfid in org.scan_file_ids.split(',')" class="img-thumbnail" ng-src="common!image.action?fileType=17&imageId={{sfid}}" style="width: 100%;height:240px;">
+	    </div>
+	  </div>
+	  <div class="form-group">
+			<label class="col-md-3 control-label">是否审核通过</label>
+			<div class="col-md-5">
+				<label class="radio-inline"> 
+					<input type="radio" name='ispass' ng-value="true" ng-model="ispass" ng-disabled="!canOpt" />同意
+				</label>
+				<label class="radio-inline"> 
+					<input type="radio" name='ispass' ng-value="false" ng-model="ispass" ng-disabled="!canOpt" />拒绝
+				</label>
+      </div>
+<!--       <div class="col-sm-offset-3 col-md-5" ng-show="ispass"> -->
+<!--       	<div class="checkbox" ng-repeat="p in ots"> -->
+<!-- 	        <label> -->
+<!-- 	          <input type="checkbox" data-checklist-model="ot" data-checklist-value="p.code" ng-disabled="!is_approved&&!ispass"> {{p.name}} -->
+<!-- 	        </label> -->
+<!-- 	      </div> -->
+<!--       </div> -->
+      <div class="col-sm-offset-3 col-md-5" ng-show="ispass!=null&&!ispass">
+      	<textarea class="form-control" rows="3" ng-readonly="!canOpt" ng-model="note" style="resize:none;margin: 5px 0px;" placeholder="填写拒绝原因"></textarea>
+      </div>
+		</div>
+		<!--<div class="form-group" ng-if="org.certification_level===3">-->
+			<!--<label class="col-md-3 control-label">认证不通过原因</label>-->
+			<!--<div class="col-md-5">-->
+				<!--<textarea class="form-control" rows="3" ng-readonly="true" ng-model="note" style="resize:none;margin: 5px 0px;"></textarea>-->
+			<!--</div>-->
+		<!--</div>-->
+		
+		<div class="form-group">
+			<uib-alert type="info" class="col-sm-offset-3 col-md-5" ng-show="msg">{{msg}}</uib-alert>
+		</div>
+		
+	  <div class="form-group">
+	    <div class="col-sm-offset-6">
+	    	<a type="button" class="btn btn-success" ng-show="is_approved" ng-click="approvedOrg()"><span class="glyphicon glyphicon-ok"></span> 确认</a>
+	    	<a type="button" class="btn btn-success" ng-show="is_change&&canOpt" ng-click="confirmChange()"><span class="glyphicon glyphicon-ok"></span> 同意</a>
+	    	<a type="button" class="btn btn-success" ng-show="ispass&&!is_approved&&!is_change" ng-click="saveOrgPrms()"><span class="glyphicon glyphicon-save"></span> 保存</a>
+	      <a type="button" class="btn btn-warning" ui-sref="org"><span class="glyphicon glyphicon-remove"></span> 取消</a>
+	    </div>
+	  </div>
+	</form>
+	</div>
+</div>

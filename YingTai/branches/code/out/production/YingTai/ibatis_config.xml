@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<properties resource="ibatis_config.properties" />
+	<typeAliases>
+		<typeAlias type="com.vastsoft.yingtai.module.user.entity.TBaseUser" alias="TBaseUser" />
+		<typeAlias type="com.vastsoft.yingtai.module.user.entity.TAdminUser" alias="TAdminUser" />
+		<typeAlias type="com.vastsoft.yingtai.module.user.entity.TDoctorUser" alias="TDoctorUser" />
+		<typeAlias type="com.vastsoft.yingtai.module.user.entity.TGeneralUser" alias="TGeneralUser" />
+		<typeAlias type="com.vastsoft.yingtai.module.user.entity.TOrgUserMapping" alias="TOrgUserMapping" />
+		<typeAlias type="com.vastsoft.yingtai.module.user.entity.TUserChange" alias="TUserChange" />
+		<typeAlias type="com.vastsoft.yingtai.module.user.entity.FOrgUserMapping" alias="FOrgUserMapping" />
+		<typeAlias type="com.vastsoft.yingtai.module.user.entity.TUserConfig" alias="TUserConfig" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.org.entity.TOrganization" alias="TOrganization" />
+		<typeAlias type="com.vastsoft.yingtai.module.org.entity.TOrgChange" alias="TOrgChange" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.org.configs.entity.TOrgConfigs" alias="TOrgConfigs" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.org.orgAffix.entity.TOrgAffix" alias="TOrgAffix" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.org.product.entity.TOrgProduct" alias="TOrgProduct" />
+		<typeAlias type="com.vastsoft.yingtai.module.org.product.entity.FOrgProduct" alias="FOrgProduct" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.org.realtion.entity.TOrgRelation" alias="TOrgRelation" />
+		<typeAlias type="com.vastsoft.yingtai.module.org.realtion.entity.FOrgRelation" alias="FOrgRelation" />
+		<typeAlias type="com.vastsoft.yingtai.module.org.realtion.entity.TOrgRelationConfig" alias="TOrgRelationConfig" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.qualityControl.entity.TQualityControlForm" alias="TQualityControlForm" />
+		<typeAlias type="com.vastsoft.yingtai.module.qualityControl.entity.FQualityControlForm" alias="FQualityControlForm" />
+		<typeAlias type="com.vastsoft.yingtai.module.qualityControl.entity.TQualityControlFormAnswer" alias="TQualityControlFormAnswer" />
+		<typeAlias type="com.vastsoft.yingtai.module.qualityControl.entity.TQualityControlMeasure" alias="TQualityControlMeasure" />
+		<typeAlias type="com.vastsoft.yingtai.module.qualityControl.entity.TQualityControlMeasureAnswer" alias="TQualityControlMeasureAnswer" />
+
+		<typeAlias type="com.vastsoft.yingtai.module.sys.entity.TDicValue" alias="TDicValue" />
+		<typeAlias type="com.vastsoft.yingtai.module.sys.entity.TFile" alias="TFile" />
+		<typeAlias type="com.vastsoft.yingtai.module.sys.entity.TOperationRecord" alias="TOperationRecord" />
+		<typeAlias type="com.vastsoft.yingtai.module.sys.entity.FSysLog" alias="FSysLog" />
+		<typeAlias type="com.vastsoft.yingtai.module.sys.entity.TReportTemplate" alias="TReportTemplate" />
+		<typeAlias type="com.vastsoft.yingtai.module.sys.entity.FReportTemplate" alias="FReportTemplate" />
+		<typeAlias type="com.vastsoft.yingtai.module.sys.entity.TTemplateStat" alias="TTemplateStat" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.msg.entity.TMessage" alias="TMessage" />
+		<typeAlias type="com.vastsoft.yingtai.module.msg.entity.FMessage" alias="FMessage" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.patient.entity.TPatient" alias="TPatient"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.patient.entity.TPatientOrgMapper" alias="TPatientOrgMapper"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.patient.entity.FPatientOrgMapper" alias="FPatientOrgMapper"/>
+		
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.casehis.entity.TCaseHistory" alias="TCaseHistory"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.casehis.entity.FCaseHistory" alias="FCaseHistory"/>
+		
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.dicom.entity.TDicomImg" alias="TDicomImg"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.dicom.entity.FDicomImg" alias="FDicomImg"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.dicom.entity.TSeries" alias="TSeries"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.dicom.entity.FSeries" alias="FSeries"/>
+		
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.TReport" alias="TReport"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.FReport" alias="FReport"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.TModifyReportRequest" alias="TModifyReportRequest" />
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.FModifyReportRequest" alias="FModifyReportRequest" />
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.TReportMsg" alias="TReportMsg" />
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.FReportMsg" alias="FReportMsg" />
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.FReportShare" alias="FReportShare" />
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.TReportShare" alias="TReportShare" />
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.TReportShareSpeech" alias="TReportShareSpeech" />
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.FReportShareSpeech" alias="FReportShareSpeech" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.financel.entity.TFinanceAccount" alias="TFinanceAccount" />
+		<typeAlias type="com.vastsoft.yingtai.module.financel.entity.TFinanceFreeze" alias="TFinanceFreeze" />
+		<typeAlias type="com.vastsoft.yingtai.module.financel.entity.TFinanceRecord" alias="TFinanceRecord" />
+		<typeAlias type="com.vastsoft.yingtai.module.financel.entity.TFinanceRequest" alias="TFinanceRequest" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.diagnosis2.entity.TDiagnosis" alias="TDiagnosis" />
+		<typeAlias type="com.vastsoft.yingtai.module.diagnosis2.entity.FDiagnosis" alias="FDiagnosis" />
+		<typeAlias type="com.vastsoft.yingtai.module.diagnosis2.entity.TDiagnosisHandle" alias="TDiagnosisHandle" />
+		<typeAlias type="com.vastsoft.yingtai.module.diagnosis2.entity.FDiagnosisHandle" alias="FDiagnosisHandle" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.diagnosis2.requestTranfer.entity.TRequestTranfer" alias="TRequestTranfer" />
+		<typeAlias type="com.vastsoft.yingtai.module.diagnosis2.requestTranfer.entity.FRequestTranfer" alias="FRequestTranfer" />
+		
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FFinanceRecord" alias="FFinanceRecord" />
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FStatOrgMedicalHis" alias="FStatOrgMedicalHis" />
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FStatDevicePartDiagnosis" alias="FStatDevicePartDiagnosis" />
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FStatDiagnosisDoctor" alias="FStatDiagnosisDoctor" />
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FStatOrgFomData" alias="FStatOrgFomData" />
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FStatDeviceReport" alias="FStatDeviceReport" />
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FStatReportCost" alias="FStatReportCost" />
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FStatReportDoctor" alias="FStatReportDoctor" />
+		<typeAlias type="com.vastsoft.yingtai.module.stat.entity.FStatReportSick" alias="FStatReportSick" />
+
+		<typeAlias type="com.vastsoft.yingtai.module.weixin.entity.TPatientExternalRelation" alias="TPatientExternalRelation" />
+		<typeAlias type="com.vastsoft.yingtai.module.weixin.entity.TPatientOrgMapping" alias="TPatientOrgMapping" />
+
+		<typeAlias type="com.vastsoft.yingtai.module.returnvisit.entity.TReturnVisitTemplate" alias="TReturnVisitTemplate" />
+		<typeAlias type="com.vastsoft.yingtai.module.returnvisit.entity.TReturnVisitTemplateQuestion" alias="TReturnVisitTemplateQuestion" />
+		<typeAlias type="com.vastsoft.yingtai.module.returnvisit.entity.TReturnVisitTemplateQuestionOpt" alias="TReturnVisitTemplateQuestionOpt" />
+		<typeAlias type="com.vastsoft.yingtai.module.returnvisit.entity.TReturnVisitBatch" alias="TReturnVisitBatch" />
+		<typeAlias type="com.vastsoft.yingtai.module.returnvisit.entity.TReturnVisit" alias="TReturnVisit" />
+		<typeAlias type="com.vastsoft.yingtai.module.returnvisit.entity.TReturnVisitQA" alias="TReturnVisitQA" />
+		<typeAlias type="com.vastsoft.yingtai.module.returnvisit.entity.TReturnVisitQAOpt" alias="TReturnVisitQAOpt" />
+
+		<typeAlias type="com.vastsoft.yingtai.module.inquiry.entity.TInquiry" alias="TInquiry" />
+		<typeAlias type="com.vastsoft.yingtai.module.inquiry.entity.TInquiryReply" alias="TInquiryReply" />
+
+		<typeAlias type="com.vastsoft.yingtai.module.reservation.entity.TCheckService" alias="TCheckService" />
+		<typeAlias type="com.vastsoft.yingtai.module.reservation.entity.TCheckItem" alias="TCheckItem" />
+		<typeAlias type="com.vastsoft.yingtai.module.reservation.entity.TCheckOtherFee" alias="TCheckOtherFee" />
+		<typeAlias type="com.vastsoft.yingtai.module.reservation.entity.TReservation" alias="TReservation" />
+		<typeAlias type="com.vastsoft.yingtai.module.reservation.entity.TReservationService" alias="TReservationService" />
+		<typeAlias type="com.vastsoft.yingtai.module.reservation.entity.TReservationOtherFee" alias="TReservationOtherFee" />
+		<typeAlias type="com.vastsoft.yingtai.module.reservation.entity.TReservationServiceItem" alias="TReservationServiceItem" />
+
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/vastsoft/yingtai/module/user/mapper/UserMapper.xml" />
+		
+		<!--org -->
+		<mapper resource="com/vastsoft/yingtai/module/org/mapper/OrgMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/org/configs/mapper/OrgConfigsMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/org/realtion/mapper/OrgRelationMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/org/orgAffix/mapper/OrgAffixMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/org/product/mapper/OrgProductMapper.xml"/>
+		
+		<mapper resource="com/vastsoft/yingtai/module/qualityControl/mapper/QualityControlMapper.xml"/>
+		<!-- sys -->
+		<mapper resource="com/vastsoft/yingtai/module/sys/mapper/FileMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/sys/mapper/LogMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/sys/mapper/SysMapper.xml"/>
+
+		<!-- msg -->
+		<mapper resource="com/vastsoft/yingtai/module/msg/mapper/MsgMapper.xml"/>
+		
+		<mapper resource="com/vastsoft/yingtai/module/basemodule/patientinfo/patient/mapper/PatientMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/basemodule/patientinfo/casehis/mapper/CaseHistoryMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/basemodule/patientinfo/dicom/mapper/DicomMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/basemodule/patientinfo/report/mapper/ReportMapper.xml"/>
+		
+		<mapper resource="com/vastsoft/yingtai/module/financel/mapper/FinanceMapper.xml"/>
+		
+		<mapper resource="com/vastsoft/yingtai/module/diagnosis2/mapper/DiagnosisMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/diagnosis2/requestTranfer/mapper/RequestTranferMapper.xml"/>
+		
+		<mapper resource="com/vastsoft/yingtai/module/weixin/mapper/PatientExternalRelationMapper.xml"/>
+		
+		<!-- ReturnVisit -->
+		<mapper resource="com/vastsoft/yingtai/module/returnvisit/mapper/ReturnVisitTemplateMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/returnvisit/mapper/ReturnVisitTemplateQuestionMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/returnvisit/mapper/ReturnVisitTemplateQuestionOptMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/returnvisit/mapper/ReturnVisitBatchMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/returnvisit/mapper/ReturnVisitMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/returnvisit/mapper/ReturnVisitQAMapper.xml"/>
+		<mapper resource="com/vastsoft/yingtai/module/returnvisit/mapper/ReturnVisitQAOptMapper.xml"/>
+
+		<mapper resource="com/vastsoft/yingtai/module/inquiry/mapper/InquiryMapper.xml"/>
+		
+		<mapper resource="com/vastsoft/yingtai/module/stat/mapper/StatMapper.xml"/>
+
+		<mapper resource="com/vastsoft/yingtai/module/reservation/mapper/ReservationMapper.xml"/>
+
+	</mappers>
+</configuration>

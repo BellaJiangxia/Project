@@ -1,0 +1,66 @@
+<div class="form-inline" style="margin-bottom: 10px;">
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+	诊断机构：
+	<select class="form-control" style="width: 180px;" ng-model="searchOpt.diagnosisOrgId"
+		ng-options="org.id as org.org_name for org in arrayOrg">
+		<option value="">--诊断机构--</option>
+	</select>
+	请输入病症关键字：
+	<input type="text" class="form-control" ng-model="searchOpt.sick_key_words" />
+	时间段：从
+	<div class="input-group" style="width:160px">
+   		<date-selector ng-model="searchOpt.start" placeholder="起始日期"></date-selector>
+	</div>
+	到
+   	<div class="input-group" style="width:160px">
+   		<date-selector ng-model="searchOpt.end" placeholder="结束日期"></date-selector>
+	</div>
+	<button class="btn btn-primary" ng-click="statPatientInfoForRequestOrg();">
+		<i class="glyphicon glyphicon-search"></i>
+		检索
+	</button>
+</div>
+<div>
+	<table class="table table-hover table-striped table-bordered" data-ng-init="initData();">
+		<thead>
+			<tr>
+				<th>病历编号</th>
+				<th>病人姓名</th>
+				<th>病人性别</th>
+				<th>影像类型</th>
+				<th>拍摄部位</th>
+				<th>检查项目</th>
+				<th>诊断机构</th>
+				<th>报告医师</th>
+				<th>报告时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="r in listReport">
+				<td><a href ng-click="viewReportDetail(r.id);">{{r.case_his_num}}</a></td>
+				<td>{{r.patient_name}}</td>
+				<td>{{r.patient_genderStr}}</td>
+				<td>{{r.device_type_name}}</td>
+				<td>{{r.part_type_name}}</td>
+				<td>{{r.dicom_img_check_pro}}</td>
+				<td>{{r.diagnosis_org_name}}</td>
+				<td>{{r.publish_user_name}}</td>
+				<td>{{r.create_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div align="right">
+		<div style="display: inline-block;float: left;">
+			<span style="font-size: 18px;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+			&emsp;
+			<button ng-disabled="searchOpt.spu.totalRow<=0" class="btn btn-info" ng-click="downloadRequests();">
+				<i class="glyphicon glyphicon-cloud-download"></i>
+				导出列表
+			</button>
+		</div>
+		<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+					items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+					ng-model="searchOpt.spu.currPage" ng-change="statPatientInfoForRequestOrg();"
+					previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>

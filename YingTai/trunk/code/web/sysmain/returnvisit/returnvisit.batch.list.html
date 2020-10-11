@@ -1,0 +1,65 @@
+<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-th-list"></span>
+			回访批次管理
+		</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline">
+			<input type="text" class="form-control" style="width: 200px;" placeholder="批次名称" ng-model="searchOpt.template_name"/>
+			<select class="form-control" style="width: 160px;" ng-model="searchOpt.onlyMe">
+				<option value="false">机构所有回访批次</option>
+                <option value="true">我创建的回访批次</option>
+			</select>
+			<select class="form-control" style="width: 120px;" ng-model="searchOpt.status">
+				<option value="0">--全部--</option>
+                <option value="1">未发送</option>
+                <option value="2">已发送</option>
+                <option value="9">未发送完成</option>
+			</select>
+			<button class="btn btn-primary" ng-click="searchBatchs()">
+				<span class="glyphicon glyphicon-search"></span> 检索
+			</button>
+			<button class="btn btn-success pull-right" ng-click="addBatch()">
+				<span class="glyphicon glyphicon-plus"></span> 新建批次
+			</button>
+		</div>
+		<br />
+		
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr class="bg-primary">
+					<th width="50%">批次名称</th>
+					<th width="10%">创建人</th>
+					<th width="20%">创建时间</th>
+					<th width="10%">状态</th>
+					<th width="10%">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="batch in batchs">
+					<td><a href="#/returnvisit/list/{{batch.batch_id}},{{batch.batch_name}}">{{batch.batch_name}}</a></td>
+					<td>{{batch.create_user_name}}</td>
+					<td>{{batch.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{batch.status | batchstatus2name}}</td>
+					<td>
+						<a ng-if="batch.status!=2" style="margin-left: 5px;"
+							class="btn btn-info btn-sm" href="javascript:void(0);" 
+							ng-click="sendBatch(batch.batch_id)" title="发送">
+							<i class="glyphicon glyphicon-send"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="searchBatchs()"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</div>

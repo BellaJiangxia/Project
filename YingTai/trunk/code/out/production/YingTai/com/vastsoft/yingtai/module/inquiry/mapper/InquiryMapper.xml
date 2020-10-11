@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.inquiry.mapper.InquiryMapper">
+	<insert id="insertInquiry" keyProperty="inquiry_id" useGeneratedKeys="true" parameterType="TInquiry">
+		INSERT INTO T_INQUIRY (patient_id, org_id, case_id, inquiry_content, inquiry_image, inquiry_time)
+		VALUES (#{patient_id}, #{org_id}, #{case_id,jdbcType=NUMERIC}, #{inquiry_content}, #{inquiry_image,jdbcType=VARCHAR}, #{inquiry_time})
+	</insert>
+
+	<insert id="insertReply" keyProperty="reply_id" useGeneratedKeys="true" parameterType="TInquiryReply">
+		INSERT INTO T_INQUIRY_REPLY (inquiry_id, org_id, replier_id, reply_content, reply_time, reply_type)
+		VALUES (#{inquiry_id}, #{org_id}, #{replier_id}, #{reply_content}, #{reply_time}, #{reply_type});
+	</insert>
+
+	<update id="readInquiry" parameterType="TInquiry">
+		UPDATE T_INQUIRY SET last_read_time=#{last_read_time,jdbcType=TIMESTAMP} WHERE inquiry_id=#{inquiry_id}
+	</update>
+	
+	<update id="modifyInquiry" parameterType="TInquiry">
+		UPDATE T_INQUIRY SET last_read_time=#{last_read_time,jdbcType=TIMESTAMP},inquiry_image=#{inquiry_image,jdbcType=VARCHAR} WHERE inquiry_id=#{inquiry_id}
+	</update>
+
+	<select id="selectInquiryById" parameterType="Map" resultMap="inquiryDetail">
+		SELECT a.*,(SELECT name FROM T_PATIENT WHERE id=a.patient_id) patient_name
+		,b.reply_id, b.inquiry_id as rpl_inquiry_id, b.org_id as rpl_org_id, b.replier_id, b.reply_content, b.reply_time, b.reply_type
+		,(select USER_NAME from T_BASE_USER where ID=b.replier_id and b.reply_type=11) replier_name
+		 FROM T_INQUIRY a LEFT JOIN T_INQUIRY_REPLY b on a.inquiry_id=b.inquiry_id
+		WHERE a.inquiry_id=#{inquiry_id}
+	</select>
+
+	<select id="selectInquiryByIdAndLock" parameterType="Long" resultType="TInquiry">
+		SELECT * FROM T_INQUIRY WITH (XLOCK) WHERE inquiry_id=#{id}
+	</select>
+
+	<select id="selectTInquiryList" parameterType="Map" resultType="TInquiry">
+		SELECT b.* FROM (SELECT a.*,p.name patient_name,row_number() over(order by a.inquiry_time desc) rn FROM T_INQUIRY a,T_PATIENT p
+		WHERE a.patient_id=p.id
+		<if test="org_id!=null">
+			AND a.org_id=#{org_id}
+		</if>
+		<if test="keyword!=null">
+			AND (p.name LIKE '%'+#{keyword}+'%' or a.inquiry_content LIKE '%'+#{keyword}+'%')
+		</if>
+		<if test="is_new!=null">
+			AND a.last_read_time IS NULL
+		</if>
+		)b
+		<where>
+			<if test="begin_idx!=null and end_idx!=null">
+				b.rn>=#{begin_idx} <![CDATA[ and b.rn<#{end_idx} ]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectInquiryCount" parameterType="Map" resultType="int">
+		SELECT COUNT(1) FROM T_INQUIRY a,T_PATIENT b WHERE a.patient_id=b.id
+		<if test="org_id!=null">
+			AND a.org_id=#{org_id}
+		</if>
+		<if test="keyword!=null">
+			AND (b.name LIKE '%'+#{keyword}+'%' OR a.inquiry_content LIKE '%'+#{keyword}+'%')
+		</if>
+		<if test="is_new!=null">
+			AND a.last_read_time IS NULL
+		</if>
+	</select>
+
+	<select id="selectReplyList" parameterType="Map" resultType="TInquiry">
+		SELECT t.* FROM (select c.*,row_number() over(order by c.last_read_time desc) rn
+		from (SELECT DISTINCT a.*,p.name patient_name
+		FROM T_INQUIRY a,T_INQUIRY_REPLY b,T_PATIENT p
+		WHERE a.inquiry_id=b.inquiry_id and a.patient_id=p.id
+		<if test="org_id!=null">
+			AND a.org_id=#{org_id}
+		</if>
+		<if test="keyword!=null">
+			AND (p.name LIKE '%'+#{keyword}+'%' or b.reply_content LIKE '%'+#{keyword}+'%')
+		</if>
+		<if test="reply_user!=null">
+			AND b.replier_id=#{reply_user}
+		</if>
+		)c)t
+		<where>
+			<if test="begin_idx!=null and end_idx!=null">
+				t.rn>=#{begin_idx} <![CDATA[ and t.rn<#{end_idx} ]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectReplyCount" parameterType="Map" resultType="int">
+		select count(DISTINCT a.inquiry_id) from T_INQUIRY a,T_INQUIRY_REPLY b,T_PATIENT p
+		where a.inquiry_id=b.inquiry_id and a.patient_id=p.id
+		<if test="org_id!=null">
+			AND a.org_id=#{org_id}
+		</if>
+		<if test="keyword!=null">
+			AND (p.name LIKE '%'+#{keyword}+'%' OR b.reply_content LIKE '%'+#{keyword}+'%')
+		</if>
+		<if test="reply_user!=null">
+			AND b.replier_id=#{reply_user}
+		</if>
+	</select>
+
+	<resultMap id="inquiryDetail" type="TInquiry">
+		<id property="inquiry_id" column="inquiry_id" />
+		<collection property="replies" ofType="TInquiryReply" javaType="ArrayList">
+			<id property="reply_id" column="reply_id" />
+			<result property="inquiry_id" column="rpl_inquiry_id" />
+			<result property="org_id" column="rpl_org_id" />
+			<result property="replier_id" column="replier_id" />
+			<result property="reply_content" column="reply_content" />
+			<result property="reply_time" column="reply_time" />
+			<result property="reply_type" column="reply_type" />
+			<result property="replier_name" column="replier_name"/>
+		</collection>
+	</resultMap>
+
+</mapper>

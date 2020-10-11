@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.org.realtion.mapper.OrgRelationMapper">
+    <select id="selectOrgRelationConfigByRelationIdAndOrgIdForUpdate" parameterType="TOrgRelationConfig" resultType="TOrgRelationConfig">
+        select * from T_ORG_RELATION_CONFIG with(UPDLOCK) where RELATION_ID=#{relation_id} and ORG_ID = #{org_id}
+    </select>
+    
+    <select id="selectOrgRelation" parameterType="map" resultType="TOrgRelation">
+        select * from (
+	        select t1.*,
+	        	ROW_NUMBER () OVER (ORDER BY t1.create_time DESC) AS RowNumber
+	        from T_ORG_RELATION t1
+	        	left join T_ORGANIZATION t2 on t1.ORG_ID = t2.id
+	        	left join T_ORGANIZATION t3 on t1.FRIEND_ORG_ID = t3.id
+	        where 1=1
+		        <if test="self_org_id !=null">
+		            and ((t1.ORG_ID=#{self_org_id}
+							<if test="relation_org_id !=null">
+			                	and t1.FRIEND_ORG_ID = #{relation_org_id}
+			            	</if>
+			            	<if test="relation_org_name !=null">
+			            	    and t3.ORG_NAME like #{relation_org_name}+'%'
+			            	</if>
+			            	<if test="include_relation_org_ids !=null">
+			            		and t1.FRIEND_ORG_ID in (${include_relation_org_ids})
+			            	</if>
+			            	<if test="exclude_relation_org_ids !=null">
+			            		and t1.FRIEND_ORG_ID not in (${exclude_relation_org_ids})
+			            	</if>
+		            	) or (t1.FRIEND_ORG_ID=#{self_org_id}
+		            		<if test="relation_org_id !=null">
+		            		    and t1.ORG_ID = #{relation_org_id}
+		            		</if>
+		            		<if test="relation_org_name !=null">
+			            	    and t2.ORG_NAME like #{relation_org_name}+'%'
+			            	</if>
+			            	<if test="include_relation_org_ids !=null">
+			            		and t1.ORG_ID in (${include_relation_org_ids})
+			            	</if>
+			            	<if test="exclude_relation_org_ids !=null">
+			            		and t1.ORG_ID not in (${exclude_relation_org_ids})
+			            	</if>
+		            	)
+		            )
+		            <if test="share_patient_info !=null">
+	            	    and t1.id in (
+	            	    	select RELATION_ID 
+	            	    	from T_ORG_RELATION_CONFIG 
+	            	    	where ORG_ID = #{self_org_id} 
+	            	    		and share_patient_info = #{share_patient_info}
+	            	    )
+	            	</if>
+	            	<if test="irspi !=null">
+	            	    and t1.id in (
+	            	    	select RELATION_ID 
+	            	    	from T_ORG_RELATION_CONFIG 
+	            	    	where ORG_ID != #{self_org_id} 
+	            	    		and share_patient_info in ( ${irspi} )
+	            	    )
+	            	</if>
+		        </if>
+		        <if test="publish_report_type !=null">
+		            and t1.PUBLISH_REPORT_TYPE = #{publish_report_type}
+		        </if>
+		        <if test="include_publish_report_types !=null">
+		            and t1.PUBLISH_REPORT_TYPE in (${include_publish_report_types})
+		        </if>
+		        <if test="status !=null">
+		            and t1.STATUS = #{status}
+		        </if>
+        ) as tmp_t 
+        	<if test="minRow !=null and maxRow !=null">
+        	    where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+        	</if>
+    </select>
+    
+    <select id="selectOrgRelationCount" parameterType="map" resultType="int">
+        select count(t1.id)
+        from T_ORG_RELATION t1
+        	left join T_ORGANIZATION t2 on t1.ORG_ID = t2.id
+        	left join T_ORGANIZATION t3 on t1.FRIEND_ORG_ID = t3.id
+        where 1=1
+	        <if test="self_org_id !=null">
+	            and (
+	            	(
+	            		t1.ORG_ID=#{self_org_id}
+						<if test="relation_org_id !=null">
+		                	and t1.FRIEND_ORG_ID = #{relation_org_id}
+		            	</if>
+		            	<if test="relation_org_name !=null">
+		            	    and t3.ORG_NAME like #{relation_org_name}+'%'
+		            	</if>
+		            	<if test="include_relation_org_ids !=null">
+		            		and t1.FRIEND_ORG_ID in ( ${include_relation_org_ids} )
+		            	</if>
+		            	<if test="exclude_relation_org_ids !=null">
+		            		and t1.FRIEND_ORG_ID not in ( ${exclude_relation_org_ids} )
+		            	</if>
+	            	) or (
+	            		t1.FRIEND_ORG_ID=#{self_org_id}
+	            		<if test="relation_org_id !=null">
+	            		    and t1.ORG_ID = #{relation_org_id}
+	            		</if>
+	            		<if test="relation_org_name !=null">
+		            	    and t2.ORG_NAME like #{relation_org_name}+'%'
+		            	</if>
+		            	<if test="include_relation_org_ids !=null">
+		            		and t1.ORG_ID in ( ${include_relation_org_ids} )
+		            	</if>
+		            	<if test="exclude_relation_org_ids !=null">
+		            		and t1.ORG_ID not in ( ${exclude_relation_org_ids} )
+		            	</if>
+	            	)
+	            )
+	            <if test="share_patient_info !=null">
+            	    and t1.id in (
+            	    	select RELATION_ID 
+            	    	from T_ORG_RELATION_CONFIG 
+            	    	where ORG_ID = #{self_org_id} 
+            	    		and share_patient_info = #{share_patient_info}
+            	    )
+            	</if>
+            	<if test="irspi != null">
+            	    and t1.id in (
+            	    	select RELATION_ID 
+            	    	from T_ORG_RELATION_CONFIG 
+            	    	where ORG_ID != #{self_org_id} 
+            	    		and share_patient_info in ( ${irspi} )
+            	    )
+            	</if>
+	        </if>
+	        <if test="publish_report_type !=null">
+	            and t1.PUBLISH_REPORT_TYPE = #{publish_report_type}
+	        </if>
+	        <if test="include_publish_report_types !=null">
+	            and t1.PUBLISH_REPORT_TYPE in ( ${include_publish_report_types} )
+	        </if>
+	        <if test="status !=null">
+	            and t1.STATUS = #{status}
+	        </if>
+    </select>
+    
+    <select id="selectWaitApproveFriendsCount" parameterType="Map" resultType="Integer">
+		select COUNT(1) from T_ORG_RELATION where FRIEND_ORG_ID=#{org_id} and STATUS=#{status}
+	</select>
+    
+    <update id="updateOrgRelation" parameterType="TOrgRelation">
+        update T_ORG_RELATION set PUBLISH_REPORT_TYPE=#{publish_report_type},
+        	STATUS=#{status} where id = #{id}
+    </update>
+    
+    <select id="selectRelationOrgMapper" parameterType="map" resultType="FOrgRelation">
+        select * from (
+	        select t1.*,t2.ORG_NAME as org_name,
+	        	t3.ORG_NAME as friend_org_name,
+	        	t2.ORG_CODE as org_code,
+	        	t3.ORG_CODE as friend_org_code,
+	        	t2.DESCRIPTION as org_description,
+	        	T3.DESCRIPTION AS friend_org_description,
+	        	T2.PERMISSION AS org_permission,
+	        	t3.PERMISSION AS friend_org_permission,
+	        	t4.value as org_type,
+	        	t5.value as friend_org_type,
+	        	ROW_NUMBER () OVER (ORDER BY t1.create_time DESC) AS RowNumber
+	        from T_ORG_RELATION t1
+	        	left join T_ORGANIZATION t2 on t1.ORG_ID = t2.id
+	        	left join T_ORGANIZATION t3 on t1.FRIEND_ORG_ID = t3.id
+	        	left join T_DIC_VALUE t4 on t2.type = t4.id
+	        	left join T_DIC_VALUE t5 on t3.type = t5.id
+	        where 1=1
+		        <if test="self_org_id !=null">
+		            and ((t1.ORG_ID=#{self_org_id}
+							<if test="relation_org_id !=null">
+			                	and t1.FRIEND_ORG_ID = #{relation_org_id}
+			            	</if>
+			            	<if test="relation_org_name !=null">
+			            	    and t3.ORG_NAME like #{relation_org_name}+'%'
+			            	</if>
+		            	) or (t1.FRIEND_ORG_ID=#{self_org_id}
+		            		<if test="relation_org_id !=null">
+		            		    and t1.ORG_ID = #{relation_org_id}
+		            		</if>
+		            		<if test="relation_org_name !=null">
+			            	    and t2.ORG_NAME like #{relation_org_name}+'%'
+			            	</if>
+		            	)
+		            )
+		        </if>
+		        <if test="publish_report_type !=null">
+		            and t1.PUBLISH_REPORT_TYPE = #{publish_report_type}
+		        </if>
+		        <if test="status !=null">
+		            and t1.STATUS = #{status}
+		        </if>
+        ) as tmp_t 
+        	<if test="minRow !=null and maxRow !=null">
+        	    where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+        	</if>
+    </select>
+    
+    <select id="selectRelationOrgMapperCount" parameterType="map" resultType="int">
+        select count(t1.id) 
+        from T_ORG_RELATION t1
+        	left join T_ORGANIZATION t2 on t1.ORG_ID = t2.id
+	        left join T_ORGANIZATION t3 on t1.FRIEND_ORG_ID = t3.id
+        where 1=1 
+        <if test="self_org_id !=null">
+            and ((t1.ORG_ID=#{self_org_id}
+					<if test="relation_org_id !=null">
+	                	and t1.FRIEND_ORG_ID = #{relation_org_id}
+	            	</if>
+	            	<if test="relation_org_name !=null">
+	            	    and t3.ORG_NAME like #{relation_org_name}+'%'
+	            	</if>
+            	) or (t1.FRIEND_ORG_ID=#{self_org_id}
+            		<if test="relation_org_id !=null">
+            		    and t1.ORG_ID = #{relation_org_id}
+            		</if>
+            		<if test="relation_org_name !=null">
+	            	    and t2.ORG_NAME like #{relation_org_name}+'%'
+	            	</if>
+            	)
+            )
+        </if>
+        <if test="publish_report_type !=null">
+            and t1.PUBLISH_REPORT_TYPE = #{publish_report_type}
+        </if>
+        <if test="status !=null">
+            and t1.STATUS = #{status}
+        </if>
+    </select>
+    
+    <select id="selectRelationConfigByOrc" parameterType="TOrgRelationConfig" resultType="TOrgRelationConfig">
+        select * from T_ORG_RELATION_CONFIG where RELATION_ID = #{relation_id} and ORG_ID = #{org_id}
+    </select>
+    
+    <select id="selectOrgRelationByCoupleOrgId" parameterType="TOrgRelation" resultType="TOrgRelation">
+        select * from T_ORG_RELATION 
+        where (
+        	ORG_ID = #{org_id} 
+        	and FRIEND_ORG_ID = #{friend_org_id}
+        ) or (
+        	FRIEND_ORG_ID = #{org_id} 
+        	and ORG_ID = #{friend_org_id}
+        )
+    </select>
+    
+	<insert id="addFriend" parameterType="TOrgRelation" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO [T_ORG_RELATION] (
+			[ORG_ID]
+           ,[FRIEND_ORG_ID]
+           ,[PUBLISH_REPORT_TYPE]
+           ,[CREATE_TIME]
+           ,[STATUS]
+		) VALUES (
+			#{org_id}
+           ,#{friend_org_id}
+           ,#{publish_report_type}
+           ,#{create_time}
+           ,#{status}
+		)
+	</insert>
+	
+	<insert id="insertRelationConfig" parameterType="TOrgRelationConfig" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO [T_ORG_RELATION_CONFIG]
+           ([RELATION_ID]
+           ,[ORG_ID]
+           ,[PUBLISH_REPORT_ORG_ID]
+           ,share_patient_info
+		) VALUES (
+			#{relation_id}
+           ,#{org_id}
+           ,#{publish_report_org_id}
+           ,#{share_patient_info}
+		)
+	</insert>
+	
+	<update id="updateRelationConfig" parameterType="TOrgRelationConfig">
+		UPDATE [T_ORG_RELATION_CONFIG]
+		   SET [PUBLISH_REPORT_ORG_ID] = #{publish_report_org_id},
+		   share_patient_info = #{share_patient_info}
+		 WHERE [ID]=#{id}
+	</update>
+
+	<delete id="deleteFriend" parameterType="Long">
+		DELETE FROM [T_ORG_RELATION] WHERE [ID]=#{id}
+	</delete>
+	
+	<delete id="deleteRelationConfigByRelation" parameterType="Long">
+		DELETE FROM [T_ORG_RELATION_CONFIG] WHERE [RELATION_ID]=#{relation_id}
+	</delete>
+	
+	<select id="selectFriendsByOrg" parameterType="Map" resultType="TOrgRelation">
+		select * from(
+			select t.*,ROW_NUMBER() over(order by t.id,t.CREATE_TIME desc) rn
+		 	from(
+		 		select a.*,b.ORG_NAME as v_org_name,b.ORG_CODE as v_org_code,b.PERMISSION as v_org_permission,
+		 			(
+		 				select ORG_NAME 
+		 				from T_ORGANIZATION 
+		 				where ID=a.ORG_ID
+		 			) as v_friend_name,b.DESCRIPTION as v_org_desc
+		 		from T_ORG_RELATION a,T_ORGANIZATION b
+		 		where a.FRIEND_ORG_ID=b.ID and a.ORG_ID=#{org_id}
+		 			and a.status!=15 
+					 <if test="status!=null">
+					 	 and a.STATUS=#{status}
+					 </if>
+					 <if test="visible!=null">
+					 	 and b.visible=#{visible}
+					 </if>
+					 <if test="org_name!=null">
+					 		and b.ORG_NAME like '%'+#{org_name}+'%'
+					 </if>
+		 		union all
+		 		select a.*,b.ORG_NAME as v_org_name,b.ORG_CODE as v_org_code,b.PERMISSION as v_org_permission,
+		 			(select ORG_NAME from T_ORGANIZATION where ID=a.FRIEND_ORG_ID) as v_friend_name,b.DESCRIPTION as v_org_desc
+		 		from T_ORG_RELATION a,T_ORGANIZATION b
+		 		where a.ORG_ID=b.ID and a.FRIEND_ORG_ID=#{org_id}
+		 			and a.status!=15 
+					 <if test="status!=null">
+					 	 and a.STATUS=#{status}
+					 </if>
+					 <if test="visible!=null">
+					 	 and b.visible=#{visible}
+					 </if>
+					 <if test="org_name!=null">
+					 		and b.ORG_NAME like '%'+#{org_name}+'%'
+					 </if>
+		 	) t 
+		 ) t2
+		 <where>
+		 	<if test="begin_idx!=null">
+		 		t2.rn>=#{begin_idx} <![CDATA[ and t2.rn<#{end_idx} ]]>
+		 	</if>
+		 </where>
+		 order by case t2.STATUS when 11 then 1 when 1 then 2 when 12 then 3 when 0 then 4 end
+	</select>
+	
+	<select id="selectMyFriendByOrg" parameterType="Map" resultType="TOrgRelation">
+		select * from T_ORG_RELATION 
+		where (ORG_ID=#{org_id} and FRIEND_ORG_ID=#{friend_org_id}) or (ORG_ID=#{friend_org_id} and FRIEND_ORG_ID=#{org_id})
+	</select>
+	
+	<select id="selectRelationById" parameterType="Long" resultType="TOrgRelation">
+		select * from T_ORG_RELATION where ID=#{id}
+	</select>
+	
+	<select id="selectRelationByIdAndLock" parameterType="Long" resultType="TOrgRelation">
+		select * from T_ORG_RELATION WITH(XLOCK) where ID=#{id}
+	</select>
+	
+	<select id="selectRelationConfigByOrg" parameterType="Map" resultType="TOrgRelationConfig">
+		SELECT a.*,b.ORG_NAME as v_report_name FROM T_ORG_RELATION_CONFIG a 
+		left join T_ORGANIZATION b on a.PUBLISH_REPORT_ORG_ID=b.ID
+		 where a.RELATION_ID=#{relation_id} and a.ORG_ID=#{org_id}
+	</select>
+	
+	<select id="selectRelationConfigByIdAndLock" parameterType="Long" resultType="TOrgRelationConfig">
+		SELECT * FROM [T_ORG_RELATION_CONFIG] WITH(XLOCK) where ID=#{id}
+	</select>
+	
+	<select id="selectFriendsCountByOrg" parameterType="Map" resultType="Integer">
+		select COUNT(ID)from(select a.ID
+		 from T_ORG_RELATION a,T_ORGANIZATION b
+		 where a.FRIEND_ORG_ID=b.ID and a.ORG_ID=#{org_id}
+		 <if test="status!=null">
+		 	 and a.STATUS=#{status}
+		 </if>
+		 <if test="org_name!=null">
+		 		and b.ORG_NAME like '%'+#{org_name}+'%'
+		 </if>
+		 union all
+		 select a.ID from T_ORG_RELATION a,T_ORGANIZATION b
+		 where a.ORG_ID=b.ID and a.FRIEND_ORG_ID=#{org_id}
+		 <if test="status!=null">
+		 	 and a.STATUS=#{status}
+		 </if>
+		 <if test="org_name!=null">
+		 		and b.ORG_NAME like '%'+#{org_name}+'%'
+		 </if>) t
+	</select>
+</mapper>

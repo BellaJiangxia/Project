@@ -1,0 +1,46 @@
+<div data-ng-init="initData()">
+	<div align="center"><label>请确认诊断申请的相关信息</label></div>
+	<div style="margin-left: 20px" align="center"><b class="text-danger"><span class="glyphicon glyphicon-warning-sign"> </span>
+		请仔细核对以下信息尤其是红色的部分，确定之后将视为你已经接受此诊断及其相关设置！</b>
+	</div>
+	<br>
+	<div class="form-horizontal">
+		<div class="form-group">
+			<label class="control-label col-sm-3">申请机构：</label>
+			<div class="col-sm-9">
+				<label class="control-label text-success">{{diagnosis.request_tranfer_org_name_path}}</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3">发布报告机构：</label>
+			<div class="col-sm-9">
+				<label class="control-label text-danger">{{diagnosis.publish_org_name}}</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3">收费方式：</label>
+			<div class="col-sm-9">
+				<label class="control-label text-success">{{diagnosis.product_charge_type_name}}</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-3">计费数量：</label>
+			<div class="col-sm-9">
+				<label class="control-label text-danger">{{diagnosis.charge_amount}}</label>
+			</div>
+		</div>
+<!-- 		<div class="form-group"> -->
+<!-- 			<label class="control-label col-sm-3">平台提成：</label> -->
+<!-- 			<div class="col-sm-9"> -->
+<!-- 				<label class="control-label text-danger">￥{{diagnosis.sys_deduct|moneyformat}}</label> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+	</div>
+</div>
+<div style="text-align: right;">
+	<p></p>
+	<div class="btn-group btn-group-sm">
+		<a class="btn btn-info" href="javascript:void(0);" ng-click="closeThisDialog(1)">确定</a>
+		<a class="btn btn-warning" href="javascript:void(0);" ng-click="closeThisDialog(0)">取消</a>
+	</div>
+</div>

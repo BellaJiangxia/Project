@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+    <title>影泰DICOM影像浏览器</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=no" />     
+<meta name="apple-mobile-web-app-capable" content="yes" />    
+<meta name="format-detection" content="telephone=no" /> 
+<link rel="shortcut icon" href="./favicon.ico" />
+<link type="text/css" href="js/easyui/themes/default/easyui.css" rel="stylesheet">
+<link type="text/css" href="js/easyui/themes/icon.css" rel="stylesheet">
+<link type="text/css" href="webpacs/css/wpacs.css" rel="stylesheet" />
+
+<SCRIPT LANGUAGE=javascript src="js/jquery-1.12.4.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="js/jquery.md5.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="js/flot/jquery.flot.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="js/flot/jquery.flot.crosshair.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="js/jquery.hotkeys.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="js/jquery.mousewheel.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="js/html2canvas.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="js/easyui/jquery.easyui.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="webpacs/jquery.wpacs33.setting.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="webpacs/jquery.wpacs33.psuedo.min.js"></SCRIPT>
+<SCRIPT LANGUAGE=javascript src="webpacs/jquery.wpacs33.core.min.js"></SCRIPT>
+<SCRIPT LANGUAGE="javascript" >
+var LocString = String(window.document.location.href); 
+function GetQueryStr(str) 
+{ 
+	var rs = new RegExp("(^|)" + str + "=([^&]*)(&|$)", "gi").exec(LocString), tmp; 
+	if (tmp = rs) return tmp[2]; 
+	return ""; // parameter cannot be found 
+}
+$(document).ready(function()
+{
+	var stuuid,website=GetQueryStr('wpacs');
+	if(website) //最后需以/结尾的站点url，譬如http://xxx.xx.xx.xx:808/
+	WPACS.CONSTDEF.WPURL_ROOT=(website.charAt(website.length-1)=='/')?website:(website+'/');
+	stuuid=GetQueryStr('stuuid');
+	
+	$("#dcmviewer").wpDcmview({noquery:true,nodcmdown:true});
+	$("#dcmviewer").wpDcmview('getobj').BindHotKey();
+	//测试uid '1.2.840.113619.2.11.2013603896.8673.1189986891.739'
+	opendicom(stuuid,"",""); //根据传递的stuuid参数打开指定的检查
+	window.onresize=function(){ WinResize(); }
+	WinResize(); //根据当前大小初始化一次浏览对象大小
+});
+//窗口大小发生变化自动调整浏览对象大小
+function WinResize()	
+{
+	var win_w=$(document).innerWidth();
+	var win_h=$(document).innerHeight();
+
+	$('#dcmviewer').wpDcmview('resize',{'width':win_w,'height':win_h}); 
+}
+function opendicom(stuuid,srsuid,modality)
+{
+	//允许传递多个uid，一次打开多个检查或序列
+	var uidArray_stu=(stuuid!="")?stuuid.split(","):(new Array());
+	var uidArray_srs=(srsuid!="")?srsuid.split(","):(new Array());
+	if(uidArray_stu.length>1 || uidArray_srs.length>1) 
+	{
+		var uidArray_mod=(modality!="")?modality.split(","):(new Array());
+		var maxLen=(uidArray_stu.length>uidArray_srs.length)?uidArray_stu.length:uidArray_srs.length;
+		var tmpuid_stu="", tmpuid_srs="", tmpuid_mod="";
+		for(var i=0;i<maxLen;i++)
+		{
+			if(i<uidArray_stu.length) tmpuid_stu=uidArray_stu[i];
+			if(i<uidArray_srs.length) tmpuid_srs=uidArray_srs[i];
+			if(i<uidArray_mod.length) tmpuid_mod=uidArray_mod[i];
+			var bAppend=(i>0)?true:false;
+			$("#dcmviewer").wpDcmview('open',{"stuuid":tmpuid_stu,"srsuid":tmpuid_srs,"modality":tmpuid_mod,"append":bAppend});
+		}
+	}else
+	 $("#dcmviewer").wpDcmview('open',{"stuuid":stuuid,"srsuid":srsuid,"modality":modality,"append":false});
+}
+</SCRIPT>
+</HEAD>
+<body scroll="no" style="margin:0px;padding:0px;overflow:hidden;">
+<div id="dcmviewer" style="margin:0px;padding:0px;overflow:hidden;"></div>
+</body></html>

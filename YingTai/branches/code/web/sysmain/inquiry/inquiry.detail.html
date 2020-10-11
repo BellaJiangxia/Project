@@ -1,0 +1,78 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h4 style="display:inline-block"><span class="glyphicon glyphicon-list"></span>&nbsp;患者问诊详情</h4>
+    <button type="button" class="btn btn-primary pull-right" ng-click="goback()">
+          <span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;返回
+     </button>
+  </div>
+  <div class="panel-body">
+    <form class="form-inline" style="margin-left: 5px;">
+      <div class="form-group">
+        <label>患者姓名</label>
+        <span style="font-weight: bold;margin: 0px 10px;color:#2795e9" data-ng-bind="inquiry.patient_name"></span>
+      </div>
+      <div class="form-group">
+        <label>问诊时间</label>
+        <span style="margin: 0px 5px;font-size: 0.9em;" data-ng-bind="inquiry.inquiry_time | date:'yyyy-MM-dd HH:mm:ss'"></span>
+      </div>
+      
+    </form>
+    <hr/>
+    <label>询问内容</label>
+
+    <div class="well">
+      {{inquiry.inquiry_content}}
+      <div style="margin:5px 0px" ng-if="inquiry.images.length>0" ng-init="imgs=showImage(1)">
+        <a ng-click="openImage(imgs.images)" href="javascript:void(0);"><img ng-src="{{img}}" ng-repeat="img in imgs.images track by $index" width="150" height="200"></a>
+      </div>
+    </div>
+
+    <div ng-if="inquiry.case_id>0" style="margin-bottom: 20px">
+      <a href="javascript:void(0);" ng-click="showMedicalHisDetail({id:inquiry.case_id})"><i class="glyphicon glyphicon-search"></i> 查看病历</a>
+    </div>
+
+    <div class="list-group" ng-repeat="r in inquiry.replies | imgFilter ">
+      <div ng-class="r.reply_type==11?'list-group-item list-group-item-success':'list-group-item list-group-item-warning'">
+        <strong style="font-size: 1.5em">{{r.replyType.name}}</strong>
+        <pre style="border:none;font-size:inherit;font-family: inherit;background-color:inherit;color:inherit;white-space: pre-wrap;">{{r.reply_content}}</pre>
+        <div style="margin:5px 0px" ng-if="inquiry.images.length>0" ng-init="imgs=showImage(r.idx)">
+          <a ng-click="openImage(imgs.images)" href="javascript:void(0);"><img style="padding:0px 5px;" ng-src="{{img}}" ng-repeat="img in imgs.images track by $index" width="150" height="200"></a>
+        </div>
+        <div class="list-group-item-heading" style="border-top: 1px solid #ddd">
+          <div class="list-group-item-heading" style="border-top: 1px solid #ddd">
+            <span style="font-weight: bold;font-size: 1.2em" data-ng-bind="r.reply_type==11?r.replier_name:inquiry.patient_name"></span>
+            <span style="margin: 0px 10px;font-size: 0.9em" data-ng-bind="r.reply_time | date:'yyyy-MM-dd HH:mm:ss'"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-if="inquiry.last_read_time==null" style="margin-bottom: 20px;">
+      <textarea class="form-control" rows="4" ng-model="reply.reply_content" placeholder="请输入回复内容"></textarea>
+    </div>
+
+    <div class="btn-toolbar pull-right" role="toolbar" style="padding-top: 10px;">
+      <button ng-if="inquiry.last_read_time==null" data-ng-disabled="reply.reply_content==null||reply.reply_content==''?true:false" type="button" class="btn btn-info" ng-click="replyInquiry()">
+        <span class="glyphicon glyphicon-send"></span>&nbsp;回复
+      </button>
+      <button type="button" class="btn btn-primary" ng-click="goback()">
+        <span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;返回
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="text/ng-template" id="inquiryImages.html">
+  <div class="modal-header">
+    <i class="pull-right glyphicon glyphicon-remove" ng-click="close()" style="cursor: pointer"></i>
+  </div>
+  <div class="modal-body">
+    <div>
+      <uib-carousel active="0" interval="5000" no-wrap="false">
+        <uib-slide ng-repeat="img in currImages track by $index" index="$index">
+          <img ng-src="{{img}}" style="margin:auto;height:650px">
+        </uib-slide>
+      </uib-carousel>
+    </div>
+  </div>
+</script>

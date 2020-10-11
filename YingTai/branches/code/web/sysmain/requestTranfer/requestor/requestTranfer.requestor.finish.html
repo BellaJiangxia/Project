@@ -1,0 +1,43 @@
+<div >
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+	<table class="table table-hover table-striped table-bordered">
+		<thead>
+			<tr class="bg-primary">
+				<th>病历号</th>
+				<th>病人姓名</th>
+				<th>性别</th>
+				<th>影像类型</th>
+				<th>初始机构</th>
+				<th>诊断机构</th>
+				<th>申请人员</th>
+				<th>申请时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="rt in listRequestTranfer">
+				<td><a href ng-click="showRequestDetailDialog({diagnosisId:rt.new_request.id});">{{rt.new_request.case_his_num}}</a></td>
+				<td>{{rt.new_request.patient_name}}</td>
+				<td>{{rt.new_request.patient_genderStr}}</td>
+				<td>{{rt.new_request.device_name}}</td>
+				<td>{{rt.old_request.request_org_name}}</td>
+				<td>{{rt.new_request.diagnosis_org_name}}</td>
+				<td>{{rt.new_request.request_user_name}}</td>
+				<td>{{rt.new_request.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+<!-- 				<td>{{rt.new_request.print_user_name}}</td> -->
+				<td ng-init="r=rt.new_request_report">
+					<a style="margin-left: 5px;" class="btn btn-success btn-sm" href
+						ng-click="viewDiagnosisReport(r.id);" title="点击查看报告" 
+						uib-popover-template="'../templates/dynamicPopover.previewReport.html'" 
+						popover-title="报告预览" popover-placement="left" popover-trigger="mouseenter">
+						<span class="glyphicon glyphicon-zoom-in"></span>
+					</a>
+					<a style="margin-left: 5px;" class="btn btn-warning btn-sm" ng-click="shareReport(rt.new_request.id)" 
+						title="分享此诊断">
+						<span class="glyphicon glyphicon-share"></span>
+					</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

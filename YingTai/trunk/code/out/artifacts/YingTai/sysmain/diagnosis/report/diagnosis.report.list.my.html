@@ -1,0 +1,91 @@
+<div class="panel panel-primary">
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-th-list"></span>
+		我的报告</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline">
+			<form action="" role="form">
+				<input type="text" class="form-control" style="width: 150px;" placeholder="病历号" ng-model="searchOpt.case_his_num" />
+				<input type="text" class="form-control" style="width: 150px;" placeholder="关键词" ng-model="searchOpt.sick_key_words" />
+				<select class="form-control" ng-model="searchOpt.requestOrgId" 
+					ng-options="org.id as org.org_name for org in arrayOrg">
+					<option value="">--申请机构--</option>
+				</select>
+				<select class="form-control" ng-model="searchOpt.deviceTypeId" ng-change="queryPartList(searchOpt.deviceTypeId);searchOpt.partTypeId=0;"
+					ng-options="device.id as device.value for device in listDeviceType">
+					<option value="">--影像类型--</option>
+				</select> 
+				<select class="form-control" ng-if="searchOpt.deviceTypeId>0" ng-model="searchOpt.partTypeId" 
+					ng-options="p.id as p.value for p in arrayPart">
+					<option value="">--部位类型--</option>
+				</select> 
+				<select class="form-control" ng-model="searchOpt.reportUserId" ng-if="isOrgReport" 
+					ng-options="vu.id as vu.user_name for vu in arrayVerityUser">
+					<option value="">--报告人--</option>
+				</select> 
+				<select class="form-control" ng-model="searchOpt.timelimit" 
+					ng-options="tl.code as tl.name for tl in listTimeLimit">
+					<option value="">--全部--</option>
+				</select>
+				<a class="btn btn-primary" href="javascript:void(0);" ng-click="searchMyReport()">
+					<span class="glyphicon glyphicon-search"></span> 检索
+				</a>
+			</form>
+		</div>
+		<br />
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr class="bg-primary">
+					<th>病历号</th>
+					<th>病人姓名</th>
+					<th>申请机构</th>
+			 		<th>影像类型</th>
+<!-- 					<th>检查部位</th> -->
+					<th>报告时间</th>
+					<th>发布报告身份</th>
+<!-- 					<th>报告来源</th> -->
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="r in listReport">
+					<td>{{r.case_his_num}}</td><!-- <a ng-click="showRequestDetailDialog({diagnosisId:r.diagnosis_id});" href> -->
+					<td>{{r.patient_name}}</td>
+					<td>{{r.request_org_name}}</td>
+					<td>{{r.device_type_name}}</td>
+<!-- 					<td>{{r.part_type_name}}</td> -->
+					<td>{{r.create_time | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{r.publish_report_org_name}}</td>
+<!-- 					<td>{{r.sourceType.name}}</td> -->
+					<td>
+						<a href class="btn btn-success btn-sm" style="margin-left: 5px;"
+							ng-click="viewReportDetail(r.id);" title="点击查看报告"
+							uib-popover-template="'../templates/dynamicPopover.previewReport.html'" 
+							popover-title="报告预览" popover-placement="left" popover-trigger="mouseenter">
+							<span class="glyphicon glyphicon-zoom-in"></span>
+						</a>
+						<a class="btn btn-sm" ng-class="r.report_msg_count?'animation-btn':'btn-primary'" 
+							ng-if="user.id==r.publish_user_id&&r.source_type ==10" href 
+							ng-click="openChat(r)" title="发送诊断消息"
+							style="margin-left: 5px;">
+							<span class="glyphicon glyphicon-envelope"></span>
+						</a>
+						<a class="btn btn-warning btn-sm" ng-if="r.source_type ==10" href style="margin-left: 5px;" ng-click="shareReport(r.id)" 
+							title="分享此诊断">
+							<span class="glyphicon glyphicon-share"></span>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="searchMyReport()"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</div>

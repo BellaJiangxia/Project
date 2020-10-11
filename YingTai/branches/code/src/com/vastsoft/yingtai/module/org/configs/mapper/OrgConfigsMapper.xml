@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.org.configs.mapper.OrgConfigsMapper">
+	<select id="selectOrgConfigByOrgIdForUpdate" parameterType="long" resultType="TOrgConfigs">
+	    select * from T_ORG_CONFIGS WITH(XLOCK) where org_id=#{org_id}
+	</select>
+	
+	<update id="updateOrgConfigs" parameterType="TOrgConfigs">
+	    update T_ORG_CONFIGS set 
+	    	device_map=#{device_map,jdbcType=VARCHAR},
+	    	org_sys_device_name_mapping = #{org_sys_device_name_mapping,jdbcType=VARCHAR}
+	    where id=#{id}
+	</update>
+	
+	<insert id="insertOrgConfigs" keyProperty="id" useGeneratedKeys="true" parameterType="TOrgConfigs">
+	    insert into T_ORG_CONFIGS (
+	    	org_id,
+	    	device_map,
+	    	org_sys_device_name_mapping
+	    ) values (
+	    	#{org_id},
+	    	#{device_map,jdbcType=VARCHAR},
+	    	#{org_sys_device_name_mapping,jdbcType=VARCHAR}
+	    )
+	</insert>
+</mapper>

@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.reservation.mapper.ReservationMapper">
+    <insert id="insertServiceItem" parameterType="TCheckItem">
+		INSERT INTO T_CHECK_ITEM (service_id,item_id,is_required,check_count)
+		VALUES (#{service_id},#{item_id},#{is_required,jdbcType=INTEGER},#{check_count,jdbcType=INTEGER})
+	</insert>
+
+    <insert id="insertServiceFee" parameterType="TCheckOtherFee" useGeneratedKeys="true" keyProperty="fee_id">
+		INSERT INTO T_CHECK_OTHER_FEE (service_id, fee_name, price, fee_calc_type, description,is_required)
+		VALUES (#{service_id}, #{fee_name}, #{price}, #{fee_calc_type}, #{description,jdbcType=VARCHAR},#{is_required,jdbcType=INTEGER})
+	</insert>
+
+    <insert id="insertService" parameterType="TCheckService" useGeneratedKeys="true" keyProperty="service_id">
+		INSERT INTO T_CHECK_SERVICE (service_name, org_id, device_type, calc_type, service_status,service_price,create_user, create_time
+		, publish_user, publish_time, modify_user, modify_time, description)
+		  VALUES (#{service_name},#{org_id},#{device_type},#{calc_type},#{service_status},#{service_price},#{create_user},#{create_time}
+		  ,#{publish_user,jdbcType=NUMERIC},#{publish_time,jdbcType=TIMESTAMP},#{modify_user,jdbcType=NUMERIC}
+		  ,#{modify_time,jdbcType=TIMESTAMP},#{description,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertReservation" parameterType="TReservation" useGeneratedKeys="true" keyProperty="reservation_id">
+		INSERT INTO T_RESERVATION (reservation_no, patient_id, request_org_id, request_org_user, request_time
+		, receive_org_id, receive_org_user, receive_time, reservation_time, pay_price, total_price, reservation_status
+		, reason, report_id, trade_no,patient_name,patient_mobile,patient_gender,patient_idCard,complaint,case_id,docter_mobile)
+		 VALUES (#{reservation_no},#{patient_id},#{request_org_id},#{request_org_user},#{request_time},#{receive_org_id,jdbcType=NUMERIC}
+		 ,#{receive_org_user,jdbcType=NUMERIC},#{receive_time,jdbcType=TIMESTAMP},#{reservation_time},#{pay_price,jdbcType=NUMERIC}
+		 ,#{total_price},#{reservation_status},#{reason,jdbcType=VARCHAR},#{report_id,jdbcType=NUMERIC},#{trade_no,jdbcType=VARCHAR}
+		 ,#{patient_name}, #{patient_mobile}, #{patient_gender,jdbcType=NUMERIC}, #{patient_idCard},#{complaint,jdbcType=VARCHAR}
+		 ,#{case_id,jdbcType=NUMERIC},#{docter_mobile,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertReservationService" parameterType="TReservationService" useGeneratedKeys="true" keyProperty="reservation_service_id">
+		INSERT INTO T_RESERVATION_SERVICE (reservation_id, service_id, service_name, device_type, service_price, calc_type, discription)
+		 VALUES (#{reservation_id},#{service_id},#{service_name},#{device_type},#{service_price},#{calc_type},#{discription,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertReservationServiceItem" parameterType="TReservationServiceItem" useGeneratedKeys="true" keyProperty="reservation_item_id">
+		INSERT INTO T_RESERVATION_SERVICE_ITEM (reservation_service_id, reservation_id, item_id, item_count)
+		 VALUES (#{reservation_service_id},#{reservation_id},#{item_id},#{item_count});
+	</insert>
+
+	<insert id="insertReservationOtherFee" parameterType="TReservationOtherFee" useGeneratedKeys="true" keyProperty="reservation_fee_id">
+		INSERT INTO T_RESERVATION_OTHER_FEE (reservation_service_id, reservation_id, fee_id, fee_name, price, fee_calc_type, description)
+		 VALUES (#{reservation_service_id},#{reservation_id},#{fee_id},#{fee_name},#{price},#{fee_calc_type},#{description,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="modifyService" parameterType="TCheckService">
+		UPDATE T_CHECK_SERVICE
+		<set>
+			<if test="service_name!=null">
+				service_name=#{service_name}
+			</if>
+			<if test="device_type!=null">
+				,device_type=#{device_type}
+			</if>
+			<if test="calc_type!=null">
+				,calc_type=#{calc_type}
+			</if>
+			<if test="modify_user!=null">
+				,modify_user=#{modify_user}
+			</if>
+			<if test="modify_time!=null">
+				,modify_time=#{modify_time}
+			</if>
+			<if test="description!=null">
+				,description=#{description}
+			</if>
+			<if test="service_price!=null">
+				,service_price=#{service_price}
+			</if>
+		</set>
+		WHERE service_id=#{service_id}
+	</update>
+
+	<update id="modifyReservation" parameterType="TReservation">
+		UPDATE T_RESERVATION
+		<set>
+			<if test="patient_id!=null">
+				patient_id=#{patient_id}
+			</if>
+			<if test="receive_org_id!=null">
+				,receive_org_id=#{receive_org_id}
+			</if>
+			<if test="total_price!=null">
+				,total_price=#{total_price}
+			</if>
+			<if test="reservation_time!=null">
+				,reservation_time=#{reservation_time}
+			</if>
+			<if test="patient_name!=null">
+				,patient_name=#{patient_name}
+			</if>
+			<if test="patient_mobile!=null">
+				,patient_mobile=#{patient_mobile}
+			</if>
+			<if test="patient_gender!=null">
+				,patient_gender=#{patient_gender}
+			</if>
+			<if test="patient_idCard!=null">
+				,patient_idCard=#{patient_idCard}
+			</if>
+			<if test="complaint!=null">
+				,complaint=#{complaint}
+			</if>
+			<if test="docter_mobile!=null">
+				,docter_mobile=#{docter_mobile}
+			</if>
+
+		</set>
+		WHERE reservation_id=#{reservation_id}
+	</update>
+
+	<update id="updateServiceStatus" parameterType="Map">
+		UPDATE T_CHECK_SERVICE
+		<set>
+			service_status=#{status}
+			<if test="publish_time!=null">
+				,publish_time=#{publish_time}
+			</if>
+			<if test="publish_user!=null">
+				,publish_user=#{publish_user}
+			</if>
+			<if test="modify_user!=null">
+				,modify_user=#{modify_user}
+			</if>
+			<if test="modify_time!=null">
+				,modify_time=#{modify_time}
+			</if>
+		</set>
+		WHERE service_id=#{service_id}
+	</update>
+
+	<update id="updateReservationStatus" parameterType="Map">
+		UPDATE T_RESERVATION
+		 <set>
+			 <if test="status!=null">
+				 reservation_status = #{status}
+			 </if>
+			 <if test="reason!=null">
+				,reason=#{reason}
+			 </if>
+			 <if test="receive_org_user!=null">
+				,receive_org_user=#{receive_org_user}
+			 </if>
+			 <if test="receive_time!=null">
+				 ,receive_time=#{receive_time}
+			 </if>
+			 <if test="reservation_time!=null">
+				 ,reservation_time=#{reservation_time}
+			 </if>
+			 <if test="reservation_no!=null">
+				 ,reservation_no=#{reservation_no}
+			 </if>
+			 <if test="case_id!=null">
+				 ,case_id=#{case_id}
+			 </if>
+		 </set>
+		WHERE reservation_id=#{reserve_id}
+	</update>
+
+	<delete id="deleteServiceById" parameterType="Long">
+		DELETE FROM T_CHECK_SERVICE WHERE service_id=#{id}
+	</delete>
+
+	<delete id="deleteServiceItemBySV" parameterType="Long">
+		DELETE FROM T_CHECK_ITEM WHERE service_id=#{id}
+	</delete>
+
+	<delete id="deleteServiceFeeBySV" parameterType="Long">
+		DELETE FROM T_CHECK_OTHER_FEE WHERE service_id=#{id}
+	</delete>
+
+	<delete id="deleteReservationById" parameterType="Long">
+		DELETE FROM T_RESERVATION WHERE reservation_id=#{id}
+	</delete>
+
+	<delete id="deleteReservationServiceByOD" parameterType="Long">
+		DELETE FROM T_RESERVATION_SERVICE WHERE reservation_id=#{id}
+	</delete>
+
+	<delete id="deleteReservationServiceItemByOD" parameterType="Long">
+		DELETE FROM T_RESERVATION_SERVICE_ITEM WHERE reservation_id=#{id}
+	</delete>
+
+	<delete id="deleteReservationOtherFeeByOD" parameterType="Long">
+		DELETE FROM T_RESERVATION_OTHER_FEE WHERE reservation_id=#{id}
+	</delete>
+
+	<select id="selectServiceById" parameterType="Long" resultMap="serviceInfo">
+		SELECT a.*,(SELECT VALUE FROM T_DIC_VALUE WHERE a.device_type=ID) v_device_name
+		,b.item_id,b.service_id as i_service_id,(SELECT VALUE FROM T_DIC_VALUE WHERE b.item_id=ID) v_item_name
+		,b.check_count,b.is_required as i_is_required,c.is_required as f_is_required
+		,c.description as fee_description,c.fee_calc_type,c.fee_id,c.fee_name,c.price,c.service_id as f_service_id
+		FROM T_CHECK_SERVICE a LEFT JOIN T_CHECK_ITEM b on a.service_id=b.service_id
+		LEFT JOIN T_CHECK_OTHER_FEE c on a.service_id=c.service_id
+		WHERE a.service_id=#{id}
+	</select>
+
+	<select id="lockServiceById" parameterType="Long" resultType="TCheckService">
+		select * from T_CHECK_SERVICE WITH (XLOCK) WHERE service_id=#{id}
+	</select>
+
+	<select id="selectReservationById" parameterType="Long" resultMap="reserveInfo">
+		SELECT a.*
+		,b.reservation_service_id,b.service_id,b.service_name,b.calc_type,b.device_type,b.service_price,b.discription
+		,c.reservation_fee_id,c.fee_id,c.fee_name,c.price,c.fee_calc_type,c.description fee_description,c.reservation_service_id f_reservation_service_id,c.reservation_id f_reservation_id
+		,d.item_id,d.item_count,d.item_id,d.reservation_item_id,d.reservation_service_id i_reservation_service_id,d.reservation_id i_reservation_id
+		,(SELECT ORG_NAME FROM T_ORGANIZATION WHERE receive_org_id=ID) v_receive_org
+		,(SELECT ORG_NAME FROM T_ORGANIZATION WHERE request_org_id=ID) v_request_org
+		,(SELECT VALUE FROM T_DIC_VALUE WHERE d.item_id =ID) v_item_name
+		,(SELECT VALUE FROM T_DIC_VALUE WHERE b.device_type=ID) v_device_name
+		FROM T_RESERVATION a
+		  LEFT JOIN T_RESERVATION_SERVICE b on a.reservation_id=b.reservation_id
+		  LEFT JOIN T_RESERVATION_OTHER_FEE c on b.reservation_service_id=c.reservation_service_id
+		  LEFT JOIN T_RESERVATION_SERVICE_ITEM d on b.reservation_service_id=d.reservation_service_id
+		WHERE a.reservation_id=#{id}
+	</select>
+
+	<select id="lockReservationById" parameterType="Long" resultType="TReservation">
+		select * from T_RESERVATION WITH (XLOCK) WHERE reservation_id=#{id}
+	</select>
+	
+	<select id="selectListService" parameterType="Map" resultType="TCheckService">
+		SELECT t.* FROM (SELECT a.*,(SELECT "VALUE" FROM T_DIC_VALUE WHERE ID=a.device_type) v_device_name
+		,row_number() over(order by a.create_time desc) rn FROM T_CHECK_SERVICE a
+		<where>
+			<if test="org_id!=null">
+				a.org_id=#{org_id}
+			</if>
+			<if test="device_type!=null">
+				AND a.device_type=#{device_type}
+			</if>
+			<if test="service_status!=null">
+				AND a.service_status=#{service_status}
+			</if>
+			<if test="service_name!=null">
+				AND a.service_name like '%'+#{service_name}+'%'
+			</if>
+			<if test="part_id!=null">
+				AND exists(select 1 from T_CHECK_ITEM where service_id=a.service_id and item_id=#{part_id})
+			</if>
+		</where>)t
+		<where>
+			<if test="begin_idx!=null and end_idx!=null">
+				t.rn>=#{begin_idx} <![CDATA[ and t.rn<#{end_idx} ]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectListServiceCount" parameterType="Map" resultType="int">
+		SELECT count(a.service_id) FROM T_CHECK_SERVICE a
+		<where>
+			<if test="org_id!=null">
+				a.org_id=#{org_id}
+			</if>
+			<if test="device_type!=null">
+				AND a.device_type=#{device_type}
+			</if>
+			<if test="service_status!=null">
+				AND a.service_status=#{service_status}
+			</if>
+			<if test="service_name!=null">
+				AND a.service_name like '%'+#{service_name}+'%'
+			</if>
+			<if test="part_id!=null">
+				AND exists(select 1 from T_CHECK_ITEM where service_id=a.service_id and item_id=#{part_id})
+			</if>
+		</where>
+	</select>
+
+	<select id="selectExistsServiceByOrg" parameterType="Map" resultMap="serviceInfo">
+		SELECT a.*,(SELECT VALUE FROM T_DIC_VALUE WHERE a.device_type=ID) v_device_name
+		,(SELECT ORG_NAME FROM T_ORGANIZATION WHERE a.org_id=ID) v_org_name
+		,b.item_id,(SELECT VALUE FROM T_DIC_VALUE WHERE b.item_id=ID) v_item_name,b.service_id i_service_id
+		,b.is_required as i_is_required,b.check_count,c.is_required as f_is_required
+		,c.description as fee_description,c.fee_calc_type,c.fee_id,c.fee_name,c.price,c.service_id f_service_id
+		FROM T_CHECK_SERVICE a LEFT JOIN T_CHECK_ITEM b on a.service_id=b.service_id
+		LEFT JOIN T_CHECK_OTHER_FEE c on a.service_id=c.service_id
+		WHERE a.service_status=#{service_status} AND a.service_id=#{service_id} AND a.org_id=#{org_id}
+	</select>
+
+	<select id="selectListReservation" parameterType="Map" resultType="TReservation">
+		SELECT t.* FROM (SELECT a.*
+		,row_number() OVER(order by a.request_time desc,a.reservation_id) rn
+		,(SELECT ORG_NAME FROM T_ORGANIZATION WHERE a.request_org_id=ID) v_request_org
+		,(SELECT ORG_NAME FROM T_ORGANIZATION WHERE a.receive_org_id=ID) v_receive_org
+		,(SELECT USER_NAME FROM T_BASE_USER WHERE a.request_org_user=ID) v_request_user
+		,(SELECT USER_NAME FROM T_BASE_USER WHERE a.receive_org_user=id) v_receive_user
+		FROM T_RESERVATION a
+		<where>
+			<if test="request_org!=null">
+				a.request_org_id=#{request_org}
+			</if>
+			<if test="receive_org!=null">
+				AND a.reservation_status>2 AND a.receive_org_id=#{receive_org}
+			</if>
+			<if test="status!=null">
+				AND a.reservation_status=#{status}
+			</if>
+			<if test="reservation_no!=null">
+				AND a.reservation_no like '%'+#{reservation_no}+'%'
+			</if>
+			<if test="patient_mobile!=null">
+				AND a.patient_mobile=#{patient_mobile}
+			</if>
+			<if test="patient_idCard!=null">
+				AND a.patient_idCard=#{patient_idCard}
+			</if>
+			<if test="patient_name!=null">
+				AND a.patient_name LIKE '%'+#{patient_name}+'%'
+			</if>
+			<if test="org_name!=null">
+				AND EXISTS (SELECT 1 FROM T_ORGANIZATION b WHERE b.ORG_NAME like '%'+#{org_name}+'%'
+				<choose>
+					<when test="request_org!=null">
+						AND a.receive_org_id=b.ID
+					</when>
+					<when test="receive_org!=null">
+						AND a.request_org_id=b.ID
+					</when>
+				</choose>)
+			</if>
+		</where>)t
+		<where>
+			<if test="begin_idx!=null and end_idx!=null">
+				t.rn>=#{begin_idx} <![CDATA[ and t.rn<#{end_idx} ]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectListReservationCount" parameterType="Map" resultType="int">
+		SELECT COUNT(a.reservation_id) FROM T_RESERVATION a
+		<where>
+			<if test="request_org!=null">
+				a.request_org_id=#{request_org}
+			</if>
+			<if test="receive_org!=null">
+				AND a.receive_org_id=#{receive_org}
+			</if>
+			<if test="status!=null">
+				AND a.reservation_status=#{status}
+			</if>
+			<if test="reservation_no!=null">
+				AND a.reservation_no like '%'+#{reservation_no}+'%'
+			</if>
+			<if test="patient_mobile!=null">
+				AND a.patient_mobile=#{patient_mobile}
+			</if>
+			<if test="patient_idCard!=null">
+				AND a.patient_idCard=#{patient_idCard}
+			</if>
+			<if test="patient_name!=null">
+				AND a.patient_name LIKE '%'+#{patient_name}+'%'
+			</if>
+			<if test="org_name!=null">
+				AND EXISTS (SELECT 1 FROM T_ORGANIZATION b WHERE b.ORG_NAME like '%'+#{org_name}+'%'
+				<choose>
+					<when test="request_org!=null">
+						AND a.receive_org_id=b.ID
+					</when>
+					<when test="receive_org!=null">
+						AND a.request_org_id=b.ID
+					</when>
+				</choose>)
+			</if>
+		</where>
+	</select>
+	
+	<resultMap id="serviceInfo" type="TCheckService">
+		<id property="service_id" column="service_id" />
+		<result property="service_name" column="service_name" />
+		<result property="service_price" column="service_price" />
+		<result property="calc_type" column="calc_type" />
+		<result property="device_type" column="device_type" />
+		<result property="description" column="description" />
+		<result property="v_device_name" column="v_device_name" />
+		<result property="org_id" column="org_id" />
+		<result property="v_org_name" column="v_org_name" />
+		<result property="create_user" column="create_user" />
+		<result property="create_time" column="create_time" />
+		<result property="publish_user" column="publish_user" />
+		<result property="publish_time" column="publish_time" />
+		<result property="modify_user" column="modify_user" />
+		<result property="modify_time" column="modify_time" />
+		<result property="service_status" column="service_status" />
+		<collection property="listItem" ofType="TCheckItem" javaType="ArrayList">
+			<result property="service_id" column="i_service_id" />
+			<result property="item_id" column="item_id" />
+			<result property="v_item_name" column="v_item_name" />
+			<result property="is_required" column="i_is_required" />
+			<result property="check_count" column="check_count" />
+		</collection>
+		<collection property="listFee" ofType="TCheckOtherFee" javaType="ArrayList">
+			<id property="fee_id" column="fee_id" />
+			<result property="service_id" column="f_service_id" />
+			<result property="fee_name" column="fee_name" />
+			<result property="price" column="price" />
+			<result property="description" column="fee_description" />
+			<result property="fee_calc_type" column="fee_calc_type" />
+			<result property="is_required" column="f_is_required" />
+		</collection>
+	</resultMap>
+
+	<resultMap id="reserveInfo" type="TReservation">
+		<id property="reservation_id" column="reservation_id" />
+		<result property="reservation_no" column="reservation_no" />
+		<result property="patient_id" column="patient_id" />
+		<result property="request_org_id" column="request_org_id" />
+		<result property="request_org_user" column="request_org_user" />
+		<result property="request_time" column="request_time" />
+		<result property="receive_org_id" column="receive_org_id" />
+		<result property="receive_org_user" column="receive_org_user" />
+		<result property="receive_time" column="receive_time" />
+		<result property="reservation_time" column="reservation_time" />
+		<result property="report_id" column="report_id" />
+		<result property="total_price" column="total_price" />
+		<result property="pay_price" column="pay_price" />
+		<result property="trade_no" column="trade_no" />
+		<result property="patient_name" column="patient_name" />
+		<result property="patient_mobile" column="patient_mobile" />
+		<result property="patient_idCard" column="patient_idCard" />
+		<result property="patient_gender" column="patient_gender" />
+		<result property="v_request_org" column="v_request_org" />
+		<result property="v_receive_org" column="v_receive_org" />
+		<result property="reservation_time" column="reservation_time" />
+		<result property="reservation_status" column="reservation_status" />
+		<result property="reason" column="reason" />
+		<result property="complaint" column="complaint" />
+		<result property="case_id" column="case_id" />
+		<result property="docter_mobile" column="docter_mobile" />
+		<collection property="listService" ofType="TReservationService" javaType="ArrayList">
+			<id property="reservation_service_id" column="reservation_service_id" />
+			<result property="service_id" column="service_id" />
+			<result property="service_name" column="service_name" />
+			<result property="device_type" column="device_type" />
+			<result property="service_price" column="service_price" />
+			<result property="discription" column="discription" />
+			<result property="calc_type" column="calc_type" />
+			<result property="v_device_name" column="v_device_name" />
+			<collection property="listItem" ofType="TReservationServiceItem" javaType="ArrayList">
+				<id property="reservation_item_id" column="reservation_item_id" />
+				<result property="item_id" column="item_id" />
+				<result property="v_item_name" column="v_item_name" />
+				<result property="item_count" column="item_count" />
+				<result property="reservation_id" column="i_reservation_id" />
+				<result property="reservation_service_id" column="i_reservation_service_id" />
+			</collection>
+			<collection property="listFee" ofType="TReservationOtherFee" javaType="ArrayList">
+				<id property="reservation_fee_id" column="reservation_fee_id" />
+				<result property="fee_id" column="fee_id" />
+				<result property="fee_name" column="fee_name" />
+				<result property="price" column="price" />
+				<result property="fee_calc_type" column="fee_calc_type" />
+				<result property="description" column="description" />
+				<result property="reservation_id" column="f_reservation_id" />
+				<result property="reservation_service_id" column="f_reservation_service_id" />
+			</collection>
+		</collection>
+	</resultMap>
+
+</mapper>

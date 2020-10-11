@@ -1,0 +1,101 @@
+<div class="panel panel-primary">
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-th-list"></span> 病例管理</h4>
+	</div>
+	<div class="panel-body">
+		<uib-tabset active="active">
+			<uib-tab index="0" heading="获取病例">
+		    	<div style="margin-top: 10px;" ng-include="'./case/case.new.html'" ng-controller="caseNewCtrl"></div>
+		    </uib-tab>
+		    <uib-tab index="1" heading="系统现有病例">
+		    	<div style="margin-top: 10px;">
+		    		<div class="form-inline">
+						<!-- <div class="input-group" style="width: 170px;">
+						<input type="text" class="form-control" placeholder="筛选病人" ng-disabled="true" ng-model="searchOpt.sicker_name" /> 
+			    		<span class="input-group-btn">
+			    			<button class="btn btn-info btn-default" type="button" ng-click="selectPatient();">选择</button>
+			    		</span>
+				    </div> -->
+						<input type="text" class="form-control" style="width: 160px;" placeholder="病历号" ng-model="searchOpt.case_his_num" />
+						<input type="text" class="form-control" placeholder="病人姓名" ng-model="searchOpt.patient_name" />
+						<select class="form-control" ng-model="searchOpt.patient_gender" ng-options="g.code as g.name for g in listGender">
+							<option value="">--病人性别--</option>
+						</select>
+						<input type="text" class="form-control" placeholder="住院号" ng-model="searchOpt.hospitalized_num" />
+						<!-- 	<select class="form-control" style="width: 120px;" ng-model="searchOpt.device_type_id">
+						<option value="0">影像类型</option>
+						<option ng-repeat="device in listDeviceType" value="{{device.id}}">{{device.value}}</option>
+					</select> -->
+						<!-- 	<select class="form-control" style="width: 180px;" ng-model="searchOpt.diagnosis_org">
+						<option value="0">诊断机构</option>
+						<option value="1">北京协和医院</option>
+						<option value="2">四川大学华西医院</option>
+						<option value="3">四川省人民医院</option>
+						<option value="4">南充市中心医院</option>
+					</select> -->
+						<button class="btn btn-primary" ng-click="searchCaseHistory();">
+							<span class="glyphicon glyphicon-search"></span> 检索
+						</button>
+					</div>
+					<br />
+					<table class="table table-hover table-striped table-bordered">
+						<thead>
+							<tr class="bg-primary">
+								<th>病历号</th>
+								<th>病人姓名</th>
+								<th>病人性别</th>
+								<th>病人年龄</th>
+								<th>症状</th>
+								<th>住院号</th>
+								<th>接诊科室</th>
+								<!-- <th>接诊医生</th> -->
+								<th>病例时间</th>
+<!-- 								<th>出院时间</th> -->
+								<th>病例来源</th>
+								<!-- <th>修改人</th>
+								<th>修改时间</th> -->
+								<th>类型</th>
+								<th>状态</th>
+								<!-- <th>操作</th> -->
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="c in listCaseHistory">
+								<td><a href="#/case/info/{{c.id}}">{{c.case_his_num}}</a></td>
+								<td>{{c.patient_name}}</td>
+								<td>{{c.patient_genderStr}}</td>
+								<td>{{c.patientAge}} 岁</td>
+								<td>{{c.symptom | limitTo:25:0}}</td>
+								<td>{{c.hospitalized_num}}</td>
+								<td>{{c.reception_section}}</td>
+								<!-- <td>{{c.reception_doctor}}</td> -->
+								<td>{{c.enter_time | date : 'yyyy-MM-dd'}}</td>
+<!-- 								<td>{{c.leave_time | date : 'yyyy-MM-dd'}}</td> -->
+								<td>{{c.sourceType.name}}</td>
+								<!-- <td>{{c.modify_user_name}}</td>
+								<td>{{c.modify_time | date : 'yyyy-MM-dd'}}</td> -->
+								<td>{{c.typeStr}}</td>
+								<td>{{c.statusStr}}
+<!-- 								<a -->
+<!-- 									ng-if="c.status!=1" ng-click="setMedicalHis(c)" -->
+<!-- 									ng-href="#/request/list/medicalNum/{{c.medical_his_num}}">{{c.statusStr}}</a> -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div align="right">
+						<span style="font-size: 18px; float: left;">共{{searchOpt.spu.totalRow}}
+							条记录</span>
+						<uib-pagination style="margin-top:0px;margin-bottom:0px;"
+							total-items="searchOpt.spu.totalRow"
+							items-per-page="searchOpt.spu.perPageCount" max-size="10"
+							boundary-links="true" ng-model="searchOpt.spu.currPage"
+							ng-change="searchCaseHistory();" previous-text="上一页"
+							next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+					</div>
+		    	</div>
+		    </uib-tab>
+		</uib-tabset>
+	</div>
+</div>

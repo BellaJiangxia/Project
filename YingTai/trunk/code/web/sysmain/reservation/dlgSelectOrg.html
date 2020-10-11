@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4>选择机构</h4>
+</div>
+<div class="modal-body">
+    <div class="form-inline">
+      <label style="margin: 0px 5px">机构名称</label>
+      <input type="text" class="form-control" style="width: 300px" placeholder="机构名称" ng-model="searchOpt.orgName"/>
+      <button class="btn btn-primary" ng-click="loadOrgList()">
+        <span class="glyphicon glyphicon-search"></span> 查询
+      </button>
+    </div>
+    <table class="table table-bordered table-hover table-condensed" style="text-align: center;margin:5px;">
+      <thead>
+      <tr class="info">
+        <th style="text-align: center;width: 40px">选择</th>
+        <th style="text-align: center">机构名称</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="s in listOrg" ng-class="s.isSelected?'success':''">
+        <td><input type="checkbox" ng-model="s.isSelected" ng-change="chkChange(s.isSelected,s)"></td>
+        <td>{{s.org_name}}
+        	<img style="display: inline-block;" alt="认证" ng-if="s.isVIP" src="{{s.isVIP?'../image/authentication.png':'../image/unauthentication.png'}}" 
+	    				width="25px" height="25px" title="{{s.isVIP?'此机构已通过影泰认证！':'此机构未通过影泰认证！'}}"/>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  <div style="text-align: right">
+    <uib-pagination style="margin-top:0px;margin-bottom:0px;" class="pagination-sm" total-items="total" ng-model="searchOpt.pageIdx" ng-change="loadOrgList()"
+                    max-size="5" boundary-link-numbers="true" rotate="false" previous-text="上一页" next-text="下一页"></uib-pagination>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+</div>
+

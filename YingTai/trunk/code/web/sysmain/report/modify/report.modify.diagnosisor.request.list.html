@@ -1,0 +1,84 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="panel panel-primary">
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+	<div class="panel-heading">
+		<h4><i class="glyphicon glyphicon-th-list"></i> 我的修改申请</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline">
+			<form action="" role="form">
+				状态：
+				<select class="form-control" ng-model="searchOpt.modifyReportRequestStatus"
+					ng-options="mrr.code as mrr.name for mrr in listMrr">
+					<option value="">--全部--</option>
+				</select>
+				<a class="btn btn-primary" href="javascript:void(0);"
+					ng-click="searchModifyReportRequest();"> <span
+					class="glyphicon glyphicon-search"></span> 检索
+				</a>
+			</form>
+		</div>
+		<br />
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr class="bg-primary">
+					<th>病历号</th>
+					<th>诊断申请机构</th>
+					<th>设备</th>
+					<th>报告时间</th>
+					<th>修改申请时间</th>
+					<th>申请原因</th>
+					<th>当前状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="mrr in listModifyReportRequest">
+					<td><a href ng-click="viewReportDetail(mrr.report_id);">{{mrr.case_his_num}}</a></td>
+					<td>{{mrr.request_org_name}}</td>
+					<td>{{mrr.device_name}}</td>
+					<td>{{mrr.report_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{mrr.create_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{mrr.reason}}</td>
+					<td>{{mrr.statusStr}}</td>
+					<td>
+						<a ng-if="mrr.status==20" class="btn btn-success btn-sm" style="margin-left: 5px;"
+							ng-href="#/report/modify/diagnosisor/writing/{{mrr.report_id}}" title="进入修改报告">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<!-- 
+						<a class="btn btn-sm" ng-class="diagnosis.newMsgCount?'animation-btn':'btn-primary'" 
+							ng-if="user.id==diagnosis.verify_user_id" href="javascript:void(0);" 
+							ng-click="openChat(diagnosis)" title="发送诊断消息"
+							style="margin-left: 5px;">
+							<span class="glyphicon glyphicon-envelope"></span>
+						</a>
+						<a class="btn btn-warning btn-sm" href="javascript:void(0);" style="margin-left: 5px;" 
+							ng-click="shareRequest(diagnosis.id)" ng-if="diagnosis.status == 5" title="分享此诊断">
+							<span class="glyphicon glyphicon-share"></span>
+						</a> -->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow"
+				items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true" 
+				ng-model="searchOpt.spu.currPage" ng-change="searchModifyReportRequest();" previous-text="上一页"
+				next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</div>
+</body>
+</html>

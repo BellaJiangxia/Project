@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.returnvisit.mapper.ReturnVisitMapper">
+	<select id="select" parameterType="Map" resultType="TReturnVisit">
+		select a.* FROM (select rv.*, p.name as patient_name, u.user_name as create_user_name, o.org_name as
+		org_name,row_number() over(order by rv.create_time desc) rn
+		from t_return_visit rv with (NOLOCK), t_base_user u, t_patient p, t_organization o
+		<where>rv.patient_id = p.id
+			and rv.org_id = o.id
+			and rv.create_user_id = u.id
+			<if test="visit_name != null">
+		        and rv.visit_name like '%'+#{visit_name}+'%'
+		    </if>
+		    <if test="patient_name != null">
+		        and p.name like '%'+#{patient_name} + '%'
+		    </if>
+		    <if test="batch_id != null and batch_id!=0">
+		        and rv.batch_id = #{batch_id}
+		    </if>
+		    <if test="visit_id != null and visit_id!=0">
+		        and rv.visit_id = #{visit_id}
+		    </if>
+		    <if test="org_id != 0 and org_id!=null">
+		        and rv.org_id = #{org_id}
+		    </if>
+		    <if test="create_user_id != 0 and create_user_id!=null">
+		        and rv.create_user_id = #{create_user_id}
+		    </if>
+		</where>
+		)a
+		<where>
+			<if test="begin_idx!=null and end_idx!=null">
+				a.rn>=#{begin_idx} <![CDATA[ and a.rn<#{end_idx} ]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectCount" parameterType="Map" resultType="int">
+		select count(1) from t_return_visit rv, t_patient p
+		<where>
+			rv.patient_id = p.id
+			<if test="visit_name != null">
+				and rv.visit_name like '%'+#{visit_name}+'%'
+			</if>
+			<if test="patient_name != null">
+				and p.name like '%'+#{patient_name} + '%'
+			</if>
+			<if test="batch_id != null and batch_id!=0">
+				and rv.batch_id = #{batch_id}
+			</if>
+			<if test="visit_id != null and visit_id!=0">
+				and rv.visit_id = #{visit_id}
+			</if>
+			<if test="org_id != 0 and org_id !=null">
+				and rv.org_id = #{org_id}
+			</if>
+			<if test="create_user_id != 0 and create_user_id!=null">
+				and rv.create_user_id = #{create_user_id}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectAndLock" parameterType="TReturnVisit" resultType="TReturnVisit">
+		select rv.*, p.name as patient_name, u.user_name as create_user_name, o.org_name as org_name from t_return_visit rv, t_base_user u, t_patient p, t_organization o
+		<where>
+		    rv.patient_id = p.id
+		    and rv.org_id = o.id
+		    and rv.create_user_id = u.id
+		    <if test="visit_name != null">
+		        and rv.visit_name like '%'+#{visit_name}+'%'
+		    </if>
+		    <if test="patient_name != null">
+		        and p.name like '%'+#{patient_name} + '%'
+		    </if>
+		    <if test="batch_id != 0">
+		        and rv.batch_id = #{batch_id}
+		    </if>
+		    <if test="visit_id != 0">
+		        and rv.visit_id = #{visit_id}
+		    </if>
+		    <if test="org_id != 0">
+		        and rv.org_id = #{org_id}
+		    </if>
+		    <if test="create_user_id != 0">
+		        and rv.create_user_id = #{create_user_id}
+		    </if>
+		</where>
+	</select>
+
+	<select id="selectVisitById" parameterType="long" resultMap="visitInfo">
+		select *,(select name from T_PATIENT where id=a.patient_id) patient_name from T_RETURN_VISIT a
+		left join T_RETURN_VISIT_QA b on a.visit_id=b.visit_id
+		left join T_RETURN_VISIT_QA_OPT c on b.question_id=c.question_id
+		where a.visit_id=#{id}
+	</select>
+	
+	<insert id="insert" parameterType="TReturnVisit" useGeneratedKeys="true" keyProperty="visit_id">
+		insert into t_return_visit
+		(
+		batch_id,
+		patient_id,
+		org_id,
+		visit_name,
+		case_id,
+		case_info,
+		create_user_id,
+		doctor_name,
+		create_time,
+		send_time,
+		reply_time
+		)
+		values
+		(
+		#{batch_id},
+		#{patient_id},
+		#{org_id},
+		#{visit_name},
+		#{case_id, jdbcType=NUMERIC},
+		#{case_info, jdbcType=VARCHAR},
+		#{create_user_id},
+		#{doctor_name, jdbcType=VARCHAR},
+		#{create_time},
+		#{send_time, jdbcType=DATE},
+		#{reply_time, jdbcType=DATE}
+		)
+	</insert>
+
+	<update id="update" parameterType="TReturnVisit">
+		update t_return_visit
+		<set>
+		    <if test = "visit_name != null">
+		        visit_name = #{visit_name},
+		    </if>
+		    <if test = "doctor_name != null">
+		        doctor_name = #{doctor_name},
+		    </if>
+		    <if test = "send_time != null">
+		        send_time = #{send_time},
+		    </if>
+		    <if test = "reply_time != null">
+		        reply_time = #{reply_time}
+		    </if>
+		</set>
+		<where>
+			<if test="visit_id !=0 and visit_id!=null">
+				visit_id=#{visit_id}
+			</if>
+		    <if test="batch_id != 0 and batch_id !=null">
+		        and batch_id = #{batch_id}
+		    </if>
+			<if test="org_id != 0 and org_id !=null">
+				and org_id = #{org_id}
+			</if>
+		    <if test="template_id != 0 and template_id!=null">
+		        and template_id = #{template_id}
+		    </if>
+		    <if test="create_user_id != 0 and create_user_id!=null">
+		        and create_user_id = #{create_user_id}
+		    </if>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="TReturnVisit">
+		delete from t_return_visit
+		<where>
+		    <if test="batch_id != 0 and batch_id!=null">
+				batch_id = #{batch_id}
+		    </if>
+		    <if test="org_id != 0 and org_id!=null">
+		        and org_id = #{org_id}
+		    </if>
+		    <if test="create_user_id != 0 and create_user_id!=null">
+		        and create_user_id = #{create_user_id}
+		    </if>
+		    <if test="state != 0 and state!=null">
+		        and state = #{state}
+		    </if>
+		</where>
+	</delete>
+
+	<resultMap id="visitInfo" type="TReturnVisit">
+		<id property="visit_id" column="visit_id" />
+		<collection property="listQA" ofType="TReturnVisitQA">
+			<collection property="listOpt" ofType="TReturnVisitQAOpt">
+
+			</collection>
+		</collection>
+	</resultMap>
+
+</mapper>

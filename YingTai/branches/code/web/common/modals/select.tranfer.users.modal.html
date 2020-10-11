@@ -1,0 +1,36 @@
+<div class="modal-header">
+	<h3 class="modal-title">选择用户</h3>
+</div>
+<div class="modal-body">
+	<div class="alert alert-danger" role="alert" ng-show="showWarning">
+		<span class="glyphicon glyphicon-warning-sign"></span>你所在的机构没有医生可以移交了！
+	</div>
+	<div data-ng-init="queryOrgDoctors()">
+		<table class="table table-hover table-striped table-bordered" data-click-to-select="true">
+			<thead>
+				<tr class="bg-primary">
+					<th class="col-sm-3">姓名</th>
+					<th class="col-sm-3">职称</th>
+					<th class="col-sm-5">所在部门</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr style="cursor: pointer" ng-repeat="user in users" 
+					ng-style="user.id==selected.user.id?{'background-color': '#99CCFF'}:{'background-color': 'white'}"
+					ng-click="selected.user = user">
+					<td>{{user.user_name}}</td>
+					<td>{{user.grade}}</td>
+					<td>{{user.section}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<label class="control-label">
+			<input name="allcheck" type="checkbox" value="不指定审核人" 
+				ng-model="unspecified" ng-change="unspeci()"/>不指定审核人
+		</label>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary glyphicon glyphicon-ok" ng-click="ok()" ng-if="selected.user||unspecified">确定</button>
+	<button class="btn btn-warning glyphicon glyphicon-remove" ng-click="cancel()">取消</button>
+</div>

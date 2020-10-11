@@ -1,0 +1,513 @@
+<div class="form-horizontal">
+	<div class="form-group">
+		<label for="inputMedicalNum" class="control-label col-sm-2">申请机构</label>
+		<div class="col-sm-8">
+			<span class="form-control" ng-bind="diagnosis.request_tranfer_org_name_path"></span>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="form-group">
+		<label for="inputMedicalNum" class="control-label col-sm-2">收费方式</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.product_charge_type_name"></span>
+		</div>
+		<label for="inputMedicalNum" class="control-label col-sm-2">
+			{{diagnosis.product_charge_type == 10 ? '部位' : (diagnosis.product_charge_type == 20 ? '硬盘' : '计费')}}数量</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.charge_amount"></span>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2">病历号</label>
+		<div class="col-sm-8">
+			<span class="form-control">{{diagnosis.case_his_num}}</span>
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<hr style="margin: 5px 0px;"/>
+	<div class="form-group">
+		<label class="control-label col-sm-2">影像</label>
+		<div class="col-sm-8">
+			<div class="well">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-inline">
+							<label>影像编号：</label>
+							<span>{{diagnosis.dicom_img_id}}</span>&emsp;
+							<label>影像类型：</label>
+							<span>{{diagnosis.device_name}}</span>
+						</div>
+						<div class="form-inline">
+							<label>影片数量：</label>
+							<span>{{diagnosis.dicomImg.piece_amount}}</span>
+						</div>
+						<div class="form-inline">
+							<label>检查项目：</label>
+							<span>{{diagnosis.dicom_img_check_pro}}</span>
+						</div>
+						<div class="form-inline">
+							<label>检查部位：</label>
+							<span ng-repeat="bpt in diagnosis.dicomImg.listBodyPartType">{{bpt.value}}&nbsp;&nbsp;</span>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						序列：
+						<div class="yuanjiao form-inline" style="background-color: #DDDDDD;padding: 10px 10px;" >
+							<div style="width: 70px;display: inline-block;margin-right: 3px;" ng-repeat="series in diagnosis.listSeries">
+								<img ng-src="thumbnail.action?thumbnail_uid={{series.thumbnail_uid}}&affix_id={{img.affix_id}}" 
+									alt="{{series.part_type_name}}" 
+									title="{{series.mark_char}}" style="height: 70px; width: 70px; display: block;"/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+<!-- 					<div class="well" style="border-radius: 5px;padding: 5px 15px;margin-bottom: 5px;"> -->
+<!-- 						<div class="row"> -->
+<!-- 							<div class="col-sm-4"> -->
+<!-- 								<div class="form-inline"> -->
+<!-- 									<label>影像编号：</label> -->
+<!-- 									<span>{{diagnosis.dicom_img_id}}</span> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-inline"> -->
+<!-- 									<label>影像类型：</label> -->
+<!-- 									<span>{{diagnosis.device_name}}</span> -->
+<!-- 								</div> -->
+<!-- 								<div class="form-inline"> -->
+<!-- 									<div><label>检查项目：{{diagnosis.dicom_img_check_pro}}</label></div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-sm-8"> -->
+<!-- 								序列： -->
+<!-- 								<div class="yuanjiao" style="height: 100px;background-color: #DDDDDD;margin-bottom: 5px;padding: 10px 10px;"  -->
+<!-- 									ng-repeat="series in diagnosis.listSeries"> -->
+<!-- 									<div style="width: 85px;float: left;"> -->
+<!-- 										<img ng-src="thumbnail.action?thumbnail_uid={{series.thumbnail_uid}}"  -->
+<!-- 											alt="{{series.part_type_name}}"  -->
+<!-- 											title="{{series.mark_char}}" style="height: 70px; width: 70px; display: block;"/> -->
+<!-- 									</div> -->
+<!-- 									<div style="float: left;"> -->
+<!-- 										部&emsp;&emsp;位：{{series.part_type_name}}<br/> -->
+<!-- 										曝光次数：{{series.expose_times}} -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+		</div>
+		<div class="col-sm-2">
+			<button class="btn btn-primary btn-sm" ng-click="showDicomByImgId(diagnosis.dicom_img_id);"
+				title="查看影像"><i class="glyphicon glyphicon-search"></i>
+				查看影像
+			</button>
+		</div>
+	</div>
+	<hr style="margin: 5px 0px;"/>
+	<div class="form-group">
+		<label class="control-label col-sm-2"><b style="color:red">*</b>病人姓名</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.patient_name"></span>
+		</div>
+		<label class="control-label col-sm-2">身份证号码</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.patient_identity_id"></span>
+<!-- 			<input type="text" class="form-control" ng-pattern="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/"  -->
+<!-- 				uib-tooltip="请填入15位数字或者18位数字,末尾可含X！"  popover-trigger="focus" -->
+<!-- 				ng-model="patient.identity_id" placeholder="病人身份证号"> -->
+		</div>
+<!-- 		<div class="col-sm-2"> -->
+<!-- 					<button class="btn btn-info" style="width: 100px;" ng-click="canEdit=!canEdit;" ng-disabled="caseHistory.status!=1"> -->
+<!-- 						<span class="glyphicon glyphicon-pencil"></span> -->
+<!-- 						{{canEdit?'锁定':'编辑'}} -->
+<!-- 					</button> -->
+<!-- 		</div> -->
+	</div>
+	<div class="form-group">
+		<label class="control-label col-sm-2"><b style="color:red">*</b>出生日期</label>
+		<div class="col-sm-3">
+			<span class="form-control" >{{diagnosis.patient_birthday|date:'yyyy-MM-dd'}}</span>
+<!-- 	       	<date-selector ng-model="patient.birthday" placeholder="出生日期"></date-selector> -->
+<!-- 		        	<div class="input-group"> -->
+<!-- 						<input type="text" class="form-control" uib-datepicker-popup ng-model="patient.birthday" -->
+<!-- 							datepicker-options="dateOptions" ng-required="true" close-text="关闭" current-text="今天" clear-text="清除" -->
+<!-- 							ng-readOnly="true" is-open="selectdateopened" ng-change="patientBirthdayChange(patient);"/> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 							<button type="button" class="btn btn-info" ng-click="selectdateopened=!selectdateopened;"> -->
+<!-- 								<i class="glyphicon glyphicon-calendar"></i> -->
+<!-- 							</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+		</div>
+        <label class="control-label col-sm-2"><b style="color:red;">*</b>年龄</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.patient_age"></span>
+<!-- 			<input type="text" class="form-control" ng-change="patientAgeChange(patient)" required -->
+<!-- 				ng-model="patient.age" placeholder="年龄"> -->
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="form-group" style="margin-bottom: 2px;">
+		<label class="control-label col-sm-2"><b style="color:red">*</b>病人性别</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.patient.genderStr"></span>
+<!-- 			<select class="form-control" ng-model="patient.gender" ng-options="g.code as g.name for g in listGender"></select> -->
+		</div>
+		<label class="control-label col-sm-2">工作/职业</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.patient_work"></span>
+<!-- 			<input type="text" class="form-control" ng-model="diagnosis.patient_work" placeholder="工作/职业"> -->
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div style="text-align: center;">
+		<button class="btn btn-xs btn-warning" style="border-bottom: 0px;border-top-left-radius: 20px;border-top-right-radius:20px;" 
+			ng-click="isCollapsed = !isCollapsed">
+			&nbsp;&nbsp;更多病人信息
+			<i ng-class="!isCollapsed?'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up'"></i>&nbsp;&nbsp;
+		</button>
+	</div>
+	<div uib-collapse="!isCollapsed">
+		<div class="form-group">
+			<label class="control-label col-sm-2">出生地</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient_born_address"></span>
+			</div>
+			<label class="control-label col-sm-2">居住地</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient_home_address"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.patient_home_address" placeholder="病人居住地"/> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">婚姻状况</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient.marital_status"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.patient.marital_status" placeholder="婚姻状况"/> -->
+			</div>
+			<label class="control-label col-sm-2">民族</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient.mingzu"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.patient.mingzu" placeholder="民族"/> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">电话号码</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient.phone_num"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.patient.phone_num" placeholder="电话号码"/> -->
+			</div>
+			<label class="control-label col-sm-2">病人来源</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{diagnosis.patient.sourceType.name}}</span>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">联系人姓名</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient.contact_name"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.patient.contact_name" placeholder="联系人姓名"> -->
+			</div>
+			<label class="control-label col-sm-2">联系人地址</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient.contact_addr"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.patient.contact_addr" placeholder="联系人地址"> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">联系人电话</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient.contact_phone_num"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.patient.contact_phone_num" placeholder="联系人电话"> -->
+			</div>
+			<label class="control-label col-sm-2">与病人关系</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.patient.contact_rela"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.patient.contact_rela" placeholder="与病人关系"> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">其它病史</label>
+			<div class="col-sm-8">
+				<span class="form-control" ng-bind="diagnosis.patient_sick_his"></span>
+<!-- 				<textarea class="form-control" rows="3" ng-model="diagnosis.patient_sick_his" placeholder="其它病史"></textarea> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</div>
+	<hr style="margin: 0px 0px;margin-bottom: 5px;"/>
+	<div class="form-group">
+		<label class="control-label col-sm-2">住院号</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.caseHistory.hospitalized_num"></span>
+<!-- 			<input type="text" class="form-control" ng-model="diagnosis.caseHistory.hospitalized_num" placeholder="住院号"/> -->
+		</div>
+		<label class="control-label col-sm-2">申请科室</label>
+		<div class="col-sm-3">
+			<span class="form-control" ng-bind="diagnosis.caseHistory.reception_section"></span>
+<!-- 			<input type="text" class="form-control" ng-model="diagnosis.caseHistory.reception_section" placeholder="申请科室"/> -->
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div class="form-group" style="margin-bottom: 2px;">
+		<label class="control-label col-sm-2">电子申请单</label>
+		<div class="col-sm-8">
+			<button class="btn btn-primary" ng-click="selectFile();">
+				<span class="glyphicon glyphicon-export"></span>
+				选择图片
+			</button>
+			<ul style="padding-left: 0px;list-style-type: none;margin-top: 10px;">
+				<li ng-repeat="f in diagnosis.caseHistory.eafFiles">
+					<a href="javascript:void(0);" ng-click="showBrowse(f);">
+						{{f.ori_name}}
+					</a>
+<!-- 					&emsp; -->
+<!-- 					<a href="javascript:void(0);" ng-click="removeFile($index)" title="删除"> -->
+<!-- 						<span class="glyphicon glyphicon-remove text-danger"></span> -->
+<!-- 					</a> -->
+				</li>
+			</ul>
+			<!-- &nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="btn btn-info" ng-click="showElectMedicalList(new_medical_his.medical_his_num)">
+				<span class="glyphicon glyphicon-export"></span>
+				调阅病史资料
+			</button> -->
+		</div>
+		<div class="col-sm-2"></div>
+	</div>
+	<div style="text-align: center;">
+		<button class="btn btn-xs btn-primary" style="border-bottom: 0px;border-top-left-radius: 20px;border-top-right-radius:20px;" 
+			ng-click="isCaseHistoryCollapsed = !isCaseHistoryCollapsed">
+			&nbsp;&nbsp;更多病例信息
+			<i ng-class="!isCaseHistoryCollapsed?'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up'"></i>&nbsp;&nbsp;
+		</button>
+	</div>
+	<div uib-collapse="!isCaseHistoryCollapsed">
+		<div class="form-group">
+			<label class="control-label col-sm-2">病例类型</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.caseHistory.typeStr"></span>
+<!-- 				<select class="form-control" ng-model="diagnosis.caseHistory.type" ng-options="c.code as c.name for c in listCaseHistoryType"> -->
+<!-- 					<option value="">--请选择--</option> -->
+<!-- 				</select> -->
+			</div>
+			<label class="control-label col-sm-2">挂号类型</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.caseHistory.guahao_type"></span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.caseHistory.guahao_type" placeholder="挂号类型"/> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">入院时间</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{diagnosis.caseHistory.enter_time|date:'yyyy-MM-dd'}}</span>
+<!-- 				<date-selector ng-model="diagnosis.caseHistory.enter_time" placeholder="入院时间"></date-selector> -->
+			</div>
+			<label class="control-label col-sm-2">出院时间</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{diagnosis.caseHistory.leave_time|date:'yyyy-MM-dd'}}</span>
+<!-- 				<date-selector ng-model="diagnosis.caseHistory.leave_time" placeholder="出院时间"></date-selector> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">接诊医生</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{diagnosis.caseHistory.reception_doctor}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.caseHistory.reception_doctor" placeholder="接诊医生"/> -->
+			</div>
+			<label class="control-label col-sm-2">接诊科室</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{diagnosis.caseHistory.reception_section}}</span>
+<!-- 				<input type="text" class="form-control" ng-model="diagnosis.caseHistory.reception_section" placeholder="接诊科室"/> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">查体</label>
+			<div class="col-sm-3">
+				<span class="form-control">{{diagnosis.caseHistory.check_body}}</span>
+<!-- 				<textarea class="form-control" rows="2" ng-model="diagnosis.caseHistory.check_body" placeholder="查体"></textarea> -->
+			</div>
+			<label class="control-label col-sm-2">医嘱</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.caseHistory.doctor_advice"></span>
+<!-- 				<textarea class="form-control" rows="2" ng-model="diagnosis.caseHistory.doctor_advice" placeholder="医嘱"></textarea> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">症状</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.caseHistory.symptom"></span>
+<!-- 				<textarea class="form-control" rows="3" ng-model="diagnosis.caseHistory.symptom" placeholder="症状"></textarea> -->
+			</div>
+			<label class="control-label col-sm-2">诊断</label>
+			<div class="col-sm-3">
+				<span class="form-control" ng-bind="diagnosis.caseHistory.diagnosis"></span>
+<!-- 				<textarea class="form-control" rows="3" ng-model="diagnosis.caseHistory.diagnosis" placeholder="诊断"></textarea> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">备注</label>
+			<div class="col-sm-8">
+				<span class="form-control" ng-bind="diagnosis.caseHistory.note"></span>
+<!-- 				<textarea class="form-control" rows="3" ng-model="diagnosis.caseHistory.note" placeholder="备注"></textarea> -->
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2">来源</label>
+			<div class="col-sm-8">
+				<span class="form-control">{{diagnosis.caseHistory.sourceType.name}}</span>
+			</div>
+			<div class="col-sm-2"></div>
+		</div>
+	</div>
+		
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="inputMedicalNum" class="control-label col-sm-2">病历编号</label> -->
+<!-- 			<div class="col-sm-10"> -->
+<!-- 				<span class="form-control" ng-bind="diagnosis.case_his_num"></span> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="textareaSymptom" class="control-label col-sm-2">影像</label> -->
+<!-- 			<div class="col-sm-10"> -->
+<!-- 				<div class="well" style="border-radius: 5px;padding: 5px 15px;"> -->
+<!-- 					<div class="row"> -->
+<!-- 						<div class="col-sm-3"> -->
+<!-- 							<div class="form-inline"> -->
+<!-- 								<label>影像编号：</label> -->
+<!-- 								<span>{{diagnosis.dicom_img_id}}</span> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-inline"> -->
+<!-- 								<label>影像类型：</label> -->
+<!-- 								<span>{{diagnosis.device_name}}</span> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-inline"> -->
+<!-- 								<label>检查项目：</label> -->
+<!-- 								<span>{{diagnosis.dicom_img_check_pro}}</span> -->
+<!-- 							</div> -->
+<!-- 							<div class="form-inline"> -->
+<!-- 								<button class="btn btn-info btn-sm" ng-click="showDicoms({dicom_img_id:diagnosis.dicom_img_id});"  -->
+<!-- 									title="查看图像"><i class="glyphicon glyphicon-search"></i> -->
+<!-- 									查看影像 -->
+<!-- 								</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-sm-9"> -->
+<!-- 							序列： -->
+<!-- 							<div> -->
+<!-- 								<div class="col-sm-4" style="padding: 0px 5px;" ng-repeat="series in diagnosis.listSeries"> -->
+<!-- 								<div style="height: 80px;border: 1px solid #CCCCCC;padding: 5px 5px;"> -->
+<!-- 									<div style="float: left;"> -->
+<!-- 										<img src="thumbnail.action?thumbnail_uid={{series.thumbnail_uid}}"  -->
+<!-- 											alt="{{series.part_type_name}}"  -->
+<!-- 											title="{{series.mark_char}}" style="height: 70px; width: 70px; display: block;"/> -->
+<!-- 									</div> -->
+<!-- 									<div style="float: left;"> -->
+<!-- 										部&emsp;&emsp;位：{{series.part_type_name}}<br/> -->
+<!-- 										曝光次数：{{series.expose_times}} -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+			
+<!-- 				<div class="col-sm-3" align="center"> -->
+<!-- 					<img ng-src="thumbnail.action?thumbnail_uid={{diagnosis.dicom_img_thumbnail_uid}}"  -->
+<!-- 						alt="{{diagnosis.device_name}}" title="{{diagnosis.part_name}}" style="height: 100px; display: block;"/> -->
+<!-- 					<div style="text-align:center"> -->
+<!-- 						<span>{{diagnosis.device_name}} <a class="glyphicon glyphicon-search" href="javascript:void(0);"  -->
+<!-- 							ng-click="showDicoms({dicom_img_id:diagnosis.dicom_img_id});" title="查看图像"></a></span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-sm-9"> -->
+<!-- 					<div><label class="control-label">检查部位：</label>{{diagnosis.part_name}}</div> -->
+<!-- 					<div><label class="control-label">检查项目：</label>{{diagnosis.dicom_img_check_pro}}</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="inputSickerName" class="control-label col-sm-2">病人姓名</label> -->
+<!-- 			<div class="col-sm-4"> -->
+<!-- 				<span class="form-control" ng-bind="diagnosis.patient_name"></span> -->
+<!-- 			</div> -->
+<!-- 			<label for="inputIdentityId" class="control-label col-sm-2">身份证号码</label> -->
+<!-- 			<div class="col-sm-4"> -->
+<!-- 				<span class="form-control" ng-bind="diagnosis.patient_identity_id"></span> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label class="control-label col-sm-2">病人年龄</label> -->
+<!-- 			<div class="col-sm-4"> -->
+<!-- 				<span class="form-control">{{diagnosis.patient_age}} 岁</span> -->
+<!-- 	        </div> -->
+<!-- 			<label for="selectGender" class="control-label col-sm-2">病人性别</label> -->
+<!-- 			<div class="col-sm-4"> -->
+<!-- 				<p class="form-control-static">{{diagnosis.patient_genderStr}}</p> -->
+<!-- 				<label class="radio-inline">
+<!-- 					<input type="radio" class="" name="gender" ng-model="diagnosis.sicker_genderStr" value="男" ng-disabled="true">男 -->
+<!-- 				</label> -->
+<!-- 				&nbsp;&nbsp; -->
+<!-- 				<label class="radio-inline"> -->
+<!-- 					<input type="radio" class="" name="gender" ng-model="diagnosis.sicker_genderStr" value="女" ng-disabled="true">女 -->
+<!-- 				</label> --> 
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="inputfile" class="control-label col-sm-2">电子申请单</label> -->
+<!-- 			<div class="col-sm-10"> -->
+<!-- 				<div> -->
+<!-- 					<ul class="list" style="padding-left: 20px;"> -->
+<!-- 						<li ng-repeat="f in diagnosis.eaf_file_list" style="list-style-type: decimal;"> -->
+<!-- 							<a href="javascript:void(0);" ng-click="showBrowse(f)" title="预览">{{f.ori_name}}</a> -->
+<!-- 						</li> -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<hr /> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="textareaSymptom" class="control-label col-sm-2">症状</label> -->
+<!-- 			<div class="col-sm-10"> -->
+<!-- 				<textarea id="textareaSymptom" class="form-control" rows="3" -->
+<!-- 					ng-model="diagnosis.case_symptom" ng-readOnly="true"></textarea> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="inputBornSite" class="control-label col-sm-2">出生地</label> -->
+<!-- 			<div class="col-sm-10"> -->
+<!-- 				<span class="form-control" ng-bind="diagnosis.patient_born_address"></span> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="inputLiveSite" class="control-label col-sm-2">居住地</label> -->
+<!-- 			<div class="col-sm-10"> -->
+<!-- 				<span class="form-control" ng-bind="diagnosis.patient_home_address"></span> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="inputWork" class="control-label col-sm-2">工作/职业</label> -->
+<!-- 			<div class="col-sm-10"> -->
+<!-- 				<span class="form-control" ng-bind="diagnosis.patient_work"></span> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="form-group"> -->
+<!-- 			<label for="textareaSickHis" class="control-label col-sm-2">其它病史</label> -->
+<!-- 			<div class="col-sm-10"> -->
+<!-- 				<textarea id="textareaSickHis" class="form-control" rows="3" ng-model="diagnosis.patient_sick_his"  -->
+<!-- 					ng-readOnly="true"></textarea> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+</div>

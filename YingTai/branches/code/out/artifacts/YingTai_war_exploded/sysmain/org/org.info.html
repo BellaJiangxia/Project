@@ -1,0 +1,164 @@
+<div class="container-fluid">
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h4>机构信息</h4></div>
+    <div class="panel-body">
+      <form class="form-horizontal" novalidate>
+        <div class="form-group" ng-if="org.certification_level===3">
+          <uib-alert type="danger" class="col-sm-offset-2 col-sm-7">认证失败原因:  {{org.note}}</uib-alert>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-3 control-label">LOGO</label>
+
+          <div class="col-sm-5">
+            <img class="img-thumbnail" ng-src="common!image.action?fileType=16&imageId={{org.logo_file_id || ''}}" style="width: 100px;height:100px;">
+
+            <div class="fileUpload btn btn-primary" ng-show="notEdit">
+              <span class="glyphicon glyphicon-picture"> 上传LOGO</span>
+              <input type="file" accept="image/*" class="upload" upload-change change="uploadFile" file-type="16"
+                     file-bind="21">
+            </div>
+          </div>
+        </div>
+        <div class="form-group has-feedback">
+          <label class="col-sm-3 control-label">机构名称<b style="color:red">*</b></label>
+
+          <div class="col-sm-5">
+            <input type="text" class="form-control" ng-readonly="!notEdit" ng-model="org.org_name">
+            <span ng-if="org.isVIP" class="form-control-feedback text-success" style="width:70px;"><i class="glyphicon glyphicon-ok" aria-hidden="true"></i>已认证</span>
+          </div>
+        </div>
+        <div class="form-group" ng-show="org.org_code">
+          <label class="col-sm-3 control-label">机构编号</label>
+
+          <div class="col-sm-5">
+            <span class="form-control" data-ng-bind="org.org_code"></span>
+          </div>
+        </div>
+        <!--<div class="form-group">-->
+          <!--<label class="col-sm-3 control-label">机构类型</label>-->
+
+          <!--<div class="col-sm-5">-->
+            <!--<span class="form-control" data-ng-bind="org.property.name"></span>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!-- 	  <div class="form-group" ng-show="org.org_code"> -->
+        <!-- 	    <label class="col-sm-3 control-label">机构角色</label> -->
+        <!-- 	    <div class="col-sm-5"> -->
+        <!-- 	      <span class="form-control" data-ng-bind="org.roleName"></span> -->
+        <!-- 	    </div> -->
+        <!-- 	  </div> -->
+        <div class="form-group" ng-show="org.creator_name">
+          <label class="col-sm-3 control-label">创建人</label>
+
+          <div class="col-sm-5">
+            <span class="form-control" data-ng-bind="org.creator_name"></span>
+          </div>
+        </div>
+        <div class="form-group" ng-show="org.create_time">
+          <label class="col-sm-3 control-label">创建时间</label>
+
+          <div class="col-sm-5">
+            <span class="form-control" data-ng-bind="org.create_time | date:'yyyy-MM-dd HH:mm:ss'"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">机构类型<b style="color:red">*</b></label>
+            <div class="row col-sm-5">
+              <div class="col-sm-4">
+                <select class="form-control" ng-options="t.code as t.name for t in types" ng-model="org.org_property"></select>
+              </div>
+              <label class="col-sm-3 control-label">机构级别</label>
+              <div class="col-sm-5">
+                <select class="form-control" ng-options="l.id as l.value for l in levels" ng-model="org.levels">
+                  <option value="">-请选择-</option>
+                </select>
+              </div>
+            </div>
+        </div>
+        <div class="form-group" ng-if="showTip">
+          <div class="col-sm-5 col-sm-offset-3">
+            <h4 class="text-danger">* 机构类型变更需要进行认证操作才能生效！</h4>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">是否公开信息</label>
+
+          <div class="col-sm-5">
+	    	<span ng-repeat="g in publicStatus" class="radio"> 
+	    		<label>
+            <input type="radio" ng-change="changePublic()" name='publicStatus' value='{{g.code}}'
+                   ng-model="org.is_public" ng-disabled="!notEdit"/>{{g.name}}
+          </label>
+					</span>
+          </div>
+        </div>
+
+        <div class="form-group" ng-if="org.org_property===11">
+          <label class="col-sm-3 control-label">机构证件</label>
+
+          <div class="col-sm-5">
+            <div ng-show="org.scan_file_ids">
+              <img ng-repeat="sfid in org.scan_file_ids.split(',')" class="img-thumbnail"
+                   ng-src="common!image.action?imageId={{sfid}}" style="width: 100%;height:240px;">
+            </div>
+            <div class="fileUpload btn btn-primary" ng-show="notEdit">
+              <span class="glyphicon glyphicon-picture"> 上传证件</span>
+              <input type="file" multiple accept="image/*" class="upload" upload-change change="uploadFile"
+                     file-type="17" file-bind="22">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">机构描述</label>
+
+          <div class="col-sm-5">
+            <textarea rows="4" class="form-control" ng-model="org.description" ng-readonly="!notEdit"
+                      style="resize:none"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"> </label>
+
+          <div class="col-sm-5">
+            <uib-alert type="danger" ng-show="msg">{{msg}}</uib-alert>
+          </div>
+        </div>
+        <div class="form-group" style="text-align: center;">
+          当前机构可见性：<span ng-class="org.visible==1?'':'text-danger'">{{org.visibleStr}}</span>
+          <button class="btn btn-primary" title="点击切换" ng-click="showOrg()">
+            <span ng-class="org.visible==1?'glyphicon glyphicon-eye-open':'glyphicon glyphicon-eye-close'"></span>
+            切换
+          </button>
+          <button class="btn btn-success" ng-disabled="!notEdit" ng-click="saveOrg()">
+            <span class="glyphicon glyphicon-save"></span> 保存
+          </button>
+          <button class="btn btn-info" ng-disabled="!notEdit" ng-click="certification()">
+            <span class="glyphicon glyphicon-ok"></span> 申请认证
+          </button>
+        </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
+<style>
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+  }
+
+  .fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+</style>

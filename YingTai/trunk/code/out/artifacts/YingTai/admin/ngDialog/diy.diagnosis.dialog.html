@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+	<div data-ng-init="initData()">
+		<div align="center"><label>请确认</label></div>
+		<div style="margin-left: 20px"><b class="text-danger"><span class="glyphicon glyphicon-warning-sign"> </span>
+			请详仔细核对以下信息，确定将视为你已经接受此诊断！</b></div>
+		<div class="panel panel-info">
+			<div class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-4">申请机构：</label>
+					<div class="col-sm-8">
+						<label class="control-label text-success">{{diagnosis.request_org_name}}</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-4">涉及金额：</label>
+					<div class="col-sm-8">
+						<label class="control-label text-danger">￥{{diagnosis.price}}</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-4">平台提成：</label>
+					<div class="col-sm-8">
+						<label class="control-label text-danger">￥{{diagnosis.sys_deduct}}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="text-align: right;">
+			<p></p>
+			<div class="btn-group btn-group-sm">
+				<a class="btn btn-info" href="javascript:void(0);" ng-click="closeThisDialog(1)">确定</a>
+				<a class="btn btn-warning" href="javascript:void(0);" ng-click="closeThisDialog(0)">取消</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.sys.mapper.SysMapper">
+	<update id="updateTemplateStat" parameterType="TTemplateStat">
+		update T_TEMPLATE_STAT set USE_TIMES=#{use_times},LAST_USE_TIME=#{last_use_time} where ID=#{id} 
+	</update>
+
+	<insert id="addTemplateStat" parameterType="TTemplateStat" keyProperty="id" useGeneratedKeys="true">
+		insert into T_TEMPLATE_STAT
+			(TEMPLATE_ID
+			,USER_ID
+			,USE_TIMES
+			,LAST_USE_TIME
+			) values (
+			#{template_id}
+			,#{user_id}
+			,#{use_times}
+			,#{last_use_time}
+			)
+	</insert>
+
+	<select id="selectTemplateByUserIdAndTemplateId" parameterType="Map" resultType="TTemplateStat">
+		select * from T_TEMPLATE_STAT where USER_ID=#{user_id} and TEMPLATE_ID=#{template_id}
+	</select>
+
+	<select id="queryCommonTemplateList" parameterType="long" resultType="FReportTemplate">
+		SELECT t1.*,
+			t2.VALUE as device_type_name,
+			t3.VALUE as part_type_name,
+			t4.USER_NAME as user_name 
+		from (
+			select tmp_t.TEMPLATE_ID TEMPLATE_ID,tmp_t.RowNumber RowNumber
+			from (
+				select TEMPLATE_ID,ROW_NUMBER() OVER (ORDER BY USE_TIMES DESC) AS RowNumber
+				from T_TEMPLATE_STAT 
+				where USER_ID=#{user_id}
+			) as tmp_t 
+			where tmp_t.RowNumber &lt;=20) t0
+			left join T_REPORT_TEMPLATE t1 on t0.TEMPLATE_ID=t1.id
+			left join T_DIC_VALUE t2 on t1.DEVICE_TYPE_ID=t2.id
+			left join T_DIC_VALUE t3 on t1.PART_TYPE_ID=t3.id
+			left join T_BASE_USER t4 on t1.USER_ID=t4.id
+	</select>
+
+	<select id="searchMyAndPublicFTemplateCount" parameterType="Map" resultType="int">
+		select count(ID) from T_REPORT_TEMPLATE 
+		where 1=1
+			<choose >
+				<when test="user_id !=null and type !=null">
+					and (user_id=#{user_id} or type=#{type})	
+				</when>
+				<when test="user_id !=null">
+					and user_id=#{user_id}
+				</when>
+				<when test="type !=null">
+					and type=#{type}
+				</when>
+			</choose>
+			<if test="template_name !=null">
+				and template_name like '%'+#{template_name}+'%'
+			</if>
+			<if test="device_type_id !=null">
+				and device_type_id =#{device_type_id}
+				<if test="part_type_id !=null">
+					and part_type_id = #{part_type_id}
+				</if>
+			</if>
+	</select>
+	
+	<select id="searchMyAndPublicFTemplate" parameterType="Map" resultType="FReportTemplate">
+		select 
+			t0.*,
+			t1.VALUE as device_type_name,
+			t2.VALUE as part_type_name,
+			t3.USER_NAME as user_name
+		from T_REPORT_TEMPLATE t0
+			left join T_DIC_VALUE t1 on t0.DEVICE_TYPE_ID=t1.id
+			left join T_DIC_VALUE t2 on t0.PART_TYPE_ID=t2.id
+			left join T_BASE_USER t3 on t0.USER_ID=t3.id
+		where t0.ID in (
+			select id from (
+				select ID,ROW_NUMBER() OVER (ORDER BY ID DESC) AS RowNumber
+				from T_REPORT_TEMPLATE 
+				where 1=1
+					<choose >
+						<when test="user_id !=null and type !=null">
+							and (user_id=#{user_id} or type=#{type})	
+						</when>
+						<when test="user_id !=null">
+							and user_id=#{user_id}
+						</when>
+						<when test="type !=null">
+							and type=#{type}
+						</when>
+					</choose>
+					<if test="template_name !=null">
+						and template_name like '%'+#{template_name}+'%'
+					</if>
+					<if test="device_type_id !=null">
+						and device_type_id =#{device_type_id}
+						<if test="part_type_id !=null">
+							and part_type_id = #{part_type_id}
+						</if>
+					</if>
+			) as tmp_t 
+				<if test="minRow !=null and maxRow !=null">
+					where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+				</if>
+		)
+	</select>
+
+	<select id="searchFTemplate" parameterType="Map" resultType="FReportTemplate">
+		select 
+			t0.*,
+			t1.VALUE as device_type_name,
+			t2.VALUE as part_type_name,
+			t3.USER_NAME as user_name
+		from T_REPORT_TEMPLATE t0
+			left join T_DIC_VALUE t1 on t0.DEVICE_TYPE_ID=t1.id
+			left join T_DIC_VALUE t2 on t0.PART_TYPE_ID=t2.id
+			left join T_BASE_USER t3 on t0.USER_ID=t3.id
+		where t0.ID in (
+			select id from (
+				select ID,ROW_NUMBER() OVER (ORDER BY ID DESC) AS RowNumber
+				from T_REPORT_TEMPLATE 
+				where 1=1
+					<if test="user_id !=null">
+						and user_id=#{user_id}		
+					</if>
+					<if test="template_name !=null">
+						and template_name like '%'+#{template_name}+'%'
+					</if>
+					<if test="device_type_id !=null">
+						and device_type_id =#{device_type_id}
+						<if test="part_type_id !=null">
+							and part_type_id = #{part_type_id}
+						</if>
+					</if>
+					<if test="type !=null">
+						and type=#{type}
+					</if>
+			) as tmp_t 
+				<if test="minRow !=null and maxRow !=null">
+					where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+				</if>
+		)
+	</select>
+
+	<select id="searchFTemplateCount" parameterType="Map" resultType="int">
+		select count(ID) 
+		from T_REPORT_TEMPLATE
+		where 1=1
+			<if test="user_id !=null">
+				and user_id=#{user_id}		
+			</if>
+			<if test="template_name !=null">
+				and template_name like '%'+#{template_name}+'%'
+			</if>
+			<if test="device_type_id !=null">
+				and device_type_id =#{device_type_id}
+			</if>
+			<if test="part_type_id !=null">
+				and part_type_id = #{part_type_id}
+			</if>
+			<if test="type !=null">
+				and type=#{type}
+			</if>
+	</select>
+
+	<insert id="insertDicValue" parameterType="TDicValue"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into T_DIC_VALUE (
+			dic_type,
+			father_dic_id,
+			value,
+			flag,
+			unit,
+			description
+		)values(
+			#{dic_type},
+			#{father_dic_id,jdbcType=VARCHAR},
+			#{value},
+			#{flag},
+			#{unit,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<delete id="deleteDicValueById" parameterType="long">
+		delete from T_DIC_VALUE where id=#{id}
+	</delete>
+
+	<update id="modifyDicValueyId" parameterType="TDicValue">
+		update T_DIC_VALUE set value=#{value} where id=#{id}
+	</update>
+
+	<select id="selectValuesByType" parameterType="int" resultType="TDicValue">
+		select * from T_DIC_VALUE where dic_type=#{dic_type}
+	</select>
+
+	<select id="selectValueById" parameterType="long" resultType="TDicValue">
+		select * from T_DIC_VALUE where id=#{id}
+	</select>
+
+	<select id="selectValueByIdForUpdate" parameterType="long"
+		resultType="TDicValue">
+		select * from T_DIC_VALUE WITH(UPDLOCK) where id=#{id}
+	</select>
+
+	<select id="queryDicValueListByTypeAndParentId" parameterType="TDicValue" resultType="TDicValue">
+		select * from T_DIC_VALUE where father_dic_id=#{father_dic_id} and DIC_TYPE=#{dic_type}
+	</select>
+
+	<select id="selectValuesByTypeAndValue" parameterType="Map"
+		resultType="TDicValue">
+		select * from T_DIC_VALUE where dic_type=#{dic_type} and
+		value=#{value}
+		<if test="father_dic_id !=null">
+			and father_dic_id=#{father_dic_id}
+		</if>
+	</select>
+
+	<select id="selectValuesByTypeForUpdate" parameterType="int"
+		resultType="TDicValue">
+		select * from T_DIC_VALUE with (UPDLOCK) where
+		dic_type=#{dic_type}
+	</select>
+
+	<insert id="insertReportTemplate" parameterType="TReportTemplate"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into T_REPORT_TEMPLATE (
+			template_name,
+			device_type_id,
+			part_type_id,
+			user_id,
+			pic_opinion,
+			pic_conclusion,
+			type,
+			note
+		) values (
+			#{template_name},
+			#{device_type_id},
+			#{part_type_id},
+			#{user_id},
+			#{pic_opinion},
+			#{pic_conclusion},
+			#{type},
+			#{note,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<select id="selectTemplateById" parameterType="long" resultType="FReportTemplate">
+		select t0.*,t1.value device_type_name,t2.value part_type_name,t3.USER_NAME user_name 
+		from T_REPORT_TEMPLATE t0
+			left join T_DIC_VALUE t1 on t0.DEVICE_TYPE_ID=t1.id
+			left join T_DIC_VALUE t2 on t0.PART_TYPE_ID=t2.id
+			left join T_BASE_USER t3 on t0.USER_ID=t3.id
+		where t0.id=#{templId}
+	</select>
+
+	<update id="modifyReportTemplate" parameterType="TReportTemplate">
+		update T_REPORT_TEMPLATE set
+		template_name=#{template_name},
+		device_type_id=#{device_type_id},
+		part_type_id=#{part_type_id},
+		pic_opinion=#{pic_opinion},
+		pic_conclusion=#{pic_conclusion},
+		type=#{type},
+		note=#{note}
+		where id=#{id}
+	</update>
+
+	<delete id="deleteReportTemplate" parameterType="long">
+		delete
+		from T_REPORT_TEMPLATE where id=#{lTemplId}
+	</delete>
+
+	<select id="searchTemplate" parameterType="Map" resultType="TReportTemplate">
+		select * from T_REPORT_TEMPLATE where id in(
+		select ID from (
+		select id,ROW_NUMBER () OVER (ORDER BY id) AS RowNumber
+		from T_REPORT_TEMPLATE where 1=1
+		<if test="user_id !=null">
+			and user_id=#{user_id}
+		</if>
+		<if test="template_name !=null">
+			and template_name=#{template_name}
+		</if>
+		<if test="device_type_id !=null">
+			and device_type_id=#{device_type_id}
+			<if test="part_type_id !=null">
+				and part_type_id=#{part_type_id}
+			</if>
+		</if>
+		<if test="type !=null">
+			and type=#{type}
+		</if>
+		) as tmp_t 
+			<if test="minRow !=null and maxRow!=null">
+				where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber&lt;#{maxRow}
+			</if>
+		)
+	</select>
+
+	<select id="searchTemplateCount" parameterType="Map" resultType="int">
+		select count(id) from T_REPORT_TEMPLATE where 1=1
+		<if test="user_id !=null">
+			and user_id=#{user_id}
+		</if>
+		<if test="template_name !=null">
+			and template_name=#{template_name}
+		</if>
+		<if test="device_type_id !=null">
+			and device_type_id=#{device_type_id}
+		</if>
+		<if test="part_type_id !=null">
+			and part_type_id=#{part_type_id}
+		</if>
+		<if test="status !=null">
+			and status=#{status}
+		</if>
+	</select>
+</mapper>

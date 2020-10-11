@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="modal-header bg-primary">
+	<h3 class="modal-title">请选择使用模版</h3>
+</div>
+<div class="modal-body">
+	<div class="form-inline" style="margin: 5px 10px;">
+		<div class="form-group">
+			<input type="text" class="form-control"
+				ng-model="query.template_name" placeholder="模板名称">
+		</div>
+		<div class="form-group">
+			<select class="form-control" style="width: 160px;" ng-model="query.onlyMe">
+				<option value="false">机构所有模板</option>
+				<option value="true">我创建的模板</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<a type="button" class="btn btn-primary" ng-click="searchTemplates()"><i class="glyphicon glyphicon-search"></i> 查询</a>
+		</div>
+	</div>
+	<table class="table table-bordered table-hover table-condensed" style="text-align: center;">
+		<thead>
+			<tr class="bg-primary">
+				<th style="text-align: center"></th>
+				<th style="text-align: center">模板名称</th>
+				<th style="text-align: center">创建人</th>
+				<th style="text-align: center">创建时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="t in templates" ng-class="t.isSelected?'success':''" >
+				<td><input type="checkbox" ng-model="t.isSelected" ng-change="chkChange(t.isSelected,t)"></td>
+				<td>{{t.template_name}}</td>
+				<td>{{t.create_user_name}}</td>
+				<td>{{t.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="panel-footer">
+		<div style="text-align: right">
+			<uib-pagination style="margin: 0px auto" class="pagination-sm" total-items="query.spu.totalRow" ng-model="query.spu.currPage" ng-change="searchTemplates()"
+				max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+	
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">确定</button>
+	<button class="btn btn-warning" ng-click="cancel()">取消</button>
+</div>
+</body>
+</html>

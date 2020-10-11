@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<title>影泰远程影像诊断系统</title>
+<link href="../image/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+<link rel="stylesheet" href="../css/bootstrap-3.3.6.min.css" type="text/css">
+<link rel="stylesheet" href="../css/bootstrap-theme-3.3.6.min.css" type="text/css">
+<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css">
+
+<link rel="stylesheet" href="../css/ngDialog-theme-default-0.6.2.css" type="text/css">
+<link rel="stylesheet" href="../css/ngDialog-theme-plain-0.6.2.min.css" type="text/css">
+<link rel="stylesheet" href="../css/ngDialog-0.6.2.min.css" type="text/css">
+
+<link rel="stylesheet" href="../css/common.css" type="text/css">
+<link rel="stylesheet" href="../css/vastsoft/vastsoft.css" type="text/css">
+
+<script type="text/javascript" src="../js/form_data.js"></script>
+
+<script type="text/javascript" src="../js/angular-1.5.6.min.js"></script>
+<script type="text/javascript" src="../js/angular-locale_zh-cn.js"></script>
+<script type="text/javascript" src="../js/angular-animate-1.5.6.min.js"></script>
+<script type="text/javascript" src="../js/angular-ui-router-0.2.18.min.js"></script>
+<script type="text/javascript" src="../js/angular-touch-1.5.6.min.js"></script>
+
+<script type="text/javascript" src="../js/ui-bootstrap-tpls-1.3.3.min.js"></script>
+
+<script type="text/javascript" src="../js/ngDialog.min-0.6.2.js"></script>
+<script type="text/javascript" src="../js/angular-file-upload.min.js"></script>
+<script type="text/javascript" src="../js/echarts.js"></script>
+
+<script type="text/javascript" src="../js/checklist-model.js"></script>
+<script type="text/javascript" src="../js/angular-confirm.js"></script>
+<script type="text/javascript" src="../js/datetimepicker.js"></script>
+
+<script type="text/javascript" src="../js/vastsoft/tools.js"></script>
+<script type="text/javascript" src="../js/vastsoft/directives.js"></script>
+<script type="text/javascript" src="../js/vastsoft/filters.js"></script>
+<script type="text/javascript" src="../js/vastsoft/services.js"></script>
+<script type="text/javascript" src="../js/vastsoft/dialogs.js"></script>
+<script type="text/javascript" src="../js/vastsoft/wpacsWnd.js"></script>
+
+<script type="text/javascript" src="../common/yingtai.common.js"></script>
+<script type="text/javascript" src="../common/filter/filter.js"></script>
+<script type="text/javascript" src="../common/controllers/controllers.js"></script>
+<script type="text/javascript" src="../common/services.js"></script>
+<script type="text/javascript" src="../common/modals/modals.js"></script>
+<script type="text/javascript" src="../common/fileUpload.modal.js"></script>
+<script type="text/javascript" src="../common/diagnosis.msg.chat.js"></script>
+<script type="text/javascript" src="../common/util.js"></script>
+<script type="text/javascript" src="../common/directive/directives.js"></script>
+<script type="text/javascript" src="../common/ngDialog/ngDialog.js"></script>
+
+<script type="text/javascript" src="../dicom/dicom.js"></script>
+
+<script type="text/javascript" src="./index.js"></script>
+
+<script type="text/javascript" src="./request/request.js"></script>
+
+<script type="text/javascript" src="./requestTranfer/requestTranfer.js"></script>
+<script type="text/javascript" src="./requestTranfer/requestor/requestTranfer.requestor.js"></script>
+
+<script type="text/javascript" src="./case/case.js"></script>
+<script type="text/javascript" src="./case/case.new.js"></script>
+<script type="text/javascript" src="./case/case.mgr.js"></script>
+<script type="text/javascript" src="./case/info/case.info.js"></script>
+
+<script type="text/javascript" src="./patientInfoShare/patientInfoShare.js"></script>
+<script type="text/javascript" src="./qualityControl/qualityControl.js"></script>
+
+<script type="text/javascript" src="./stat/stat.js"></script>
+<script type="text/javascript" src="./stat/diagnosis/stat.diagnosis.js"></script>
+<script type="text/javascript" src="./stat/request/stat.request.js"></script>
+
+<script type="text/javascript" src="./template/template.js"></script>
+
+<script type="text/javascript" src="./report/report.js"></script>
+<script type="text/javascript" src="./report/modify/report.modify.js"></script>
+
+<script type="text/javascript" src="./returnvisit/returnvisit.template.js"></script>
+<script type="text/javascript" src="./returnvisit/returnvisit.batch.js"></script>
+<script type="text/javascript" src="./returnvisit/returnvisit.js"></script>
+
+<script type="text/javascript" src="./diagnosis/diagnosis.js"></script>
+<script type="text/javascript" src="./diagnosis/tranfer/diagnosis.tranfer.js"></script>
+<script type="text/javascript" src="./diagnosis/handle/diagnosis.handle.js"></script>
+<script type="text/javascript" src="./diagnosis/mgr/diagnosis.mgr.js"></script>
+<script type="text/javascript" src="./diagnosis/report/diagnosis.report.js"></script>
+
+<script type="text/javascript" src="./org/org.js"></script>
+<script type="text/javascript" src="./org/friends/org.friends.js"></script>
+<script type="text/javascript" src="./org/product/org.product.js"></script>
+
+<script type="text/javascript" src="./share/share.js"></script>
+
+<script type="text/javascript" src="./inquiry/inquiry.js"></script>
+
+<script src="reservation/service.js"></script>
+<script src="reservation/reserve.js"></script>
+
+</head>
+
+<body style="margin-top: 60px; margin-bottom:45px;background-image: url('../image/bg.jpg');background-attachment: fixed;background-size: cover;" 
+	ng-app="main" ng-controller="mainCtrl" data-ng-init="initData();">
+	<div id="spinner" ng-if="spinner.isShow"></div>
+	<div id="spinnershow" ng-if="spinner.isShow">
+		<img alt="loading" width="120px" height="120px" src="../image/loading.gif" />
+		<span style="color: white;">{{spinner.msg}}</span>
+	</div>
+    <div class="navbar-fixed-top" style="height: 50px; line-height: 50px; background-color: #096BAC; color: #ffffff;text-align: center;">
+    	<div style="float:left;padding-left: 50px;">
+			<div class="btn-group" uib-dropdown>
+	        	<a href="javascript:void(0);" style="color: white;" id="org-button" uib-dropdown-toggle>
+	        		<span class="glyphicon glyphicon-home"></span>
+                    <span>{{org.name}}</span>
+	        		<span class="badge" style="background-color: #f00; color: #fff" 
+	        			ng-show="diagnosisCount.joiningUserCount+diagnosisCount.joiningOrgCount>0"
+						data-ng-bind="diagnosisCount.joiningUserCount+diagnosisCount.joiningOrgCount">
+					</span>
+	        		<span style="font-weight: lighter;" class="caret"></span>
+				</a>
+				<ul uib-dropdown-menu class="dropdown-menu" role="menu" aria-labelledby="org-button">
+		            <li role="menuitem">
+		            	<a href="#/org/info">
+		            		<i class="glyphicon glyphicon-th-list"></i>
+		            		机构信息
+		            	</a>
+		            </li>
+		            <li role="menuitem" ng-if="user.isOrgMgr">
+		            	<a href="#/org/config">
+		            		<i class="glyphicon glyphicon-wrench"></i>
+		            		机构配置
+		            	</a>
+		            </li>
+		            <li role="menuitem">
+		            	<a href="#/org/users" ng-if="user.isOrgMgr">
+		            		<i class="glyphicon glyphicon-user"></i>
+							机构人员
+							<span class="badge" style="background-color: #f00; color: #fff" 
+								ng-show="diagnosisCount.joiningUserCount>0" data-ng-bind="diagnosisCount.joiningUserCount">
+							</span>
+		            	</a>
+		            </li>
+		            <li role="menuitem">
+		            	<a href="#/org/friends" ng-if="user.isOrgMgr">
+		            		<i class="glyphicon glyphicon-compressed"></i>
+							合作机构
+							<span class="badge" style="background-color: #f00; color: #fff"
+								ng-show="diagnosisCount.joiningOrgCount>0" data-ng-bind="diagnosisCount.joiningOrgCount">
+							</span>
+		            	</a>
+		            </li>
+		            <li role="menuitem">
+		            	<a href="#/org/product/list" ng-if="user.isOrgMgr">
+		            		<i class="glyphicon glyphicon-heart"></i>
+							诊断服务
+						</a>
+		            </li>
+		            <li role="menuitem">
+		            	<a href="#/org/account" ng-if="user.isOrgMgr">
+		            		<i class="glyphicon glyphicon-usd"></i>
+		            		资金账户
+		            	</a>
+		            </li>
+		            <li role="menuitem">
+		            	<a href="#/stat" ng-if="user.isOrgMgr">
+		            		<i class="glyphicon glyphicon-stats"></i>
+		            		机构统计
+		            	</a>
+		            </li>
+					<li role="menuitem">
+						<a href="#/service/list" ng-if="user.isOrgMgr">
+							<i class="glyphicon glyphicon-list-alt"></i>
+							预约服务
+						</a>
+					</li>
+				</ul>
+			</div>
+    		<div style="display: inline-block;">
+    			<img alt="认证" src="{{currOrg.isVIP?'../image/authentication.png':'../image/unauthentication.png'}}" 
+    				width="25px" height="25px" title="{{currOrg.isVIP?'此机构已通过影泰认证！':'此机构未通过影泰认证！'}}"/>
+    		</div>
+    	</div>
+		<span style="margin-left: 20px;"><span style="font-size: 28px; font-weight: lighter;">影泰远程影像诊断平台</span></span>
+		<a style="float:right; margin-right: 20px;color:#fff;" target="_blank" href="user!generateBBSToken.action">平台论坛</a>
+        <a style="float:right; margin-right: 20px;color:#fff;" target="_blank" href="http://www.yingtai360.com">影泰首页</a>
+      <!-- <button class="pull-right btn" ng-class="!newCall?'btn-default':classIndex==1?'btn-danger':'btn-default'" ng-click="recvCall()">新呼叫</button> -->
+    </div>
+    <div class="row" style="margin: 0px 0px;">
+    	<div class="col-md-2" style="padding: 0px 5px;">
+		    <div class="panel panel-info" style="padding: 5px 5px;">
+		    	<div style="padding-left: 15px;" >
+			    	<a href="../user" style="padding:0px; margin:0px;">
+		    			<img class="img-rounded" ng-src="common!image.action?fileType=14&imageId={{user.photo_file_id}}" 
+		    				style="width: 50px; height: 50px;" alt="用户头像">
+		    		</a> 
+		    		<div class="btn-group col-xs-offset-2" uib-dropdown>
+			            <a id="user-button" href="javascript:void(0);" uib-dropdown-toggle>
+			               <span class="glyphicon glyphicon-user"></span>
+			               <strong style="font-size:larger-x">{{user.name}}</strong>
+				           <span style="font-weight: lighter;" class="caret"></span>
+				        </a>
+						<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="user-button">
+							<li role="menuitem">
+								<a href="../user">
+									<i class="glyphicon glyphicon-user"></i>
+									个人资料
+								</a>
+							</li>
+							<li role="menuitem" ng-if="user.userType.code==3">
+								<a href="#/template/private">
+									<i class="glyphicon glyphicon-th"></i>
+									个人模板
+								</a>
+							</li>
+							<li role="menuitem">
+								<a href="../user#/userConfig">
+									<i class="glyphicon glyphicon-wrench"></i>
+									个人配置
+								</a>
+							</li>
+							<li role="menuitem">
+								<a href="../user#/myOrg/list">
+									<i class="glyphicon glyphicon -tasks"></i>
+									我的机构
+								</a>
+							</li>
+							<li role="menuitem">
+								<a href="#/qualityControl">
+									<i class="glyphicon glyphicon-th-large"></i>
+									我的质控
+	<!-- 								<span class="badge" style="background-color: #f00; color: #fff" -->
+	<!-- 									ng-show="diagnosisCount.joiningOrgCount>0" data-ng-bind="diagnosisCount.joiningOrgCount"> -->
+	<!-- 								</span> -->
+								</a>
+							</li>
+							<li role="menuitem">
+								<a href="../user#/pwd">
+									<i class="glyphicon glyphicon-pencil"></i>
+									修改密码
+								</a>
+							</li>
+							<li role="divider"></li>
+							<li role="menuitem">
+								<a href ng-click="logout()">
+									<i class="glyphicon glyphicon-log-out"></i>
+									退出系统
+								</a>
+							</li>
+						</ul>
+					</div>
+		    	</div>
+		    	<hr style="border: 1px solid #DDDDDD;border-bottom: 0px;margin: 10px 0px;" />
+				<div style="padding: 0px 0px;">
+					<uib-accordion close-others="true">
+					    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+					    	<uib-accordion-heading>
+								病人病历
+							</uib-accordion-heading>
+							<div class="list-group menu-list-body">
+								<a class="list-group-item" ui-sref="case.mgr" ng-if="user.isMedicalHisMgr">病例管理</a>
+								<a class="list-group-item" href ng-click="innerPatientInfoShareModule();" ng-if="user.isMedicalHisMgr">合作机构病例库</a>
+							</div>
+					    </div>
+					    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+					    	<uib-accordion-heading>
+								远诊申请
+								<span class="badge pull-right" style="color: white; background-color: red;" 
+				        			ng-if="(diagnosisCount.unviewed_report_count+diagnosisCount.unreadRequestMsgCount+diagnosisCount.modifyConfirmCount)>0">
+				        			{{diagnosisCount.unreadRequestMsgCount + diagnosisCount.modifyConfirmCount + diagnosisCount.unviewed_report_count}}
+				        		</span>
+							</uib-accordion-heading>
+					    	<div class="list-group menu-list-body">
+								<a class="list-group-item" href="#/request/list/my/finish" ng-if="user.isMedicalHisMgr">
+					        		我的申请
+					        		<span class="badge pull-right" style="color: white; background-color: red;" 
+					        			ng-if="(diagnosisCount.unreadRequestMsgCount+diagnosisCount.unviewed_report_count)>0">
+					        			{{diagnosisCount.unreadRequestMsgCount + diagnosisCount.unviewed_report_count}}
+					        		</span>
+					        	</a>
+					        	<a class="list-group-item" href="#/request/list/org/finish" ng-if="user.isMedicalHisMgr">
+					        		机构申请
+					        	</a>
+<!-- 					        	<a class="list-group-item" href="#/requestTranfer/requestor" ng-if="(user.isAuditer || user.isReportor)"> -->
+<!-- 					        		流转申请 -->
+<!-- 									<span class="badge pull-right" style="color: white; background-color: red;" -->
+<!-- 					            		ng-if="diagnosisCount.unhandle.unAuditCount+diagnosisCount.unhandle.unAcceptHandleCount>0"> -->
+<!-- 					            		{{diagnosisCount.unhandle.unAuditCount+diagnosisCount.unhandle.unAcceptHandleCount}} -->
+<!-- 									</span> -->
+<!-- 					        	</a> -->
+					        	<a class="list-group-item" ui-sref="report.modify.requestor.request.list" ng-if="user.isMedicalHisMgr">
+									修改报告申请
+									<span class="badge pull-right" style="color: white; background-color: red;" 
+										ng-if="diagnosisCount.modifyConfirmCount>0">
+										{{diagnosisCount.modifyConfirmCount}}
+									</span>
+					        	</a>
+							</div>
+					    </div>
+					    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+					    	<uib-accordion-heading>
+					    		远诊诊断
+					    		<span class="badge pull-right" style="color: white; background-color: red;" 
+									ng-if="diagnosisCount.waitDiagnosisHandleCount>0 || diagnosisCount.unfinish 
+									|| (diagnosisCount.unhandle.unAuditCount+diagnosisCount.unhandle.unAcceptHandleCount)>0
+									|| diagnosisCount.unreadDiagnosisMsgCount>0 || diagnosisCount.modifyRequestCount>0">
+									{{diagnosisCount.waitDiagnosisHandleCount + (diagnosisCount.unfinish?1:0) +
+									(diagnosisCount.unhandle.unAuditCount + diagnosisCount.unhandle.unAcceptHandleCount) +
+									diagnosisCount.unreadDiagnosisMsgCount + diagnosisCount.modifyRequestCount}}
+								</span>
+					    	</uib-accordion-heading>
+					    	<div class="list-group menu-list-body">
+					    		<a class="list-group-item" href="#/diagnosis/handle/writing" ng-if="(user.isAuditer||user.isReportor)">
+						        	书写中
+									<span class="badge pull-right" style="color: white; background-color: red;" 
+										ng-if="diagnosisCount.unfinish">&nbsp;</span>
+						        </a>
+					        	<a class="list-group-item" href="#/diagnosis/mgr/waiting" ng-if="(user.isAuditer||user.isReportor)">
+					        		诊断申请
+									<span class="badge pull-right" style="color: white; background-color: red;" 
+										ng-if="diagnosisCount.waitDiagnosisHandleCount>0">
+										{{diagnosisCount.waitDiagnosisHandleCount}}
+									</span>
+					        	</a>
+					        	<a class="list-group-item" href="#/diagnosis/tranfer/waitAudit" ng-if="(user.isAuditer || user.isReportor)">
+					        		内部流转
+									<span class="badge pull-right" style="color: white; background-color: red;"
+					            		ng-if="diagnosisCount.unhandle.unAuditCount+diagnosisCount.unhandle.unAcceptHandleCount>0">
+					            		{{diagnosisCount.unhandle.unAuditCount+diagnosisCount.unhandle.unAcceptHandleCount}}
+									</span>
+					        	</a>
+					        	<a class="list-group-item" href="#/diagnosis/report/list/my" ng-if="user.isAuditer">
+									我的报告
+									<span class="badge pull-right" style="color: white; background-color: red;" 
+										ng-if="diagnosisCount.unreadDiagnosisMsgCount>0">
+										{{diagnosisCount.unreadDiagnosisMsgCount}}
+									</span>
+					        	</a>
+						        <a class="list-group-item" href="#/diagnosis/report/list/org" ng-if="user.isAuditer">机构报告</a>
+					        	<a class="list-group-item" ui-sref="report.modify.diagnosisor.request.list" ng-if="user.isAuditer">
+									我的修改申请
+									<span class="badge pull-right" style="color: white; background-color: red;" 
+										ng-if="diagnosisCount.modifyRequestCount>0">
+										{{diagnosisCount.modifyRequestCount}}
+									</span>
+					        	</a>
+						        <a class="list-group-item" ng-if="user.isOrgMgr" href="#/statDiagnosis/cost">诊断统计</a>
+					    	</div>
+					    </div>
+					    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+					    	<uib-accordion-heading>
+								机构转诊
+							</uib-accordion-heading>
+					    	<div class="list-group menu-list-body">
+					        	<a class="list-group-item" href="#/requestTranfer/requestor" ng-if="(user.isAuditer || user.isReportor)">
+					        		转诊申请
+		<!-- 							<span class="badge pull-right" style="color: white; background-color: red;" -->
+		<!-- 			            		ng-if="diagnosisCount.unhandle.unAuditCount+diagnosisCount.unhandle.unAcceptHandleCount>0"> -->
+		<!-- 			            		{{diagnosisCount.unhandle.unAuditCount+diagnosisCount.unhandle.unAcceptHandleCount}} -->
+		<!-- 							</span> -->
+					        	</a>
+							</div>
+					    </div>
+					    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+					    	<uib-accordion-heading>
+					    		问诊服务
+					    		<span class="badge pull-right" style="color: white; background-color: red;" 
+					    				ng-if="diagnosisCount.newInquiryCount>0"> {{diagnosisCount.newInquiryCount}}</span>
+					    	</uib-accordion-heading>
+					    	<div class="list-group menu-list-body">
+					    		<a class="list-group-item" href="#/inquiry/list">
+					    			新的问诊
+					    			<span class="badge pull-right" style="color: white; background-color: red;" 
+					    				ng-if="diagnosisCount.newInquiryCount>0"> {{diagnosisCount.newInquiryCount}}</span>
+					    		</a>
+		                		<a class="list-group-item" href="#/inquiry/reply">问诊回复</a>
+					    	</div>
+					    </div>
+					    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+					    	<uib-accordion-heading>
+					    		回访管理
+					    		<span class="badge pull-right" style="color: white; background-color: red;" 
+					    			ng-if="diagnosisCount.visitFeedbackCount>0"> {{diagnosisCount.visitFeedbackCount}}</span>
+					    	</uib-accordion-heading>
+					    	<div class="list-group menu-list-body">
+					    		<a class="list-group-item" href="#/returnvisit/batch/list">批次管理</a>
+		                		<a class="list-group-item" href="#/returnvisit/list/,">问卷管理
+									<span class="badge pull-right" style="color: white; background-color: red;" 
+										ng-if="diagnosisCount.visitFeedbackCount>0"> {{diagnosisCount.visitFeedbackCount}}</span>
+								</a>
+		                		<a class="list-group-item" href="#/returnvisit/template/list">模板管理</a>
+					    	</div>
+					    </div>
+							<div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+								<uib-accordion-heading>
+									预约服务
+									<span class="badge pull-right" style="color: white; background-color: red;"
+												ng-if="diagnosisCount.reserveCount>0"> {{diagnosisCount.reserveCount}}</span>
+								</uib-accordion-heading>
+								<div class="list-group menu-list-body">
+									<a class="list-group-item" href="#/reserve/request">申请的预约</a>
+									<a class="list-group-item" href="#/reserve/receive">受理的预约
+										<span class="badge pull-right" style="color: white; background-color: red;"
+													ng-if="diagnosisCount.reserveCount>0"> {{diagnosisCount.reserveCount}}</span>
+									</a>
+								</div>
+							</div>
+					    <div uib-accordion-group class="panel-primary" heading="学习共享" template-url="templates/vs-accordion-heading.tamplate.html">
+					    	<div class="list-group menu-list-body">
+					    		<a class="list-group-item" href="#/share/list">分享检索</a>
+		    	        		<a class="list-group-item" href="#/share/org">机构分享</a>
+					    	</div>
+					    </div>
+					</uib-accordion>
+				</div>
+		    </div>
+    	</div>
+	    <div class="col-md-10" style="padding: 0px 5px;" ui-view></div>
+    </div>
+    <div class="navbar-fixed-bottom" style="line-height: 28px;text-align: right; color:#ffffff; background-color: #333333; margin-left: 0px; margin-right: 0px; padding-left:10px; padding-right: 10px;">
+		<span style="float:left;">版本 2.0.0</span>
+			<div class="pull-right">
+				<span style="margin-right: 20px;"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=2920317742&site=qq&menu=yes" title="点击咨询"><img src="../image/qq.png" width="24" height="24">客服咨询</a></span>
+				<span style="margin-right: 5px;">成都影泰科技有限公司&nbsp;&nbsp;&copy;2016版权所有</span>
+			</div>
+    </div>
+<object onerror="DoOnLoadViewerMgrError()" id="ViewerMgr" classid="clsid:41E98327-AC47-4AA6-B083-7413B9111026" 
+    	codebase="../WebViewerEC.cab#version=7,2,1545,0" width=0 height=0 hspace=0 vspace=0></object>
+<script type="text/javascript">
+  	function DoOnLoadViewerMgrError(message) {
+  		console.log("DoOnLoadViewerMgrError:"+message);
+  	};
+</script>
+</body>
+</html>

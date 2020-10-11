@@ -1,0 +1,76 @@
+<div ng-switch="currMode" data-ng-init="initData();" class="panel panel-primary">
+	<div class="panel-heading">
+		<span class="glyphicon glyphicon-th-list"></span> 查看机构共享病例&emsp;&emsp;
+		您当前正在查询：<strong>{{searchOpt.relation_org_name}} </strong>的病例库&emsp;
+		<a class="btn btn-warning btn-xs" href ng-click="innerPatientInfoShareModule();"><i class="glyphicon glyphicon-sort"></i> 切换</a>
+	</div>
+	<div class="panel-body" ng-switch-when="1">
+		<div class="form-inline" ng-if="currMode == 1" style="height: 200px;line-height: 200px;text-align: center;">
+			<select class="form-control" ng-model="corrSearchCondition" ng-options="b as b.name for b in beginSearchConditions">
+				<option value="">--请选择搜索条件--</option>
+			</select>
+			<input type="text" class="form-control" ng-disabled="!corrSearchCondition" placeholder="{{corrSearchCondition.title}}" 
+				ng-model="corrSearchCondition.value" style="width: 350px;"/>
+			<button class="btn btn-info" ng-disabled="!corrSearchCondition.value" style="width: 150px;" ng-click="searchParamValuesByPatientName(corrSearchCondition);">
+				<i class="fa fa-search"></i>
+				检索
+			</button>
+		</div>
+	</div>
+	<div class="panel-body" ng-switch-when="2">
+		<table class="table table-striped">
+			<thead>
+				<tr class="bg-primary">
+					<th>病历号</th>
+					<th>病人姓名</th>
+					<th>病人性别</th>
+					<th>病人年龄</th>
+					<th>症状</th>
+					<th>住院号</th>
+					<th>接诊科室</th>
+					<th>接诊医生</th>
+					<th>病例时间</th>
+					<th>出院时间</th>
+					<th>病例来源</th>
+					<th>类型</th>
+<!-- 					<th>状态</th> -->
+<!-- 					<th>操作</th> -->
+			</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="c in listCaseHistory">
+					<td><a href="#/case/info/{{c.id}}">{{c.case_his_num}}</a></td>
+					<td>{{c.patient_name}}</td>
+					<td>{{c.patient_genderStr}}</td>
+					<td>{{c.patientAge}} 岁</td>
+					<td title="{{c.symptom }}">{{c.symptom | limitTo:25:0}}</td>
+					<td>{{c.hospitalized_num}}</td>
+					<td>{{c.reception_section}}</td>
+					<td>{{c.reception_doctor}}</td>
+					<td>{{c.enter_time | date : 'yyyy-MM-dd'}}</td>
+					<td>{{c.leave_time | date : 'yyyy-MM-dd'}}</td>
+					<td>{{c.sourceType.name}}</td>
+					<td>{{c.typeStr}}</td>
+<!-- 					<td>{{c.statusStr}} -->
+<!-- 					<a ng-if="c.status!=1" ng-click="setMedicalHis(c)" -->
+<!-- 						ng-href="#/request/list/medicalNum/{{c.medical_his_num}}">{{c.statusStr}}</a> -->
+<!-- 					</td> -->
+				</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<button class="btn btn-success" ng-click="onBackClick()">
+					<i class="glyphicon glyphicon-arrow-left"></i> 返回重搜</button>&emsp;
+		</div>
+<!-- 		<div align="right"> -->
+<!-- 			<span style="font-size: 18px; float: left;">共{{searchOpt.spu.totalRow}} -->
+<!-- 				条记录</span> -->
+<!-- 			<uib-pagination style="margin-top:0px;margin-bottom:0px;" -->
+<!-- 				total-items="searchOpt.spu.totalRow" -->
+<!-- 				items-per-page="searchOpt.spu.perPageCount" max-size="10" -->
+<!-- 				boundary-links="true" ng-model="searchOpt.spu.currPage" -->
+<!-- 				ng-change="searchCaseHistory();" previous-text="上一页" -->
+<!-- 				next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination> -->
+<!-- 		</div> -->
+   	</div> 
+</div>

@@ -1,0 +1,75 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="container">
+<div class="panel panel-primary">
+	  <div class="panel-heading" style="line-height: 40px;">
+		  	<span style="font-size: 20px">机构简介</span>
+		</div>
+	<form class="form-horizontal" name="orgForm" novalidate style="margin: 5px 10px;">
+	  <div class="form-group">
+	    <label class="col-sm-2 control-label">机构名称</label>
+	    <div class="col-sm-8">
+	    	<span class="form-control" data-ng-bind="org.org_name"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-2 control-label">机构编号</label>
+	    <div class="col-sm-8">
+	      <span class="form-control" data-ng-bind="org.org_code"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-2 control-label">机构类型</label>
+	    <div class="col-sm-8">
+	    	<span class="form-control" data-ng-bind="org.type_name"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-2 control-label">机构级别</label>
+	    <div class="col-sm-8">
+	    	<span class="form-control" data-ng-bind="org.level_name"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-2 control-label">机构描述</label>
+	    <div class="col-sm-8">
+				<textarea rows="4" class="form-control" ng-model="org.description" ng-readonly="true" style="resize:none"></textarea>
+	    </div>
+	  </div>
+	  
+	  <div class="panel panel-success" ng-if="org.is_public===12">
+		  <div class="panel-heading">人员简介</div>
+		  <div class="panel-body" style="max-height: 400px;overflow-y: auto;">
+				<ul class="media-list">
+				  <li class="media" ng-repeat="u in userList" style="border-bottom: 1px solid #ddd">
+				    <div class="media-left">
+				        <img ng-src="common!image.action?fileType=14&imageId={{u.photo_file_id}}" class="media-object">
+				    </div>
+				    <div class="media-body">
+				      <h4 class="media-heading"><b>姓名：</b> {{u.user_name}} <small> {{u.v_grade}}</small></h4>
+				      <p><h5><b>简介：</b></h5>{{u.v_job_note}}</p>
+				    </div>
+				  </li>
+				</ul>
+		  </div>
+		</div>
+		
+	  <div class="form-group">
+	    <div class="col-sm-offset-9">
+	      <a type="button" class="btn btn-warning" ui-sref="myOrg.join"><span class="glyphicon glyphicon-remove"></span> 返回</a>
+	    </div>
+	  </div>
+</form>
+</div>
+</div>
+</body>
+</html>

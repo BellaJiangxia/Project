@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="panel panel-primary">
+  	<div class="panel-heading"><h4>{{title}}</h4></div>
+  	<uib-alert type="danger" ng-show="msg">{{msg}}</uib-alert>
+    <form name="frmBat" novalidate>
+<!--         <div id="form-views" ui-view></div> -->
+			<div ng-show="isShowInfo" ng-include="'org/org.new.info.html'"></div>
+			<div ng-show="isShowUser" ng-include="'org/org.new.user.html'"></div>
+    </form>
+ 	</div>
+</div> 	

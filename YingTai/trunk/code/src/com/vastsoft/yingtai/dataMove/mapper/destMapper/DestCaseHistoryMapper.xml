@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.vastsoft.yingtai.dataMove.mapper.destMapper.DestCaseHistoryMapper">
+	 <insert id="insertPatientOrgMapper" keyProperty="id" useGeneratedKeys="true" parameterType="TPatientOrgMapper">
+        INSERT INTO T_PATIENT_ORG_MAPPER (
+        	[patient_id],
+        	[org_id],
+        	[card_num],
+        	[got_card_time],
+        	[create_time],
+        	[source_type],
+        	[last_jz_time]
+        ) VALUES (
+			#{patient_id},
+			#{org_id},
+			#{card_num,jdbcType=VARCHAR},
+			#{got_card_time,jdbcType=TIMESTAMP},
+			#{create_time},
+			#{source_type},
+			#{last_jz_time,jdbcType=TIMESTAMP}
+		)
+    </insert>
+
+	<select id="selectDicomImgById" parameterType="long" resultType="TDicomImg">
+        select * from T_DICOM_IMG where id = #{id} 
+    </select>
+
+	<insert id="insertSeries" keyProperty="id" parameterType="TSeries" useGeneratedKeys="true">
+		insert into t_series (
+			dicom_img_id,
+			mark_char,
+			part_type_id,
+			thumbnail_uid,
+			thumbnail_data,
+			expose_times,
+			create_time,
+			source_type
+		) values (
+			#{dicom_img_id},
+			#{mark_char},
+			#{part_type_id},
+			#{thumbnail_uid},
+			#{thumbnail_data,jdbcType=BLOB},
+			#{expose_times},
+			#{create_time},
+			#{source_type}
+		)
+	</insert>
+
+	<insert id="insertPatient" parameterType="TPatient" keyProperty="id" useGeneratedKeys="true">
+        insert into T_PATIENT (
+        	name,
+        	phone_num,
+        	identity_id,
+        	home_address,
+        	gender,
+        	born_address,
+        	work,
+        	sick_his,
+        	create_time,
+        	status,
+        	source_type,
+        	create_user_id,
+        	birthday,
+        	mingzu,
+			marital_status,
+			contact_name,
+			contact_rela,
+			contact_addr,
+			contact_phone_num
+        ) values (
+        	#{name},
+        	#{phone_num,jdbcType=VARCHAR},
+        	#{identity_id,jdbcType=VARCHAR},
+        	#{home_address,jdbcType=VARCHAR},
+        	#{gender},
+        	#{born_address,jdbcType=VARCHAR},
+        	#{work,jdbcType=VARCHAR},
+        	#{sick_his,jdbcType=VARCHAR},
+        	#{create_time},
+        	#{status},
+        	#{source_type},
+        	#{create_user_id},
+        	#{birthday,jdbcType=TIMESTAMP},
+        	#{mingzu,jdbcType=VARCHAR},
+			#{marital_status,jdbcType=VARCHAR},
+			#{contact_name,jdbcType=VARCHAR},
+			#{contact_rela,jdbcType=VARCHAR},
+			#{contact_addr,jdbcType=VARCHAR},
+			#{contact_phone_num,jdbcType=VARCHAR}
+        ) 
+    </insert>
+
+	<insert id="insertReport" parameterType="TReport">
+		set identity_insert T_REPORT on;
+		insert into T_REPORT (
+			id,
+			CASE_HIS_ID,
+			CREATE_TIME,
+			DICOM_IMG_DEVICE_TYPE_ID,
+			PIC_OPINION,
+			PIC_CONCLUSION,
+			PUBLISH_REPORT_ORG_ID,
+			dicom_img_id,
+			F_O_M,
+			PRINT_USER_ID,
+			PRINT_TIMES,
+			PRINT_TIME,
+			view_user_id,
+			case_his_num,
+			case_symptom,
+			case_enter_time,
+			case_leave_time,
+			case_hospitalized_num,
+			case_reception_section,
+			case_reception_doctor,
+			case_eaf_list,
+			case_source_type,
+			case_type,
+			patient_name,
+			patient_identity_id,
+			patient_gender,
+			patient_birthday,
+			patient_home_address,
+			patient_born_address,
+			patient_work,
+			patient_sick_his,
+			patient_source_type,
+			dicom_img_mark_char,
+			dicom_img_checklist_num,
+			dicom_img_check_time,
+			dicom_img_check_pro,
+			diagnosis_id,
+			source_type,
+			publish_user_id,
+			type,
+			note
+		)values(
+			#{id},
+			#{case_his_id},
+			#{create_time},
+			#{dicom_img_device_type_id},
+			#{pic_opinion},
+			#{pic_conclusion},
+			#{publish_report_org_id},
+			#{dicom_img_id},
+			#{f_o_m},
+			#{print_user_id,jdbcType=BIGINT},
+			#{print_times},
+			#{print_time,jdbcType=TIMESTAMP},
+			#{view_user_id,jdbcType=BIGINT},
+			#{case_his_num},
+			#{case_symptom,jdbcType=VARCHAR},
+			#{case_enter_time,jdbcType=TIMESTAMP},
+			#{case_leave_time,jdbcType=TIMESTAMP},
+			#{case_hospitalized_num,jdbcType=VARCHAR},
+			#{case_reception_section,jdbcType=VARCHAR},
+			#{case_reception_doctor,jdbcType=VARCHAR},
+			#{case_eaf_list,jdbcType=VARCHAR},
+			#{case_source_type},
+			#{case_type},
+			#{patient_name},
+			#{patient_identity_id,jdbcType=VARCHAR},
+			#{patient_gender},
+			#{patient_birthday,jdbcType=TIMESTAMP},
+			#{patient_home_address,jdbcType=VARCHAR},
+			#{patient_born_address,jdbcType=VARCHAR},
+			#{patient_work,jdbcType=VARCHAR},
+			#{patient_sick_his,jdbcType=VARCHAR},
+			#{patient_source_type},
+			#{dicom_img_mark_char},
+			#{dicom_img_checklist_num,jdbcType=VARCHAR},
+			#{dicom_img_check_time},
+			#{dicom_img_check_pro,jdbcType=VARCHAR},
+			#{diagnosis_id},
+			#{source_type},
+			#{publish_user_id,jdbcType=BIGINT},
+			#{type},
+			#{note,jdbcType=VARCHAR}
+		);
+		set identity_insert T_REPORT off;
+	</insert>
+
+	<insert id="insertDiagnosis" parameterType="TDiagnosis">
+		set identity_insert T_DIAGNOSIS_V2 on;
+		insert into T_DIAGNOSIS_V2 (
+			id,
+			about_case_ids,
+			CASE_HIS_ID,
+			REQUEST_USER_ID,
+			REQUEST_ORG_ID,
+			DIAGNOSIS_ORG_ID,
+			DIAGNOSIS_PRODUCT_ID,
+			STATUS,
+			CREATE_TIME,
+			DICOM_IMG_DEVICE_TYPE_ID,
+			PUBLISH_REPORT_ORG_ID,
+			dicom_img_id,
+			case_his_num,
+			case_symptom,
+			case_enter_time,
+			case_leave_time,
+			case_hospitalized_num,
+			case_reception_section,
+			case_reception_doctor,
+			case_eaf_list,
+			case_source_type,
+			case_type,
+			patient_name,
+			patient_identity_id,
+			patient_gender,
+			patient_birthday,
+			patient_home_address,
+			patient_born_address,
+			patient_work,
+			patient_sick_his,
+			patient_source_type,
+			dicom_img_mark_char,
+			dicom_img_checklist_num,
+			dicom_img_check_time,
+			dicom_img_check_pro,
+			handle_time,
+			note,
+			accept_user_id,
+			verify_user_id,
+			curr_handle_id,
+			allow_reporter_publish_report
+		)values(
+			#{id},
+			#{about_case_ids,jdbcType=VARCHAR},
+			#{case_his_id},
+			#{request_user_id},
+			#{request_org_id},
+			#{diagnosis_org_id},
+			#{diagnosis_product_id},
+			#{status},
+			#{create_time},
+			#{dicom_img_device_type_id},
+			#{publish_report_org_id},
+			#{dicom_img_id},
+			#{case_his_num},
+			#{case_symptom,jdbcType=VARCHAR},
+			#{case_enter_time,jdbcType=TIMESTAMP},
+			#{case_leave_time,jdbcType=TIMESTAMP},
+			#{case_hospitalized_num,jdbcType=VARCHAR},
+			#{case_reception_section,jdbcType=VARCHAR},
+			#{case_reception_doctor,jdbcType=VARCHAR},
+			#{case_eaf_list,jdbcType=VARCHAR},
+			#{case_source_type},
+			#{case_type},
+			#{patient_name},
+			#{patient_identity_id,jdbcType=VARCHAR},
+			#{patient_gender},
+			#{patient_birthday},
+			#{patient_home_address,jdbcType=VARCHAR},
+			#{patient_born_address,jdbcType=VARCHAR},
+			#{patient_work,jdbcType=VARCHAR},
+			#{patient_sick_his,jdbcType=VARCHAR},
+			#{patient_source_type},
+			#{dicom_img_mark_char},
+			#{dicom_img_checklist_num,jdbcType=VARCHAR},
+			#{dicom_img_check_time,jdbcType=TIMESTAMP},
+			#{dicom_img_check_pro,jdbcType=VARCHAR},
+			#{handle_time,jdbcType=TIMESTAMP},
+			#{note,jdbcType=VARCHAR},
+			#{accept_user_id,jdbcType=BIGINT},
+			#{verify_user_id,jdbcType=BIGINT},
+			#{curr_handle_id,jdbcType=BIGINT},
+			#{allow_reporter_publish_report}
+		);
+		set identity_insert T_DIAGNOSIS_V2 off;
+	</insert>
+	
+	<insert id="insertDicomImg" parameterType="TDicomImg">
+		set identity_insert T_DICOM_IMG on;
+		INSERT INTO T_DICOM_IMG (
+			[id],
+        	[case_id],
+        	[device_type_id],
+        	[affix_id],
+        	[eps_num],
+        	[mark_char],
+			[ae_title],
+			[checklist_num],
+			[create_time],
+			[check_time],
+			[check_pro],
+			[status]
+		) VALUES (
+			#{id},
+			#{case_id},
+			#{device_type_id},
+			#{affix_id},
+			#{eps_num},
+			#{mark_char},
+			#{ae_title,jdbcType=VARCHAR},
+			#{checklist_num,jdbcType=VARCHAR},
+			#{create_time},
+			#{check_time},
+			#{check_pro,jdbcType=VARCHAR},
+			#{status}
+		);
+		set identity_insert T_DICOM_IMG off;
+	</insert>
+
+	<insert id="insertCaseHistory" parameterType="TCaseHistory">
+		set identity_insert T_CASE_HISTORY on;
+		INSERT INTO [T_CASE_HISTORY] (
+			[id],
+			[patient_id],
+			[org_id],
+			[case_his_num],
+			[symptom],
+			[enter_time],
+			[leave_time],
+			[status],
+			[create_time],
+			[create_user_id],
+			[note],
+			[hospitalized_num],
+			[reception_section],
+			[eaf_list],
+			[state],
+			[source_type],
+			[type],
+			[modify_time],
+			[modify_user_id],
+			[diagnosis],
+    		[patient_say],
+    		[check_body],
+    		[doctor_advice],
+    		[guahao_type],
+    		[treatment]
+		) VALUES (
+			#{id},
+			#{patient_id},
+			#{org_id},
+			#{case_his_num,jdbcType=VARCHAR},
+			#{symptom,jdbcType=VARCHAR},
+			#{enter_time,jdbcType=TIMESTAMP},
+			#{leave_time,jdbcType=TIMESTAMP},
+			#{status},
+			#{create_time},
+			#{create_user_id},
+			#{note,jdbcType=VARCHAR},
+			#{hospitalized_num,jdbcType=VARCHAR},
+			#{reception_section,jdbcType=VARCHAR},
+			#{eaf_list,jdbcType=VARCHAR},
+			#{state},
+			#{source_type},
+			#{type},
+			#{modify_time,jdbcType=TIMESTAMP},
+			#{modify_user_id,jdbcType=BIGINT},
+			#{diagnosis,jdbcType=VARCHAR},
+    		#{patient_say,jdbcType=VARCHAR},
+    		#{check_body,jdbcType=VARCHAR},
+    		#{doctor_advice,jdbcType=VARCHAR},
+    		#{guahao_type,jdbcType=VARCHAR},
+    		#{treatment,jdbcType=VARCHAR}
+		);
+		set identity_insert T_CASE_HISTORY off;
+	</insert>
+</mapper>

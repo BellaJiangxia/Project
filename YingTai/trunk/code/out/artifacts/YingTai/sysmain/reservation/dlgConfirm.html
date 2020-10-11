@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <h4>{{options.title}}</h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-3 control-label">预约时间</label>
+      <div class="col-sm-7" ng-switch="options.opt">
+        <datetimepicker ng-switch-when="11" ng-model="reserve.reservation_time" show-meridian="false"  date-format="yyyy-MM-dd" date-options="dateOptions" datepicker-append-to-body="false" date-opened="dateOpened" current-text="今天" clear-text="清除" close-text="关闭">
+        </datetimepicker>
+        <span class="form-control" ng-switch-default data-ng-bind="reserve.reservation_time | date:'yyyy-MM-dd HH:mm'"></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">是否确认</label>
+      <div class="col-sm-7">
+        <label class="radio-inline">
+          <input type="radio" name="gender" ng-model="parm.isPass" value="true"> 是
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="gender" ng-model="parm.isPass" value="false"> 否
+        </label>
+      </div>
+    </div>
+    <div class="form-group" ng-if="parm.isPass=='true'">
+      <label class="col-sm-3 control-label">预约检查号</label>
+      <div class="col-sm-7">
+        <input class="form-control" ng-model="reserve.reservation_no">
+      </div>
+    </div>
+    <div class="form-group has-error" ng-if="parm.isPass=='true'">
+      <span class="col-sm-8 col-sm-offset-2 help-block" style="font-size: 18px;font-weight: bold">若您所在的机构已经加入影泰远程影像诊断平台请正确登记预约检查号，以便于查看检索患者预约的检查影像</span>
+    </div>
+    <div class="form-group" ng-if="parm.isPass=='false'">
+      <label class="col-sm-3 control-label">原因描述</label>
+      <div class="col-sm-7">
+        <textarea class="form-control" rows="4" ng-model="parm.reason" maxlength="500"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" data-ng-disabled="parm.isPass==null" ng-click="ok()">确定</button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+</div>
+
+<style>
+  <!--
+  .datetimepicker-wrapper {
+    vertical-align: middle;
+    display: inline-block;
+  }
+
+  .datetimepicker-wrapper > input {
+    margin-bottom: 0 !important;
+    width: 150px;
+  }
+
+  .datetimepicker-wrapper [ng-model=hours],
+  .datetimepicker-wrapper [ng-model=minutes] {
+    width: 56px !important;
+  }
+
+  -->
+</style>

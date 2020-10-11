@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.multipart.maxSize" value="1073741824" />
+	<!-- <constant name="struts.multipart.saveDir" value="/tmp"></constant> -->
+	<package name="main" namespace="/" extends="struts-default,json-default">
+		<interceptors>
+			<interceptor name="logInterceptor" class="com.vastsoft.yingtai.core.LogInterceptor">
+			</interceptor>
+			<interceptor name="qualityControlInterceptor" class="com.vastsoft.yingtai.module.qualityControl.interceptor.QualityControlInterceptor">
+			</interceptor>
+	
+			<interceptor-stack name="my">
+<!-- 				<interceptor-ref name="qualityControlInterceptor"></interceptor-ref> -->
+				<interceptor-ref name="json"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="qualityControlInterceptor"></interceptor-ref>
+				<interceptor-ref name="logInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="my"></default-interceptor-ref>
+		
+		<action name="timer" class="com.vastsoft.yingtai.action.TimerAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="qualityControl" class="com.vastsoft.yingtai.module.qualityControl.action.QualityControlAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="vc" class="com.vastsoft.yingtai.action.VcAction">
+			<result name="vc" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">imageStream</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+
+		<action name="common" class="com.vastsoft.yingtai.action.CommonAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+			<result name="image" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">imageStream</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+
+		<action name="org" class="com.vastsoft.yingtai.module.org.action.OrgAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="orgConfig" class="com.vastsoft.yingtai.module.org.configs.action.OrgConfigAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="msg" class="com.vastsoft.yingtai.module.msg.action.MsgAcion">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="user" class="com.vastsoft.yingtai.module.user.action.UserAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="finance" class="com.vastsoft.yingtai.module.financel.action.FinanceAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<!-- <action name="diagnosis" class="com.vastsoft.yingtai.module.diagnosis.action.DiagnosisAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action> -->
+		
+		<action name="diagnosis" class="com.vastsoft.yingtai.module.diagnosis2.action.DiagnosisAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="request" class="com.vastsoft.yingtai.module.diagnosis2.request.action.RequestAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="requestTranfer" class="com.vastsoft.yingtai.module.diagnosis2.requestTranfer.action.RequestTranferAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="file" class="com.vastsoft.yingtai.module.sys.action.FileAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<!-- 变动的caseHistory模块 -->
+		<action name="case" class="com.vastsoft.yingtai.module.basemodule.patientinfo.casehis.action.CaseHistoryAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="patient" class="com.vastsoft.yingtai.module.basemodule.patientinfo.patient.action.PatientAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="dicomImg" class="com.vastsoft.yingtai.module.basemodule.patientinfo.dicom.action.DicomImgAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="patientInfo" class="com.vastsoft.yingtai.module.basemodule.patientinfo.common.action.PatientCaseDicomAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="piShare" class="com.vastsoft.yingtai.module.basemodule.patientinfo.share.action.PatientInfoShareAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+<!-- 		<action name="patientInfoDiagnosisCross" class="com.vastsoft.yingtai.module.cross.action.PatientInfoDiagnosisCrossAction"> -->
+<!-- 			<result name="success" type="json"> -->
+<!-- 				<param name="ignoreHierarchy">false</param> -->
+<!-- 			</result> -->
+<!-- 		</action> -->
+		
+		<action name="report" class="com.vastsoft.yingtai.module.basemodule.patientinfo.report.action.ReportAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<!-- <action name="medicalHis" class="com.vastsoft.yingtai.module.medical.action.MedicalHisAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action> -->
+
+		<action name="sys" class="com.vastsoft.yingtai.module.sys.action.SysAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="log" class="com.vastsoft.yingtai.module.sys.action.LogAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="video" class="com.vastsoft.yingtai.video.action.VideoAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="stat" class="com.vastsoft.yingtai.module.stat.action.StatAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="returnvisit" class="com.vastsoft.yingtai.module.returnvisit.action.ReturnVisitAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="inquiry" class="com.vastsoft.yingtai.module.inquiry.action.InquiryAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="statDownload" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction">
+			<result name="success" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">downloadFile</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+				
+		<action name="downloadStatPatientInfoForRequestOrg" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction" method="downloadSysAccountFlowing">
+			<result name="downloadSysAccountFlowing" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">statPatientInfoForRequestOrgFileStream</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="downloadStatPatientInfoForDiagnosisOrg" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction" method="downloadSysAccountFlowing">
+			<result name="downloadSysAccountFlowing" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">statPatientInfoForDiagnosisOrgFileStream</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="downloadSysAccountFlowing" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction" method="downloadSysAccountFlowing">
+			<result name="downloadSysAccountFlowing" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">sysAccountFlowingFileStream</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="downloadStatReportSick" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction" method="downloadSysAccountFlowing">
+			<result name="downloadSysAccountFlowing" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">reportSickFileStream</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="downloadStatOrgFom" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction" method="downloadSysAccountFlowing">
+			<result name="downloadSysAccountFlowing" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">statOrgFomFileStream</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="downloadstatDeviceReport" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction" method="downloadSysAccountFlowing">
+			<result name="downloadSysAccountFlowing" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">statDeviceReportFileStream</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="downloadstatReportCost" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction" method="downloadSysAccountFlowing">
+			<result name="downloadSysAccountFlowing" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">statReportCostFileStream</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		
+		<action name="downloadstatReportDoctor" class="com.vastsoft.yingtai.module.stat.action.DownloadStatAction" method="downloadSysAccountFlowing">
+			<result name="downloadSysAccountFlowing" type="stream">
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">statReportDoctorFileStream</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="downloadFile" class="com.vastsoft.yingtai.module.sys.action.DownloadFileAction" method="downloadFile">
+			<result name="success" type="stream">
+				<param name="contentType">text/plain</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">downloadFile</param>
+				<param name="bufferSize">10240</param>
+			</result>
+			<result name="error" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<!-- <action name="query_dicom" class="com.vastsoft.yingtai.action.dicom.action.QueryDicomAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action> -->
+		
+		<action name="thumbnail" class="com.vastsoft.yingtai.action.dicom.action.QueryThumbnailAction">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">stream</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+
+		<action name="org_logo" class="com.vastsoft.yingtai.action.LogoAction">
+			<result name="logo" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">imageStream</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+		
+		<action name="legitimate" class="com.vastsoft.yingtai.module.legitimate.action.LegitimateAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<!--debug-->
+		<action name="weixin" class="com.vastsoft.yingtai.module.weixin.action.WeixinAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<!--debug end-->
+
+		<action name="reserve" class="com.vastsoft.yingtai.module.reservation.action.ReservationAcion">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+		<action name="provider" class="com.vastsoft.yingtai.provider.action.ProviderAction">
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+
+	</package>
+
+</struts>

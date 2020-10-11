@@ -1,0 +1,66 @@
+<form class="form-inline" style="margin: 5px 10px;">
+	<div class="form-group">
+		<label>姓名</label> <input type="text" class="form-control"
+			ng-model="$parent.query.userName" placeholder="姓名">
+	</div>
+	<div class="form-group">
+		<label>电话</label> <input type="text" class="form-control"
+			ng-model="$parent.query.mobile" placeholder="电话号码">
+	</div>
+	<div class="form-group">
+		<a type="button" class="btn btn-success" ng-click="$parent.loadUser()"><span
+			class="glyphicon glyphicon-search"></span> 查询</a>
+	</div>
+</form>
+<table class="table table-bordered table-hover"
+	style="text-align: center;">
+	<thead>
+		<tr class="info">
+			<th style="text-align: center">姓名</th>
+			<th style="text-align: center">类型</th>
+			<th style="text-align: center">性别</th>
+			<th style="text-align: center">电话号码</th>
+			<th style="text-align: center">电子邮箱</th>
+			<th style="text-align: center">创建时间</th>
+			<th style="text-align: center">状态</th>
+			<th style="text-align: center">操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="u in users">
+			<td>{{u.user_name}}</td>
+			<td>{{u.user_type.name}}</td>
+			<td>{{u.gender.name}}</td>
+			<td>{{u.mobile}}</td>
+			<td><span title="{{u.email}}">{{u.email | subStr:20}}</span></td>
+			<td>{{u.create_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+			<td>{{u.status.name}}</td>
+			<td><a ng-show="u.can_approve" title="用户审核"
+				class="btn btn-primary btn-sm"
+				ui-sref="info({action:'a',id:u.user_id})"> <span
+					class="glyphicon glyphicon-question-sign"></span>
+			</a> <a ng-show="!u.can_approve" title="查看"
+				class="btn btn-primary btn-sm"
+				ui-sref="info({action:'v',id:u.user_id})"> <span
+					class="glyphicon glyphicon-eye-open"></span>
+			</a> <a ng-if="u.status.code==2" class="btn btn-warning btn-sm"
+				title="禁用" href="javascript:void(0);" ng-click="enableUser(u,false)">
+					<span class="glyphicon glyphicon-ban-circle"></span>
+			</a> <a ng-if="u.status.code==25" class="btn btn-success btn-sm"
+				title="激活" href="javascript:void(0);" ng-click="enableUser(u,true)">
+					<span class="glyphicon glyphicon-ok-circle"></span>
+			</a> <!-- <a ng-if="u.status.code!=4" class="btn btn-danger btn-sm" title="删除用户" href="javascript:void(0);" ng-click="deleteUser(u)"> 
+					<span class="glyphicon glyphicon-remove"></span>
+				</a> --></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="panel-footer">
+	<div style="text-align: right">
+		<uib-pagination class="pagination-md"
+			total-items="$parent.query.total" ng-model="$parent.query.pageIdx"
+			ng-change="$parent.loadUser()" max-size="5" boundary-links="true"
+			previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>

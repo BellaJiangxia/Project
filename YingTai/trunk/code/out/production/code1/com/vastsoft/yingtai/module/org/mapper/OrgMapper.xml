@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.org.mapper.OrgMapper">
+    <select id="selectRelationOrgMapper" parameterType="map" resultType="FOrgRelation">
+        select * from (
+	        select t1.*,t2.ORG_NAME as org_name,
+	        	t3.ORG_NAME as friend_org_name,
+	        	t2.ORG_CODE as org_code,
+	        	t3.ORG_CODE as friend_org_code,
+	        	t2.DESCRIPTION as org_description,
+	        	T3.DESCRIPTION AS friend_org_description,
+	        	T2.PERMISSION AS org_permission,
+	        	t3.PERMISSION AS friend_org_permission,
+	        	t4.value as org_type,
+	        	t5.value as friend_org_type,
+	        	ROW_NUMBER () OVER (ORDER BY t1.create_time DESC) AS RowNumber
+	        from T_ORG_RELATION t1
+	        	left join T_ORGANIZATION t2 on t1.ORG_ID = t2.id
+	        	left join T_ORGANIZATION t3 on t1.FRIEND_ORG_ID = t3.id
+	        	left join T_DIC_VALUE t4 on t2.type = t4.id
+	        	left join T_DIC_VALUE t5 on t3.type = t5.id
+	        where 1=1
+		        <if test="self_org_id !=null">
+		            and ((t1.ORG_ID=#{self_org_id}
+						<if test="relation_org_id !=null">
+		                	and t1.FRIEND_ORG_ID = #{relation_org_id}
+		            	</if>
+		            	) or (t1.FRIEND_ORG_ID=#{self_org_id}
+		            		<if test="relation_org_id !=null">
+		            		    and t1.ORG_ID = #{relation_org_id}
+		            		</if>	
+		            	)
+		            )
+		        </if>
+		        <if test="publish_report_type !=null">
+		            and t1.PUBLISH_REPORT_TYPE = #{PUBLISH_REPORT_TYPE}
+		        </if>
+		        <if test="share_patient_info !=null">
+		            and t1.share_patient_info =#{share_patient_info}
+		        </if>
+		        <if test="status !=null">
+		            and t1.STATUS = #{status}
+		        </if>
+        ) as tmp_t 
+        	<if test="minRow !=null and maxRow !=null">
+        	    where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+        	</if>
+    </select>
+    
+    <select id="selectRelationOrgMapperCount" parameterType="map" resultType="long">
+        select count(id) from T_ORG_RELATION where 1=1 
+        <if test="self_org_id !=null">
+            and ((ORG_ID=#{self_org_id}
+				<if test="relation_org_id !=null">
+                	and FRIEND_ORG_ID = #{relation_org_id}
+            	</if>
+            	) or (FRIEND_ORG_ID=#{self_org_id}
+            		<if test="relation_org_id !=null">
+            		    and ORG_ID = #{relation_org_id}
+            		</if>	
+            	)
+            )
+        </if>
+        <if test="publish_report_type !=null">
+            and PUBLISH_REPORT_TYPE = #{PUBLISH_REPORT_TYPE}
+        </if>
+        <if test="share_patient_info !=null">
+            and share_patient_info =#{share_patient_info}
+        </if>
+        <if test="status !=null">
+            and STATUS = #{status}
+        </if>
+    </select>
+    
+    <select id="selectRelationConfigByOrc" parameterType="TOrgRelationConfig" resultType="TOrgRelationConfig">
+        select * from T_ORG_RELATION_CONFIG where RELATION_ID = #{relation_id} and ORG_ID = #{org_id}
+    </select>
+    
+    <select id="selectOrgRelationByCoupleOrgId" parameterType="TOrgRelation" resultType="TOrgRelation">
+        select * from T_ORG_RELATION 
+        where (
+        	ORG_ID = #{org_id} 
+        	and FRIEND_ORG_ID = #{friend_org_id}
+        ) or (
+        	FRIEND_ORG_ID = #{org_id} 
+        	and ORG_ID = #{friend_org_id}
+        )
+    </select>
+    
+    <delete id="deleteRelationConfigByOrgId" parameterType="long">
+        delete from T_ORG_RELATION_CONFIG where RELATION_ID in (select id from T_ORG_RELATION where ORG_ID=#{org_id} or FRIEND_ORG_ID=#{org_id})
+    </delete>
+    
+    <delete id="deleteRelationByOrgId" parameterType="long">
+        delete from T_ORG_RELATION where id in (select id from T_ORG_RELATION where ORG_ID=#{org_id} or FRIEND_ORG_ID=#{org_id})
+    </delete>
+    
+    <delete id="deleteOrgUserMapperByOrgId" parameterType="long">
+        delete from T_ORG_USER_MAPPING where ORG_ID=#{org_id}
+    </delete>
+    
+    <select id="queryOrgOfUserCreate" parameterType="long" resultType="TOrganization">
+        select * from T_ORGANIZATION where CREATOR_ID=#{user_id} and status != 15
+    </select>
+    
+	<select id="queryAllOrgs" parameterType="Map" resultType="TOrganization">
+		select * from T_ORGANIZATION where status=#{status}
+	</select>
+
+	<select id="queryMyFriendOrgList" parameterType="Map" resultType="TOrganization">
+		select distinct * 
+		from T_ORGANIZATION 
+		where id in (
+				select FRIEND_ORG_ID 
+				from T_ORG_RELATION 
+				where ORG_ID=#{org_id}
+					<if test="status !=null">
+						and STATUS=#{status}
+					</if>
+			) or id in (
+				select ORG_ID 
+				from T_ORG_RELATION 
+				where FRIEND_ORG_ID=#{org_id}
+					<if test="status !=null">
+						and STATUS=#{status}
+					</if>
+			) and id!=#{org_id} and status=#{org_status} 
+				<if test="org_name !=null">
+					and ORG_NAME like '%'+#{org_name}+'%'
+				</if>
+	</select>
+
+	<select id="selectOrgByName" parameterType="String" resultType="TOrganization">
+		select * from T_ORGANIZATION where ORG_NAME=#{org_name}
+	</select>
+
+	<insert id="insertOrg" parameterType="TOrganization" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO [T_ORGANIZATION]
+           ([TYPE]
+           ,[CREATOR_ID]
+           ,[ORG_NAME]
+           ,[LOGO_FILE_ID]
+           ,[DESCRIPTION]
+           ,[LEVELS]
+           ,[STATUS]
+           ,[CREATE_TIME]
+           ,[NOTE]
+           ,[SCAN_FILE_IDS]
+           ,[ORG_CODE]
+           ,[IS_PUBLIC]
+           ,[ORG_PROPERTY]
+           ,certification_level
+		)VALUES(
+			#{type}
+           ,#{creator_id}
+           ,#{org_name}
+           ,#{logo_file_id,jdbcType=NUMERIC}
+           ,#{description,jdbcType=VARCHAR}
+           ,#{levels,jdbcType=NUMERIC}
+           ,#{status}
+           ,#{create_time}
+           ,#{note,jdbcType=VARCHAR}
+           ,#{scan_file_ids,jdbcType=VARCHAR}
+           ,#{org_code}
+           ,#{is_public}
+           ,#{org_property}
+           ,#{certification_level})
+	</insert>
+	
+	<insert id="insertOrgByAdmin" parameterType="TOrganization" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO [T_ORGANIZATION]
+           ([PERMISSION]
+           ,[TYPE]
+           ,[CREATOR_ID]
+           ,[ORG_NAME]
+           ,[LOGO_FILE_ID]
+           ,[LEVELS]
+           ,[VERIFY_USER_ID]
+           ,[VARIFY_TIME]
+           ,[STATUS]
+           ,[CREATE_TIME]
+           ,[SCAN_FILE_IDS]
+           ,[ORG_CODE]
+           ,[VISIBLE]
+           ,[ORG_PROPERTY])
+     VALUES
+           (#{permission,jdbcType=VARCHAR}
+           ,#{type,jdbcType=NUMERIC}
+           ,#{creator_id}
+           ,#{org_name}
+           ,#{logo_file_id,jdbcType=NUMERIC}
+           ,#{levels,jdbcType=NUMERIC}
+           ,#{verify_user_id}
+           ,#{varify_time}
+           ,#{status}
+           ,#{create_time}
+           ,#{scan_file_ids,jdbcType=VARCHAR}
+           ,#{org_code}
+           ,#{visible}
+           ,#{org_property})
+	</insert>
+
+	<insert id="insertOrgChange" parameterType="TOrgChange" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO [T_ORG_CHANGE]
+           ([TYPE]
+           ,[ORG_NAME]
+           ,[LOGO_FILE_ID]
+           ,[DESCRIPTION]
+           ,[LEVELS]
+           ,[VERIFY_USER_ID]
+           ,[VARIFY_TIME]
+           ,[NOTE]
+           ,[SCAN_FILE_IDS]
+           ,[CHANGE_TIME]
+           ,[CHANGE_STATUS]
+           ,[ORG_ID]
+           ,CHANGE_USER_ID
+           ,ORG_PROPERTY)
+     VALUES
+           (#{type,jdbcType=NUMERIC}
+           ,#{org_name}
+           ,#{logo_file_id,jdbcType=NUMERIC}
+           ,#{description,jdbcType=VARCHAR}
+           ,#{levels,jdbcType=NUMERIC}
+           ,#{verify_user_id,jdbcType=NUMERIC}
+           ,#{varify_time,jdbcType=DATE}
+           ,#{note,jdbcType=VARCHAR}
+           ,#{scan_file_ids,jdbcType=NUMERIC}
+           ,#{change_time}
+           ,#{change_status}
+           ,#{org_id}
+           ,#{change_user_id}
+           ,#{org_property,jdbcType=NUMERIC})
+	</insert>
+	
+	<update id="approvedOrgChange" parameterType="Map">
+		UPDATE [T_ORG_CHANGE]
+		   SET [VERIFY_USER_ID] = #{verify_user_id}
+		      ,[VARIFY_TIME] = #{varify_time}
+		      ,[NOTE] = #{note,jdbcType=VARCHAR}
+		      ,[CHANGE_STATUS] = #{change_status}
+		 WHERE id=#{id}
+	</update>
+	
+	<update id="modifyOrgNote" parameterType="Map">
+		UPDATE [T_ORGANIZATION]
+		   SET [NOTE] = #{note,jdbcType=VARCHAR}
+		 WHERE [ID]=#{org_id}
+	</update>
+	
+	<update id="modifyOrg" parameterType="TOrganization">
+		UPDATE [T_ORGANIZATION]
+		   SET [TYPE] = #{type,jdbcType=NUMERIC}
+		      ,[ORG_NAME] = #{org_name}
+		      ,[LOGO_FILE_ID] = #{logo_file_id,jdbcType=NUMERIC}
+		      ,[DESCRIPTION] = #{description,jdbcType=VARCHAR}
+		      ,[LEVELS] = #{levels,jdbcType=NUMERIC}
+		      ,[NOTE] = #{note,jdbcType=VARCHAR}
+		      ,[SCAN_FILE_IDS] = #{scan_file_ids,jdbcType=VARCHAR}
+		      ,[STATUS] = #{status}
+		      ,VISIBLE = #{visible}
+		      ,IS_PUBLIC=#{is_public,jdbcType=NUMERIC}
+		      ,ORG_PROPERTY=#{org_property}
+		 WHERE [ID]=#{id}
+	</update>
+	
+	<update id="approveOrg" parameterType="Map">
+		UPDATE [T_ORGANIZATION]
+		   SET [PERMISSION] = #{permission,jdbcType=VARCHAR}
+		   		,[NOTE] = #{note,jdbcType=VARCHAR}
+		      ,[VERIFY_USER_ID] = #{verify_user_id}
+		      ,[VARIFY_TIME] = #{varify_time}
+		      ,[STATUS] = #{status}
+		 WHERE [ID]=#{id}
+	</update>
+	
+	<update id="authorizeOrg" parameterType="Map">
+		UPDATE [T_ORGANIZATION]
+		   SET [PERMISSION] = #{permission}
+		 WHERE [ID]=#{id}
+	</update>
+
+	<update id="reSubmit" parameterType="TOrganization">
+		UPDATE [T_ORGANIZATION]
+		   SET [TYPE] = #{type,jdbcType=NUMERIC}
+		      ,[ORG_NAME] = #{org_name}
+		      ,[LOGO_FILE_ID] = #{logo_file_id,jdbcType=NUMERIC}
+		      ,[DESCRIPTION] = #{description,jdbcType=VARCHAR}
+		      ,[LEVELS] = #{levels,jdbcType=NUMERIC}
+		      ,[NOTE] = #{note,jdbcType=VARCHAR}
+		      ,[SCAN_FILE_IDS] = #{scan_file_ids,jdbcType=VARCHAR}
+		      ,[STATUS] = #{status}
+		      ,[ORG_PROPERTY]=#{org_property}
+		 WHERE [ID]=#{id}
+	</update>
+
+	<update id="updateCertification" parameterType="TOrganization">
+		UPDATE [T_ORGANIZATION]
+		   SET [NOTE] = #{note,jdbcType=VARCHAR}
+		   	  ,[VERIFY_USER_ID] = #{verify_user_id,jdbcType=NUMERIC}
+		      ,[VARIFY_TIME] = #{varify_time,jdbcType=DATE}
+		      ,[CERTIFICATION_LEVEL]=#{certification_level}
+		 WHERE [ID]=#{id}
+	</update>
+
+	<select id="selectAllOrgs" parameterType="Map" resultType="TOrganization">
+	  select * from (select a.*,
+			(select VALUE from T_DIC_VALUE where ID=a.TYPE) type_name,
+			(select USER_NAME from T_BASE_USER where ID=a.CREATOR_ID) creator_name,
+			(select VALUE from T_DIC_VALUE where ID=a.LEVELS) level_name,
+			(select USER_NAME from T_BASE_USER where ID=a.VERIFY_USER_ID) verifier_name,
+			ROW_NUMBER() over(order by case STATUS when 11 then 1 when 1 then 2 when 12 then 3 when 0 then 4 end,ID) rn from T_ORGANIZATION a
+	  <where>
+	  	<if test="type!=null">
+	  		a.TYPE=#{type}
+	  	</if>
+	  	<if test="levels!=null">
+	  		and a.LEVELS=#{levels}
+	  	</if>
+	  	<if test="status!=null">
+	  		and a.STATUS=#{status}
+	  	</if>
+	  	<if test="org_name!=null">
+	  		and a.ORG_NAME like '%'+#{org_name}+'%'
+	  	</if>
+	  	<if test="org_code!=null">
+	  		and a.ORG_CODE=#{org_code}
+	  	</if>
+	  	<if test="visible !=null">
+	  	    and a.VISIBLE=#{visible}
+	  	</if>
+	  	<if test="logo_file_id !=null">
+	  		and a.logo_file_id = #{logo_file_id}
+	  	</if>
+	  	<choose>
+	      <when test="start_date!=null and end_date==null">
+	        and a.CREATE_TIME=#{start_date}
+	      </when>
+	      <when test="start_date==null and end_date!=null">
+	        and a.CREATE_TIME=#{end_date}
+	      </when>
+	      <when test="start_date!=null and end_date!=null">
+	        and a.CREATE_TIME>=#{start_date} <![CDATA[ and a.CREATE_TIME<=#{end_date}]]>
+	      </when>
+	    </choose>
+	  </where>) b where b.rn>=#{begin_idx} <![CDATA[ and b.rn<#{end_idx} ]]> order by b.CREATE_TIME desc
+	</select>
+	
+	<select id="selectAllOrgCount" parameterType="Map" resultType="Integer">
+		select count(1) from T_ORGANIZATION a
+		  <where>
+		  	<if test="type!=null">
+		  		a.TYPE=#{type}
+		  	</if>
+		  	<if test="org_code!=null">
+		  		and a.ORG_CODE=#{org_code}
+		  	</if>
+		  	<if test="levels!=null">
+		  		and a.LEVELS=#{levels}
+		  	</if>
+		  	<if test="status!=null">
+		  		and a.STATUS=#{status}
+		  	</if>
+		  	<if test="org_name!=null">
+		  		and a.ORG_NAME like '%'+#{org_name}+'%'
+		  	</if>
+			<if test="visible !=null">
+			  and a.VISIBLE=#{visible}
+			</if>
+			<if test="logo_file_id !=null">
+		  		and a.logo_file_id = #{logo_file_id}
+		  	</if>
+		  	<choose>
+		      <when test="start_date!=null and end_date==null">
+		        and a.CREATE_TIME=#{start_date}
+		      </when>
+		      <when test="start_date==null and end_date!=null">
+		        and a.CREATE_TIME=#{end_date}
+		      </when>
+		      <when test="start_date!=null and end_date!=null">
+		        and a.CREATE_TIME>=#{start_date} <![CDATA[ and a.CREATE_TIME<=#{end_date}]]>
+		      </when>
+		    </choose>
+		  </where>
+	</select>
+	
+	<select id="selectOrgById" parameterType="Long" resultType="TOrganization">
+		select a.*,
+		(select VALUE from T_DIC_VALUE where ID=a.TYPE) type_name,
+		(select USER_NAME from T_BASE_USER where ID=a.CREATOR_ID) creator_name,
+		(select VALUE from T_DIC_VALUE where ID=a.LEVELS) level_name,
+		(select MOBILE from T_BASE_USER where ID=a.CREATOR_ID) v_creator_mobile,
+		(select TYPE from T_BASE_USER where ID=a.CREATOR_ID) v_creator_type
+ 		from T_ORGANIZATION a where a.id=#{id}
+	</select>
+	
+	<select id="selectOrgByIdAndLock" parameterType="Long" resultType="TOrganization">
+		select * from T_ORGANIZATION WITH(XLOCK) where id=#{id}
+	</select>
+	
+	<select id="selectOrgsByUserId" parameterType="Long" resultType="TOrganization">
+		select a.* from T_ORGANIZATION a,T_ORG_USER_MAPPING b where b.ORG_ID=a.ID and b.USER_ID=#{id}
+	</select>
+	
+	<select id="selectMyOrgList" parameterType="Long" resultType="TOrganization">
+		SELECT DISTINCT a.[ID]
+      ,a.[PERMISSION]
+      ,a.[TYPE]
+      ,a.[CREATOR_ID]
+      ,a.[ORG_NAME]
+      ,a.[LOGO_FILE_ID]
+      ,a.[DESCRIPTION]
+      ,a.[LEVELS]
+      ,a.[VERIFY_USER_ID]
+      ,a.[VARIFY_TIME]
+      ,a.[SCAN_FILE_IDS]
+      ,a.[ORG_CODE]
+      ,(select c.[USER_NAME] from T_BASE_USER c where c.ID=a.CREATOR_ID) as creator_name
+      ,case when (a.CREATOR_ID=#{userId}) then a.[STATUS] else b.STATUS end as status
+      ,case when (a.CREATOR_ID=#{userId}) then a.[CREATE_TIME] else b.CREATE_TIME end as create_time
+      ,case when (a.CREATOR_ID=#{userId}) then a.[NOTE] else b.NOTE end as note
+  	FROM [T_ORGANIZATION] a left join T_ORG_USER_MAPPING b on b.ORG_ID=a.ID
+  	where (a.CREATOR_ID=#{userId} or (b.USER_ID=#{userId} and a.CREATOR_ID!=b.USER_ID)) and a.status!=15
+	</select>
+
+	<select id="selectChangeListByOrg" parameterType="Map" resultType="TOrgChange">
+		select * from(select a.*,b.ORG_NAME c_org_name,b.ORG_CODE
+		,(select USER_NAME from T_BASE_USER where ID=a.CHANGE_USER_ID) v_c_user_name
+		,(select USER_NAME from T_BASE_USER where ID=a.VERIFY_USER_ID) v_v_user_name
+		,ROW_NUMBER() over(order by case a.CHANGE_STATUS when 11 then 1 when 12 then 2 when 1 then 3 else 4 end,a.ID) rn 
+		from T_ORG_CHANGE a,T_ORGANIZATION b
+		where a.ORG_ID=b.ID
+		<if test="org_id!=null">
+			and a.ORG_ID=#{org_id}
+		</if>
+		<if test="status!=null">
+			and a.CHANGE_STATUS=#{status} 
+		</if>
+		<if test="org_name!=null">
+			and b.ORG_NAME like '%'+#{org_name}+'%'
+		</if>
+		<if test="org_code!=null">
+			 and b.ORG_CODE =#{org_code}
+		</if>)t
+		<where>
+			<if test="begin_idx!=null">
+				rn>=#{begin_idx} <![CDATA[ and rn<#{end_idx} ]]>
+			</if>
+		</where> 
+	</select>
+	
+	<select id="selectOrgChangeCount" parameterType="Map" resultType="Integer">
+		select COUNT(1) from T_ORG_CHANGE a,T_ORGANIZATION b
+		where a.ORG_ID=b.ID
+		<if test="org_id!=null">
+			and a.ORG_ID=#{org_id}
+		</if>
+		<if test="status!=null">
+			and a.CHANGE_STATUS=#{status} 
+		</if>
+		<if test="org_name!=null">
+			and b.ORG_NAME like '%'+#{org_name}+'%'
+		</if>
+		<if test="org_code!=null">
+			 and b.ORG_CODE =#{org_code}
+		</if>
+	</select>
+	
+	<select id="selectChangeByOrg" parameterType="Map" resultType="TOrgChange">
+		select a.ID,a.ORG_ID,a.LOGO_FILE_ID,a.SCAN_FILE_IDS,a.DESCRIPTION c_description,a.ORG_NAME c_org_name
+		,b.ORG_CODE,b.ORG_NAME,b.DESCRIPTION,a.CHANGE_STATUS,a.NOTE,a.org_property c_org_property,b.org_property
+		,(select USER_NAME from T_BASE_USER where ID=b.CREATOR_ID) creator_name
+		,(select VALUE from T_DIC_VALUE where ID=a.TYPE) c_type_name
+		,(select VALUE from T_DIC_VALUE where ID=a.LEVELS) c_level_name
+		,(select VALUE from T_DIC_VALUE where ID=b.TYPE) type_name
+		,(select VALUE from T_DIC_VALUE where ID=b.LEVELS) level_name
+		 from T_ORG_CHANGE a,T_ORGANIZATION b
+		where a.ORG_ID=b.ID and a.ID=#{id}
+	</select>
+	
+	<select id="selectOrgChangeByIdAndLock" parameterType="Long" resultType="TOrgChange">
+		select * from T_ORG_CHANGE WITH(XLOCK) where id=#{id}
+	</select>
+	
+<!-- 	<select id="selectOrgConfigByOrgIdForUpdate" parameterType="long" resultType="TOrgConfigs"> -->
+<!-- 	    select * from T_ORG_CONFIGS WITH(XLOCK) where org_id=#{org_id} -->
+<!-- 	</select> -->
+	
+<!-- 	<update id="updateOrgConfigs" parameterType="TOrgConfigs"> -->
+<!-- 	    update T_ORG_CONFIGS set device_map=#{device_map} where id=#{id} -->
+<!-- 	</update> -->
+	
+<!-- 	<insert id="insertOrgConfigs" keyProperty="id" useGeneratedKeys="true" parameterType="TOrgConfigs"> -->
+<!-- 	    insert into T_ORG_CONFIGS ( -->
+<!-- 	    	org_id, -->
+<!-- 	    	device_map -->
+<!-- 	    ) values ( -->
+<!-- 	    	#{org_id}, -->
+<!-- 	    	#{device_map} -->
+<!-- 	    ) -->
+<!-- 	</insert> -->
+
+	<select id="selectOrgList4WX" parameterType="Map" resultType="TOrganization">
+		SELECT a.* FROM T_ORGANIZATION a,T_ORG_AFFIX b
+		WHERE a.ID=b.ORG_ID
+		 <if test="status!=null">
+			 AND a.STATUS=#{status}
+		 </if>
+		<if test="org_code!=null">
+			AND a.ORG_CODE=#{org_code}
+		</if>
+		<if test="org_name!=null">
+			AND a.ORG_NAME LIKE '%'+#{org_name}+'%'
+		</if>
+		<if test="remote_version">
+			AND b.remote_server_version=#{remote_version}
+		</if>
+	</select>
+
+	<select id="selectReservationOrgList" parameterType="Map" resultType="TOrganization">
+		SELECT id,ORG_NAME
+		FROM T_ORGANIZATION a
+		where EXISTS(select 1 from T_CHECK_SERVICE where service_status=12 and org_id=a.ID)
+		<if test="type!=null">
+			and a.TYPE=#{type}
+		</if>
+		<if test="levels!=null">
+			and a.LEVELS=#{levels}
+		</if>
+		<if test="status!=null">
+			and a.STATUS=#{status}
+		</if>
+		<if test="org_name!=null">
+			and a.ORG_NAME like '%'+#{org_name}+'%'
+		</if>
+		<if test="org_code!=null">
+			and a.ORG_CODE=#{org_code}
+		</if>
+		<if test="visible !=null">
+			and a.VISIBLE=#{visible}
+		</if>
+		order by a.CREATE_TIME desc
+	</select>
+</mapper>

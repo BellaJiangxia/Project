@@ -1,0 +1,27 @@
+<div >
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+	<table class="table table-hover table-striped table-bordered">
+		<thead>
+			<tr class="bg-primary">
+				<th>病历号</th>
+				<th>病人姓名</th>
+				<th>性别</th>
+				<th>影像类型</th>
+				<th>诊断机构</th>
+				<th>申请人员</th>
+				<th>申请时间</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="r in listRequestTranfer">
+				<td><a href ng-click="showRequestDetailDialog({diagnosisId:r.new_request.id});">{{r.new_request.case_his_num}}</a></td>
+				<td>{{r.new_request.patient_name}}</td>
+				<td>{{r.new_request.patient_genderStr}}</td>
+				<td>{{r.new_request.device_name}}</td>
+				<td>{{r.new_request.diagnosis_org_name}}</td>
+				<td>{{r.new_request.request_user_name}}</td>
+				<td>{{r.new_request.create_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

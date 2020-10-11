@@ -1,0 +1,59 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+		质控表管理
+	</div>
+	<div class="panel-body">
+		<div class="form-inline" style="margin-bottom: 15px;">
+			<select class="form-control" ng-model="searchOpt.target_type" ng-options="q.code as q.name for q in listQualityControlTarget">
+				<option value="">--质控表类型--</option>
+			</select>
+			<select class="form-control" ng-model="searchOpt.question_enforceable" ng-options="qc.code as qc.name for qc in listQualityControlEnforceable">
+				<option value="">--质控表强制性--</option>
+			</select>
+			<select class="form-control" ng-model="searchOpt.qcf_state" ng-options="qcfs.code as qcfs.name for qcfs in listQualityControlFormState">
+				<option value="">--质控表状态--</option>
+			</select>
+			<button class="btn btn-primary" ng-click="searchQualityControlForm();"><i class="glyphicon glyphicon-search"></i> 检索</button>
+			<button class="btn btn-info" ui-sref="qualityControl.form.new"><i class="glyphicon glyphicon-plus"></i> 新增问卷</button>
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>质控表名称</th>
+					<th>质控表类型</th>
+					<th>质控表强制性</th>
+					<th>创建时间</th>
+					<th>创建人</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="f in listQualityControlForm">
+					<td>{{f.id}}</td>
+					<td><a title="查看或修改此质控表" href="#/qualityControl/form/modify/{{f.id}}">{{f.name}} <i class="glyphicon glyphicon-pencil"></i></a></td>
+					<td>{{f.target_type_name}}</td>
+					<td>{{f.question_enforceable_name}}</td>
+					<td>{{f.create_time|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{f.create_user_name}}</td>
+					<td>{{f.state_name}}</td>
+					<td>
+						<a class="text-success" ng-if="f.state==20" href ng-click="validQualityControlForm(f.id);" title="启用此问卷">
+							<i class="glyphicon glyphicon-ok-circle"></i> 启用</a>&nbsp;
+						<a class="text-warning" ng-if="f.state==10" href ng-click="disableQualityControlForm(f.id);" title="禁用此问卷">
+							<i class="glyphicon glyphicon-remove-circle"></i> 禁用</a>&nbsp;
+						<a class="text-danger" href ng-click="removeQualityControlForm(f.id);" title="删除此问卷"><i class="glyphicon glyphicon-remove"></i> 删除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="searchQualityControlForm()"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</div>

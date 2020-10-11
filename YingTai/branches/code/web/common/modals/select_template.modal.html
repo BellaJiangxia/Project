@@ -1,0 +1,85 @@
+<div class="modal-header" data-ng-init="initData();">
+	<h4 class="modal-title">选择模板</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="panel panel-primary" style="width: 100%;margin-bottom: 0px;">
+				<div class="panel-body" style="height: 450px;overflow:auto;">
+					<ul style="list-style-type: none;padding-left: 0px;" >
+						<li style="padding-top: 0px;padding-bottom: 0px;">
+							<a href ng-click="commonClick();">
+								<span class="glyphicon glyphicon-minus text-success"></span>
+								<span class="text-success">常用模板</span>
+							</a>
+						</li>
+						<li ng-repeat="tempType in templateType" style="padding-top: 0px;padding-bottom: 0px;">
+							<a href ng-click="pptypeClick(tempType)">
+								<span ng-class="tempType.isShow?'glyphicon glyphicon-minus':'glyphicon glyphicon-plus'"></span>
+								{{tempType.name}}
+							</a>
+							<ul style="list-style-type: none;padding-left: 20px;" ng-if="tempType.isShow">
+								<li ng-repeat="device in listDeviceType" style="padding-top: 0px;padding-bottom: 0px;">
+									<a href ng-click="deviceTypeClick(device)">
+										<span ng-class="device.isShow?'glyphicon glyphicon-minus':'glyphicon glyphicon-plus'"></span>
+										{{device.value}}
+									</a>
+									<ul ng-if="device.isShow" style="list-style-type: none;padding-left: 20px;">
+										<li ng-repeat="partType in arrayPartType" style="padding-top: 0px;padding-bottom: 0px;">
+											<a href="javascript:void(0);" ng-click="partTypeClick(partType)">
+												{{partType.value}}
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-9" style="padding-left: 3px;padding-right: 3px;">
+			<div class="panel panel-default">
+				<table class="table table-hover table-striped table-bordered" data-click-to-select="true">
+					<thead>
+						<tr>
+							<th>名称</th>
+							<th>影像所见</th>
+							<th>诊断意见</th>
+							<th>类型</th>
+<!-- 							<th>备注</th> -->
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="cursor: pointer;" ng-repeat="template in arrayTemplate" ng-click="selected.template = template" 
+							ng-style="template.id==selected.template.id?{'background-color': '#99CCFF'}:{'background-color': 'white'}">
+							<td><a uib-popover-template="'../templates/preview.report.template.html'"
+							popover-title="模板预览" popover-trigger="mouseenter" popover-placement="right" 
+							title="预览" class="text-info">{{template.template_name}}</a></td>
+							<td>{{template.pic_opinionLimit}}</td>
+							<td>{{template.pic_conclusionLimit}}</td>
+							<td>{{template.typeStr}}</td>
+<!-- 							<td>{{template.noteLimit}}</td> -->
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<div style="display: inline;">
+		<button class="btn btn-info" ng-click="ok('plus');" ng-if="selected.template">
+			<i class="glyphicon glyphicon-plus"></i>
+			追加到报告
+		</button>
+		<button class="btn btn-primary" ng-click="ok('apply');" ng-if="selected.template">
+			<i class="glyphicon glyphicon-ok"></i>
+			应用到报告
+		</button>
+	</div>
+	&emsp;&emsp;
+	<button class="btn btn-warning" ng-click="cancel(selected.template);">
+		<i class="glyphicon glyphicon-remove"></i>
+		取消</button>
+</div>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.returnvisit.mapper.ReturnVisitQAMapper">
+
+	<select id="select" parameterType="TReturnVisitQA" resultType="TReturnVisitQA">
+		select * from t_return_visit_qa
+		<where>
+		    <if test="visit_id != 0">
+		        visit_id = #{visit_id}
+		    </if>
+		    <if test="question_id != 0">
+		        and question_id = #{question_id}
+		    </if>
+		    <if test="question_type != 0">
+		        and question_type = #{question_type}
+		    </if>
+		</where>
+		order by question_id
+	</select>
+
+	<select id="selectAndLock" parameterType="TReturnVisitQA" resultType="TReturnVisitQA">
+		select * from t_return_visit_qa with (xlock)
+		<where>
+		    <if test="visit_id != 0">
+		        visit_id = #{visit_id}
+		    </if>
+		    <if test="question_id != 0">
+		        and question_id = #{question_id}
+		    </if>
+		    <if test="question_type != 0">
+		        and question_type = #{question_type}
+		    </if>
+		</where>
+		order by question_id
+	</select>
+	
+	<insert id="insert" parameterType="TReturnVisitQA" useGeneratedKeys="true" keyProperty="question_id">
+		insert into t_return_visit_qa
+		(
+		visit_id,
+		question_type,
+		question_name,
+		min_score,
+		max_score
+		)
+		values
+		(
+		#{visit_id},
+		#{question_type},
+		#{question_name},
+		#{min_score, jdbcType=INTEGER},
+		#{max_score, jdbcType=INTEGER}
+		)
+	</insert>
+
+	<update id="update" parameterType="TReturnVisitQA">
+		update t_return_visit_qa
+		<set>
+		    <if test = "question_type != 0">
+		        question_type = #{question_type}
+		    </if>
+		    <if test = "question_name != null">
+		        ,question_name = #{question_name}
+		    </if>
+		    <if test = "min_score != 0">
+		        ,min_score = #{min_score}
+		    </if>
+		    <if test = "max_score != 0">
+		        ,max_score = #{max_score}
+		    </if>
+			<if test="answer_text!=null">
+				,answer_text=#{answer_text}
+			</if>
+			<if test="answer_score!=null">
+				,answer_score=#{answer_score}
+			</if>
+		</set>
+		<where>
+		    <if test="question_id != 0">
+		        question_id = #{question_id}
+		    </if>
+		    <if test="visit_id != 0 and visit_id!=null">
+		        and visit_id = #{visit_id}
+		    </if>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="TReturnVisitQA">
+		delete from t_return_visit_qa
+		<where>
+		    <if test="visit_id != 0 and visit_id!=null">
+		        visit_id = #{visit_id}
+		    </if>
+		    <if test="question_id != 0 and question_id!=null">
+		        and question_id = #{question_id}
+		    </if>
+		    <if test="question_type != 0 and question_type!=null">
+		        and question_type = #{question_type}
+		    </if>
+		</where>
+	</delete>
+    
+
+</mapper>

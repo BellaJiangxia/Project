@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.weixin.mapper.PatientExternalRelationMapper">
+
+	<select id="selectMaxId" resultType="Long">
+		select max(id) from t_weixin_patient_relation
+	</select>
+
+	<select id="select" parameterType="Map" resultType="TPatientExternalRelation">
+		select r.*, p.name as patient_name, p.gender as patient_gender, p.phone_num as patient_mobile
+		from t_weixin_patient_relation r, t_patient p,T_WEIXIN_PATIENT_ORG_MAPPING o
+		<where>
+		    r.patient_id = p.id and o.relation_id=r.id
+			<if test="org_id!=null">
+				and o.org_id=#{org_id}
+			</if>
+			<if test="id != 0 and id !=null">
+				and r.id = #{id}
+			</if>
+			<if test="seq_id != 0 and seq_id!=null">
+				and r.seq_id = #{seq_id}
+			</if>
+			<if test="external_sys_type != 0 and external_sys_type!=null">
+				and r.external_sys_type = #{external_sys_type}
+			</if>
+			<if test="external_sys_user_id != null">
+				and r.external_sys_user_id = #{external_sys_user_id}
+			</if>
+			<if test="patient_id != 0 and patient_id!=null">
+				and r.patient_id = #{patient_id}
+			</if>
+			<if test="patient_name != null">
+				and p.name like '%'+#{patient_name}+'%'
+			</if>
+			<if test="patient_gender != 0 and patient_gender!=null">
+				and p.gender = #{patient_gender}
+			</if>
+			<if test="patient_mobile != null">
+				and p.phone_num = #{patient_mobile}
+			</if>
+			<if test="status != 0 and status!=null">
+				and r.status = #{status}
+			</if>
+			<if test="state != 0 and state !=null">
+				and r.state = #{state}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectAndLock" parameterType="TPatientExternalRelation" resultType="TPatientExternalRelation">
+		select r.*, p.name as patient_name, p.gender as patient_gender, p.phone_num as patient_mobile from t_weixin_patient_relation r, t_patient p
+		<where>
+		    r.patient_id = p.id
+			<if test="id != 0 and id!=null">
+				and r.id = #{id}
+			</if>
+			<if test="seq_id != 0 and seq_id!=null">
+				and r.seq_id = #{seq_id}
+			</if>
+			<if test="external_sys_type != 0 and external_sys_type!=null">
+				and r.external_sys_type = #{external_sys_type}
+			</if>
+			<if test="external_sys_user_id != null">
+				and r.external_sys_user_id = #{external_sys_user_id}
+			</if>
+			<if test="patient_id != 0 and patient_id!=null">
+				and r.patient_id = #{patient_id}
+			</if>
+			<if test="patient_name != null">
+				and p.name like '%'+#{patient_name}+'%'
+			</if>
+			<if test="patient_gender != 0 and patient_gender!=null">
+				and p.gender = #{patient_gender}
+			</if>
+			<if test="patient_mobile != null">
+				and p.phone_num = #{patient_mobile}
+			</if>
+			<if test="status != 0 and status!=null">
+				and r.status = #{status}
+			</if>
+			<if test="state != 0 and state!=null">
+				and r.state = #{state}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="TPatientExternalRelation" keyProperty="id" useGeneratedKeys="true">
+		insert into t_weixin_patient_relation
+		(
+		seq_id,
+		external_sys_type,
+		external_sys_user_id,
+		patient_id,
+		create_time,
+		status,
+		state
+		)
+		values
+		(
+		#{seq_id},
+		#{external_sys_type},
+		#{external_sys_user_id},
+		#{patient_id},
+		#{create_time},
+		#{status},
+		#{state}
+		)
+	</insert>
+
+	<insert id="intserOrgMapping" parameterType="TPatientOrgMapping">
+		INSERT INTO T_WEIXIN_PATIENT_ORG_MAPPING (relation_id, patient_id, org_id)
+		 VALUES (#{relation_id}, #{patient_id}, #{org_id})
+	</insert>
+
+	<update id="updateState" parameterType="TPatientExternalRelation">
+		update t_weixin_patient_relation set state=#{state} WHERE id=#{id}
+	</update>
+
+	<update id="updateStatus" parameterType="TPatientExternalRelation">
+		update t_weixin_patient_relation set status=#{status} where id=#{id}
+		<if test="external_sys_type!=null">
+			and external_sys_type=#{external_sys_type}
+		</if>
+	</update>
+
+	<update id="updateMappingState" parameterType="Map">
+		UPDATE T_WEIXIN_PATIENT_ORG_MAPPING SET relation_id=#{new_id}
+		WHERE relation_id=#{old_id}
+	</update>
+
+	<select id="selectByOutSideUser" parameterType="Map" resultMap="relationDetail">
+		select a.*,b.relation_id,b.org_id,b.patient_id relation_patient_id from T_WEIXIN_PATIENT_RELATION a
+			left join T_WEIXIN_PATIENT_ORG_MAPPING b on a.id=b.relation_id
+		where exists (SELECT 1 from T_WEIXIN_PATIENT_RELATION where a.patient_id=patient_id
+		<choose>
+			<when test="patient_id!=null and user_id!=null">
+				and (patient_id=#{patient_id} or external_sys_user_id=#{user_id})
+			</when>
+			<when test="patient_id!=null">
+				and patient_id=#{patient_id}
+			</when>
+			<when test="user_id!=null">
+				and external_sys_user_id=#{user_id}
+			</when>
+		</choose>)
+		<if test="state!=null">
+			and a.state=#{state}
+		</if>
+	</select>
+
+	<resultMap id="relationDetail" type="TPatientExternalRelation">
+		<id column="id" property="id" />
+		<collection property="orgList" ofType="TPatientOrgMapping" javaType="ArrayList">
+			<result property="patient_id" column="relation_patient_id" />
+		</collection>
+	</resultMap>
+
+	<select id="selectOrgMappingList" parameterType="String" resultType="TPatientOrgMapping">
+		SELECT c.ID org_id,c.ORG_NAME,c.LOGO_FILE_ID logo_id,d.card_num,d.last_jz_time
+		from T_WEIXIN_PATIENT_RELATION a left join T_WEIXIN_PATIENT_ORG_MAPPING b on a.id=b.relation_id
+		  LEFT JOIN T_ORGANIZATION c on b.org_id=c.ID
+		  LEFT JOIN T_PATIENT_ORG_MAPPER d on b.patient_id=d.patient_id and b.org_id=d.org_id
+		<where>
+			<if test="state!=null">
+				a.state=#{state}
+			</if>
+			<if test="sys_type!=null">
+				AND a.external_sys_type=#{sys_type}
+			</if>
+			<if test="user_id!=null">
+				AND a.external_sys_user_id=#{user_id}
+			</if>
+		</where>
+	</select>
+
+</mapper>

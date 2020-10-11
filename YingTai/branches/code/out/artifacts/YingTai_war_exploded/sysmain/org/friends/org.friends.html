@@ -1,0 +1,36 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4>合作机构</h4>
+	</div>
+	<div class="panel-body">
+		<a type="button" class="btn btn-success pull-right" ui-sref="org.addFriend"><span class="glyphicon glyphicon-plus"></span> 添加合作机构</a>
+		<ul class="nav nav-tabs">
+			<li ui-sref-active="active">
+				<a ui-sref="org.friends.valid" role="button" href>合作机构</a>
+			</li>
+			<li ui-sref-active="active">
+				<a ui-sref="org.friends.auditing" role="button" href>待审核
+					<i class="badge" style="background-color: #f00; color: #fff" ng-if="diagnosisCount.joiningOrgCount>0">
+						{{diagnosisCount.joiningOrgCount}}
+					</i>
+				</a>
+			</li>
+		</ul>
+  		<div ui-view style="margin-top: 15px;"></div>
+	</div>
+</div>
+<script type="text/ng-template" id="selectReportOrg.html">
+        <div class="modal-header">
+            <h3 class="modal-title">请选择报告发布者</h3>
+        </div>
+        <div class="modal-body">
+			<label>当前报告发布者: </label>
+			<label class="radio-inline" ng-repeat="o in orgs"> 
+				<input type="radio" name='rdReportOrg' value='{{o.id}}' ng-model="$parent.config.publish_report_org_id" />{{o.name}}
+			</label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+        </div>
+</script>

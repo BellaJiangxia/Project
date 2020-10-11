@@ -1,0 +1,69 @@
+------------20160830----------------------------------------------------------------------------------------
+未改动
+	T_ADMIN_USER
+	T_BASE_USER
+	T_DIAGNOSIS_HANDLE
+	T_DIC_VALUE
+	T_DOCTOR_USER
+	T_FILE_MGR
+	T_FINANCE_ACCOUNT
+	T_FINANCE_FREEZE
+	T_FINANCE_RECORD
+	T_FINANCE_REQUEST
+	T_GENERAL_USER
+	T_MESSAGE
+	T_OPERATION_RECORD
+	T_ORG_CHANGE
+	T_ORG_CONFIGS
+	T_ORG_RELATION
+	T_ORG_USER_MAPPING
+	T_ORGANIZATION
+	T_REPORT_TEMPLATE
+	T_TEMPLATE_STAT
+	T_USER_CHANGE
+	T_USER_CONFIG
+改动很小
+	T_MOFIDY_REPORT_REQUEST //diagnosis_id -->report_id
+	T_DIAGNOSIS_MSG	//DIAGNOSIS_ID --> T_REPORT_MSG.REPORT_ID
+	T_DIAGNOSIS_SHARE // DIAGNOSIS_ID --> T_REPORT_SHARE.REPORT_ID  ; ORG_ID --> T_REPORT_SHARE.SHARE_ORG_ID
+	T_DIAGNOSIS_SHARE_SPEECH // 表名--> T_REPORT_SHARE_SPEECH
+	T_ORG_AFFIX // 添加字段 remote_server_version 默认值：1
+	T_ORG_PRODUCT // 添加字段 charge_type 默认值：30
+	T_ORG_RELATION_CONFIG // 添加字段 share_patient_info，smallint 默认0
+有改动
+	T_DIAGNOSIS
+	T_MEDICAL_HIS
+	T_MEDICAL_HIS_ABOUT//被删除
+	T_MEDICAL_HIS_IMG	
+------------------------------------------------------------------------------------------------------------
+迁移步骤：
+	1、备份数据源
+	2、创建新版数据库，并清空数据
+	3、将原数据库数据传输到新数据库（仅限数据表未作修改的表以及改动很小的表）
+	4、将改动含笑的表，按照步骤逐一改动至新库中
+	5、运行数据迁移程序迁移数据
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

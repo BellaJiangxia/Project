@@ -1,0 +1,61 @@
+<!--<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>-->
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-th-list"></span>
+			{{batch_name == null ? '回访问卷管理' : '回访问卷 - '+batch_name}}
+		</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline">
+			<input type="text" class="form-control" style="width: 200px;" placeholder="问卷名称" ng-model="searchOpt.visit_name"/> 
+			<input type="text" class="form-control" style="width: 160px;" placeholder="病人姓名" ng-model="searchOpt.patient_name"/>
+			<select class="form-control" style="width: 160px;" ng-model="searchOpt.onlyMe" ng-if="searchOpt.batch_id == null">
+				<option value="false">机构所有回访问卷</option>
+        <option value="true">我创建的回访问卷</option>
+			</select>
+			<button class="btn btn-primary" ng-click="searchVisits()">
+				<span class="glyphicon glyphicon-search"></span> 检索
+			</button>
+		</div>
+		<br />
+		
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr class="bg-primary">
+					<th width="30%">问卷名称</th>
+					<th width="5%">接收人</th>
+					<th width="5%">创建人</th>
+					<th width="13%">创建时间</th>
+					<th width="13%">发送时间</th>
+					<th width="13%">回复时间</th>
+					<th width="10%">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="visit in visits">
+					<td><a href="#/returnvisit/detail/{{visit.visit_id}}">{{visit.visit_name}}</a></td>
+					<td>{{visit.patient_name}}</td>
+					<td>{{visit.create_user_name}}</td>
+					<td>{{visit.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{visit.send_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>{{visit.reply_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>
+						<a ng-if="visit.send_time==null" style="margin-left: 5px;"
+							 class="btn btn-info btn-sm" href="javascript:void(0);"
+							 ng-click="sendVisit(visit.visit_id)" title="发送">
+							<i class="glyphicon glyphicon-send"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="searchVisits()"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,464 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+		<h4 style="display:inline-block"><span class="glyphicon glyphicon-new-window"></span>
+		病例详情</h4>
+		<a class="btn btn-primary  pull-right" href="javascript:void(0);" ng-click="goback()">
+						<span class="glyphicon glyphicon-circle-arrow-left"></span>
+						返回
+		</a>
+	</div>
+	<div class="panel-body">
+		<div class="form-horizontal">
+			<div class="form-group" style="text-align: right;">
+				<div class="control-label col-sm-2"></div>
+				<div class="col-sm-8">
+					<button class="btn btn-success" ng-click="savePatientInfo();">
+						<span class="glyphicon glyphicon-floppy-saved"></span>
+						保存病历
+					</button>
+<!-- 					<button class="btn btn-info" ng-click="savePatientInfoAndCommitRequest();"  -->
+<!-- 						ng-if="listDicomImg && listDicomImg.length>0"> -->
+<!-- 						<span class="glyphicon glyphicon-export"></span> -->
+<!-- 						提交诊断 -->
+<!-- 					</button> -->
+					&emsp;
+					<div class="btn-group" role="group" aria-label="...">
+						<button class="btn btn-success" ng-if="caseHistory.org_id==currOrg.id" 
+							ng-click="savePatientInfoAndCommitRequest(10);"><i class="glyphicon glyphicon-export"></i>
+							提交诊断申请
+						</button>
+						<button class="btn btn-info" ng-if="caseHistory.org_id==currOrg.id" 
+							ng-click="savePatientInfoAndCommitRequest(20);"><i class="glyphicon glyphicon-bullhorn"></i>
+							提交咨询申请
+						</button>
+					</div>
+					
+				</div>
+				<div class="col-sm-2">
+					
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">病历号</label>
+				<!-- <div class="col-sm-2" style="padding-top: 7px;" ng-if="mode!=2">
+					<div class="pull-right">
+						<span uib-dropdown on-toggle="toggled(open)">
+							<a href id="caseHisNum-dropdown" uib-dropdown-toggle style="text-decoration: none;color: #333;font-weight: bold;">
+								{{remoteParam.name}}<b class="caret" ng-if="listRemoteParamsType.length>1"></b>
+							</a>
+							<ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="caseHisNum-dropdown">
+								<li ng-repeat="r in listRemoteParamsType">
+									<a href ng-click="remoteParam = r;">
+										{{r.name}}
+									</a>
+								</li>
+							</ul>
+						</span>
+					</div>
+				</div> -->
+				<div class="col-sm-8">
+					<span class="form-control">{{caseHistory.case_his_num}}</span>
+				</div>
+				<div class="col-sm-2">
+				</div>
+			</div>
+			<hr style="margin: 5px 0px;"/>
+			<div class="form-group">
+				<label class="control-label col-sm-2">影像</label>
+				<div class="col-sm-8">
+					<div class="row" ng-repeat="img in listDicomImg" ng-click="setSelectImg(img);">
+						<div class="col-sm-10">
+							<div class="well" style="border-radius: 5px;padding: 5px 15px;margin-bottom: 5px;" 
+								ng-style="(img.id==selectedDicomImg.id)?{'border':'2px solid #7294B2'}:{'border':'2px solid #F0F0F0'}">
+								<div class="row">
+									<div class="col-sm-4">
+										<div class="form-inline">
+											<label>影像编号：</label>
+											<span>{{img.id}}</span>&emsp;
+											<label>影像类型：</label>
+											<span>{{img.device_type_name}}</span>
+										</div>
+										<div class="form-inline">
+											<label>影片数量：</label>
+											<script type="text/ng-template" id="../templates/popover.modify.pieceAmount.template.html">
+												<input type="text" class="form-control" placeholder="修改数量" ng-model="img.piece_amount"/>
+											</script>
+											<span>{{img.piece_amount}}&emsp;
+												<a title="修改数量" href uib-popover-template="'../templates/popover.modify.pieceAmount.template.html'"
+													popover-placement="right" popover-trigger="outsideClick" popover-append-to-body="true">
+													<i class="glyphicon glyphicon-pencil"></i>
+												</a>
+											</span>
+										</div>
+										<div class="form-inline">
+											<div>
+												<label>
+													检查项目：
+													<a href uib-popover-template="'../templates/popover.modify.checkpro.template.html'"
+														popover-placement="right" popover-trigger="outsideClick" popover-append-to-body="true" 
+														ng-click = "currImg = img;"> <!-- ng-click="imgCheckProClick(img)" -->
+														<i class="glyphicon glyphicon-plus"></i>
+														自定义
+													</a>
+												</label>
+											</div>
+											<div ng-repeat="cpro in img.listCheckPro" style="padding-left: 15px;">
+												<div class="checkbox" style="display: inline;">
+													<label>
+														<input type="checkbox" ng-model="cpro.selected"/>
+														<span ng-class="cpro.custom?'text-danger':'text-success'">{{cpro.name}}&emsp;</span>
+													</label>
+												</div>
+											</div>
+											<div>
+											</div>
+										</div>
+										<div class="form-inline">
+											<div>
+												<script type="text/ng-template" id="../templates/popover.modify.addBodyPartType.template.html">
+													<div class="form-inline">
+														<div class="input-group">
+															<input type="text" class="form-control" placeholder="自定义..." ng-model="diyBodyPartType"/>
+															<span class="input-group-btn">
+	    														<button class="btn btn-info" type="button" ng-click="addBodyPartType(img,diyBodyPartType);" 
+																	ng-disabled="!diyBodyPartType">确定</button>
+															</span>
+														</div>
+													</div>
+												</script>
+												<label>检查部位：
+													<a href uib-popover-template="'../templates/popover.modify.addBodyPartType.template.html'"
+														popover-placement="right" popover-trigger="outsideClick" popover-append-to-body="true">
+														<i class="glyphicon glyphicon-plus"></i> 
+													</a>
+												</label>
+											</div>
+											<script type="text/ng-template" id="../templates/popover.modify.bodyPartType.template.html">
+												<div class="form-inline">
+													<div class="input-group">
+														<input type="text" class="form-control" placeholder="自定义..." ng-model="bpt.value"/>
+														<span class="input-group-btn">
+	    													<button class="btn btn-info" type="button" ng-click="modifyBodyPartType(img,bpt);" 
+																ng-disabled="!bpt.value">确定</button>
+														</span>
+													</div>
+												</div>
+											</script>
+											<div ng-repeat="bpt in img.listBodyPartType" style="padding-left: 15px;">
+												<div class="checkbox" style="display: inline;">
+													<label>
+<!-- 														<input type="checkbox" ng-model="cpro.selected"/> -->
+														<span>{{bpt.value}}&emsp;
+															<a title="修改部位" href uib-popover-template="'../templates/popover.modify.bodyPartType.template.html'"
+																popover-placement="right" popover-trigger="outsideClick" popover-append-to-body="true">
+																<i class="glyphicon glyphicon-pencil"></i>
+															</a>
+															<a class="text-danger" title="删除部位" href ng-click="onRemoveImgBodyPartType(img,bpt);">
+																<i class="glyphicon glyphicon-remove"></i></a>
+														</span>
+													</label>
+												</div>
+											</div>
+											<div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-8">
+										序列：
+										<div class="yuanjiao form-inline" style="background-color: #DDDDDD;padding: 10px 10px;" >
+											<div style="width: 70px;display: inline-block;margin-right: 3px;" ng-repeat="series in img.listSeries">
+												<img ng-src="thumbnail.action?thumbnail_uid={{series.thumbnail_uid}}&affix_id={{img.affix_id}}" 
+													alt="{{series.part_type_name}}" 
+													title="{{series.mark_char}}" style="height: 70px; width: 70px; display: block;"/>
+											</div>
+<!-- 											<div style="float: left;"> -->
+<!-- 												部&emsp;&emsp;位：{{series.part_type_name}}<br/> -->
+<!-- 												曝光次数：{{series.expose_times}} -->
+<!-- 											</div> -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<button class="btn btn-primary btn-sm" ng-click="showDicomByImgId(img.id);"
+								title="查看影像"><i class="glyphicon glyphicon-search"></i>
+								查看影像
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2">
+				</div>
+			</div>
+			<hr style="margin: 5px 0px;"/>
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>病人姓名</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" required ng-model="patient.name" placeholder="病人姓名"/>
+				</div>
+				<label class="control-label col-sm-2">身份证号码</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" ng-pattern="/^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/" 
+						uib-tooltip="请填入15位数字或者18位数字,末尾可含X！"  popover-trigger="focus"
+						ng-model="patient.identity_id" placeholder="病人身份证号">
+				</div>
+				<div class="col-sm-2">
+<!-- 					<button class="btn btn-info" style="width: 100px;" ng-click="canEdit=!canEdit;" ng-disabled="caseHistory.status!=1"> -->
+<!-- 						<span class="glyphicon glyphicon-pencil"></span> -->
+<!-- 						{{canEdit?'锁定':'编辑'}} -->
+<!-- 					</button> -->
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>出生日期</label>
+				<div class="col-sm-3">
+			       	<date-selector ng-model="patient.birthday" placeholder="出生日期" ng-change="patientBirthdayChange(patient);"></date-selector>
+<!-- 		        	<div class="input-group"> -->
+<!-- 						<input type="text" class="form-control" uib-datepicker-popup ng-model="patient.birthday" -->
+<!-- 							datepicker-options="dateOptions" ng-required="true" close-text="关闭" current-text="今天" clear-text="清除" -->
+<!-- 							ng-readOnly="true" is-open="selectdateopened" ng-change="patientBirthdayChange(patient);"/> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 							<button type="button" class="btn btn-info" ng-click="selectdateopened=!selectdateopened;"> -->
+<!-- 								<i class="glyphicon glyphicon-calendar"></i> -->
+<!-- 							</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+				</div>
+		        <label class="control-label col-sm-2"><b style="color:red;">*</b>年龄</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" ng-change="patientAgeChange(patient)" required
+						ng-model="patient.age" placeholder="年龄">
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<div class="form-group" style="margin-bottom: 2px;">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>病人性别</label>
+				<div class="col-sm-3">
+					<select class="form-control" ng-model="patient.gender" ng-options="g.code as g.name for g in listGender"></select>
+				</div>
+				<label class="control-label col-sm-2">工作/职业</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" ng-model="patient.work" placeholder="工作/职业">
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<div style="text-align: center;">
+				<button class="btn btn-xs btn-warning" style="border-bottom: 0px;border-top-left-radius: 20px;border-top-right-radius:20px;" 
+					ng-click="isCollapsed = !isCollapsed">
+					&nbsp;&nbsp;更多病人信息
+					<i ng-class="!isCollapsed?'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up'"></i>&nbsp;&nbsp;
+				</button>
+			</div>
+			<div uib-collapse="!isCollapsed">
+				<div class="form-group">
+					<label class="control-label col-sm-2">出生地</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.born_address" placeholder="病人出生地"/>
+					</div>
+					<label class="control-label col-sm-2">居住地</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.home_address" placeholder="病人居住地"/>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">婚姻状况</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.marital_status" placeholder="婚姻状况"/>
+					</div>
+					<label class="control-label col-sm-2">民族</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.mingzu" placeholder="民族"/>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">电话号码</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.phone_num" placeholder="电话号码"/>
+					</div>
+					<label class="control-label col-sm-2">病人来源</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{patient.sourceType.name}}</span>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">联系人姓名</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.contact_name" placeholder="联系人姓名">
+					</div>
+					<label class="control-label col-sm-2">联系人地址</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.contact_addr" placeholder="联系人地址">
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">联系人电话</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.contact_phone_num" placeholder="联系人电话">
+					</div>
+					<label class="control-label col-sm-2">与病人关系</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="patient.contact_rela" placeholder="与病人关系">
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">其它病史</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" rows="3" ng-model="patient.sick_his" placeholder="其它病史"></textarea>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+			</div>
+			<hr style="margin: 0px 0px;margin-bottom: 5px;"/>
+			<div class="form-group">
+				<label class="control-label col-sm-2">住院号</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" ng-model="caseHistory.hospitalized_num" placeholder="住院号"/>
+				</div>
+				<label class="control-label col-sm-2">申请科室</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" ng-model="caseHistory.reception_section" placeholder="申请科室"/>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<div class="form-group" style="margin-bottom: 2px;">
+				<label class="control-label col-sm-2">电子申请单</label>
+				<div class="col-sm-8">
+					<button class="btn btn-primary" ng-click="selectFile();">
+						<span class="glyphicon glyphicon-export"></span>
+						选择图片
+					</button>
+					<ul style="padding-left: 0px;list-style-type: none;margin-top: 10px;" 
+						ng-if="caseHistory.eafFiles && caseHistory.eafFiles.length>0">
+						<li ng-repeat="f in caseHistory.eafFiles">
+							<a href="javascript:void(0);" ng-click="showBrowse(f);">
+								{{f.ori_name}}
+							</a>
+							&emsp;
+							<a href="javascript:void(0);" ng-click="removeFile($index)" title="删除">
+								<span class="glyphicon glyphicon-remove text-danger"></span>
+							</a>
+						</li>
+					</ul>
+					<!-- &nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="btn btn-info" ng-click="showElectMedicalList(new_medical_his.medical_his_num)">
+						<span class="glyphicon glyphicon-export"></span>
+						调阅病史资料
+					</button> -->
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+			<div style="text-align: center;">
+				<button class="btn btn-xs btn-primary" style="border-bottom: 0px;border-top-left-radius: 20px;border-top-right-radius:20px;" 
+					ng-click="isCaseHistoryCollapsed = !isCaseHistoryCollapsed">
+					&nbsp;&nbsp;更多病例信息
+					<i ng-class="!isCaseHistoryCollapsed?'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up'"></i>&nbsp;&nbsp;
+				</button>
+			</div>
+			<div uib-collapse="!isCaseHistoryCollapsed">
+				<div class="form-group">
+					<label class="control-label col-sm-2">病例类型</label>
+					<div class="col-sm-3">
+						<select class="form-control" ng-model="caseHistory.type" ng-options="c.code as c.name for c in listCaseHistoryType">
+							<option value="">--请选择--</option>
+						</select>
+					</div>
+					<label class="control-label col-sm-2">挂号类型</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="caseHistory.guahao_type" placeholder="挂号类型"/>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">入院时间</label>
+					<div class="col-sm-3">
+						<date-selector ng-model="caseHistory.enter_time" placeholder="入院时间"></date-selector>
+					</div>
+					<label class="control-label col-sm-2">出院时间</label>
+					<div class="col-sm-3">
+						<date-selector ng-model="caseHistory.leave_time" placeholder="出院时间"></date-selector>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">接诊医生</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="caseHistory.reception_doctor" placeholder="接诊医生"/>
+					</div>
+					<label class="control-label col-sm-2">接诊科室</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="caseHistory.reception_section" placeholder="接诊科室"/>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">查体</label>
+					<div class="col-sm-3">
+						<textarea class="form-control" rows="2" ng-model="caseHistory.check_body" placeholder="查体"></textarea>
+					</div>
+					<label class="control-label col-sm-2">医嘱</label>
+					<div class="col-sm-3">
+						<textarea class="form-control" rows="2" ng-model="caseHistory.doctor_advice" placeholder="医嘱"></textarea>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">症状</label>
+					<div class="col-sm-3">
+						<textarea class="form-control" rows="3" ng-model="caseHistory.symptom" placeholder="症状"></textarea>
+					</div>
+					<label class="control-label col-sm-2">诊断</label>
+					<div class="col-sm-3">
+						<textarea class="form-control" rows="3" ng-model="caseHistory.diagnosis" placeholder="诊断"></textarea>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">备注</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" rows="3" ng-model="caseHistory.note" placeholder="备注"></textarea>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">来源</label>
+					<div class="col-sm-8">
+						<span class="form-control">{{caseHistory.sourceType.name}}</span>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+			</div>
+			<hr style="margin: 0px 0px;margin-bottom: 5px;"/>
+			<div class="form-group" style="text-align: right;">
+				<label class="control-label col-sm-2"></label>
+				<div class="col-sm-8">
+					<button class="btn btn-success" ng-click="savePatientInfo();">
+						<span class="glyphicon glyphicon-floppy-saved"></span>
+						保存病历
+					</button>&emsp;
+					<div class="btn-group" role="group" aria-label="...">
+						<button class="btn btn-success" ng-if="caseHistory.org_id==currOrg.id" 
+							ng-click="savePatientInfoAndCommitRequest(10);"><i class="glyphicon glyphicon-export"></i>
+							提交诊断申请
+						</button>
+						<button class="btn btn-info" ng-if="caseHistory.org_id==currOrg.id" 
+							ng-click="savePatientInfoAndCommitRequest(20);"><i class="glyphicon glyphicon-bullhorn"></i>
+							提交咨询申请
+						</button>
+					</div>
+				</div>
+				<div class="col-sm-2" style="text-align: right;">
+					<button class="btn btn-primary" href ng-click="goback();">
+						<span class="glyphicon glyphicon-circle-arrow-left"></span>
+						返回
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

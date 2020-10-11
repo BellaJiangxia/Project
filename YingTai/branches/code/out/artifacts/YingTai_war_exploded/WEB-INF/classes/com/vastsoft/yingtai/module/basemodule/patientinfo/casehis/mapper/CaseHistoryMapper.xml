@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.basemodule.patientinfo.casehis.mapper.CaseHistoryMapper">
+	<select id="selectCaseHistoryByOrgIdAndCaseHisNumForUpdate" parameterType="TCaseHistory" resultType="TCaseHistory">
+		select * from T_CASE_HISTORY WITH(UPDLOCK) where case_his_num = #{case_his_num} and org_id = #{org_id}
+	</select>
+	
+	<select id="selecCaseHistoryByIdForUpdate" parameterType="Long" resultType="TCaseHistory">
+		select * from T_CASE_HISTORY WITH(XLOCK) where ID=#{id}
+	</select>
+	
+    <update id="updateCaseHistory" parameterType="TCaseHistory">
+    	update T_CASE_HISTORY set 
+    		symptom = #{symptom,jdbcType=VARCHAR},
+    		diagnosis = #{diagnosis,jdbcType=VARCHAR},
+    		patient_say = #{patient_say,jdbcType=VARCHAR},
+    		check_body = #{check_body,jdbcType=VARCHAR},
+    		doctor_advice = #{doctor_advice,jdbcType=VARCHAR},
+    		guahao_type = #{guahao_type,jdbcType=VARCHAR},
+    		treatment = #{treatment,jdbcType=VARCHAR},
+    		enter_time = #{enter_time,jdbcType=TIMESTAMP},
+    		leave_time = #{leave_time,jdbcType=TIMESTAMP},
+    		status = #{status},
+    		note = #{note,jdbcType=VARCHAR},
+    		hospitalized_num = #{hospitalized_num,jdbcType=VARCHAR},
+    		reception_section = #{reception_section,jdbcType=VARCHAR},
+    		reception_doctor = #{reception_doctor,jdbcType=VARCHAR},
+    		eaf_list = #{eaf_list,jdbcType=VARCHAR},
+    		state = #{state},
+    		source_type = #{source_type},
+    		type = #{type},
+    		modify_time = #{modify_time,jdbcType=TIMESTAMP},
+    		modify_user_id = #{modify_user_id},
+    		patient_id = #{patient_id}
+    	where id = #{id}
+    </update>
+    
+    <select id="selectCaseHistoryCount" parameterType="Map" resultType="int">
+        select count(t1.id) 
+        from T_CASE_HISTORY t1
+        	left join T_PATIENT t2 on t1.patient_id = t2.id 
+        where 1=1
+        <if test="id !=null">
+            and t1.id = #{id}
+        </if>
+        <if test="containIds !=null">
+            and t1.id in (#{containIds})
+        </if>
+        <if test="excludeIds !=null">
+            and t1.id not in (#{excludeIds})
+        </if>
+        <if test="org_id !=null">
+            and t1.org_id = #{org_id}
+        </if>
+        <if test="patient_id !=null">
+            and t1.patient_id = #{patient_id}
+        </if>
+        <if test="case_his_num !=null">
+            and t1.case_his_num =#{case_his_num}
+        </if>
+        <if test="patient_name !=null">
+            and t2.name like (#{patient_name}+'%')
+        </if>
+        <if test="patient_identity_id !=null">
+            and t2.identity_id =#{patient_identity_id}
+        </if>
+        <if test="patient_gender !=null">
+            and t2.gender = #{patient_gender}
+        </if>
+        <if test="hospitalized_num !=null">
+            and t1.hospitalized_num = #{hospitalized_num}
+        </if>
+        <if test="symptom !=null">
+            and t1.symptom like ('%'+#{symptom}+'%')
+        </if>
+        <if test="status !=null">
+            and t1.status=#{status}
+        </if>
+        <if test="createStart !=null and createEnd !=null">
+            and t1.create_time between #{createStart} and #{createEnd}
+        </if>
+        <if test="reception_section !=null">
+            and t1.reception_section like '%',#{reception_section},'%'
+        </if>
+        <if test="type !=null">
+        	and t1.type =#{type} 
+        </if>
+        <if test="source_type !=null">
+        	and t1.source_type = #{source_type}
+        </if>
+    </select>
+
+    <select id="selectCaseHistory" parameterType="Map" resultType="FCaseHistory">
+        select * from (
+	        select t1.*,
+	        	t2.ORG_NAME as org_name,
+	        	t2.ORG_CODE as org_code,
+	        	t3.USER_NAME as create_user_name,
+	        	t4.USER_NAME as modify_user_name,
+	        	t5.name as patient_name,
+	        	t5.identity_id as patient_identity_id,
+	        	t5.birthday as patient_birthday,
+	        	t5.gender as patient_gender,
+	        	ROW_NUMBER () OVER (ORDER BY t1.create_time DESC) AS RowNumber
+	        from T_CASE_HISTORY t1
+	        	left join T_ORGANIZATION t2 on t1.org_id = t2.id
+	        	left join T_BASE_USER t3 on t1.create_user_id = t3.id
+	        	left join T_BASE_USER t4 on t1.modify_user_id = t4.id
+	        	left join T_PATIENT t5 on t1.patient_id = t5.id
+	        where 1=1
+	        <if test="id !=null">
+	            and t1.id = #{id}
+	        </if>
+	        <if test="containIds !=null">
+	            and t1.id in (${containIds})
+	        </if>
+	        <if test="excludeIds !=null">
+	            and t1.id not in (${excludeIds})
+	        </if>
+	        <if test="org_id !=null">
+	            and t1.org_id = #{org_id}
+	        </if>
+	        <if test="patient_id !=null">
+	            and t1.patient_id = #{patient_id}
+	        </if>
+	        <if test="case_his_num !=null">
+	            and t1.case_his_num = #{case_his_num}
+	        </if>
+	        <if test="patient_name !=null">
+	            and t5.name like (#{patient_name}+'%')
+	        </if>
+	        <if test="patient_identity_id !=null">
+	            and t5.identity_id =#{patient_identity_id}
+	        </if>
+	        <if test="patient_gender !=null">
+	            and t5.gender = #{patient_gender}
+	        </if>
+	        <if test="hospitalized_num !=null">
+	            and t1.hospitalized_num = #{hospitalized_num}
+	        </if>
+	        <if test="symptom !=null">
+	            and t1.symptom like '%'+#{symptom}+'%'
+	        </if>
+	        <if test="status !=null">
+	            and t1.status=#{status}
+	        </if>
+	        <if test="createStart !=null and createEnd !=null">
+	            and t1.create_time between #{createStart} and #{createEnd}
+	        </if>
+	        <if test="reception_section !=null">
+	            and t1.reception_section like '%'+#{reception_section}+'%'
+	        </if>
+	        <if test="type !=null">
+	        	and t1.type =#{type} 
+	        </if>
+	        <if test="source_type !=null">
+	        	and t1.source_type = #{source_type}
+	        </if>
+        ) as tmp_t
+        	<if test="minRow !=null and maxRow !=null">
+        	    where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+        	</if>
+    </select>
+
+	<insert id="insertCaseHistory" parameterType="TCaseHistory" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO [T_CASE_HISTORY] (
+			[patient_id],
+			[org_id],
+			[case_his_num],
+			[symptom],
+			[enter_time],
+			[leave_time],
+			[status],
+			[create_time],
+			[create_user_id],
+			[note],
+			[hospitalized_num],
+			[reception_section],
+			[eaf_list],
+			[state],
+			[source_type],
+			[type],
+			[modify_time],
+			[modify_user_id],
+			[diagnosis],
+    		[patient_say],
+    		[check_body],
+    		[doctor_advice],
+    		[guahao_type],
+    		[treatment]
+		) VALUES (
+			#{patient_id},
+			#{org_id},
+			#{case_his_num,jdbcType=VARCHAR},
+			#{symptom,jdbcType=VARCHAR},
+			#{enter_time,jdbcType=TIMESTAMP},
+			#{leave_time,jdbcType=TIMESTAMP},
+			#{status},
+			#{create_time},
+			#{create_user_id},
+			#{note,jdbcType=VARCHAR},
+			#{hospitalized_num,jdbcType=VARCHAR},
+			#{reception_section,jdbcType=VARCHAR},
+			#{eaf_list,jdbcType=VARCHAR},
+			#{state},
+			#{source_type},
+			#{type},
+			#{modify_time,jdbcType=TIMESTAMP},
+			#{modify_user_id,jdbcType=BIGINT},
+			#{diagnosis,jdbcType=VARCHAR},
+    		#{patient_say,jdbcType=VARCHAR},
+    		#{check_body,jdbcType=VARCHAR},
+    		#{doctor_advice,jdbcType=VARCHAR},
+    		#{guahao_type,jdbcType=VARCHAR},
+    		#{treatment,jdbcType=VARCHAR}
+		)
+	</insert> 
+</mapper>

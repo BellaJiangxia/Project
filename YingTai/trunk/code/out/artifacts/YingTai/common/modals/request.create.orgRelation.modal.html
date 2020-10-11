@@ -1,0 +1,31 @@
+<div class="modal-header">
+         <h3 class="modal-title">{{title}}</h3>
+</div>
+<div class="modal-body">
+	<ul ng-repeat="rt in rts">
+		<li><label id="rt" class="radio-inline" > 
+				<input type="radio" name='reportType' value='{{rt.code}}' ng-model="opt.reportType" ng-disabled="!canEdit"/>{{rt.name}}
+			</label>
+		</li>
+	</ul>
+	<div ng-if="opt.reportType==3" style="margin-left:40px;">
+		<span>请选择您的机构提交的诊断的报告的发布身份：</span><br/>
+		<label id="ct" class="radio-inline" > 
+			<input type="radio" name='customerType' value='1' ng-model="opt.customerType"/> 您的机构
+		</label>
+		<label id="ct" class="radio-inline" >
+			<input type="radio" name='customerType' value='2' ng-model="opt.customerType"/> 对方机构
+		</label>
+	</div>
+	<br/>
+	<div class="checkbox" style="margin-left:40px;">
+		<label popover-placement="top" uib-popover="注意：勾选后您当前所在的机构的病例库将可以被合作机构访问，但其不能修改！" 
+			popover-trigger="mouseenter">
+   			<input type="checkbox" ng-model="opt.sharePatientInfo"/> 共享病例库
+ 		</label>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" type="button" ng-click="ok();">确定</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel();">取消</button>
+</div>

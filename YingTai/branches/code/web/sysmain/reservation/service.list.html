@@ -1,0 +1,68 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h4><span class="glyphicon glyphicon-th-list"></span>
+      预约服务列表
+    </h4>
+  </div>
+  <div class="panel-body">
+    <div class="form-inline">
+      <label style="margin: 0px 5px">服务名称</label>
+      <input type="text" class="form-control" style="width: 200px" placeholder="服务名称" ng-model="searchOpt.serviceName"/>
+      <label style="margin: 0px 5px">服务状态</label>
+      <select class="form-control" ng-model="searchOpt.serviceStatus" ng-options="s.code as s.name for s in serviceStatus">
+        <option value="">全部</option>
+      </select>
+      <label style="margin: 0px 5px">设备类型</label>
+      <select class="form-control" ng-model="searchOpt.deviceType" ng-options="d.id as d.value for d in DeviceList" ng-change="selectItem()" >
+        <option value="">全部</option>
+      </select>
+      <select class="form-control" ng-model="searchOpt.partId" ng-if="ItemList.length>0" ng-options="p.id as p.value for p in ItemList">
+        <option value="">全部</option>
+      </select>
+      <button class="btn btn-primary" ng-click="loadList()">
+        <span class="glyphicon glyphicon-search"></span> 检索
+      </button>
+      <button class="btn btn-success" ui-sref="service.detail"><i class="glyphicon glyphicon-plus"></i>添加</button>
+    </div>
+
+    <br/>
+
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr class="bg-primary">
+        <th>服务名称</th>
+        <th>预约设备</th>
+        <th>创建时间</th>
+        <th>发布时间</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="s in listService">
+        <td><a ui-sref="service.detail({id:s.service_id})">{{s.service_name | limitTo:30}}</a></td>
+        <td>{{s.v_device_name}}</td>
+        <td>{{s.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{s.publish_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{s.serviceStatus.name}}</td>
+        <td>
+          <a class="btn btn-info btn-sm" title="发布" ng-click="publishService(s)" ng-if="s.service_status===11">
+            <i class="glyphicon glyphicon-send"></i>
+          </a>
+          <a class="btn btn-danger btn-sm" title="删除" ng-click="deleteService(s.service_id)" ng-if="s.service_status!==10">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div align="right">
+      <span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+      <uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow"
+                      items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+                      ng-model="searchOpt.spu.currPage" ng-change="loadList()"
+                      previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="container-fluid">
+	<uib-alert type="info" ng-show="msg">{{msg}}</uib-alert>
+	<div class="panel panel-primary">
+	  <div class="panel-heading" >
+		  	<span style="font-size: 20px">{{title}}</span>
+  	</div>
+	<form class="form-horizontal" style="margin: 20px 10px;">
+	  <div class="form-group">
+	    <label for="inputEmail3" class="col-sm-3 control-label">本人照片</label>
+	    <div class="col-sm-1">
+		      <img id="imgPhoto" class="img-thumbnail" ng-show="user.photo_file_id>0" ng-src="common!image.action?imageId={{user.photo_file_id}}" style="width: 100px;height:100px;">
+		      <div class="fileUpload btn btn-primary" ng-show="!notEdit">
+					    <span class="glyphicon glyphicon-picture"> 上传照片</span>
+					    <input type="file" accept="image/*" class="upload" upload-change change="uploadFile" file-type="14" file-bind="1">
+					</div>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">真实姓名</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" name="userName" ng-model="user.user_name" placeholder="真实姓名" ng-readonly="notEdit">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">手机号码</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" name="mobile" ng-model="user.mobile" ng-readonly="notEdit">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">电子邮箱</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" name="email" ng-model="user.email" ng-readonly="notEdit">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">性别</label>
+	    <div class="col-sm-5">
+	      <span ng-repeat="g in Gender">
+	      	<label class="radio-inline"> 
+						<input type="radio" name='gender' value='{{g.code}}' ng-model="$parent.user.gender.code" ng-disabled="notEdit"/>{{g.name}}
+					</label>
+		    </span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">出生年月</label>
+	    <div class="col-sm-5">
+	      <p class="input-group">
+          <input type="text" class="form-control" placeholder="出生年月" datepicker-popup="yyyy-MM-dd" ng-model="user.birthday" ng-readonly="notEdit" show-weeks="false" show-button-bar="false" is-open="isopen"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="isopen=!isopen" ng-disabled="notEdit"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">身份证</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" name="identity_id" ng-model="user.identity_id" placeholder="身份证" ng-readonly="notEdit">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	  	<label class="col-sm-3 control-label">用户权限</label>
+	    <div class="col-md-5">
+	      <div class="checkbox" ng-repeat="p in permissions">
+	        <label>
+	          <input type="checkbox" data-checklist-model="ups" data-checklist-value="p.code" ng-disabled="notAuth"> {{p.name}}
+	        </label>
+	      </div>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-6 col-sm-2">
+	      <button class="btn btn-success" ng-click="saveUser()" ng-show="!notEdit"><span class="glyphicon glyphicon-save"></span> 保存</button>
+	      <button class="btn btn-success" ng-click="authUser()" ng-show="!notAuth&&notEdit"><span class="glyphicon glyphicon-save"></span> 授权</button>
+	      <button class="btn btn-warning" ui-sref="adminuser.mgr" ng-show="notEdit||!notAuth"><span class="glyphicon glyphicon-remove"></span> 取消</button>
+	    </div>
+	  </div>
+	</form>
+	</div>
+</div>
+
+<style>
+.fileUpload {
+		position: relative;
+		overflow: hidden;
+		margin: 10px;
+	}
+	.fileUpload input.upload {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		padding: 0;
+		font-size: 20px;
+		cursor: pointer;
+		opacity: 0;
+		filter: alpha(opacity=0);
+	}
+</style>
+</body>
+</html>

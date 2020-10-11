@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.org.orgAffix.mapper.OrgAffixMapper">
+	<select id="selectOrgAffixById" parameterType="long" resultType="TOrgAffix">
+		select * from T_ORG_AFFIX where id=#{id}
+	</select>
+	
+	<update id="updateOrgAffix" parameterType="TOrgAffix">
+		update T_ORG_AFFIX set
+			QUERY_URL=#{query_url},
+			AE_CODE=#{ae_code,jdbcType=VARCHAR},
+			dicomweb_url=#{dicomweb_url},
+			user_name=#{user_name},
+			password=#{password},
+			internet_ip=#{internet_ip,jdbcType=VARCHAR},
+			intranet_url=#{intranet_url,jdbcType=VARCHAR},
+			remote_server_version = #{remote_server_version},
+			view_type=#{view_type,jdbcType=NUMERIC}
+		where id=#{id}
+	</update>
+
+	<delete id="deleteOrgAffixById" parameterType="long">
+		delete from T_ORG_AFFIX where id=#{orgAffixId}
+	</delete>
+	
+	<insert id="insertOrgAffix" parameterType="TOrgAffix" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO [T_ORG_AFFIX](
+			remote_server_version
+			,query_url
+			,ae_code
+			,create_time
+			,status
+			,org_id
+			,dicomweb_url
+			,user_name
+			,password
+			,internet_ip
+			,intranet_url
+			,view_type
+        )VALUES(
+        	#{remote_server_version},
+        	#{query_url},
+        	#{ae_code,jdbcType=VARCHAR},
+        	#{create_time},
+        	#{status},
+        	#{org_id},
+        	#{dicomweb_url},
+        	#{user_name},
+        	#{password},
+        	#{internet_ip,jdbcType=VARCHAR},
+        	#{intranet_url,jdbcType=VARCHAR},
+        	#{view_type,jdbcType=NUMERIC}
+        )
+	</insert>
+	
+<!-- 	<select id="searchOrgAffix" parameterType="Map" resultType="TOrgAffix"> -->
+<!-- 		select * from T_ORG_AFFIX where 1=1 -->
+<!-- 			<if test="id !=null"> -->
+<!-- 				and ID=#{id} -->
+<!-- 			</if> -->
+<!-- 			<if test="org_id !=null"> -->
+<!-- 				and ORG_ID =#{org_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="query_url !=null"> -->
+<!-- 				and query_url=#{query_url} -->
+<!-- 			</if> -->
+<!-- 			<if test="dicomweb_url !=null"> -->
+<!-- 				and dicomweb_url=#{dicomweb_url} -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+	
+<!-- 	<insert id="insertOrg" parameterType="TOrganization" useGeneratedKeys="true" keyProperty="id"> -->
+<!-- 		INSERT INTO [T_ORGANIZATION] -->
+<!--            ([TYPE] -->
+<!--            ,[CREATOR_ID] -->
+<!--            ,[ORG_NAME] -->
+<!--            ,[LOGO_FILE_ID] -->
+<!--            ,[DESCRIPTION] -->
+<!--            ,[LEVELS] -->
+<!--            ,[STATUS] -->
+<!--            ,[CREATE_TIME] -->
+<!--            ,[NOTE] -->
+<!--            ,[SCAN_FILE_IDS] -->
+<!--            ,[ORG_CODE] -->
+<!--            ,[IS_PUBLIC]) -->
+<!--      VALUES -->
+<!--            (#{type} -->
+<!--            ,#{creator_id} -->
+<!--            ,#{org_name} -->
+<!--            ,#{logo_file_id,jdbcType=NUMERIC} -->
+<!--            ,#{description,jdbcType=VARCHAR} -->
+<!--            ,#{levels,jdbcType=NUMERIC} -->
+<!--            ,#{status} -->
+<!--            ,#{create_time} -->
+<!--            ,#{note,jdbcType=VARCHAR} -->
+<!--            ,#{scan_file_ids,jdbcType=VARCHAR} -->
+<!--            ,#{org_code} -->
+<!--            ,#{is_public}) -->
+<!-- 	</insert> -->
+	
+<!-- 	<insert id="insertOrgByAdmin" parameterType="TOrganization" useGeneratedKeys="true" keyProperty="id"> -->
+<!-- 		INSERT INTO [T_ORGANIZATION] -->
+<!--            ([PERMISSION] -->
+<!--            ,[TYPE] -->
+<!--            ,[CREATOR_ID] -->
+<!--            ,[ORG_NAME] -->
+<!--            ,[LOGO_FILE_ID] -->
+<!--            ,[LEVELS] -->
+<!--            ,[VERIFY_USER_ID] -->
+<!--            ,[VARIFY_TIME] -->
+<!--            ,[STATUS] -->
+<!--            ,[CREATE_TIME] -->
+<!--            ,[SCAN_FILE_IDS] -->
+<!--            ,[ORG_CODE] -->
+<!--            ,[VISIBLE]) -->
+<!--      VALUES -->
+<!--            (#{permission} -->
+<!--            ,#{type,jdbcType=NUMERIC} -->
+<!--            ,#{creator_id} -->
+<!--            ,#{org_name} -->
+<!--            ,#{logo_file_id,jdbcType=NUMERIC} -->
+<!--            ,#{levels,jdbcType=NUMERIC} -->
+<!--            ,#{verify_user_id} -->
+<!--            ,#{varify_time} -->
+<!--            ,#{status} -->
+<!--            ,#{create_time} -->
+<!--            ,#{scan_file_ids,jdbcType=VARCHAR} -->
+<!--            ,#{org_code} -->
+<!--            ,#{visible}) -->
+<!-- 	</insert> -->
+	
+<!-- 	<insert id="insertProduct" parameterType="TOrgProduct" useGeneratedKeys="true" keyProperty="id"> -->
+<!-- 		INSERT INTO [T_ORG_PRODUCT] -->
+<!--            ([ORG_ID] -->
+<!--            ,[NAME] -->
+<!--            ,[PRICE] -->
+<!--            ,[DEVICE_TYPE_ID] -->
+<!--            ,[PART_TYPE_ID] -->
+<!--            ,[DESCRIPTION] -->
+<!--            ,[CREATOR_ID] -->
+<!--            ,[CREATE_TIME] -->
+<!--            ,[STATUS]) -->
+<!--      VALUES -->
+<!--            (#{org_id} -->
+<!--            ,#{name} -->
+<!--            ,#{price} -->
+<!--            ,#{device_type_id} -->
+<!--            ,#{part_type_id} -->
+<!--            ,#{description,jdbcType=VARCHAR} -->
+<!--            ,#{creator_id} -->
+<!--            ,#{create_time} -->
+<!--            ,#{status}) -->
+<!-- 	</insert> -->
+	
+<!-- 	<insert id="insertOrgChange" parameterType="TOrgChange" useGeneratedKeys="true" keyProperty="id"> -->
+<!-- 		INSERT INTO [T_ORG_CHANGE] -->
+<!--            ([TYPE] -->
+<!--            ,[ORG_NAME] -->
+<!--            ,[LOGO_FILE_ID] -->
+<!--            ,[DESCRIPTION] -->
+<!--            ,[LEVELS] -->
+<!--            ,[VERIFY_USER_ID] -->
+<!--            ,[VARIFY_TIME] -->
+<!--            ,[NOTE] -->
+<!--            ,[SCAN_FILE_IDS] -->
+<!--            ,[CHANGE_TIME] -->
+<!--            ,[CHANGE_STATUS] -->
+<!--            ,[ORG_ID] -->
+<!--            ,CHANGE_USER_ID) -->
+<!--      VALUES -->
+<!--            (#{type,jdbcType=NUMERIC} -->
+<!--            ,#{org_name} -->
+<!--            ,#{logo_file_id,jdbcType=NUMERIC} -->
+<!--            ,#{description,jdbcType=VARCHAR} -->
+<!--            ,#{levels,jdbcType=NUMERIC} -->
+<!--            ,#{verify_user_id,jdbcType=NUMERIC} -->
+<!--            ,#{varify_time,jdbcType=DATE} -->
+<!--            ,#{note,jdbcType=VARCHAR} -->
+<!--            ,#{scan_file_ids,jdbcType=NUMERIC} -->
+<!--            ,#{change_time} -->
+<!--            ,#{change_status} -->
+<!--            ,#{org_id} -->
+<!--            ,#{change_user_id}) -->
+<!-- 	</insert> -->
+	
+<!-- 	<update id="approvedOrgChange" parameterType="Map"> -->
+<!-- 		UPDATE [T_ORG_CHANGE] -->
+<!-- 		   SET [VERIFY_USER_ID] = #{verify_user_id} -->
+<!-- 		      ,[VARIFY_TIME] = #{varify_time} -->
+<!-- 		      ,[NOTE] = #{note,jdbcType=VARCHAR} -->
+<!-- 		      ,[CHANGE_STATUS] = #{change_status} -->
+<!-- 		 WHERE id=#{id} -->
+<!-- 	</update> -->
+	
+<!-- 	<update id="modifyOrgNote" parameterType="Map"> -->
+<!-- 		UPDATE [T_ORGANIZATION] -->
+<!-- 		   SET [NOTE] = #{note,jdbcType=VARCHAR} -->
+<!-- 		 WHERE [ID]=#{org_id} -->
+<!-- 	</update> -->
+	
+<!-- 	<update id="modifyOrg" parameterType="TOrganization"> -->
+<!-- 		UPDATE [T_ORGANIZATION] -->
+<!-- 		   SET [TYPE] = #{type,jdbcType=NUMERIC} -->
+<!-- 		      ,[ORG_NAME] = #{org_name} -->
+<!-- 		      ,[LOGO_FILE_ID] = #{logo_file_id,jdbcType=NUMERIC} -->
+<!-- 		      ,[DESCRIPTION] = #{description,jdbcType=VARCHAR} -->
+<!-- 		      ,[LEVELS] = #{levels,jdbcType=NUMERIC} -->
+<!-- 		      ,[NOTE] = #{note,jdbcType=VARCHAR} -->
+<!-- 		      ,[SCAN_FILE_IDS] = #{scan_file_ids,jdbcType=VARCHAR} -->
+<!-- 		      ,[STATUS] = #{status} -->
+<!-- 		      ,VISIBLE = #{visible} -->
+<!-- 		      ,IS_PUBLIC=#{is_public,jdbcType=NUMERIC} -->
+<!-- 		 WHERE [ID]=#{id} -->
+<!-- 	</update> -->
+	
+<!-- 	<update id="approveOrg" parameterType="Map"> -->
+<!-- 		UPDATE [T_ORGANIZATION] -->
+<!-- 		   SET [PERMISSION] = #{permission,jdbcType=VARCHAR} -->
+<!-- 		   		,[NOTE] = #{note,jdbcType=VARCHAR} -->
+<!-- 		      ,[VERIFY_USER_ID] = #{verify_user_id} -->
+<!-- 		      ,[VARIFY_TIME] = #{varify_time} -->
+<!-- 		      ,[STATUS] = #{status} -->
+<!-- 		 WHERE [ID]=#{id} -->
+<!-- 	</update> -->
+	
+<!-- 	<update id="authorizeOrg" parameterType="Map"> -->
+<!-- 		UPDATE [T_ORGANIZATION] -->
+<!-- 		   SET [PERMISSION] = #{permission} -->
+<!-- 		 WHERE [ID]=#{id} -->
+<!-- 	</update> -->
+	
+<!-- 	<update id="modifyProductStatus" parameterType="Map"> -->
+<!-- 		UPDATE [T_ORG_PRODUCT] -->
+<!-- 		   SET [STATUS] = #{status} -->
+<!-- 		 WHERE [ID]=#{id} -->
+<!-- 	</update> -->
+	
+<!-- 	<delete id="deleteProductById" parameterType="Long"> -->
+<!-- 		DELETE FROM [T_ORG_PRODUCT] WHERE [ID]=#{id} -->
+<!-- 	</delete> -->
+	
+<!-- 	<select id="selectAllOrgs" parameterType="Map" resultType="TOrganization"> -->
+<!-- 	  select * from (select a.*, -->
+<!-- 			(select VALUE from T_DIC_VALUE where ID=a.TYPE) type_name, -->
+<!-- 			(select USER_NAME from T_BASE_USER where ID=a.CREATOR_ID) creator_name, -->
+<!-- 			(select VALUE from T_DIC_VALUE where ID=a.LEVELS) level_name, -->
+<!-- 			(select USER_NAME from T_BASE_USER where ID=a.VERIFY_USER_ID) verifier_name, -->
+<!-- 			ROW_NUMBER() over(order by case STATUS when 11 then 1 when 1 then 2 when 12 then 3 when 0 then 4 end,ID) rn from T_ORGANIZATION a -->
+<!-- 	  <where> -->
+<!-- 	  	<if test="type!=null"> -->
+<!-- 	  		a.TYPE=#{type} -->
+<!-- 	  	</if> -->
+<!-- 	  	<if test="levels!=null"> -->
+<!-- 	  		and a.LEVELS=#{levels} -->
+<!-- 	  	</if> -->
+<!-- 	  	<if test="status!=null"> -->
+<!-- 	  		and a.STATUS=#{status} -->
+<!-- 	  	</if> -->
+<!-- 	  	<if test="org_name!=null"> -->
+<!-- 	  		and a.ORG_NAME like '%'+#{org_name}+'%' -->
+<!-- 	  	</if> -->
+<!-- 	  	<if test="org_code!=null"> -->
+<!-- 	  		and a.ORG_CODE=#{org_code} -->
+<!-- 	  	</if> -->
+<!-- 	  	<if test="visible !=null"> -->
+<!-- 	  	    and a.VISIBLE=#{visible} -->
+<!-- 	  	</if> -->
+<!-- 	  	<choose> -->
+<!-- 	      <when test="start_date!=null and end_date==null"> -->
+<!-- 	        and a.CREATE_TIME=#{start_date} -->
+<!-- 	      </when> -->
+<!-- 	      <when test="start_date==null and end_date!=null"> -->
+<!-- 	        and a.CREATE_TIME=#{end_date} -->
+<!-- 	      </when> -->
+<!-- 	      <when test="start_date!=null and end_date!=null"> -->
+<!-- 	        and a.CREATE_TIME>=#{start_date} <![CDATA[ and a.CREATE_TIME<=#{end_date}]]> -->
+<!-- 	      </when> -->
+<!-- 	    </choose> -->
+<!-- 	  </where>) b where b.rn>=#{begin_idx} <![CDATA[ and b.rn<=#{end_idx} ]]> order by b.CREATE_TIME desc -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectAllOrgCount" parameterType="Map" resultType="Integer"> -->
+<!-- 		select count(1) from T_ORGANIZATION a -->
+<!-- 		  <where> -->
+<!-- 		  	<if test="type!=null"> -->
+<!-- 		  		a.TYPE=#{type} -->
+<!-- 		  	</if> -->
+<!-- 		  	<if test="org_code!=null"> -->
+<!-- 		  		and a.ORG_CODE=#{org_code} -->
+<!-- 		  	</if> -->
+<!-- 		  	<if test="levels!=null"> -->
+<!-- 		  		and a.LEVELS=#{levels} -->
+<!-- 		  	</if> -->
+<!-- 		  	<if test="status!=null"> -->
+<!-- 		  		and a.STATUS=#{status} -->
+<!-- 		  	</if> -->
+<!-- 		  	<if test="org_name!=null"> -->
+<!-- 		  		and a.ORG_NAME like '%'+#{org_name}+'%' -->
+<!-- 		  	</if> -->
+<!-- 		  	<choose> -->
+<!-- 		      <when test="start_date!=null and end_date==null"> -->
+<!-- 		        and a.CREATE_TIME=#{start_date} -->
+<!-- 		      </when> -->
+<!-- 		      <when test="start_date==null and end_date!=null"> -->
+<!-- 		        and a.CREATE_TIME=#{end_date} -->
+<!-- 		      </when> -->
+<!-- 		      <when test="start_date!=null and end_date!=null"> -->
+<!-- 		        and a.CREATE_TIME>=#{start_date} <![CDATA[ and a.CREATE_TIME<=#{end_date}]]> -->
+<!-- 		      </when> -->
+<!-- 		    </choose> -->
+<!-- 		  </where> -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectOrgById" parameterType="Long" resultType="TOrganization"> -->
+<!-- 		select a.*, -->
+<!-- 		(select VALUE from T_DIC_VALUE where ID=a.TYPE) type_name, -->
+<!-- 		(select USER_NAME from T_BASE_USER where ID=a.CREATOR_ID) creator_name, -->
+<!-- 		(select VALUE from T_DIC_VALUE where ID=a.LEVELS) level_name, -->
+<!-- 		(select MOBILE from T_BASE_USER where ID=a.CREATOR_ID) v_creator_mobile, -->
+<!-- 		(select TYPE from T_BASE_USER where ID=a.CREATOR_ID) v_creator_type -->
+<!--  		from T_ORGANIZATION a where a.id=#{id} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectOrgByIdAndLock" parameterType="Long" resultType="TOrganization"> -->
+<!-- 		select * from T_ORGANIZATION WITH(XLOCK) where id=#{id} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectOrgsByUserId" parameterType="Long" resultType="TOrganization"> -->
+<!-- 		select a.* from T_ORGANIZATION a,T_ORG_USER_MAPPING b where b.ORG_ID=a.ID and b.USER_ID=#{id} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectMyOrgList" parameterType="Long" resultType="TOrganization"> -->
+<!-- 		SELECT a.[ID] -->
+<!--       ,a.[PERMISSION] -->
+<!--       ,a.[TYPE] -->
+<!--       ,a.[CREATOR_ID] -->
+<!--       ,a.[ORG_NAME] -->
+<!--       ,a.[LOGO_FILE_ID] -->
+<!--       ,a.[DESCRIPTION] -->
+<!--       ,a.[LEVELS] -->
+<!--       ,a.[VERIFY_USER_ID] -->
+<!--       ,a.[VARIFY_TIME] -->
+<!--       ,a.[SCAN_FILE_IDS] -->
+<!--       ,a.[ORG_CODE] -->
+<!--       ,(select c.[USER_NAME] from T_BASE_USER c where c.ID=a.CREATOR_ID) as creator_name -->
+<!--       ,case when (a.CREATOR_ID=#{userId}) then a.[STATUS] else b.STATUS end as status -->
+<!--       ,case when (a.CREATOR_ID=#{userId}) then a.[CREATE_TIME] else b.CREATE_TIME end as create_time -->
+<!--       ,case when (a.CREATOR_ID=#{userId}) then a.[NOTE] else b.NOTE end as note -->
+<!--   	FROM [T_ORGANIZATION] a left join T_ORG_USER_MAPPING b on b.ORG_ID=a.ID -->
+<!--   	where (a.CREATOR_ID=#{userId} or (b.USER_ID=#{userId} and a.CREATOR_ID!=b.USER_ID)) and a.status!=15 -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectProductsByOrg" parameterType="Map" resultType="TOrgProduct"> -->
+<!-- 		select * from(select a.*, -->
+<!-- 		(select USER_NAME from T_BASE_USER where ID=a.CREATOR_ID) v_creator_name, -->
+<!-- 		(select VALUE from T_DIC_VALUE where ID=a.DEVICE_TYPE_ID) v_device_name, -->
+<!-- 		(select VALUE from T_DIC_VALUE where ID=a.PART_TYPE_ID) v_part_name, -->
+<!-- 		ROW_NUMBER() over(order by a.create_time desc,a.ID) rn -->
+<!-- 		 from T_ORG_PRODUCT a where a.ORG_ID=#{org_id} -->
+<!-- 		 <if test="device_type_id!=null"> -->
+<!-- 			 and a.DEVICE_TYPE_ID=#{device_type_id} -->
+<!-- 		 </if> -->
+<!-- 		 <if test="part_type_id!=null"> -->
+<!-- 			 and a.PART_TYPE_ID=#{part_type_id} -->
+<!-- 		 </if> -->
+<!-- 		 <if test="status!=null"> -->
+<!-- 				and a.STATUS=#{status} -->
+<!-- 			</if> -->
+<!-- 		 <if test="product_name"> -->
+<!-- 			 and a.NAME like '%'+#{product_name}+'%' -->
+<!-- 		 </if>)t  -->
+<!-- 		 <where> -->
+<!-- 		 	<if test="begin_idx!=null"> -->
+<!-- 		 		t.rn>=#{begin_idx} <![CDATA[ and t.rn<#{end_idx} ]]> -->
+<!-- 		 	</if> -->
+<!-- 		 </where> -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectProductsCount" parameterType="Map" resultType="Integer"> -->
+<!-- 		select count(1) from T_ORG_PRODUCT -->
+<!-- 			where ORG_ID=#{org_id} -->
+<!-- 			<if test="device_type_id!=null"> -->
+<!-- 				and DEVICE_TYPE_ID=#{device_type_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="part_type_id!=null"> -->
+<!-- 				and PART_TYPE_ID=#{part_type_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="status!=null"> -->
+<!-- 				and STATUS=#{status} -->
+<!-- 			</if> -->
+<!-- 			<if test="product_name!=null"> -->
+<!-- 				and name like '%'+#{product_name}+'%' -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectProductById" parameterType="Map" resultType="TOrgProduct"> -->
+<!-- 		select * from T_ORG_PRODUCT where ID=#{id} and ORG_ID=#{org_id} and STATUS=#{status} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectProductByIdAndLock" parameterType="Long" resultType="TOrgProduct"> -->
+<!-- 		SELECT * FROM [T_ORG_PRODUCT] WITH(XLOCK) where ID=#{id} -->
+<!-- 	</select> -->
+	
+	<select id="selectAffixByOrgId" parameterType="Long" resultType="TOrgAffix">
+		select * from T_ORG_AFFIX where ORG_ID=#{orgId}
+	</select>
+	
+<!-- 	<select id="selectChangeListByOrg" parameterType="Map" resultType="TOrgChange"> -->
+<!-- 		select * from(select a.*,b.ORG_NAME c_org_name,b.ORG_CODE -->
+<!-- 		,(select USER_NAME from T_BASE_USER where ID=a.CHANGE_USER_ID) v_c_user_name -->
+<!-- 		,(select USER_NAME from T_BASE_USER where ID=a.VERIFY_USER_ID) v_v_user_name -->
+<!-- 		,ROW_NUMBER() over(order by case a.CHANGE_STATUS when 11 then 1 when 12 then 2 when 1 then 3 else 4 end,a.ID) rn  -->
+<!-- 		from T_ORG_CHANGE a,T_ORGANIZATION b -->
+<!-- 		where a.ORG_ID=b.ID -->
+<!-- 		<if test="org_id!=null"> -->
+<!-- 			and a.ORG_ID=#{org_id} -->
+<!-- 		</if> -->
+<!-- 		<if test="status!=null"> -->
+<!-- 			and a.CHANGE_STATUS=#{status}  -->
+<!-- 		</if> -->
+<!-- 		<if test="org_name!=null"> -->
+<!-- 			and b.ORG_NAME like '%'+#{org_name}+'%' -->
+<!-- 		</if> -->
+<!-- 		<if test="org_code!=null"> -->
+<!-- 			 and b.ORG_CODE =#{org_code} -->
+<!-- 		</if>)t -->
+<!-- 		<where> -->
+<!-- 			<if test="begin_idx!=null"> -->
+<!-- 				rn>=#{begin_idx} <![CDATA[ and rn<#{end_idx} ]]> -->
+<!-- 			</if> -->
+<!-- 		</where>  -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectOrgChangeCount" parameterType="Map" resultType="Integer"> -->
+<!-- 		select COUNT(1) from T_ORG_CHANGE a,T_ORGANIZATION b -->
+<!-- 		where a.ORG_ID=b.ID -->
+<!-- 		<if test="org_id!=null"> -->
+<!-- 			and a.ORG_ID=#{org_id} -->
+<!-- 		</if> -->
+<!-- 		<if test="status!=null"> -->
+<!-- 			and a.CHANGE_STATUS=#{status}  -->
+<!-- 		</if> -->
+<!-- 		<if test="org_name!=null"> -->
+<!-- 			and b.ORG_NAME like '%'+#{org_name}+'%' -->
+<!-- 		</if> -->
+<!-- 		<if test="org_code!=null"> -->
+<!-- 			 and b.ORG_CODE =#{org_code} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectChangeByOrg" parameterType="Map" resultType="TOrgChange"> -->
+<!-- 		select a.ID,a.ORG_ID,a.LOGO_FILE_ID,a.SCAN_FILE_IDS,a.DESCRIPTION c_description,a.ORG_NAME c_org_name -->
+<!-- 		,b.ORG_CODE,b.ORG_NAME,b.DESCRIPTION,a.CHANGE_STATUS,a.NOTE -->
+<!-- 		,(select USER_NAME from T_BASE_USER where ID=b.CREATOR_ID) creator_name -->
+<!-- 		,(select VALUE from T_DIC_VALUE where ID=a.TYPE) c_type_name -->
+<!-- 		,(select VALUE from T_DIC_VALUE where ID=a.LEVELS) c_level_name -->
+<!-- 		,(select VALUE from T_DIC_VALUE where ID=b.TYPE) type_name -->
+<!-- 		,(select VALUE from T_DIC_VALUE where ID=b.LEVELS) level_name -->
+<!-- 		 from T_ORG_CHANGE a,T_ORGANIZATION b -->
+<!-- 		where a.ORG_ID=b.ID and a.ID=#{id} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectOrgChangeByIdAndLock" parameterType="Long" resultType="TOrgChange"> -->
+<!-- 		select * from T_ORG_CHANGE WITH(XLOCK) where id=#{id} -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectOrgConfigByOrgIdForUpdate" parameterType="long" resultType="TOrgConfigs"> -->
+<!-- 	    select * from T_ORG_CONFIGS WITH(XLOCK) where org_id=#{org_id} -->
+<!-- 	</select> -->
+	
+<!-- 	<update id="updateOrgConfigs" parameterType="TOrgConfigs"> -->
+<!-- 	    update T_ORG_CONFIGS set device_map=#{device_map} where id=#{id} -->
+<!-- 	</update> -->
+	
+<!-- 	<insert id="insertOrgConfigs" keyProperty="id" useGeneratedKeys="true" parameterType="TOrgConfigs"> -->
+<!-- 	    insert into T_ORG_CONFIGS ( -->
+<!-- 	    	org_id, -->
+<!-- 	    	device_map -->
+<!-- 	    ) values ( -->
+<!-- 	    	#{org_id}, -->
+<!-- 	    	#{device_map} -->
+<!-- 	    ) -->
+<!-- 	</insert> -->
+	
+<!-- 	<select id="selectOrgAffixByIdForUpdate" parameterType="long" resultType="TOrgAffix"> -->
+<!-- 	    select * from T_ORG_AFFIX with(XLOCK) where id = #{id}  -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="selectOrgAffixByOrgId" parameterType="long" resultType="TOrgAffix"> -->
+<!-- 	    select * from T_ORG_AFFIX where ORG_ID=#{org_id} -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectOrgList4WX" parameterType="Map" resultType="TOrganization"> -->
+<!-- 		SELECT a.* FROM T_ORGANIZATION a,T_ORG_AFFIX b -->
+<!-- 		WHERE a.ID=b.ORG_ID -->
+<!-- 		 <if test="status!=null"> -->
+<!-- 			 AND a.STATUS=#{status} -->
+<!-- 		 </if> -->
+<!-- 		<if test="org_code!=null"> -->
+<!-- 			AND a.ORG_CODE=#{org_code} -->
+<!-- 		</if> -->
+<!-- 		<if test="org_name!=null"> -->
+<!-- 			AND a.ORG_NAME LIKE '%'+#{org_name}+'%' -->
+<!-- 		</if> -->
+<!-- 		<if test="remote_version"> -->
+<!-- 			AND b.remote_server_version=#{remote_version} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+</mapper>

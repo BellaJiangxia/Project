@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<properties resource="com/vastsoft/yingtai/dataMove/config/resource_ibatis_config.properties" />
+	<typeAliases>
+		<typeAlias type="com.vastsoft.yingtai.dataMove.entity.TDiagnosis_V1" alias="TDiagnosis_V1" />
+		<typeAlias type="com.vastsoft.yingtai.dataMove.entity.TMedicalHis" alias="TMedicalHis" />
+		<typeAlias type="com.vastsoft.yingtai.dataMove.entity.TMedicalHisImg" alias="TMedicalHisImg" />
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/vastsoft/yingtai/dataMove/mapper/srcMapper/SrcMedicalHisMapper.xml" />
+	</mappers>
+</configuration>

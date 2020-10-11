@@ -1,0 +1,166 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h4><span class="glyphicon glyphicon-list"></span>&nbsp;预约服务详情</h4>
+  </div>
+  <div class="panel-body">
+    <form name="frmService" class="form-horizontal" novalidate="novalidate">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">服务名称</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" ng-model="service.service_name" placeholder="服务名称" maxlength="100" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">基础价格</label>
+        <div class="col-sm-2">
+          <input type="number" class="form-control" min="0" ng-model="service.service_price" placeholder="基础价格" required>
+        </div>
+        <label class="col-sm-2 control-label">收费方式</label>
+        <div class="col-sm-2">
+          <select class="form-control" ng-model="service.calc_type" ng-options="f.code as f.name for f in FeeCalcType" required>
+            <option value="">请选择</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">设备类型</label>
+        <div class="col-sm-6">
+          <select class="form-control" ng-model="service.device_type" ng-options="d.id as d.value for d in DeviceList" required>
+            <option value="">请选择</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">检查部位</label>
+        <div class="col-sm-6">
+          <label class="control-label text-danger" ng-if="!service.device_type">请选择设备类型</label>
+          <div ng-if="ItemList.length>0">
+            <button type="button" class="btn" ng-click="selectAllItem()"><i ng-class="isSelectAll?'glyphicon glyphicon-check':'glyphicon glyphicon-unchecked'"></i> 全选/取消</button>
+            <table class="table table-hover table-striped">
+              <thead>
+              <tr class="bg-primary">
+                <th>检查部位</th>
+                <th>是否必需</th>
+                <th ng-if="service.calc_type===3">曝光次数</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr ng-repeat="p in ItemList">
+                <td><label><input type="checkbox" ng-model="p.item_selected" ng-change="slctItem(p)">{{p.value}}</label></td>
+                <td><label><input type="checkbox" ng-model="p.item_required" ng-true-value="1" ng-false-value="0" ng-change="slctItem(p)">必需</label></td>
+                <td style="padding: 2px" ng-if="service.calc_type===3"><input class="form-control" style="width:80px" ng-model="p.item_count" ng-change="slctItem(p)" type="number" min="1" max="5" value="1"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">描述</label>
+        <div class="col-sm-6">
+          <textarea class="form-control" rows="4" ng-model="service.description" maxlength="500"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-2 control-label">附加项目</label>
+        <div class="col-sm-6">
+          <button class="btn-link" style="padding: 5px;" ng-click="addOtherFee()" ng-if="!service.service_status || service.service_status===11 || service.service_status===12"><i class="glyphicon glyphicon-plus"></i> 添加附加费用</button>
+
+          <table class="table table-hover table-striped">
+            <thead style="background-color: #5392A5">
+              <tr class="bg-primary">
+                <th>项目名称</th>
+                <th>计费方式</th>
+                <th>是否必需</th>
+                <th>价格</th>
+                <th>描述</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="f in service.listFee">
+                <td><a href="javascript:void(0);" ng-click="addOtherFee(f)" uib-tooltip="{{f.fee_name}}">{{f.fee_name | limitTo:10}}</a></td>
+                <td>{{f.itemCalcType.name}}</td>
+                <td>{{f.is_required===1?'是':'否'}}</td>
+                <td>{{f.price | number:2}}</td>
+                <td><span uib-tooltip="{{f.description}}">{{f.description | limitTo:20}}</span></td>
+                <td>
+                  <a class="btn-link" title="移除" href="javascript:void(0);" ng-if="!service.service_status || service.service_status===11 || service.service_status===12" ng-click="removeFee($index)"><i class="glyphicon glyphicon-remove text-danger"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+
+    {{service.service_name}}
+    {{service.service_price}}
+    {{service.calc_type}}
+    {{service.device_type}}
+    {{frmService.$valid}}
+    <div class="col-sm-offset-2" style="padding-top: 10px;">
+      <button class="btn btn-success" ng-if="!service.service_status || service.service_status===11 || service.service_status===12" data-ng-disabled="!frmService.$valid" ng-click="save()"><i class="glyphicon glyphicon-ok"></i>保存</button>
+      <button class="btn btn-info" ng-if="!service.service_status || service.service_status===11" data-ng-disabled="!frmService.$valid" ng-click="publish()"><i class="glyphicon glyphicon-send"></i>发布</button>
+      <button type="button" class="btn btn-primary" ng-click="goback()">
+        <i class="glyphicon glyphicon-circle-arrow-left"></i>返回
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .tooltip .ng-binding{
+    max-width: 400px;
+    width:400px;
+  }
+</style>
+
+<script type="text/ng-template" id="otherFeeDetail.html">
+  <div class="modal-header">
+    <h4>费用详情</h4>
+  </div>
+  <div class="modal-body">
+    <form name="frmFee" class="form-horizontal" novalidate>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">费用名称</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" ng-model="fee.fee_name" placeholder="费用名称" maxlength="100" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">计费方式</label>
+        <div class="col-sm-8">
+          <select class="form-control" ng-model="fee.itemCalcType" ng-options="d.name for d in ItemFeeCalcType track by d.code" required>
+            <option value="">请选择</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">价格</label>
+        <div class="col-sm-4">
+          <input type="number" min="0"  class="form-control" ng-model="fee.price" placeholder="价格" required>
+        </div>
+        <div class="col-sm-4">
+          <label class="control-label"><input type="checkbox" ng-model="fee.is_required" ng-true-value="1" ng-false-value="0">是否必需</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">描述</label>
+        <div class="col-sm-8">
+          <textarea class="form-control" rows="3" ng-model="fee.description" maxlength="1000"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" data-ng-disabled="!frmFee.$valid" ng-click="ok()">确定</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+  </div>
+</script>

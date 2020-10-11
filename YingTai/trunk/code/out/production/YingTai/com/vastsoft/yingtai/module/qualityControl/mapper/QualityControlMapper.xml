@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.qualityControl.mapper.QualityControlMapper">
+	<update id="updateQualityControlMeasureAnswer" parameterType="TQualityControlMeasureAnswer">
+		update t_quality_control_measure_answer 
+		set 
+			answer=#{answer,jdbcType=VARCHAR},
+			[percent]=#{percent,jdbcType=INTEGER}
+		where id = #{id}
+	</update>
+
+	<update id="updateQualityControlFormAnswer" parameterType="TQualityControlFormAnswer">
+		update t_quality_control_form_answer set status = #{status} where id = #{id}
+	</update>
+	
+	<select id="selectQualityControlMeasureAnswerByFormId" parameterType="long" resultType="TQualityControlMeasureAnswer">
+		select * from t_quality_control_measure_answer where form_answer_id = #{form_answer_id}
+	</select>
+	
+	<select id="selectQualityControlFormAnswerByIdForUpdate" parameterType="long" resultType="TQualityControlFormAnswer">
+		select * from t_quality_control_form_answer with(XLOCK) where id = #{id}
+	</select>
+	
+	<select id="selectQualityControlFormAnswerById" parameterType="long" resultType="TQualityControlFormAnswer">
+		select * from t_quality_control_form_answer where id = #{id}
+	</select>
+
+	<insert id="insertQualityControlMeasureAnswer" parameterType="TQualityControlMeasureAnswer" keyProperty="id" useGeneratedKeys="true">
+		insert into t_quality_control_measure_answer (
+			form_answer_id,
+			measure_id,
+			question,
+			question_type
+		) values (
+			#{form_answer_id},
+			#{measure_id},
+			#{question},
+			#{question_type}
+		)
+	</insert>
+
+	<insert id="insertQualityControlFormAnswer" keyProperty="id" parameterType="TQualityControlFormAnswer" useGeneratedKeys="true">
+		insert into t_quality_control_form_answer (
+			form_id,
+			create_user_id,
+			create_time,
+			status,
+			create_org_id,
+			target_id,
+			target_type,
+			form_name,
+			form_question_enforceable,
+			form_note
+		) values (
+			#{form_id},
+			#{create_user_id},
+			#{create_time},
+			#{status},
+			#{create_org_id},
+			#{target_id},
+			#{target_type},
+			#{form_name},
+			#{form_question_enforceable},
+			#{form_note}
+		)
+	</insert>
+	
+	<select id="selectQualityControlFormAnswer" parameterType="map" resultType="TQualityControlFormAnswer">
+		select * from (
+			select *,
+				ROW_NUMBER () OVER (ORDER BY create_time desc) AS RowNumber 
+			from t_quality_control_form_answer where 1=1
+			<if test="create_user_id !=null">
+				and create_user_id = #{create_user_id}
+			</if>
+			<if test="create_org_id !=null">
+				and create_org_id = #{create_org_id}
+			</if>
+			<if test="target_id !=null">
+				and target_id = #{target_id}
+			</if>
+			<if test="form_question_enforceable !=null">
+				and form_question_enforceable = #{form_question_enforceable}
+			</if>
+			<if test="target_type !=null">
+				and target_type = #{target_type}
+			</if>
+			<if test="status !=null">
+				and status = #{status}
+			</if>
+		) as tmp_t
+		<if test="minRow !=null and maxRow !=null">
+			where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+		</if>
+	</select>
+
+	<select id="selectQualityControlFormAnswerCount" parameterType="map" resultType="int">
+		select count(id) from t_quality_control_form_answer where 1=1
+		<if test="create_user_id !=null">
+			and create_user_id = #{create_user_id}
+		</if>
+		<if test="create_org_id !=null">
+			and create_org_id = #{create_org_id}
+		</if>
+		<if test="target_id !=null">
+			and target_id = #{target_id}
+		</if>
+		<if test="form_question_enforceable !=null">
+			and form_question_enforceable = #{form_question_enforceable}
+		</if>
+		<if test="target_type !=null">
+			and target_type = #{target_type}
+		</if>
+		<if test="status !=null">
+			and status = #{status}
+		</if>
+	</select>
+
+	<delete id="deleteQualityControlFormById" parameterType="long">
+		delete from t_quality_control_form where id = #{id}
+	</delete>
+
+	<delete id="deleteQualityControlMeasureByFormId" parameterType="long">
+		delete from t_quality_control_measure where form_id = #{form_id}
+	</delete>
+
+	<update id="updateQualityControlForm" parameterType="TQualityControlForm">
+		update t_quality_control_form 
+		set 
+			target_type = #{target_type},
+			name = #{name},
+			question_enforceable = #{question_enforceable},
+			state = #{state},
+			modify_time = #{modify_time},
+			modify_user_id = #{modify_user_id},
+			note = #{note}
+		where id = #{id}
+	</update>
+
+	<select id="selectQualityControlFormByIdForUpdate" parameterType="long" resultType="TQualityControlForm">
+		select * from t_quality_control_form WITH(XLOCK) where id =#{id}
+	</select>
+
+	<select id="selectQualityControlMeasure" parameterType="map" resultType="TQualityControlMeasure">
+		select * from (
+			select *,ROW_NUMBER () OVER (ORDER BY create_time) AS RowNumber 
+			from t_quality_control_measure
+			where 1=1
+			<if test="id !=null">
+				and id = #{id}
+			</if>
+			<if test="form_id !=null">
+				and form_id = #{form_id}
+			</if>
+			<if test="content !=null">
+				and content like '%'+#{content}+'%'
+			</if>
+		) as tmp_t
+		<if test="minRow !=null and maxRow !=null">
+			where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+		</if>
+	</select>
+
+	<select id="selectQualityControlMeasureCount" parameterType="map" resultType="int">
+		select count(id) from t_quality_control_measure where 1=1
+		<if test="id !=null">
+			and id = #{id}
+		</if>
+		<if test="form_id !=null">
+			and form_id = #{form_id}
+		</if>
+		<if test="content !=null">
+			and content like '%'+#{content}+'%'
+		</if>
+	</select>
+
+	<insert id="insertQualityControlMeasure" keyProperty="id" useGeneratedKeys="true" parameterType="TQualityControlMeasure">
+		insert into t_quality_control_measure (
+			form_id,
+			question,
+			question_type,
+			create_user_id,
+			create_time
+		) values (
+			#{form_id},
+			#{question},
+			#{question_type},
+			#{create_user_id},
+			#{create_time}
+		)
+	</insert>
+
+	<insert id="insertQualityControlForm" keyProperty="id" useGeneratedKeys="true" parameterType="TQualityControlForm">
+		insert into t_quality_control_form (
+			target_type,
+			name,
+			question_enforceable,
+			state,
+			create_user_id,
+			create_time,
+			note
+		) values (
+			#{target_type},
+			#{name},
+			#{question_enforceable},
+			#{state},
+			#{create_user_id},
+			#{create_time},
+			#{note}
+		)
+	</insert>
+
+	<select id="selectQualityControlFormCount" parameterType="Map" resultType="int">
+		select count(id) from t_quality_control_form where 1=1
+			<if test="target_type !=null">
+				and target_type = #{target_type}
+			</if>
+			<if test="question_enforceable !=null">
+				and question_enforceable = #{question_enforceable}
+			</if>
+			<if test="state !=null">
+				and state = #{state}
+			</if>
+			<if test="name !=null">
+				and name = #{name}
+			</if>
+			<if test="id !=null">
+				and id = #{id}
+			</if>
+	</select>
+	
+	<select id="selectQualityControlForm" parameterType="map" resultType="FQualityControlForm">
+		select * from (
+			select t1.*,
+				t2.USER_NAME as create_user_name,
+				t3.USER_NAME as modify_user_name,
+				ROW_NUMBER () OVER (ORDER BY t1.create_time desc) AS RowNumber 
+			from t_quality_control_form t1
+				left join T_BASE_USER t2 on t1.create_user_id = t2.id 
+				left join T_BASE_USER t3 on t1.modify_user_id = t3.id
+			where 1=1
+				<if test="target_type !=null">
+					and t1.target_type = #{target_type}
+				</if>
+				<if test="question_enforceable !=null">
+					and t1.question_enforceable = #{question_enforceable}
+				</if>
+				<if test="state !=null">
+					and t1.state = #{state}
+				</if>
+				<if test="name !=null">
+					and t1.name = #{name}
+				</if>
+				<if test="id !=null">
+					and t1.id = #{id}
+				</if>
+			) as tmp_t
+		<if test="minRow !=null and maxRow !=null">
+			where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+		</if>
+	</select>
+</mapper>

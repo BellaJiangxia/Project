@@ -1,0 +1,204 @@
+<div class="panel panel-primary" data-ng-init="initData()">
+	<div class="panel-heading">
+      	<h4><span class="glyphicon glyphicon-pencil"></span>
+      	我的书写中</h4>
+    </div>
+    <div class="panel-body">
+		<uib-tabset>
+			<uib-tab>
+				<uib-tab-heading>
+					<i class="glyphicon glyphicon-filter"></i>
+					申请摘要
+				</uib-tab-heading>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<p>申请时间：{{diagnosis.create_time|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+						<table style="width: 100%">
+							<tbody>
+								<tr>
+									<td align="right" width="16%"><label>病人姓名：</label></td>
+									<td align="left" width="30%">{{diagnosis.patient_name}}</td>
+									<td align="right" width="14%"><label>病人性别：</label></td>
+									<td align="left" width="13%">{{diagnosis.patient_genderStr}}</td>
+									<td align="right" width="14%"><label>病人年龄：</label></td>
+									<td align="left" width="12%">{{diagnosis.patient_age}}岁</td>
+								</tr>
+								<tr>
+									<td align="right"><label>检查项目：</label></td>
+									<td align="left">{{diagnosis.dicom_img_check_pro}}</td>
+									<td align="right"><label>设&emsp;&emsp;备：</label></td>
+									<td align="left">{{diagnosis.device_name}}</td>
+									<td align="right"><label>部&emsp;&emsp;位：</label></td>
+									<td align="left">{{diagnosis.part_name}}</td>
+								</tr>
+								<tr valign="top">
+									<td align="right"><label>症&emsp;&emsp;状：</label></td>
+									<td align="left" colspan="5">
+										<div style="padding: 5px 0px;">
+											<p class="form-control-static" rows="3" ng-readonly="true">{{diagnosis.case_symptom}}</p>
+										</div>
+									</td>
+								</tr>
+								<tr valign="top" ng-if="diagnosis.caseHistory.eafFiles && diagnosis.caseHistory.eafFiles.length>0">
+									<td align="right"><label>电子申请单：</label></td>
+									<td align="left" colspan="5">
+										<div style="padding: 5px 0px;">
+											<ul class="list" style="padding-left: 20px;">
+												<li ng-repeat="f in diagnosis.caseHistory.eafFiles" style="list-style-type: decimal;">
+													<a href="javascript:void(0);" ng-click="showBrowse(f);" title="预览">{{f.ori_name}}</a>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								<tr valign="top" ng-if="historyCaseHistory&&historyCaseHistory.length>0">
+									<td align="right"><label>历史病例：</label></td>
+									<td colspan="5">
+										<div style="padding: 5px 0px;">
+											<ul class="list" style="padding-left: 20px;">
+												<li ng-repeat="c in historyCaseHistory" style="list-style-type: decimal;">
+													<a href="javascript:void(0);" ng-click="showMedicalHisDetail(c);" title="查看病例详细">
+														{{c.case_his_num}}
+													</a>
+													&nbsp;&nbsp;&nbsp;
+													<span style="font-size: 12px;color: #39B3D7">{{c.create_time | date : 'yyyy-MM-dd'}}</span>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<p>
+							<a href ng-click="showRequestDetailDialog({diagnosisId:diagnosis.id});">
+								<i class="glyphicon glyphicon-eject"></i>
+								病例详细资料
+							</a>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<button class="btn btn-success btn-sm" ng-click="showDicomByImgId(diagnosis.dicom_img_id)">
+								<span class="glyphicon glyphicon-file"></span>
+								查看图像
+							</button>
+							<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void(0);" class="btn btn-info btn-sm" ng-click="showElectMedicalList(medicalHis.medical_his_num)">
+                                <span class="glyphicon glyphicon-eject"></span>
+                                调阅病史资料
+                            </a> -->
+						</p>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab ng-repeat="handle in arrayDiagnosisHandle">
+				<uib-tab-heading>
+					<i class="glyphicon glyphicon-th-list"></i>
+					{{diagnosis.diagnosis_org_name}}-{{handle.curr_user_name}}的诊断
+				</uib-tab-heading>
+				<div class="form-horizontal" style="margin-top: 10px;">
+					<div class="form-group">
+						<label class="control-label col-sm-2">诊断时间：</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{handle.create_time | date :'yyyy-MM-dd HH:mm:ss'}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">阴阳性：</label>
+						<div class="col-sm-10">
+							<label class="radio-inline">
+								<input type="radio" value="1" name="handlefom{{$index}}" ng-model="handle.f_o_m" ng-disabled="true"/>阴性
+							</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<label class="radio-inline">
+								<input type="radio" value="2" name="handlefom{{$index}}" ng-model="handle.f_o_m" ng-disabled="true"/>阳性
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">影像所见：</label>
+						<div class="col-sm-10">
+							<textarea id="textareaHandle" class="form-control" rows="10" 
+								ng-model="handle.pic_opinion" ng-readOnly="true"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">诊断意见：</label>
+						<div class="col-sm-10">
+							<textarea id="textareaHandle" class="form-control" rows="10"
+								ng-model="handle.pic_conclusion" ng-readOnly="true"></textarea>
+						</div>
+					</div>
+					<div class="form-group" align="right">
+						<a class="btn btn-success glyphicon glyphicon-import" href="javascript:void(0);" 
+							ng-click="applyToReport(handle)" style="margin-right:17px">引用</a>
+					</div>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+		<div class="form-horizontal">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<i class="glyphicon glyphicon-list"></i>
+					编辑报告
+				</div>
+				<div class="panel-body" style="position: relative;">
+					<div id="qc-panel" class="qc-panel-bantouming" ng-if="needQualityControl">
+						<div ng-include="'../templates/dicom.quality.control.form.template.html'" style=""></div>
+					</div>
+					<div class="form-group" style="text-align: right;margin-right:17px;margin-left: 0px;">
+						<button class="btn btn-primary pull-left" ng-click="backHandle()">
+							<span class="glyphicon glyphicon-arrow-left"></span>
+							回退诊断
+						</button>
+						<button class="btn btn-success" ng-click="saveTemplate()">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+							保存为模板
+						</button>
+						<button class="btn btn-info" ng-click="selectTemplate()">
+							<span class="glyphicon glyphicon-stats"></span>
+							选择模板
+						</button>
+					</div>
+					<div class="form-group" style="font-size: 16px;">
+						<label class="control-label col-sm-2">阴阳性：</label>
+						<div class="col-sm-10">
+							<label class="radio-inline">
+								<input type="radio" value="1" name="fom" ng-model="diagnosisHandle.f_o_m"/>阴性
+							</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<label class="radio-inline">
+								<input type="radio" value="2" name="fom" ng-model="diagnosisHandle.f_o_m"/>阳性
+							</label>
+						</div>
+					</div>
+					<div class="form-group" style="font-size: 16px;">
+						<label class="control-label col-sm-2">影像所见：</label>
+						<div class="col-sm-10">
+							<textarea id="textareaHandle" class="form-control" rows="15" style="font-size: 16px;"
+								ng-model="diagnosisHandle.pic_opinion"></textarea>
+						</div>
+					</div>
+					<div class="form-group" style="font-size: 16px;">
+						<label class="control-label col-sm-2">诊断意见：</label>
+						<div class="col-sm-10">
+							<textarea id="textareaHandle" class="form-control" rows="15" style="font-size: 16px;"
+								ng-model="diagnosisHandle.pic_conclusion"></textarea>
+						</div>
+					</div>
+					<div class="form-group" style="text-align: right;padding-right:17px;">
+						<button class="btn btn-success" ng-click="saveHandle()">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+							保存诊断
+						</button>&emsp;&emsp;
+						<button class="btn btn-primary" ng-click="tranferDiagnosis();">
+							<span class="glyphicon glyphicon-export"></span>
+							内部流转诊断
+						</button>
+						<button class="btn btn-info" ng-click="publishReport()">
+							<span class="glyphicon glyphicon-expand"></span>
+							发布报告
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

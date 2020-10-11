@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="panel panel-primary">
+  	<div class="panel-heading">{{title}}</div>
+  	<form class="form-horizontal" style="margin: 5px 10px;">
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">本人照片</label>
+	    <div class="col-sm-5">
+		      <img ng-src="common!image.action?fileType=14&imageId={{user.photo_file_id}}" class="img-thumbnail" style="width: 100px;height:100px;">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">手机号码</label>
+	    <div class="col-sm-4">
+	    	<span class="form-control" data-ng-bind="user.mobile"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">电子邮箱</label>
+	    <div class="col-sm-4">
+	    	<span class="form-control" data-ng-bind="user.email"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">真实姓名</label>
+	    <div class="col-sm-4">
+	    	<span class="form-control" data-ng-bind="user.user_name"></span>
+	    </div>
+	    <div class="col-sm-4 has-error" ng-show="is_change">
+	    	<span class="form-control" data-ng-bind="user.c_user_name"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">个人类别</label>
+	    <div class="col-sm-4">
+	    	<span class="form-control" data-ng-bind="user.type.name+(user.grade || '')"></span>
+	    </div>
+	    <div class="col-sm-4 has-error" ng-show="is_change">
+	    	<span class="form-control" data-ng-bind="user.CUserType.name+(user.c_grade || '')"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">性别</label>
+	    <div class="col-sm-4">
+	      <span class="form-control" data-ng-bind="user.gender.name"></span>
+	    </div>
+	    <div class="col-sm-4 has-error" ng-show="is_change">
+	      <span class="form-control" data-ng-bind="user.CUserGender.name"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">出生年月</label>
+	    <div class="col-sm-4">
+	    	<span class="form-control" data-ng-bind="user.birthday | date:'yyyy-MM-dd'"></span>
+	    </div>
+	    <div class="col-sm-4 has-error" ng-show="is_change">
+	    	<span class="form-control" data-ng-bind="user.c_birthday | date:'yyyy-MM-dd'"></span>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">身份证号码</label>
+	    <div class="col-sm-4">
+	    	<span class="form-control" data-ng-bind="user.identity_id"></span>
+	    </div>
+	    <div class="col-sm-4 has-error" ng-show="is_change">
+	    	<span class="form-control" data-ng-bind="user.c_identity_id"></span>
+	    </div>
+	  </div>
+	  <div ng-show="isDoctor">
+<!-- 		  <div class="form-group"> -->
+<!-- 		    <label class="col-sm-3 control-label">医生职称</label> -->
+<!-- 		    <div class="col-sm-4"> -->
+<!-- 		    	<span class="form-control" data-ng-bind="user.grade"></span> -->
+<!-- 		    </div> -->
+<!-- 		    <div class="col-sm-4 has-error" ng-show="is_change"> -->
+<!-- 		    	<span class="form-control" data-ng-bind="user.c_grade"></span> -->
+<!-- 		    </div> -->
+<!-- 		  </div> -->
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">从业时间</label>
+		    <div class="col-sm-4">
+		    	<span class="form-control" data-ng-bind="user.startwork_time | date:'yyyy-MM-dd'"></span>
+		    </div>
+		    <div class="col-sm-4 has-error" ng-show="is_change">
+		    	<span class="form-control" data-ng-bind="user.c_startwork_time | date:'yyyy-MM-dd'"></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">工作年限</label>
+		    <div class="col-sm-4">
+		    	<span class="form-control" data-ng-bind="user.work_years"></span>
+		    </div>
+		    <div class="col-sm-4 has-error" ng-show="is_change">
+		    	<span class="form-control" data-ng-bind="user.c_work_years"></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">工作单位</label>
+		    <div class="col-sm-4">
+		    	<span class="form-control" data-ng-bind="user.hospital"></span>
+		    </div>
+		    <div class="col-sm-4 has-error" ng-show="is_change">
+		    	<span class="form-control" data-ng-bind="user.c_hospital"></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">单位电话</label>
+		    <div class="col-sm-4">
+		    	<span class="form-control" data-ng-bind="user.unit_phone"></span>
+		    </div>
+		    <div class="col-sm-4 has-error" ng-show="is_change">
+		    	<span class="form-control" data-ng-bind="user.c_unit_phone"></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">单位科室</label>
+		    <div class="col-sm-4">
+		    	<span class="form-control" data-ng-bind="user.section"></span>
+		    </div>
+		    <div class="col-sm-4 has-error" ng-show="is_change">
+		    	<span class="form-control" data-ng-bind="user.c_section"></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">个人简介</label>
+		    <div class="col-sm-4">
+		    	<span class="form-control" style="word-break: break-all;height: 100px;overflow-y: auto;" data-ng-bind="user.job_note"></span>
+		    </div>
+		    <div class="col-sm-4 has-error" ng-show="is_change">
+		    	<span class="form-control" style="word-break: break-all;height: 100px;overflow-y: auto;" data-ng-bind="user.c_job_note"></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">身份证</label>
+		    <div class="col-sm-4">
+		    	<img class="img-thumbnail" ng-src="common!image.action?fileType=15&imageId={{user.identify_file_id}}" style="width: 100%;height:240px;">
+		    </div>
+	     	<div class="col-sm-4 has-error" ng-show="is_change">
+		    	<img class="img-thumbnail" ng-src="common!image.action?fileType=15&imageId={{user.c_identify_file_id}}" style="width: 100%;height:240px;">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">执业医师证</label>
+		    <div class="col-sm-4">
+		    	<img class="img-thumbnail" ng-src="common!image.action?fileType=15&imageId={{user.qualification_id}}" style="width: 100%;height:240px;">
+		    </div>
+	     	<div class="col-sm-4 has-error" ng-show="is_change">
+		    	<img class="img-thumbnail" ng-src="common!image.action?fileType=15&imageId={{user.c_qualification_id}}" style="width: 100%;height:240px;">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">职称证</label>
+		    <div class="col-sm-4">
+					<img ng-repeat="sfid in user.scan_file_ids.split(',')" class="img-thumbnail" ng-src="common!image.action?fileType=15&imageId={{sfid}}" style="width: 100%;height:240px;">
+		    </div>
+		    	<div class="col-sm-4 has-error" ng-show="is_change">
+		    	<img ng-repeat="csfid in user.c_scan_file_ids.split(',')" class="img-thumbnail" ng-src="common!image.action?fileType=15&imageId={{csfid}}" style="width: 100%;height:240px;">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">大型设备上岗证</label>
+		    <div class="col-sm-4">
+		    	<img class="img-thumbnail" ng-src="common!image.action?fileType=15&imageId={{user.device_opreator_id}}" style="width: 100%;height:240px;">
+		    </div>
+	     	<div class="col-sm-4 has-error" ng-show="is_change">
+		    	<img class="img-thumbnail" ng-src="common!image.action?fileType=15&imageId={{user.c_device_opreator_id}}" style="width: 100%;height:240px;">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-sm-3 control-label">电子签名</label>
+		    <div class="col-sm-4">
+		    	<img class="img-thumbnail" ng-src="common!image.action?imageId={{user.sign_file_id}}" style="width: 100%;height:240px;">
+		    </div>
+	    	<div class="col-sm-4 has-error" ng-show="is_change">
+		    	<img class="img-thumbnail" ng-src="common!image.action?imageId={{user.c_sign_file_id}}" style="width: 100%;height:240px;">
+		    </div>
+		  </div>
+	  </div>
+	  <div class="form-group" ng-show="!is_change">
+	    <label class="col-sm-3 control-label">状态</label>
+	    <div class="col-sm-4">
+	    	<span class="form-control" style="word-break: break-all;height: 100px;overflow-y: auto;" data-ng-bind="user.status.name+(user.note? '【原由：'+user.note+'】':'')"></span>
+	    </div>
+	  </div>
+	  <div class="form-group" ng-show="is_approved || is_change">
+			<label class="col-md-3 control-label">是否审核通过</label>
+			<div class="col-md-4">
+				<label class="radio-inline"> 
+					<input type="radio" name='ispass' ng-value="true" ng-model="ispass" />同意
+				</label>
+				<label class="radio-inline"> 
+					<input type="radio" name='ispass' ng-value="false" ng-model="ispass" />拒绝
+				</label>
+      		</div>
+      <div class="col-sm-offset-3 col-md-4" ng-show="ispass!=null&&!ispass">
+      	<textarea class="form-control" rows="3" ng-model="note" style="resize:none;margin: 5px 0px;" placeholder="填写拒绝原因"></textarea>
+      </div>
+		</div>	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-6">
+	    	<a type="button" class="btn btn-success" ng-show="is_approved" ng-click="approvedUser()"><span class="glyphicon glyphicon-ok"></span> 确认</a>
+	    	<a type="button" class="btn btn-success" ng-show="is_change" ng-click="confirmChange()"><span class="glyphicon glyphicon-ok"></span> 确认</a>
+	      <a type="button" class="btn btn-warning" ui-sref="user"><span class="glyphicon glyphicon-remove"></span> 取消</a>
+	      <span ng-show="msg" class="text-danger">{{msg}}</span>
+	    </div>
+	  </div>
+	  </form>
+	</div>
+</div>
+</body>
+</html>

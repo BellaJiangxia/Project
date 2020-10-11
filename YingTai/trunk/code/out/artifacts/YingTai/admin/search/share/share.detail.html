@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="panel panel-primary" data-ng-init="initData()" style="width: 800px">
+	<div class="panel-heading">
+		<h4>
+			<a class="btn btn-warning btn-xs" href="javascript:void(0);" ng-click="goback()">
+				<span class="glyphicon glyphicon-circle-arrow-left"></span>
+				返回
+			</a>
+			分享详情
+		</h4>
+	</div>
+	<div class="panel-body">
+		<div class="panel panel-info">
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<a href="#/medical/detail/{{medicalHis.id}}">
+							<span class="glyphicon glyphicon-arrow-left"></span>
+							更多病例详情
+						</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="btn btn-link" href="javascript:void(0);" ng-click="gotoReport(diagnosis)">
+							<span class="glyphicon glyphicon-arrow-up"></span>
+							查看诊断
+						</a>
+							
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-3">
+						<label>病历号：</label>{{medicalHis.medical_his_num}}
+					</div>
+					<div class="col-sm-3">
+						<label>病人年龄：</label>{{medicalHis.age}}
+					</div>
+					<div class="col-sm-3">
+						<label>病人性别：</label>{{medicalHis.genderStr}}
+					</div>
+					<div class="col-sm-3">
+						<label>诊断状态：</label><span class="text-danger">{{diagnosis.statusStr}}</span>
+					</div>
+				</div>
+				<div class="row" style="padding-left: 15px;">
+					<div style="width: 150px;">
+						<label>病人主要症状：</label>
+					</div>
+					<div style="width: 100%;padding-right: 15px">
+						<textarea id="textareaSickHis" class="form-control" rows="3"
+							ng-model="medicalHis.symptom" ng-readOnly="true"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				评论<span class="glyphicon glyphicon-arrow-down"></span>
+				<div class="pull-right">
+					<a href="javascript:void(0);" ng-click="writeSpeech()">我要发言</a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div ng-repeat="speech in listSpeech" >
+					&nbsp;&nbsp;&nbsp;&nbsp;{{speech.content}}
+					<br>
+					<div class="pull-right">
+						<span style="color:Silver;font-size: 10px;">{{speech.speech_timeStr}}</span>
+						&nbsp;&nbsp;<span style="color:ForestGreen;font-size: 12px;">{{speech.speech_user_name}}</span>
+					</div>
+					<hr>
+				</div>
+			</div>
+			<div class="panel-footer"  align="right">
+				<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" max-size="searchOpt.spu.totalPage"
+					ng-model="searchOpt.spu.currPage" ng-change="queryDiagnosisShareSpeech()"
+					previous-text="上一页" next-text="下一页"></uib-pagination>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

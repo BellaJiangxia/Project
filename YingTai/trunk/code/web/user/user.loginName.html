@@ -1,0 +1,40 @@
+<div class="container" >
+	<uib-alert type="info" ng-show="msg">{{msg}}</uib-alert>
+	<div class="panel panel-primary">
+  <div class="panel-heading" >
+	  	<span style="font-size: 20px">{{title}}</span>
+ 	</div>
+	<form class="form-horizontal" style="margin: 10px 0px">
+	  <div class="form-group" ng-show="isMobile">
+	    <label class="col-sm-3 control-label">新手机号码</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" name="mobile" ng-model="mobile" ng-change="checkLoginName(mobile)" placeholder="输入正确手机号码">
+	    </div>
+	  </div>
+	  <div class="form-group" ng-show="isEmail">
+	    <label class="col-sm-3 control-label">电子邮箱</label>
+	    <div class="col-sm-5">
+	      <input type="email" class="form-control" name="email" ng-model="email" ng-change="checkLoginName(email)" placeholder="输入正确电子邮箱">
+	    </div>
+	  </div>
+		<div class="form-group">
+	    <label class="col-sm-3 control-label">验证码</label>
+	    <div class="col-sm-5">
+	    	<div class="input-group">
+		      <input type="text" class="form-control" ng-model="code" placeholder="输入验证码">
+		      <span class="input-group-btn">
+		        <button class="btn btn-info" type="button" ng-disabled="isCheck || wait" ng-click="getCode()"><span data-ng-bind="codetxt"></span></button>
+		      </span>
+		    </div>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group">
+	    <div class="col-sm-offset-6 col-sm-3">
+	      <button class="btn btn-success" ng-disabled="isCheck" ng-click="modifyLoginName()"><span class="glyphicon glyphicon-save"></span> 保存</button>
+	      <a type="button" ui-sref="userInfo" class="btn btn-warning"><span class="glyphicon glyphicon-remove">取消</span></a>
+	    </div>
+	  </div>
+	</form>
+</div>
+</div>

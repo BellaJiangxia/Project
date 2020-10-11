@@ -1,0 +1,108 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<title>影泰远程影像诊断系统</title>
+<meta http-equiv="Expires" content="0">
+
+<link href="../image/favicon.ico" type="image/x-icon" rel="shortcut icon"></link>
+
+<link rel="stylesheet" href="../css/bootstrap-3.3.6.min.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/bootstrap-theme-3.3.6.min.css" type="text/css"></link>
+
+<link rel="stylesheet" href="../css/ngDialog-theme-default-0.6.2.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/ngDialog-theme-plain-0.6.2.min.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/ngDialog-0.6.2.min.css" type="text/css"></link>
+
+<link rel="stylesheet" href="../css/common.css" type="text/css"></link>
+
+<script type="text/javascript" src="../js/angular-1.5.6.js"></script>
+<script type="text/javascript" src="../js/angular-route-1.5.6.min.js"></script>
+<script type="text/javascript" src="../js/ui-bootstrap-tpls-1.3.3.min.js"></script>
+
+<script type="text/javascript" src="../js/ngDialog.min-0.6.2.js"></script>
+
+<script type="text/javascript" src="../js/ajax4struts.js"></script>
+<script type="text/javascript" src="../js/tripledes/tripledes.js"></script>
+<script type="text/javascript" src="../js/tripledes/mode-ecb.js"></script>
+<script type="text/javascript" src="../js/tripledes/custom-encrypt.js"></script>
+
+<script type="text/javascript" src="../js/vastsoft/dialogs.js"></script>
+<script type="text/javascript" src="../js/vastsoft/services.js"></script>
+
+<script type="text/javascript" src="../common/ngDialog/ngDialog.js"></script>
+<script type="text/javascript" src="../common/services.js"></script>
+
+<script type="text/javascript" src="login.js"></script>
+
+<script type="text/javascript" src="pwd.js"></script>
+</head>
+<body style="background-image: url('../image/bg.jpg');background-attachment: fixed;background-size: cover;">
+	<div class="container-fluid" style="" ng-app="pwd" ng-controller="pwdCtrl">
+		<div class="row" style="text-align: center; height: 120px; line-height: 120px;">
+			<h1 style="margin-top: 50px;">影泰远程影像诊断平台</h1>
+		</div>
+		<div class="row">
+			<hr />
+		</div>
+		<div class="row">
+			<div class="container panel panel-default bantouming" style="width: 800px;">
+				<h3>重置密码</h3>
+				<hr />
+				<form name="pwdForm" novalidate>
+					<div class="form-group form-group-lg">
+						<label for="inputUser" style="font-size: 18px;">用户名</label>
+							<input name="txtLoginName" type="text" ng-model="loginName"
+								class="form-control" placeholder="手机号码/电子邮箱" required/>
+					</div>
+					<div class="form-group form-group-lg">
+						<label for="inputPwd" style="font-size: 18px;">新密码</label>
+						<input name="txtNewPwd" type="password" ng-model="pwd" class="form-control"
+							placeholder="请输入长度不小于6位的密码" ng-minlength="6" required />
+						<span class="text-danger" ng-show="pwdForm.txtNewPwd.$error.minlength">密码长度至少6位</span>
+					</div>
+					<div class="form-group form-group-lg">
+						<label for="inputPwd" style="font-size: 18px;">重复新密码</label>
+						<input name="txtNewPwd2" type="password" ng-model="pwd2" class="form-control"
+							placeholder="请输入长度不小于6位的密码" ng-minlength="6" required/>
+						<span class="text-danger" ng-hide="pwd2&&pwd&&pwd2===pwd">输入的两次新密码不一致！</span>
+					</div>
+					<div class="form-group form-group-lg">
+						<label for="inputCode" style="font-size: 18px;">验证码</label>
+						<div class="input-group">
+							<input type="text" name="txtCode" class="form-control" ng-model="code" placeholder="输入验证码" required>
+							<span class="input-group-btn">
+								<button class="btn btn-lg btn-info" type="button" ng-click="getCode();"
+									ng-disabled="pwdForm.txtLoginName.$pristine && pwdForm.txtLoginName.$invalid 
+					        		|| pwdForm.txtNewPwd.$invalid||(!pwd2||!pwd||pwd2!==pwd)||pwdForm.txtNewPwd2.$invalid||timeOut>0">
+									获取验证码{{timeOut>0?(timeOut+'秒'):''}}
+								</button>
+							</span>
+						</div>
+					</div>
+					<uib-alert type="danger" ng-show="msg">{{msg}}</uib-alert>
+					<hr />
+					<div class="form-group-lg">
+						<button type="button" class="btn btn-success btn-lg" ng-click="resetpwd()"
+							ng-disabled="pwdForm.txtLoginName.$pristine && pwdForm.txtLoginName.$invalid 
+							|| pwdForm.txtNewPwd.$pristine && pwdForm.txtNewPwd.$invalid || pwdForm.txtCode.$invalid">
+							<i class="glyphicon glyphicon-repeat"></i>
+							重置密码
+						</button>
+						<a type="button" href="index.html" class="btn btn-link btn-lg">返回登录</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row navbar-fixed-bottom" style="background-color: #eee">
+			<span>成都影泰科技有限公司 &copy;2016版权所有</span>
+		</div>
+
+	</div>
+</body>
+
+</html>

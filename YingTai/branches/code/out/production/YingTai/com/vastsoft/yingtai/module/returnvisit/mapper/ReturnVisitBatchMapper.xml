@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.returnvisit.mapper.ReturnVisitBatchMapper">
+	<select id="select" parameterType="Map" resultType="TReturnVisitBatch">
+		SELECT t.* FROM (select b.*, u.user_name as create_user_name,row_number() over(order by b.create_time desc) rn from t_return_visit_batch b, t_base_user u
+		<where>
+			b.create_user_id = u.id
+			<if test="batch_name != null">
+		        and b.batch_name like '%'+#{batch_name}+'%'
+		    </if>
+		    <if test="batch_id != null">
+		        and b.batch_id = #{batch_id}
+		    </if>
+		    <if test="org_id != null">
+		        and b.org_id = #{org_id}
+		    </if>
+		    <if test="create_user_id != 0 and create_user_id!=null">
+		        and b.create_user_id = #{create_user_id}
+		    </if>
+		    <if test="status != 0 and status!=null">
+		        and b.status = #{status}
+		    </if>
+		</where>
+		)t
+		<where>
+			<if test="begin_idx!=null and end_idx!=null">
+				t.rn>=#{begin_idx} <![CDATA[ and t.rn<#{end_idx} ]]>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectCount" parameterType="Map" resultType="int">
+		select count(1) from t_return_visit_batch b
+		<where>
+			<if test="batch_name != null">
+				and b.batch_name like '%'+#{batch_name}+'%'
+			</if>
+			<if test="batch_id != null">
+				and b.batch_id = #{batch_id}
+			</if>
+			<if test="org_id != null">
+				and b.org_id = #{org_id}
+			</if>
+			<if test="create_user_id != 0">
+				and b.create_user_id = #{create_user_id}
+			</if>
+			<if test="status != 0">
+				and b.status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectAndLock" parameterType="TReturnVisitBatch" resultType="TReturnVisitBatch">
+		select b.*, u.user_name as create_user_name from t_return_visit_batch b, t_base_user u with (xlock)
+		<where>
+		    b.create_user_id = u.id
+		    <if test="batch_name != null">
+		        and b.batch_name like '%'+#{batch_name}+'%'
+		    </if>
+		    <if test="batch_id != 0">
+		        and b.batch_id = #{batch_id}
+		    </if>
+		    <if test="org_id != 0">
+		        and b.org_id = #{org_id}
+		    </if>
+		    <if test="create_user_id != 0">
+		        and b.create_user_id = #{create_user_id}
+		    </if>
+		    <if test="status != 0">
+		        and b.status = #{status}
+		    </if>
+		</where>
+	</select>
+	
+	<insert id="insert" parameterType="TReturnVisitBatch" useGeneratedKeys="true" keyProperty="batch_id">
+		insert into t_return_visit_batch
+		(
+		org_id,
+		batch_name,
+		create_user_id,
+		create_time,
+		status
+		)
+		values
+		(
+		#{org_id},
+		#{batch_name},
+		#{create_user_id},
+		#{create_time},
+		#{status}
+		)
+	</insert>
+
+	<update id="update" parameterType="TReturnVisitBatch">
+		update t_return_visit_batch
+		<set>
+		    <if test = "status != 0">
+		        status = #{status}
+		    </if>
+		    <if test = "batch_name != null">
+		        ,batch_name = #{batch_name}
+		    </if>
+		</set>
+		<where>
+		    <if test="batch_id != 0">
+		        batch_id = #{batch_id}
+		    </if>
+		    <if test="org_id != 0">
+		        and org_id = #{org_id}
+		    </if>
+		    <if test="create_user_id != 0">
+		        and create_user_id = #{create_user_id}
+		    </if>
+		</where>
+	</update>
+
+	<delete id="delete" parameterType="TReturnVisitBatch">
+		delete from t_return_visit_batch
+		<where>
+		    <if test="batch_id != 0">
+		        batch_id = #{batch_id}
+		    </if>
+		    <if test="org_id != 0 and org_id!=null">
+		        and org_id = #{org_id}
+		    </if>
+		    <if test="create_user_id != 0 and create_user_id !=null">
+		        and create_user_id = #{create_user_id}
+		    </if>
+		    <if test="status != 0 and status!=null">
+		        and status = #{status}
+		    </if>
+		</where>
+	</delete>
+
+</mapper>

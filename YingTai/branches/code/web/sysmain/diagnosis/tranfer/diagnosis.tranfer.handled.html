@@ -1,0 +1,79 @@
+<div style="margin-top: 10px;">
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+	<div class="form-inline">
+		<select class="form-control" ng-model="searchOpt.gender" ng-options="g.code as g.name for g in listGender">
+			<option value="">--病人性别--</option>
+		</select> 
+		<input type="text" class="form-control" style="width: 160px;" placeholder="病历号" ng-model="searchOpt.medicalHisNum" /> 
+		<select class="form-control" ng-model="searchOpt.deviceTypeId" ng-change="queryPartList(searchOpt.deviceTypeId);" 
+			ng-options="d.id as d.value for d in listDeviceType">
+			<option value="">--影像类型--</option>
+		</select>
+		<select class="form-control" ng-model="searchOpt.partTypeId" ng-if="searchOpt.deviceTypeId>0" 
+			ng-options="p.id as p.value for p in arrayPart">
+			<option value="">--部位类型--</option>
+		</select> 
+		<select class="form-control" ng-model="searchOpt.requestOrgId"
+			ng-options="org.id as org.org_name for org in arrayOrg">
+			<option value="">--申请机构--</option>
+		</select> 
+		<select class="form-control" ng-model="searchOpt.next_user_id" 
+			ng-options="d.id as d.user_name for d in arrayDoctors">
+			<option value="">--移交目标人--</option>
+		</select>
+		<button class="btn btn-primary" ng-click="searchTranferOfMeHandled();">
+			<span class="glyphicon glyphicon-search"></span>
+			检索
+		</button>
+		<button class="btn btn-info" ng-click="searchTranferOfMeHandled();">
+			<span class="glyphicon glyphicon-refresh"></span>
+			刷新
+		</button>
+	</div>
+	<br />
+	<table class="table table-hover table-striped table-bordered">
+		<thead>
+			<tr class="bg-primary">
+				<th>病历号</th>
+				<th>病人性别</th>
+				<th>影像类型</th>
+				<th>部位类型</th>
+				<th>申请机构</th>
+				<th>移交目标人</th>
+				<th>处理时间</th>
+				<th>状态</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="handle in listHandle">
+				<td>
+					<span class="text-info" uib-popover-template="'handleDetailPopoverTemplate.html'" popover-placement="right"
+						popover-title="书写详情" popover-trigger="mouseenter" ng-mouseenter="mouseenter(template)">
+						{{handle.case_his_num}}
+					</span>
+				</td>
+				<td>{{handle.patient_genderStr}}</td>
+				<td>{{handle.device_type_name}}</td>
+				<td>{{handle.part_type_name}}</td>
+				<td>{{handle.request_org_name}}</td>
+				<td>{{handle.next_user_name}}</td>
+				<td>{{handle.create_time | date : 'yyyy-MM-dd'}}</td>
+				<td>{{handle.statusStr}}</td>
+				<td>
+					<button ng-if="handle.status==2||handle.status==25" class="btn btn-warning btn-sm" 
+						ng-click="cancelTranfar(handle);" title="撤销移交">
+						<span class="glyphicon glyphicon-save"></span>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div align="right">
+		<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+		<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+					items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+					ng-model="searchOpt.spu.currPage" ng-change="searchTranferOfMeHandled();"
+					previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>

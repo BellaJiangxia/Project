@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+<configuration>
+	<properties resource="com/vastsoft/yingtai/dataMove/config/destiantion_ibatis_config.properties" />
+	<typeAliases>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.patient.entity.TPatient" alias="TPatient"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.patient.entity.TPatientOrgMapper" alias="TPatientOrgMapper"/>
+		
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.casehis.entity.TCaseHistory" alias="TCaseHistory"/>
+		
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.dicom.entity.TDicomImg" alias="TDicomImg"/>
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.dicom.entity.TSeries" alias="TSeries"/>
+		
+		<typeAlias type="com.vastsoft.yingtai.module.basemodule.patientinfo.report.entity.TReport" alias="TReport"/>
+		
+		<typeAlias type="com.vastsoft.yingtai.module.diagnosis2.entity.TDiagnosis" alias="TDiagnosis" />
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/vastsoft/yingtai/dataMove/mapper/destMapper/DestCaseHistoryMapper.xml"/>
+	</mappers>
+</configuration>

@@ -1,0 +1,54 @@
+<div style="min-height: 250px;">
+	<div ng-switch="options.tabIndex">
+		<div ng-switch-when="1">
+			<p>请选择你要查看的病人：</p>
+			<div class="list-group">
+				<button class="list-group-item" ng-repeat="p in listPatientInfoResult" ng-click="onItemClick(p)">
+					{{p.patient_name}}&emsp;
+					<span ng-if="p.patient_mobile">病人手机：{{p.patient_mobile}}&emsp;</span>
+					<span ng-if="p.patient_identity">病人身份证：{{p.patient_identity}}&emsp;</span>
+					<span ng-if="p.patient_brithday">病人生日：{{p.patient_brithday}}&emsp;</span>
+				</button>
+			</div>
+		</div>
+		<div ng-switch-when="2">
+			<p>请补全病人信息：</p>
+			<div class="form-horizontal" ng-switch="options.gabEntity.needCompletionType">
+				<div ng-switch-when="PATIENT_MOBILE" class="form-group">
+					<label class="control-label col-sm-4">病人手机号</label>
+					<div class="col-sm-8">
+						<p class="form-control-static">{{options.gabEntity.patient_mobile}}</p>
+					</div>
+				</div>
+				<div ng-switch-when="PATIENT_IDENTITY" class="form-group">
+					<label class="control-label col-sm-4">病人身份证号</label>
+					<div class="col-sm-8">
+						<p class="form-control-static">{{options.gabEntity.patient_identity}}</p>
+					</div>
+				</div>
+				<div ng-switch-when="PATIENT_BIRTHDAY" class="form-group">
+					<label class="control-label col-sm-4">病人生日</label>
+					<div class="col-sm-8">
+						<p class="form-control-static">{{options.gabEntity.patient_brithday}}</p>
+					</div>
+				</div>
+				<div class="form-group">
+			        <label class="control-label col-sm-4">请补全*的部分</label>
+					<div class="col-sm-8">
+						<input class="form-control" type="text" ng-model="options.gabEntity.value"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="text-align: right;" ng-if="options.tabIndex == 2">
+	<button class="btn btn-success" ng-click="onBackClick()">
+					<i class="glyphicon glyphicon-arrow-left"></i> 返回</button>&emsp;
+	<div class="btn-group">
+		<button class="btn btn-info" ng-click="confirm()" ng-disabled="!options.gabEntity.value">
+			<i class="glyphicon glyphicon-ok"></i> 确定</button>
+		<a class="btn btn-warning" href ng-click="cancel()">
+			<i class="glyphicon glyphicon-remove"></i> 取消</a>
+	</div>
+</div>

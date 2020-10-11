@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4>
+			<span class="glyphicon glyphicon-stats"></span>
+			系统总览
+		</h4>
+	</div>
+	<div class="panel-body">
+		<!-- <div class="btn-group inline">
+			<ul class="nav nav-pills">
+		      	<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[pageMap.medicalHisStat]">
+		      		<a href="javascript:void(0)" ng-click="selectPage('medicalHisStat')">病例统计</a>
+		      	</li>
+				<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[pageMap.requestStat]">
+					<a href="javascript:void(0)" ng-click="selectPage('requestStat')">申请统计</a>
+				</li>
+				<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[pageMap.userStat]">
+					<a href="javascript:void(0)" ng-click="selectPage('userStat')">人员统计</a>
+				</li>
+				<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[pageMap.workStat]">
+					<a href="javascript:void(0)" ng-click="selectPage('workStat')">工作统计</a>
+				</li>
+				<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[pageMap.diagnosisStat]">
+					<a href="javascript:void(0)" ng-click="selectPage('diagnosisStat')">诊断统计</a>
+				</li>
+		    </ul>
+		</div> -->
+		<div class="panel panel-info" data-ng-init="initData()">
+			<div class="panel-body">
+				<div class="btn-group inline">
+					<ul class="nav nav-pills">
+				      	<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[statTypeMap.year]">
+				      		<a href="javascript:void(0)" ng-click="selectStatType('year')">按年统计</a>
+				      	</li>
+						<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[statTypeMap.month]">
+							<a href="javascript:void(0)" ng-click="selectStatType('month')">按月统计</a>
+						</li>
+						<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[statTypeMap.day]">
+							<a href="javascript:void(0)" ng-click="selectStatType('day')">按天统计</a>
+						</li>
+				    </ul>
+				</div>
+				<!-- <div id="main" style="height:400px"></div> -->
+				<myecharts height="400px" width="100%" datasource="dataSource"></myecharts>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

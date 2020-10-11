@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="panel panel-info" data-ng-init="initData();">
+	<div class="panel-heading">
+		<span class="glyphicon glyphicon-wrench"></span>
+		{{mode == 2? '修改配置' : '新增配置'}}
+		<button class="btn btn-xs btn-info pull-right" ng-click="goback()">
+			<span class="glyphicon glyphicon-arrow-left"></span>
+			返回
+		</button>
+	</div>
+	<div class="panel-body">
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>远程检索服务器版本</label>
+				<div class="col-sm-6">
+					<select class="form-control" tooltip-placement="top" uib-tooltip="目前最新版本为‘第二代版本’，以前的检索服务请‘第一代版本’" 
+						ng-options="rsv.code as rsv.name for rsv in listRSV" ng-model="orgAffix.remote_server_version">
+						<!-- <option value="">--服务器版本--</option> -->
+					</select>
+				</div>
+				<div class="col-sm-4"></div>
+			</div>
+			<div class="form-group" ng-if="orgAffix.remote_server_version==1">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>AE号</label>
+				<div class="col-sm-6">
+					<input class="form-control" type="text" ng-model="orgAffix.ae_code" placeholder="AE号(多个可使用‘,’隔开)" 
+						tooltip-placement="top" uib-tooltip="此项为‘第一代版本’的必填项，‘第二代版本’需要在检索服务中配置">
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+			<div class="form-group" ng-if="orgAffix.remote_server_version==2">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>影像查看服务类型</label>
+				<div class="col-sm-6">
+					<label class="radio-inline">
+						<input type="radio" name="dicomView" value="10" ng-model="orgAffix.view_type"> EPS
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="dicomView" value="20" ng-model="orgAffix.view_type"> WPACS
+					</label>
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>检索服务地址</label>
+				<div class="col-sm-6">
+					<input class="form-control" type="text" ng-model="orgAffix.query_url" placeholder="检索服务链接地址" />
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>图像服务地址</label>
+				<div class="col-sm-6">
+					<input class="form-control" type="text" ng-model="orgAffix.dicomweb_url" placeholder="图像服务链接地址">
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">内网图像服务地址</label>
+				<div class="col-sm-6">
+					<input class="form-control" type="text" ng-model="orgAffix.intranet_url" placeholder="内网图像服务地址">
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">机构公网IP</label>
+				<div class="col-sm-6">
+					<input class="form-control" type="text" ng-model="orgAffix.internet_ip" placeholder="机构公网IP">
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>用户名</label>
+				<div class="col-sm-6">
+					<input class="form-control" type="text" ng-model="orgAffix.user_name" placeholder="用户名">
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2"><b style="color:red">*</b>密码</label>
+				<div class="col-sm-6">
+					<input class="form-control" type="text" ng-model="orgAffix.password" placeholder="密码">
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+			<div class="form-group" style="text-align: right;">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-6">
+					<button class="btn btn-primary" ng-click="saveOrgAffix()" >
+						<span class="glyphicon glyphicon-floppy-saved"></span>
+						保存配置
+					</button>
+				</div>
+				<span class="col-sm-4"></span>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

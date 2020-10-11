@@ -1,0 +1,71 @@
+
+	<div class="modal-header">
+		<h3 class="modal-title">选择回访模版</h3>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline">
+			<input type="text" class="form-control" style="width: 200px;" placeholder="模板名称" 
+				ng-model="searchOpt.template_name"/> 
+			<select class="form-control" style="width: 160px;" ng-model="searchOpt.onlyMe">
+				<option value="false">机构所有模板</option>
+                <option value="true">我创建的模板</option>
+			</select>
+			<button class="btn btn-primary" ng-click="searchTemplates()">
+				<span class="glyphicon glyphicon-search"></span> 检索
+			</button>
+			<a class="btn btn-info pull-right" href="#/returnvisit/template/detail/">
+				<span class="glyphicon glyphicon-plus"></span> 增加回访模版
+			</a>
+		</div>
+		<br />
+		<table class="table table-hover table-striped">
+			<thead>
+				<tr style="color:#fff;">
+					<th width="60%">模板名称</th>
+					<th width="10%">创建人</th>
+					<th width="20%">创建时间</th>
+					<th width="10%">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="template in templates">
+					<td><a href="#/returnvisit/template/detail/{{template.template_id}}">{{template.template_name}}</a></td>
+					<td>{{template.create_user_name}}</td>
+					<td>{{template.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+					<td>
+						<a ng-if="request.status ==3" style="margin-left: 5px;" 
+							class="btn btn-info btn-sm" href="javascript:void(0);" 
+							ng-click="showNote(request.note)" title="查看备注">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</a>
+						<a ng-if="request.status ==1" style="margin-left: 5px;" 
+							class="btn btn-danger btn-sm" href="javascript:void(0);" 
+							ng-click="cancelDiagnosis(request)" title="撤回申请">
+							<span class="glyphicon glyphicon-remove"></span>
+						</a>
+						<a ng-if="request.status ==5" style="margin-left: 5px;" 
+							class="btn btn-success btn-sm" href="#/diagnosis/report/{{request.id}}" title="查看报告">
+							<span class="glyphicon glyphicon-zoom-in"></span>
+						</a>
+						<a ng-if="request.status ==5" style="margin-left: 5px;" 
+							class="btn btn-warning btn-sm" href="javascript:void(0);" 
+							ng-click="shareRequest(request.id)" title="分享此诊断">
+							<span class="glyphicon glyphicon-share"></span>
+						</a>
+						<a ng-if="user.id==request.request_user_id&&request.status==5" 
+							style="margin-left: 5px;" ng-class="request.newMsgCount?'btn btn-danger btn-sm':'btn btn-primary btn-sm'" 
+							href="javascript:void(0);" ng-click="openChat(request)" title="发送诊断消息">
+							<span class="glyphicon glyphicon-envelope"></span>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="searchTemplates()"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>

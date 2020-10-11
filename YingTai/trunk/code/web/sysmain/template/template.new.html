@@ -1,0 +1,64 @@
+<div class="panel panel-primary" data-ng-init="initData()">
+	<div class="panel-heading">
+		<h4 style="display:inline-block"><span class="glyphicon glyphicon-wrench"></span>
+		新增模板</h4>
+		<button class="btn btn-primary pull-right" ng-click="goback()">
+			<span class="glyphicon glyphicon-arrow-left"></span>
+			返回
+		</button>
+	</div>
+	<div class="panel-body">
+		<div class="form-horizontal" style="padding-right: 25px;">
+			<div class="form-group">
+				<label class="control-label col-sm-2">模板名称</label>
+				<div class="col-sm-10">
+					<input class="form-control" type="text" ng-model="newTemplate.template_name" placeholder="模板名称">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">设备类型</label>
+				<div class="col-sm-4">
+					<select class="form-control" ng-model="newTemplate.device_type_id" 
+						ng-change="queryPartList(newTemplate.device_type_id)" ng-options="d.id as d.value for d in listDeviceType">
+						<option value="">--设备类型--</option>
+					</select>
+				</div>
+				<label class="control-label col-sm-2">部位类型</label>
+				<div class="col-sm-4">
+					<select class="form-control" ng-model="newTemplate.part_type_id" ng-options="p.id as p.value for p in arrayPart">
+						<option value="">--部位类型--</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">影像所见</label>
+				<div class="col-sm-10">
+					<textarea id="textareaSymptom" class="form-control" rows="6" placeholder="影像所见" 
+						ng-model="newTemplate.pic_opinion"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">诊断意见</label>
+				<div class="col-sm-10">
+					<textarea id="textareaSymptom" class="form-control" rows="6" placeholder="诊断意见" 
+						ng-model="newTemplate.pic_conclusion"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2">模板描述</label>
+				<div class="col-sm-10">
+					<textarea id="textareaSymptom" class="form-control" rows="4" placeholder="模板描述" 
+						ng-model="newTemplate.note"></textarea>
+				</div>
+			</div>
+			<div class="form-group" style="text-align: right;">
+				<div class="col-sm-12">
+					<button class="btn btn-success" ng-click="saveTemplate()" >
+						<span class="glyphicon glyphicon-floppy-saved"></span>
+						保存模板
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

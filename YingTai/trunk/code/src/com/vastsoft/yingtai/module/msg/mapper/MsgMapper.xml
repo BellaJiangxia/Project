@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.msg.mapper.MsgMapper">
+	<update id="modifyMessageStatusByDiagnosisIdAndType" parameterType="Map">
+		update T_MESSAGE set status=#{status} where diagnosis_id=#{diagnosis_id} and msg_type=#{msg_type}
+	</update>
+
+	<select id="queryMessageByUid" parameterType="String" resultType="TMessage">
+		select * from T_MESSAGE where uid=#{uid}
+	</select>
+	<select id="queryNeedSendMessageUidList" parameterType="String" resultType="String">
+		select UID from T_MESSAGE where status=1 and PLAN_TIME &lt; #{now} group by UID;
+	</select>
+
+	<update id="modifyMessageStatusAndSendTimeByUid" parameterType="Map">
+		update T_MESSAGE set status=#{status},sendtime=#{send_time} where uid=#{uid}
+	</update>
+
+	<insert id="addMessage" parameterType="TMessage" useGeneratedKeys="true" keyProperty="id">
+		insert into T_MESSAGE (
+			content,
+			recv_mobile,
+			recv_user_id,
+			diagnosis_id,
+			plan_time,
+			msg_type,
+			uid,
+			status
+		) values (
+			#{content},
+			#{recv_mobile},
+			#{recv_user_id},
+			#{diagnosis_id},
+			#{plan_time},
+			#{msg_type},
+			#{uid},
+			#{status}
+		)
+	</insert>
+	
+	<select id="searchMsgCount" parameterType="Map" resultType="int">
+		select count(id) 
+		from T_MESSAGE
+		where 1=1
+			<if test="status !=null">
+				and status = #{status}
+			</if> 
+			<if test="start !=null and end !=null">
+				and sendtime between #{start} and #{end}
+			</if>
+	</select>
+	
+	<select id="searchMsg" parameterType="Map" resultType="FMessage">
+		select * from (
+		select t0.*,t1.user_name recv_user_name,ROW_NUMBER () OVER (ORDER BY t0.ID DESC) AS RowNumber  
+		from T_MESSAGE t0 
+		left join T_BASE_USER t1 on t0.RECV_USER_ID=t1.id 
+		where 1=1 
+			<if test="status !=null">
+				and t0.status = #{status}
+			</if> 
+			<if test="start !=null and end !=null">
+				and t0.sendtime between #{start} and #{end}
+			</if>
+		) as tmp_t where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+	</select>
+</mapper>

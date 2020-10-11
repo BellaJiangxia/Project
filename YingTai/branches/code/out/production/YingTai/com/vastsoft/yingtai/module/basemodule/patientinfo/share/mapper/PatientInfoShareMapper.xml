@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.basemodule.patientinfo.share.mapper.PatientInfoShareMapper">
+<!--     <insert id="insertPatientInfoShare" parameterType="TPatientInfoShare"> -->
+<!--         insert into T_ share_org_id -->
+<!--     </insert> -->
+    
+<!-- 	<select id="queryReportBySysHisIdAndSourceTypeAndType" parameterType="TReport" resultType="TReport"> -->
+<!-- 		select * from T_REPORT where sys_his_id = #{sys_his_id}  -->
+<!-- 		and source_type=#{source_type} and type = #{type} -->
+<!-- 	</select> -->
+
+<!-- 	<select id="queryReportByDicomImgMarkCharAndSourceTypeAndType" parameterType="TReport" resultType="TReport"> -->
+<!-- 		select * from T_REPORT where dicom_img_mark_char = #{dicom_img_mark_char}  -->
+<!-- 		and source_type=#{source_type} and type = #{type} -->
+<!-- 	</select> -->
+
+<!--     <select id="selectReportByCaseIdAndDicomImgIdAndSourceTypeForUpdate" parameterType="TReport" resultType="TReport">-->
+<!--         select * from T_REPORT WITH(UPDLOCK) where CASE_HIS_ID = #{case_his_id} and dicom_img_id = #{dicom_img_id} and source_type = #{source_type} -->
+<!--     </select> -->
+    
+<!--     <select id="queryReportShareByReportId" parameterType="long" resultType="TReportShare"> -->
+<!--         select * from T_REPORT_SHARE where REPORT_ID = #{report_id} -->
+<!--     </select> -->
+    
+<!--     <select id="selectUnReadReportMsgByReportId" parameterType="TReportMsg" resultType="int"> -->
+<!--         select count(id) from T_REPORT_MSG  -->
+<!--         where REPORT_ID = #{report_id} and recv_user_id = #{recv_user_id} and status = #{status} -->
+<!--     </select> -->
+    
+<!--     <select id="selectReportShareSpeech" parameterType="Map" resultType="FReportShareSpeech"> -->
+<!--         select * from ( -->
+<!-- 			select  -->
+<!-- 				*, -->
+<!-- 				(select user_name from T_BASE_USER where id = SPEECH_USER_ID) as speech_user_name, -->
+<!-- 				ROW_NUMBER () OVER (ORDER BY ID DESC) AS RowNumber -->
+<!-- 			from T_REPORT_SHARE_SPEECH -->
+<!-- 			where SHARE_ID=#{share_id} -->
+<!--         )as tmp_t  -->
+<!-- 			<if test="minRow !=null and maxRow !=null"> -->
+<!-- 				where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow} -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+    
+<!--     <select id="selectReportShareSpeechCount" parameterType="Map" resultType="int"> -->
+<!-- 		select count(id) from T_REPORT_SHARE_SPEECH where SHARE_ID=#{share_id} -->
+<!-- 	</select> -->
+    
+<!--     <insert id="insertReportShare" keyProperty="id" useGeneratedKeys="true" parameterType="TReportShare"> -->
+<!-- 		INSERT INTO [T_REPORT_SHARE] -->
+<!--            ([REPORT_ID] -->
+<!--            ,[SHARE_ORG_ID] -->
+<!--            ,[SHARE_USER_ID] -->
+<!--            ,[SHARE_TIME] -->
+<!--            ,[CLOSE_SHARE_TIME] -->
+<!--            ,[STATUS] -->
+<!--            ,[CLOSE_SHARE_USER_ID]) -->
+<!--      	VALUES -->
+<!--            (#{report_id} -->
+<!--            ,#{share_org_id} -->
+<!--            ,#{share_user_id} -->
+<!--            ,#{share_time} -->
+<!--            ,#{close_share_time,jdbcType=TIMESTAMP} -->
+<!--            ,#{status} -->
+<!--            ,#{close_share_user_id,jdbcType=NUMERIC}) -->
+<!-- 	</insert> -->
+    
+<!--     <delete id="deleteReportShareById" parameterType="long"> -->
+<!-- 		delete from T_REPORT_SHARE where id=#{id} -->
+<!-- 	</delete> -->
+    
+<!--     <select id="selectReportShare" parameterType="Map" resultType="FReportShare"> -->
+<!-- 		select * from ( -->
+<!-- 			select t0.*, -->
+<!-- 				t2.case_his_id as case_his_id, -->
+<!-- 				t2.case_his_num as case_his_num, -->
+<!-- 				t2.case_symptom as case_symptom, -->
+<!-- 				t2.patient_birthday as patient_birthday, -->
+<!-- 				t2.patient_gender as patient_gender, -->
+<!-- 				t1.org_name as share_org_name, -->
+<!-- 				t4.USER_NAME as share_user_name, -->
+<!-- 				ROW_NUMBER () OVER (ORDER BY T0.SHARE_TIME DESC) AS RowNumber -->
+<!-- 			from T_REPORT_SHARE t0 -->
+<!-- 				left join T_ORGANIZATION t1 on t0.SHARE_ORG_ID=t1.id -->
+<!-- 				left join T_REPORT t2 on t0.REPORT_ID=t2.id -->
+<!-- 				left join T_BASE_USER t4 on t0.SHARE_USER_ID = t4.id -->
+<!-- 			where 1=1 -->
+<!-- 				<if test="report_id !=null"> -->
+<!-- 					and T0.REPORT_ID=#{report_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="share_org_id !=null"> -->
+<!-- 					and T0.SHARE_ORG_ID=#{share_org_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="id !=null"> -->
+<!-- 					and T0.id=#{id} -->
+<!-- 				</if> -->
+<!-- 				<if test="share_user_id !=null"> -->
+<!-- 					and T0.SHARE_USER_ID=#{share_user_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="close_share_user_id !=null"> -->
+<!-- 					and T0.CLOSE_SHARE_USER_ID=#{close_share_user_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="share_org_name !=null"> -->
+<!-- 					and T1.ORG_NAME like '%'+#{share_org_name}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="case_symptom !=null"> -->
+<!-- 					and T2.case_symptom like '%'+#{case_symptom}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="case_his_num !=null"> -->
+<!-- 					and t2.case_his_num like '%'+#{case_his_num}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="case_his_id !=null"> -->
+<!-- 					and t2.CASE_HIS_ID =#{case_his_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="status !=null"> -->
+<!-- 					and t0.status =#{status} -->
+<!-- 				</if> -->
+<!-- 				<if test="start !=null and end !=null"> -->
+<!-- 					and T0.SHARE_TIME between #{start} and #{end} -->
+<!-- 				</if> -->
+<!-- 		)as tmp_t  -->
+<!-- 		<if test="minRow !=null and maxRow !=null"> -->
+<!-- 			where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+    
+<!--     <select id="selectReportShareCount" parameterType="Map" resultType="int"> -->
+<!-- 		select count(TA.id) from T_REPORT_SHARE TA -->
+<!-- 			LEFT JOIN T_ORGANIZATION TB ON TA.SHARE_ORG_ID = TB.ID -->
+<!-- 			LEFT JOIN T_REPORT TC ON TA.REPORT_ID = TC.ID -->
+<!-- 		WHERE 1=1 -->
+<!-- 			<if test="report_id !=null"> -->
+<!-- 				and TA.report_id=#{report_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="share_org_id !=null"> -->
+<!-- 				and TA.SHARE_ORG_ID=#{share_org_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="id !=null"> -->
+<!-- 				and TA.id=#{id} -->
+<!-- 			</if> -->
+<!-- 			<if test="share_user_id !=null"> -->
+<!-- 				and TA.SHARE_USER_ID=#{share_user_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="close_share_user_id !=null"> -->
+<!-- 				and TA.CLOSE_SHARE_USER_ID=#{close_share_user_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="share_org_name !=null"> -->
+<!-- 				and TB.ORG_NAME like '%'+#{share_org_name}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="case_symptom !=null"> -->
+<!-- 				and TC.case_symptom like '%'+#{case_symptom}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="case_his_num !=null"> -->
+<!-- 				and TC.case_his_num like #{case_his_num}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="case_his_id !=null"> -->
+<!-- 				and TC.CASE_HIS_ID =#{case_his_id} -->
+<!-- 			</if> -->
+<!-- 			<if test="status !=null"> -->
+<!-- 				and TA.status =#{status} -->
+<!-- 			</if> -->
+<!-- 			<if test="start !=null and end !=null"> -->
+<!-- 				and TA.SHARE_TIME between #{start} and #{end} -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+    
+<!--     <insert id="insertReportShareSpeech" parameterType="TReportShareSpeech" keyProperty="id" useGeneratedKeys="true"> -->
+<!-- 		INSERT INTO [T_REPORT_SHARE_SPEECH] -->
+<!--            ([SHARE_ID] -->
+<!--            ,[SPEECH_USER_ID] -->
+<!--            ,[SPEECH_TIME] -->
+<!--            ,[CONTENT] -->
+<!--            ,[STATUS]) -->
+<!--      	VALUES -->
+<!--            (#{share_id} -->
+<!--            ,#{speech_user_id} -->
+<!--            ,#{speech_time} -->
+<!--            ,#{content} -->
+<!--            ,#{status}) -->
+<!-- 	</insert> -->
+    
+<!--     <select id="selectReportMsg" resultType="FReportMsg" parameterType="Map"> -->
+<!-- 		select * from ( -->
+<!-- 			select t0.*, -->
+<!-- 				t1.org_name as send_org_name, -->
+<!-- 				t2.USER_NAME as send_user_name, -->
+<!-- 				t3.org_name as recv_org_name, -->
+<!-- 				t4.USER_NAME as recv_user_name, -->
+<!-- 				ROW_NUMBER () OVER (ORDER BY t0.send_time) AS RowNumber -->
+<!-- 			from T_REPORT_MSG t0 -->
+<!-- 				left join T_ORGANIZATION t1 on t0.send_org_id=t1.id -->
+<!-- 				left join T_BASE_USER t2 on t0.send_user_id=t2.id -->
+<!-- 				left join T_ORGANIZATION t3 on t0.recv_org_id = t3.id -->
+<!-- 				left join T_BASE_USER t4 on t0.recv_user_id = t4.id -->
+<!-- 			where 1=1 -->
+<!-- 				<if test="id !=null"> -->
+<!-- 					and t0.id=#{id} -->
+<!-- 				</if> -->
+<!-- 				<if test="report_id !=null"> -->
+<!-- 					and t0.report_id=#{report_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="send_org_id !=null"> -->
+<!-- 					and t0.send_org_id=#{send_org_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="send_user_id !=null"> -->
+<!-- 					and t0.send_user_id=#{send_user_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="recv_org_id !=null"> -->
+<!-- 					and t0.recv_org_id=#{recv_org_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="recv_user_id !=null"> -->
+<!-- 					and t0.recv_user_id=#{recv_user_id} -->
+<!-- 				</if> -->
+<!-- 				<if test="status !=null"> -->
+<!-- 					and t0.status=#{status} -->
+<!-- 				</if> -->
+<!-- 			)as tmp_t  -->
+<!-- 			<if test="minRow !=null and maxRow !=null"> -->
+<!-- 				where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow} -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+    
+<!--     <select id="selectReportMsgCount" resultType="int" parameterType="Map"> -->
+<!-- 		select count(1) from T_REPORT_MSG where 1=1 -->
+<!-- 		<if test="id !=null"> -->
+<!-- 			and id=#{id} -->
+<!-- 		</if> -->
+<!-- 		<if test="report_id !=null"> -->
+<!-- 			and report_id=#{report_id} -->
+<!-- 		</if> -->
+<!-- 		<if test="send_org_id !=null"> -->
+<!-- 			and send_org_id=#{send_org_id} -->
+<!-- 		</if> -->
+<!-- 		<if test="send_user_id !=null"> -->
+<!-- 			and send_user_id=#{send_user_id} -->
+<!-- 		</if> -->
+<!-- 		<if test="recv_org_id !=null"> -->
+<!-- 			and recv_org_id=#{recv_org_id} -->
+<!-- 		</if> -->
+<!-- 		<if test="recv_user_id !=null"> -->
+<!-- 			and recv_user_id=#{recv_user_id} -->
+<!-- 		</if> -->
+<!-- 		<if test="status !=null"> -->
+<!-- 			and status=#{status} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+    
+<!--     <update id="updateReportMsgStatus" parameterType="TReportMsg"> -->
+<!-- 		update T_REPORT_MSG set status=#{status} where REPORT_ID=#{report_id} and RECV_USER_ID=#{recv_user_id} -->
+<!-- 	</update> -->
+    
+<!--     <select id="queryUnreadReportMsgCount" parameterType="Map" resultType="int"> -->
+<!-- 		SELECT COUNT(DISTINCT REPORT_ID) -->
+<!-- 			FROM T_REPORT_MSG  -->
+<!-- 			WHERE status=#{status} and recv_user_id=#{curr_user_id} and RECV_ORG_ID=#{curr_org_id} and type=#{type} -->
+<!-- 	</select> -->
+    
+<!--     <update id="updateModifyReportRequest" parameterType="TModifyReportRequest"> -->
+<!-- 	    update T_MOFIDY_REPORT_REQUEST set  -->
+<!-- 	    	response_time=#{response_time,jdbcType=TIMESTAMP} -->
+<!-- 	    	,status=#{status} -->
+<!-- 	    	,answer=#{answer,jdbcType=VARCHAR} -->
+<!-- 	    where id=#{id} -->
+<!-- 	</update> -->
+    
+<!--     <select id="selectModifyReportRequestByIdForUpdate" parameterType="long" resultType="TModifyReportRequest"> -->
+<!-- 	    select * from T_MOFIDY_REPORT_REQUEST WITH(UPDLOCK) where id=#{id} -->
+<!-- 	</select> -->
+    
+<!--     <update id="updateModifyReportRequestStatusByReoprtId" parameterType="TModifyReportRequest"> -->
+<!-- 	    update T_MOFIDY_REPORT_REQUEST set status=#{status} where report_id=#{report_id} -->
+<!-- 	</update> -->
+    
+<!--     <select id="statReportList" parameterType="Map" resultType="FReport"> -->
+<!-- 		select * from ( -->
+<!-- 			select t0.*, -->
+<!-- 				t1.MEDICAL_HIS_NUM as medical_his_num, -->
+<!-- 				t2.ORG_NAME as request_org_name, -->
+<!-- 				t3.ORG_NAME as diagnosis_org_name, -->
+<!-- 				t4.ORG_NAME as publish_org_name, -->
+<!-- 				t5.value as device_name, -->
+<!-- 				t6.value as part_name, -->
+<!-- 				t7.USER_NAME as request_user_name, -->
+<!-- 				t8.USER_NAME as accept_user_name, -->
+<!-- 				t9.USER_NAME as verify_user_name, -->
+<!-- 				ROW_NUMBER () OVER (ORDER BY t0.REPORT_TIME desc) AS RowNumber -->
+<!-- 			from T_DIAGNOSIS t0 -->
+<!-- 				left join T_MEDICAL_HIS t1 on t0.MEDICAL_HIS_ID=t1.id -->
+<!-- 				left join T_ORGANIZATION t2 on t0.REQUEST_ORG_ID=t2.id -->
+<!-- 				left join T_ORGANIZATION t3 on t0.DIAGNOSIS_ORG_ID=t3.id -->
+<!-- 				left join T_ORGANIZATION t4 on t0.PUBLISH_ORG_ID=t4.id -->
+<!-- 				left join T_DIC_VALUE t5 on t0.DEVICE_TYPE_ID=t5.id -->
+<!-- 				left join T_DIC_VALUE t6 on t0.PART_TYPE_ID=t6.id -->
+<!-- 				left join T_BASE_USER t7 on t0.REQUEST_USER_ID=t7.id -->
+<!-- 				left join T_BASE_USER t8 on t0.ACCEPT_USER_ID=t8.id -->
+<!-- 				left join T_BASE_USER t9 on t0.VERIFY_USER_ID=t9.id -->
+<!-- 			where 1=1 -->
+<!-- 				<if test="request_org_name !=null"> -->
+<!-- 					and t2.ORG_NAME like '%'+#{request_org_name}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="request_user_name !=null"> -->
+<!-- 					and t7.USER_NAME like '%'+#{request_user_name}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="accept_user_name !=null"> -->
+<!-- 					and t8.USER_NAME like '%'+#{accept_user_name}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="verify_user_name !=null"> -->
+<!-- 					and t9.USER_NAME like '%'+#{verify_user_name}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="diagnosis_org_name !=null"> -->
+<!-- 					and t3.ORG_NAME like '%'+#{diagnosis_org_name}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="publish_org_name !=null"> -->
+<!-- 					and t4.ORG_NAME like '%'+#{publish_org_name}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="medicalHisNum !=null"> -->
+<!-- 					and t1.MEDICAL_HIS_NUM like '%'+#{medicalHisNum}+'%' -->
+<!-- 				</if> -->
+<!-- 				<if test="device_type_id !=null"> -->
+<!-- 					and t0.DEVICE_TYPE_ID=#{device_type_id} -->
+<!-- 					<if test="part_type_id !=null"> -->
+<!-- 						and t0.PART_TYPE_ID=#{part_type_id} -->
+<!-- 					</if> -->
+<!-- 				</if> -->
+<!-- 				and t0.STATUS=#{status} -->
+<!-- 				<if test="start !=null and end !=null"> -->
+<!-- 					and t0.REPORT_TIME between #{start} and #{end} -->
+<!-- 				</if> -->
+<!-- 				<if test="fom !=null"> -->
+<!-- 					and t0.F_O_M=#{fom} -->
+<!-- 				</if> -->
+<!-- 		) tmp_t where tmp_t.RowNumber>=#{minRow} and tmp_t.RowNumber &lt; #{maxRow} -->
+<!-- 	</select> -->
+    
+<!-- 	<select id="statReportCount" parameterType="Map" resultType="int"> -->
+<!-- 		select count(1)  -->
+<!-- 		from T_REPORT t0 -->
+<!-- 			left join T_MEDICAL_HIS t1 on t0.MEDICAL_HIS_ID=t1.id -->
+<!-- 			left join T_ORGANIZATION t2 on t0.REQUEST_ORG_ID=t2.id -->
+<!-- 			left join T_ORGANIZATION t3 on t0.DIAGNOSIS_ORG_ID=t3.id -->
+<!-- 			left join T_ORGANIZATION t4 on t0.PUBLISH_ORG_ID=t4.id -->
+<!-- 			left join T_DIC_VALUE t5 on t0.DEVICE_TYPE_ID=t5.id -->
+<!-- 			left join T_DIC_VALUE t6 on t0.PART_TYPE_ID=t6.id -->
+<!-- 			left join T_BASE_USER t7 on t0.REQUEST_USER_ID=t7.id -->
+<!-- 			left join T_BASE_USER t8 on t0.ACCEPT_USER_ID=t8.id -->
+<!-- 			left join T_BASE_USER t9 on t0.VERIFY_USER_ID=t9.id -->
+<!-- 		where 1=1 -->
+<!-- 			<if test="request_org_name !=null"> -->
+<!-- 				and t2.ORG_NAME like '%'+#{request_org_name}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="request_user_name !=null"> -->
+<!-- 				and t7.USER_NAME like '%'+#{request_user_name}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="accept_user_name !=null"> -->
+<!-- 				and t8.USER_NAME like '%'+#{accept_user_name}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="verify_user_name !=null"> -->
+<!-- 				and t9.USER_NAME like '%'+#{verify_user_name}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="diagnosis_org_name !=null"> -->
+<!-- 				and t3.ORG_NAME like '%'+#{diagnosis_org_name}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="publish_org_name !=null"> -->
+<!-- 				and t4.ORG_NAME like '%'+#{publish_org_name}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="medicalHisNum !=null"> -->
+<!-- 				and t1.MEDICAL_HIS_NUM like '%'+#{medicalHisNum}+'%' -->
+<!-- 			</if> -->
+<!-- 			<if test="device_type_id !=null"> -->
+<!-- 				and t0.DEVICE_TYPE_ID=#{device_type_id} -->
+<!-- 				<if test="part_type_id !=null"> -->
+<!-- 					and t0.PART_TYPE_ID=#{part_type_id} -->
+<!-- 				</if> -->
+<!-- 			</if> -->
+<!-- 			and t0.STATUS=#{status} -->
+<!-- 			<if test="start !=null and end !=null"> -->
+<!-- 				and t0.REPORT_TIME between #{start} and #{end} -->
+<!-- 			</if> -->
+<!-- 			<if test="fom !=null"> -->
+<!-- 				and t0.F_O_M=#{fom} -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+    
+<!--     <insert id="insertModifyReportRequest" parameterType="TModifyReportRequest" keyProperty="id" useGeneratedKeys="true"> -->
+<!-- 	    insert into T_MOFIDY_REPORT_REQUEST ( -->
+<!-- 	    	report_id -->
+<!-- 	    	,request_user_id -->
+<!-- 	    	,request_org_id -->
+<!-- 	    	,response_org_id -->
+<!-- 	    	,response_user_id -->
+<!-- 	    	,reason -->
+<!-- 	    	,create_time -->
+<!-- 	    	,response_time -->
+<!-- 	    	,status -->
+<!-- 	    ) values ( -->
+<!-- 	    	#{report_id} -->
+<!-- 	    	,#{request_user_id} -->
+<!-- 	    	,#{request_org_id} -->
+<!-- 	    	,#{response_org_id} -->
+<!-- 	    	,#{response_user_id} -->
+<!-- 	    	,#{reason} -->
+<!-- 	    	,#{create_time} -->
+<!-- 	    	,#{response_time,jdbcType=TIMESTAMP} -->
+<!-- 	    	,#{status} -->
+<!-- 	    ) -->
+<!-- 	</insert> -->
+    
+<!--     <select id="selectModifyReportRequestByReportId" parameterType="long" resultType="TModifyReportRequest"> -->
+<!-- 	    select * from T_MOFIDY_REPORT_REQUEST where report_id=#{report_id} -->
+<!-- 	</select> -->
+    
+<!--     <select id="querySendMsgCount" parameterType="TReportMsg" resultType="int"> -->
+<!-- 		select count(id) from T_REPORT_MSG  -->
+<!-- 		where send_org_id=#{send_org_id} and report_id=#{report_id} -->
+<!-- 	</select> -->
+    
+<!--     <insert id="insertReportMsg" parameterType="TReportMsg" -->
+<!-- 		useGeneratedKeys="true" keyProperty="id"> -->
+<!-- 		insert into T_REPORT_MSG ( -->
+<!-- 			REPORT_ID, -->
+<!-- 			send_org_id, -->
+<!-- 			send_user_id, -->
+<!-- 			recv_org_id, -->
+<!-- 			recv_user_id, -->
+<!-- 			content, -->
+<!-- 			send_time, -->
+<!-- 			recv_time, -->
+<!-- 			status, -->
+<!-- 			type -->
+<!-- 		)values( -->
+<!-- 			#{report_id}, -->
+<!-- 			#{send_org_id}, -->
+<!-- 			#{send_user_id}, -->
+<!-- 			#{recv_org_id}, -->
+<!-- 			#{recv_user_id}, -->
+<!-- 			#{content}, -->
+<!-- 			#{send_time}, -->
+<!-- 			#{recv_time,jdbcType=TIMESTAMP}, -->
+<!-- 			#{status}, -->
+<!-- 			#{type} -->
+<!-- 		) -->
+<!-- 	</insert> -->
+    
+<!--     <select id="selectReportModfyRequert" parameterType="Map" resultType="FModifyReportRequest"> -->
+<!-- 	    select *  -->
+<!-- 	    from ( -->
+<!-- 			select t1.*, -->
+<!-- 				t2.CREATE_TIME as report_time, -->
+<!-- 				t2.CASE_HIS_NUM as case_his_num, -->
+<!-- 				(select ORG_NAME from T_ORGANIZATION where id = t3.REQUEST_ORG_ID) as request_org_name, -->
+<!-- 				(select ORG_NAME from T_ORGANIZATION where id = t3.DIAGNOSIS_ORG_ID) as diagnosis_org_name, -->
+<!-- 				(select value from T_DIC_VALUE where id = t2.DICOM_IMG_DEVICE_TYPE_ID) as device_name -->
+<!-- 				,ROW_NUMBER () OVER (ORDER BY t1.create_time DESC) AS RowNumber -->
+<!-- 	    	from T_MOFIDY_REPORT_REQUEST t1 -->
+<!-- 		    	left join T_REPORT t2 on t1.report_id=t2.id -->
+<!-- 		    	left join T_DIAGNOSIS_V2 t3 on t2.diagnosis_id = t3.id -->
+<!-- 	    	where 1=1 -->
+<!-- 		    	<if test="id !=null"> -->
+<!-- 		    	    and t1.id = #{id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="report_id !=null"> -->
+<!-- 		    	    and t1.report_id=#{report_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="request_user_id !=null"> -->
+<!-- 		    	    and t1.request_user_id=#{request_user_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="request_org_id !=null"> -->
+<!-- 		    	    and t1.request_org_id=#{request_org_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="response_user_id !=null"> -->
+<!-- 		    	    and t1.response_user_id=#{response_user_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="response_org_id !=null"> -->
+<!-- 		    	    and t1.response_org_id=#{response_org_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="status !=null"> -->
+<!-- 		    	    and t1.status=#{status} -->
+<!-- 		    	</if> -->
+<!-- 	    ) as tmp_t  -->
+<!-- 			<if test="minRow !=null and maxRow !=null"> -->
+<!-- 				where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow} -->
+<!-- 			</if> -->
+<!-- 	</select> -->
+    
+<!--     <select id="selectReportModfyRequertCount" parameterType="Map" resultType="int"> -->
+<!-- 	    select count(id) -->
+<!-- 	    from T_MOFIDY_REPORT_REQUEST  -->
+<!-- 	    where 1=1 -->
+<!-- 	    	<if test="id !=null"> -->
+<!-- 	    	    and id = #{id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="report_id !=null"> -->
+<!-- 	    	    and report_id=#{report_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="request_user_id !=null"> -->
+<!-- 	    	    and request_user_id=#{request_user_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="request_org_id !=null"> -->
+<!-- 	    	    and request_org_id=#{request_org_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="response_user_id !=null"> -->
+<!-- 	    	    and response_user_id=#{response_user_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="response_org_id !=null"> -->
+<!-- 	    	    and response_org_id=#{response_org_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="status !=null"> -->
+<!-- 	    	    and status=#{status} -->
+<!-- 	    	</if> -->
+<!-- 	</select> -->
+    
+<!--     <update id="updateReport" parameterType="TReport"> -->
+<!--         update T_REPORT set  -->
+<!--         	NOTE = #{note,jdbcType=VARCHAR}, -->
+<!--         	PRINT_USER_ID = #{print_user_id,jdbcType=BIGINT}, -->
+<!--         	PRINT_TIMES = #{print_times,jdbcType=INTEGER}, -->
+<!--         	PRINT_TIME = #{print_time,jdbcType=TIMESTAMP}, -->
+<!--         	view_user_id = #{view_user_id,jdbcType=BIGINT} -->
+<!--         where id = #{id} -->
+<!--     </update> -->
+    
+<!--     <update id="updateReportContent"> -->
+<!--         update T_REPORT set  -->
+<!--         	NOTE = #{note,jdbcType=VARCHAR}, -->
+<!--         	PRINT_USER_ID = #{print_user_id,jdbcType=BIGINT}, -->
+<!--         	PRINT_TIMES = #{print_times,jdbcType=INTEGER}, -->
+<!--         	PRINT_TIME = #{print_time,jdbcType=TIMESTAMP}, -->
+<!--         	view_user_id = #{view_user_id,jdbcType=BIGINT}, -->
+<!--         	F_O_M = #{f_o_m}, -->
+<!--         	PIC_OPINION = #{pic_opinion}, -->
+<!--         	PIC_CONCLUSION = #{pic_conclusion} -->
+<!--         where id = #{id} -->
+<!--     </update> -->
+    
+<!--     <select id="selectReportByIdForUpdate" parameterType="long" resultType="TReport"> -->
+<!--         select * from T_REPORT WITH(UPDLOCK) where id = #{id} -->
+<!--     </select> -->
+    
+<!--     <select id="selectReport" parameterType="map" resultType="FReport"> -->
+<!--         select * from ( -->
+<!--         	select t1.*, -->
+<!--         		t2.REQUEST_ORG_ID as request_org_id, -->
+<!--         		t2.DIAGNOSIS_ORG_ID as diagnosis_org_id, -->
+<!--         		t2.about_case_ids as about_case_ids, -->
+<!--         		t2.REQUEST_USER_ID as request_user_id, -->
+<!--         		(select ORG_NAME from T_ORGANIZATION where id = t2.request_org_id) as request_org_name, -->
+<!--         		(select ORG_NAME from T_ORGANIZATION where id = t2.publish_report_org_id) as publish_report_org_name, -->
+<!--         		(select ORG_NAME from T_ORGANIZATION where id = t2.DIAGNOSIS_ORG_ID) as diagnosis_org_name, -->
+<!--         		(select USER_NAME from T_BASE_USER where id = t1.PRINT_USER_ID) as print_user_name, -->
+<!--         		(select USER_NAME from T_BASE_USER where id = t1.publish_user_id) as publish_user_name, -->
+<!--         		(select sign_file_id from T_DOCTOR_USER where id = t1.publish_user_id) as publish_user_sign_file_id, -->
+<!--         		(select USER_NAME from T_BASE_USER where id = t2.REQUEST_USER_ID) as request_user_name, -->
+<!--         		(select USER_NAME from T_BASE_USER where id = t2.ACCEPT_USER_ID) as accept_user_name, -->
+<!--         		(select value from T_DIC_VALUE where id = t1.dicom_img_device_type_id) as device_type_name, -->
+<!--         		(select value from T_DIC_VALUE where id = t1.dicom_img_part_type_id) as part_type_name, -->
+<!--         		ROW_NUMBER () OVER (ORDER BY t1.create_time desc) AS RowNumber -->
+<!--         	from T_REPORT t1 -->
+<!-- 	    		left join T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id -->
+<!-- 	    	where 1=1 -->
+<!-- 	    		<if test="id !=null"> -->
+<!-- 		    	    and t1.id = #{id} -->
+<!-- 		    	</if> -->
+<!-- 	    		<if test="publish_user_id !=null"> -->
+<!-- 		    	    and t1.publish_user_id=#{publish_user_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="start !=null and end !=null"> -->
+<!-- 		    	    and t1.CREATE_TIME between #{start} and #{end} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="dicom_img_device_type_id !=null"> -->
+<!-- 		    	    and t1.DICOM_IMG_DEVICE_TYPE_ID = #{dicom_img_device_type_id} -->
+<!-- 		    	    <if test="dicom_img_part_type_id !=null"> -->
+<!-- 		    	        and t1.dicom_img_part_type_id = #{dicom_img_part_type_id} -->
+<!-- 		    	    </if> -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="case_his_id !=null"> -->
+<!-- 		    	    and t1.CASE_HIS_ID = #{case_his_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="case_his_num !=null"> -->
+<!-- 		    	    and t1.case_his_num like #{case_his_num}+'%' -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="patient_name !=null"> -->
+<!-- 		    	    and t1.patient_name like #{patient_name}+'%' -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="patient_gender !=null"> -->
+<!-- 		    	    and t1.patient_gender = #{patient_gender} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="diagnosis_product_id !=null"> -->
+<!-- 		    	    and t2.DIAGNOSIS_PRODUCT_ID = #{diagnosis_product_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="diagnosis_org_id !=null"> -->
+<!-- 		    	    and t2.diagnosis_org_id = #{diagnosis_org_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="request_org_id !=null"> -->
+<!-- 		    	    and t2.request_org_id = #{request_org_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="request_user_id !=null"> -->
+<!-- 		    	    and t2.request_user_id = #{request_user_id} -->
+<!-- 		    	</if> -->
+<!-- 		    	<if test="sick_key_words !=null"> -->
+<!-- 		    	    and ((t1.PIC_OPINION like '%'+#{sick_key_words}+'%') or  -->
+<!-- 		    	    	(t1.PIC_CONCLUSION like '%'+#{sick_key_words}+'%') or  -->
+<!-- 		    	    	(t1.case_symptom like '%'+#{sick_key_words}+'%')) -->
+<!-- 		    	</if> -->
+<!--         ) tmp_t  -->
+<!--         	<if test="minRow !=null and maxRow !=null"> -->
+<!--         	    where tmp_t.RowNumber>=#{minRow} and tmp_t.RowNumber &lt; #{maxRow} -->
+<!--         	</if> -->
+<!--     </select> -->
+    
+<!-- 	<select id="selectReportCount" parameterType="map" resultType="int"> -->
+<!-- 	    select count(t1.id)  -->
+<!-- 	    from T_REPORT t1 -->
+<!-- 	    	left join T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id -->
+<!-- 	    where 1=1  -->
+<!-- 	    	<if test="id !=null"> -->
+<!-- 	    	    and t1.id = #{id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="publish_user_id !=null"> -->
+<!-- 	    	    and t1.publish_user_id=#{publish_user_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="start !=null and end !=null"> -->
+<!-- 	    	    and t1.CREATE_TIME between #{start} and #{end} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="dicom_img_device_type_id !=null"> -->
+<!-- 	    	    and t1.DICOM_IMG_DEVICE_TYPE_ID = #{dicom_img_device_type_id} -->
+<!-- 	    	    <if test="dicom_img_part_type_id !=null"> -->
+<!-- 	    	        and t1.dicom_img_part_type_id = #{dicom_img_part_type_id} -->
+<!-- 	    	    </if> -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="case_his_id !=null"> -->
+<!-- 	    	    and t1.CASE_HIS_ID = #{case_his_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="case_his_num !=null"> -->
+<!-- 	    	    and t1.case_his_num like #{case_his_num}+'%' -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="patient_name !=null"> -->
+<!-- 	    	    and t1.patient_name like #{patient_name}+'%' -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="patient_gender !=null"> -->
+<!-- 	    	    and t1.patient_gender = #{patient_gender} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="diagnosis_product_id !=null"> -->
+<!-- 	    	    and t2.DIAGNOSIS_PRODUCT_ID = #{diagnosis_product_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="diagnosis_org_id !=null"> -->
+<!-- 	    	    and t2.diagnosis_org_id = #{diagnosis_org_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="request_org_id !=null"> -->
+<!-- 	    	    and t2.request_org_id = #{request_org_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="request_user_id !=null"> -->
+<!-- 	    	    and t2.request_user_id = #{request_user_id} -->
+<!-- 	    	</if> -->
+<!-- 	    	<if test="sick_key_words !=null"> -->
+<!-- 	    	    and ((t1.PIC_OPINION like '%'+#{sick_key_words}+'%') or  -->
+<!-- 	    	    	(t1.PIC_CONCLUSION like '%'+#{sick_key_words}+'%') or  -->
+<!-- 	    	    	(t1.case_symptom like '%'+#{sick_key_words}+'%')) -->
+<!-- 	    	</if> -->
+<!-- 	</select> -->
+    
+<!-- 	<insert id="insertReport" parameterType="TReport" keyProperty="id" useGeneratedKeys="true"> -->
+<!-- 		insert into T_REPORT ( -->
+<!-- 			CASE_HIS_ID, -->
+<!-- 			CREATE_TIME, -->
+<!-- 			DICOM_IMG_DEVICE_TYPE_ID, -->
+<!-- 			DICOM_IMG_PART_TYPE_ID, -->
+<!-- 			PIC_OPINION, -->
+<!-- 			PIC_CONCLUSION, -->
+<!-- 			PUBLISH_REPORT_ORG_ID, -->
+<!-- 			dicom_img_id, -->
+<!-- 			F_O_M, -->
+<!-- 			PRINT_USER_ID, -->
+<!-- 			PRINT_TIMES, -->
+<!-- 			PRINT_TIME, -->
+<!-- 			view_user_id, -->
+<!-- 			case_his_num, -->
+<!-- 			case_symptom, -->
+<!-- 			case_enter_time, -->
+<!-- 			case_leave_time, -->
+<!-- 			case_hospitalized_num, -->
+<!-- 			case_reception_section, -->
+<!-- 			case_reception_doctor, -->
+<!-- 			case_eaf_list, -->
+<!-- 			case_source_type, -->
+<!-- 			case_type, -->
+<!-- 			patient_name, -->
+<!-- 			patient_identity_id, -->
+<!-- 			patient_gender, -->
+<!-- 			patient_birthday, -->
+<!-- 			patient_home_address, -->
+<!-- 			patient_born_address, -->
+<!-- 			patient_work, -->
+<!-- 			patient_sick_his, -->
+<!-- 			patient_source_type, -->
+<!-- 			dicom_img_thumbnail_uid, -->
+<!-- 			dicom_img_mark_char, -->
+<!-- 			dicom_img_checklist_num, -->
+<!-- 			dicom_img_check_time, -->
+<!-- 			dicom_img_check_pro, -->
+<!-- 			diagnosis_id, -->
+<!-- 			source_type, -->
+<!-- 			publish_user_id, -->
+<!-- 			type, -->
+<!-- 			sys_his_id, -->
+<!-- 		)values( -->
+<!-- 			#{case_his_id}, -->
+<!-- 			#{create_time}, -->
+<!-- 			#{dicom_img_device_type_id}, -->
+<!-- 			#{dicom_img_part_type_id}, -->
+<!-- 			#{pic_opinion}, -->
+<!-- 			#{pic_conclusion}, -->
+<!-- 			#{publish_report_org_id}, -->
+<!-- 			#{dicom_img_id}, -->
+<!-- 			#{f_o_m}, -->
+<!-- 			#{print_user_id,jdbcType=BIGINT}, -->
+<!-- 			#{print_times}, -->
+<!-- 			#{print_time,jdbcType=TIMESTAMP}, -->
+<!-- 			#{view_user_id}, -->
+<!-- 			#{case_his_num}, -->
+<!-- 			#{case_symptom,jdbcType=VARCHAR}, -->
+<!-- 			#{case_enter_time}, -->
+<!-- 			#{case_leave_time}, -->
+<!-- 			#{case_hospitalized_num,jdbcType=VARCHAR}, -->
+<!-- 			#{case_reception_section,jdbcType=VARCHAR}, -->
+<!-- 			#{case_reception_doctor,jdbcType=VARCHAR}, -->
+<!-- 			#{case_eaf_list,jdbcType=VARCHAR}, -->
+<!-- 			#{case_source_type}, -->
+<!-- 			#{case_type}, -->
+<!-- 			#{patient_name}, -->
+<!-- 			#{patient_identity_id,jdbcType=VARCHAR}, -->
+<!-- 			#{patient_gender}, -->
+<!-- 			#{patient_birthday}, -->
+<!-- 			#{patient_home_address,jdbcType=VARCHAR}, -->
+<!-- 			#{patient_born_address,jdbcType=VARCHAR}, -->
+<!-- 			#{patient_work,jdbcType=VARCHAR}, -->
+<!-- 			#{patient_sick_his,jdbcType=VARCHAR}, -->
+<!-- 			#{patient_source_type}, -->
+<!-- 			#{dicom_img_thumbnail_uid}, -->
+<!-- 			#{dicom_img_mark_char}, -->
+<!-- 			#{dicom_img_checklist_num,jdbcType=VARCHAR}, -->
+<!-- 			#{dicom_img_check_time}, -->
+<!-- 			#{dicom_img_check_pro,jdbcType=VARCHAR}, -->
+<!-- 			#{diagnosis_id}, -->
+<!-- 			#{source_type}, -->
+<!-- 			#{publish_user_id,jdbcType=BIGINT}, -->
+<!-- 			#{type}, -->
+<!-- 			#{sys_his_id,jdbcType=BIGINT} -->
+<!-- 		); -->
+<!-- 	</insert> -->
+</mapper>

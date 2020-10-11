@@ -1,0 +1,146 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+		病例详情
+		<a class="btn btn-info btn-xs pull-right" href="javascript:void(0);" ng-click="goback();">
+			<span class="glyphicon glyphicon-circle-arrow-left"></span>
+			返回
+		</a>
+	</div>
+	<div class="panel-body">
+		<div class="form-horizontal">
+			<form role="form" name="modifyCaseForm" class="form-horizontal" novalidate>
+				<div class="form-group">
+					<label class="control-label col-sm-2">病历号</label>
+					<div class="col-sm-8">
+						<span class="form-control">{{caseHistory.case_his_num}}</span>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<hr style="margin: 10px 0px;"/>
+				<div class="form-group">
+					<label class="control-label col-sm-2">影像</label>
+					<div class="col-sm-8">
+						<div ng-repeat="img in listDicomImg" style="height: 130px;border-radius: 5px;padding: 5px 15px;" 
+							ng-style="(img.id==selectedDicomImg.id)?{'border':'2px solid blue'}:{'border':'2px solid #F0F0F0'}"
+							ng-click="setSelectImg(img);">
+							<div style="width: 100px;float: left;">
+								<img ng-src="thumbnail.action?thumbnail_uid={{img.thumbnail_uid}}&affix_id={{img.affix_id}}" alt="{{img.dev_type}}" 
+									title="{{img.part_type_name}}" style="height: 100px; width: 100px; display: block;"/>
+								<div style="text-align:center">
+									<a href ng-click="showDicom(img.mark_char,img.affix_id)" title="查看图像">
+										<i class="glyphicon glyphicon-search"></i>
+										{{img.device_type_name}}	
+									</a>
+								</div>
+							</div>
+							<div style="float: left;padding-left: 15px;padding-top: 10px;">
+								<div class="form-inline">
+									<label>检查部位：</label>
+									<span>{{img.part_type_name}}</span>
+								</div>
+								<div class="form-inline">
+									<label>检查项目：</label>
+									<span>{{img.check_pro}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-2">
+					</div>
+				</div>
+				<hr style="margin: 10px 0px;"/>
+				<div class="form-group">
+					<label class="control-label col-sm-2">病人姓名</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{patient.name}}</span>
+					</div>
+					<label class="control-label col-sm-2">身份证号码</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{patient.identity_id}}</span>
+					</div>
+					<div class="col-sm-2">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">出生日期</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{patient.birthday | date :'yyyy-MM-dd'}}</span>
+					</div>
+			        <label class="control-label col-sm-2">年龄</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{patient.age}} 岁</span>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">病人性别</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{patient.genderStr}}</span>
+					</div>
+					<label class="control-label col-sm-2">工作/职业</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{patient.work}}</span>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div style="text-align: center;">
+					<button class="btn btn-xs btn-default" style="border-bottom: 0px;border-top-left-radius: 20px;border-top-right-radius:20px;" 
+						ng-click="isCollapsed = !isCollapsed">
+						&nbsp;&nbsp;更多病人信息
+						<i ng-class="!isCollapsed?'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up'"></i>&nbsp;&nbsp;
+					</button>
+				</div>
+				<div uib-collapse="!isCollapsed">
+					<div class="form-group">
+						<label class="control-label col-sm-2">出生地</label>
+						<div class="col-sm-3">
+							<span class="form-control">{{patient.born_address}}</span>
+						</div>
+						<label class="control-label col-sm-2">居住地</label>
+						<div class="col-sm-3">
+							<span class="form-control">{{patient.home_address}}</span>
+						</div>
+						<div class="col-sm-2"></div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">其它病史</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" rows="3" ng-model="patient.sick_his" ng-readonly="true"></textarea>
+						</div>
+						<div class="col-sm-2"></div>
+					</div>
+				</div>
+				<hr style="margin: 0px 0px;margin-bottom: 10px;"/>
+				<div class="form-group">
+					<label class="control-label col-sm-2">住院号</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{caseHistory.hospitalized_num}}</span>
+					</div>
+					<label class="control-label col-sm-2">申请科室</label>
+					<div class="col-sm-3">
+						<span class="form-control">{{caseHistory.reception_section}}</span>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">电子申请单</label>
+					<div class="col-sm-8">
+						<ul ng-if="caseHistory.eafFiles && caseHistory.eafFiles.length>0" style="padding-left: 0px;list-style-type: none;margin-top: 10px;">
+							<li ng-repeat="f in caseHistory.eafFiles">
+								<a href ng-click="showBrowse(f);">{{f.ori_name}}</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2">症状</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" rows="3" ng-model="caseHistory.symptom" ng-disabled="true"></textarea>
+					</div>
+					<div class="col-sm-2"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

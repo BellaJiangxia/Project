@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+	<br />
+	<div class="col-sm-4 panel panel-default" data-ng-init="initData()">
+		<ul style="list-style-type: none;padding-left: 0px;">
+			<span ng-class="treeRoot.isShow?'glyphicon glyphicon-minus':'glyphicon glyphicon-plus'"></span>
+			{{treeRoot.name}}
+			<div ng-if="treeRoot.isShow">
+				<ul style="list-style-type: none;padding-left: 20px;">
+					<li ng-repeat="device in treeRoot.listDicValue">
+						<a href="javascript:void(0);" ng-click="deviceClick(device)">
+							<span ng-class="device.isShow?'glyphicon glyphicon-minus':'glyphicon glyphicon-plus'"></span>
+							{{device.value}}
+						</a>
+						<div ng-if="device.isShow">
+							<ul style="list-style-type: none;padding-left: 20px;">
+								<li ng-repeat="part in device.listDicValue">
+									<a href="javascript:void(0);" ng-click="partClick(device,part)">
+										<span ng-class="part.isShow?'glyphicon glyphicon-minus':'glyphicon glyphicon-plus'"></span>
+										{{part.value}}
+									</a>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="javascript:void(0);" class="btn btn-primary btn-xs" ng-click="newCheckPro(device,part)">
+										<span class="glyphicon glyphicon-plus"></span>
+										添加
+									</a>
+									<div ng-if="part.isShow">
+										<ul style="list-style-type: none;padding-left: 20px;">
+											<li ng-repeat="checkPro in part.listDicValue">
+												{{checkPro.value}}
+												&nbsp;&nbsp;&nbsp;&nbsp;
+												<a href="javascript:void(0);" class="btn btn-danger btn-xs" ng-click="removeCheckPro(part.listDicValue,$index)" title="删除">
+													<span class="glyphicon glyphicon-remove"></span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</ul>
+	</div>
+	<div class="col-sm-8 panel panel-primary"  ng-if="treeRoot.newValue">
+		<div class="panel-body">
+			<table style="width: 100%;">
+				<tbody>
+					<tr>
+						<td width="30%" align="right">{{newDicValue.description}}：</td>
+						<td width="50%"><input type="text" class="form-control" placeholder="值" ng-model="newDicValue.value"></td>
+						<!-- <td width="20%"><input type="text" class="form-control" placeholder="单位，可不填" ng-model="newDicValue.unit"></td> -->
+					</tr>
+				</tbody>
+			</table>
+			<hr>
+			<div style="text-align: right;">
+				<!-- 此字段<span style="color: red;">{{newDicValue.flagStr}}</span> -->
+				<button class="btn btn-info" ng-click="addDicValue()">保存</button>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="col-sm-8 panel panel-primary" ng-if="treeRoot.currDicValue">
+		<div class="panel-body">
+			<table style="width: 100%;">
+				<tbody>
+					<tr>
+						<td width="40%" align="right">{{currDicValue.description}}：</td>
+						<td width="50%"><input type="text" class="form-control" ng-readOnly="currDicValue.flag==1" ng-model="currDicValue.value"></td>
+						<td width="10%">{{currDicValue.unit}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr>
+			<div style="text-align: right;">
+				此字段<span style="color: red;">{{currDicValue.flagStr}}</span>
+				<button class="btn btn-info" ng-disabled="currDicValue.flag==1" ng-click="saveDicValue()">保存</button>
+				<button class="btn btn-danger" ng-disabled="currDicValue.flag!=3" ng-click="deleteDicValue()">删除</button>
+			</div>
+		</div>
+	</div> -->
+</body>
+</html>

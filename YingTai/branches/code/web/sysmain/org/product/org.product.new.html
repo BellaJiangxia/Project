@@ -1,0 +1,70 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+		<h4 style="display:inline-block">诊断服务</h4>
+		<button type="button" class="pull-right btn btn-primary " ng-click="goback();">
+			<i class="glyphicon glyphicon-arrow-left"></i> 返回</button>
+	</div>
+  	<div class="panel-body">
+		<uib-alert type="info" ng-show="msg">{{msg}}</uib-alert>
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label class="col-md-3 control-label"><b style="color:red">*</b>服务名称</label>
+				<div class="col-md-6">
+					<input type="text" class="form-control" ng-model="product.name" placeholder="服务名称" />
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label"><b style="color:red">*</b>设备类型</label>
+				<div class="col-md-6">
+					<select ng-model="product.device_type_id" ng-change="deviceChange()" class="form-control" 
+						ng-options="d.id as d.value for d in listDeviceType">
+						<option value="">--请选择--</option>
+					</select>
+				</div>
+				<div class="col-md-3"></div>
+<!-- 				<label class="col-md-2 control-label">诊断部位</label> -->
+<!-- 				<div class="col-md-3"> -->
+<!-- 					<select ng-model="product.part_type_id" class="form-control"> -->
+<!-- 						<option ng-repeat="p in parts" value="{{p.id}}">{{p.value}}</option> -->
+<!-- 					</select> -->
+<!-- 				</div> -->
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label"><b style="color:red">*</b>计费方式</label>
+				<div class="col-md-6">
+					<select class="form-control" ng-model="product.charge_type" ng-options="d.code as d.name for d in listOrgProductChargeType">
+						<option value="">--请选择--</option>
+					</select>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<div class="form-group" ng-if="product.charge_type">
+				<label class="col-md-3 control-label"><b style="color:red">*</b>单价</label>
+				<div class="col-md-6">
+					<input type="number" class="form-control" name="price" ng-model="product.price" ng-change="checkPrice()" 
+						placeholder="服务单价">
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+			<div class="form-group" >
+				<label class="col-md-3 control-label">描述</label>
+				<div class="col-md-6">
+					<textarea class="form-control" rows="3" ng-model="product.description" style="resize:none" 
+						placeholder="诊断服务描述"></textarea>
+				</div>
+				<div class="col-md-3"></div>
+			</div>	  
+			<div class="form-group">
+				<div class="col-md-3"></div>
+				<div class="col-md-6" style="text-align: right;">
+					<button class="btn btn-success" ng-click="saveProduct()">
+						<i class="glyphicon glyphicon-save"></i>
+						保存
+					</button>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		</div>
+  	</div>
+</div>

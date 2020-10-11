@@ -1,0 +1,20 @@
+<div class="form-inline">
+	<!-- <div class="btn-group" uib-dropdown >
+		<button id="pmctBtn12453" type="button" class="btn btn-primary" uib-dropdown-toggle>
+			预设检查项目<i class="caret"></i>
+		</button>
+		<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="pmctBtn12453">
+			<li role="menuitem" ng-repeat="cpp in img.sysCheckPro">
+				<a href ng-click="sysCpSelect(img,cpp)">{{cpp.value}}</a>
+			</li>
+		</ul>
+    </div>
+	&emsp; -->
+	<div class="input-group">
+		<input type="text" class="form-control" placeholder="自定义..." ng-model="diyCheckPro"/>
+		<span class="input-group-btn">
+	    	<button class="btn btn-info" type="button" ng-click="addDiyCheckPro(currImg,diyCheckPro);" 
+				ng-disabled="!diyCheckPro">确定</button>
+		</span>
+	</div>
+</div>

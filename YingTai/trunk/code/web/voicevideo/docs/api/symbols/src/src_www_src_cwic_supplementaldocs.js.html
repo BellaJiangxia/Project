@@ -1,0 +1,263 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * @fileOverview supplementaldocs.js
+<span class='line'>  3</span>  * documentation of implicit objects/events that don't fit inline
+<span class='line'>  4</span>  */</span><span class="WHIT">
+<span class='line'>  5</span> </span><span class="COMM">//</span><span class="WHIT">
+<span class='line'>  6</span> </span><span class="COMM">// Extra documentation for cwic.js that can't be inlined</span><span class="WHIT">
+<span class='line'>  7</span> </span><span class="COMM">// Put into a separate file to prevent clutter in cwic.js</span><span class="WHIT">
+<span class='line'>  8</span> 
+<span class='line'>  9</span> </span><span class="COMM">// OBJECTS</span><span class="WHIT">
+<span class='line'> 10</span> 
+<span class='line'> 11</span> </span><span class="COMM">// using virtual namespace for documentation purposes</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="COMM">// useful for objects that can are re-used and need to be cross-referenced</span><span class="WHIT">
+<span class='line'> 13</span> </span><span class="COMM">// also jsdoc support documenting nested anonymous virtual objects as return objects</span><span class="WHIT">
+<span class='line'> 14</span> 
+<span class='line'> 15</span> </span><span class="COMM">/**
+<span class='line'> 16</span>  * Object returned from about method
+<span class='line'> 17</span>  * @name aboutObject
+<span class='line'> 18</span>  * @namespace
+<span class='line'> 19</span>  * @property {Object} javascript JavaScript properties
+<span class='line'> 20</span>  * @property {String} javascript:version JavaScript version
+<span class='line'> 21</span>  * @property {String} javascript:system_release Since: 2.1.1 &lt;br>
+<span class='line'> 22</span>  * JavaScript system release information.
+<span class='line'> 23</span>  * @property {Object} jquery jQuery properties
+<span class='line'> 24</span>  * @property {String} jquery:version jQuery version
+<span class='line'> 25</span>  * @property {Object|null} plugin Plug-in properties.  Null if plug-in could not be loaded.
+<span class='line'> 26</span>  * @property {String} plugin:version Version details for the loaded plug-in.
+<span class='line'> 27</span>  * @property {String} plugin:version:plugin CWIC version of the plug-in.
+<span class='line'> 28</span>  * @property {String} plugin:version:ecc Version of Enchanced Call Control component within the plug-in.
+<span class='line'> 29</span>  * @property {String} plugin:version:system_release Since: 2.1.1 &lt;br>
+<span class='line'> 30</span>  * System release information for the plug-in.
+<span class='line'> 31</span>  * @property {Object} states cwic states
+<span class='line'> 32</span>  * @property {String} states:system Current system state (e.g. "eReady")
+<span class='line'> 33</span>  * @property {Object} capabilities Capabilities
+<span class='line'> 34</span>  * @property {Boolean} capabilities:video Support for video calls
+<span class='line'> 35</span>  * @property {Boolean} capabilities:delayedUserAuth Since: 3.0.1 &lt;br>
+<span class='line'> 36</span>  * Support for delayed user authorization dialog.
+<span class='line'> 37</span>  * @property {Boolean} capabilities:certValidation Since: 3.0.4 &lt;br>
+<span class='line'> 38</span>  * Support for certificate validation.  If true, certificate validation will be used unless explicitly disabled by 
+<span class='line'> 39</span>  * calling {@link $.fn.cwic-disableCertValidation}.  If false, certificate validation will not be available.
+<span class='line'> 40</span>  * @property {Object} upgrade Advice about possible upgrade
+<span class='line'> 41</span>  * @property {String} upgrade:javascript Can be 'mandatory' or 'recommended' depending on plug-in version (undefined if not relevant)
+<span class='line'> 42</span>  * @property {String} upgrade:plugin Can be 'mandatory' or 'recommended' depending on javascript version (undefined if not relevant)
+<span class='line'> 43</span>  */</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="COMM">/**
+<span class='line'> 45</span>  * @name device
+<span class='line'> 46</span>  * @namespace
+<span class='line'> 47</span>  * @property {String} name
+<span class='line'> 48</span>  * @property {String} description
+<span class='line'> 49</span>  * @property {String} model
+<span class='line'> 50</span>  * @property {String} modelDescription
+<span class='line'> 51</span>  * @property {Boolean} isSoftPhone true if the device is a software phone
+<span class='line'> 52</span>  * @property {Boolean} isDeskPhone true if the device is a hardware (desk) phone
+<span class='line'> 53</span>  * @property {String[]} lineDNs Array of line DNs associated with this device (may be blank until connected to the device)
+<span class='line'> 54</span>  * @property {String} serviceState One of &lt;ul>
+<span class='line'> 55</span>  * &lt;li>"eUnknown"&lt;/li>
+<span class='line'> 56</span>  * &lt;li>"eInService"&lt;/li>
+<span class='line'> 57</span>  * &lt;li>"eOutOfService"&lt;/li>&lt;/ul>
+<span class='line'> 58</span>  * @property {Number} [inService] Numeric representation of serviceState
+<span class='line'> 59</span>  * @property {Number} [serviceCause] Numeric code to represent cause for current service state
+<span class='line'> 60</span>  * @property {Boolean} [isPrivate] Privacy state
+<span class='line'> 61</span>  * @property {Boolean} [isDND] DND state
+<span class='line'> 62</span>  * @property {Number} [DNDType] DND type
+<span class='line'> 63</span>  * @property {line[]} [lines] Lines associated with the device (may be initially blank until connected to the device)
+<span class='line'> 64</span>  * @property {Boolean} exists The device exists and can be used
+<span class='line'> 65</span>  */</span><span class="WHIT">
+<span class='line'> 66</span> 
+<span class='line'> 67</span> </span><span class="COMM">/**
+<span class='line'> 68</span>  * @name line
+<span class='line'> 69</span>  * @namespace
+<span class='line'> 70</span>  *
+<span class='line'> 71</span>  * @property {linecapability[]} capabilities List of capabilities, not yet implemented
+<span class='line'> 72</span>  * @property {String} directoryNumber DN of the line as represented in the directory
+<span class='line'> 73</span>  * @property {String} externalNumber Externally reachable DN of the line
+<span class='line'> 74</span>  * @property {String} name
+<span class='line'> 75</span>  * @property {String} label
+<span class='line'> 76</span>  * @property {Boolean} exists true if the line exists
+<span class='line'> 77</span>  * @property {Boolean} registered true if the line is currently registered
+<span class='line'> 78</span>  */</span><span class="WHIT">
+<span class='line'> 79</span> 
+<span class='line'> 80</span> </span><span class="COMM">/**
+<span class='line'> 81</span>  * @name call
+<span class='line'> 82</span>  * @namespace
+<span class='line'> 83</span>  * @property {Number} id Same as {@link call#callId}.
+<span class='line'> 84</span>  * @property {Number} callId Unique identifier of the call.
+<span class='line'> 85</span>  * @property {Boolean} exists True if the call exists.
+<span class='line'> 86</span>  * @property {Boolean} audioMuted Audio is muted.
+<span class='line'> 87</span>  * @property {Boolean} videoMuted Video is muted.
+<span class='line'> 88</span>  * @property {String} state Same as {@link call#callState}.
+<span class='line'> 89</span>  * @property {String} callState Current state of the call.  May be one of the following:&lt;ul>
+<span class='line'> 90</span>  * &lt;li>"OffHook" - receiver lifted in CTI control mode, or preparing to make a call in either mode.&lt;/li>
+<span class='line'> 91</span>  * &lt;li>"OnHook" - call is ended or about to go OffHook. If !capabilities.canOriginateCall, then call is ended.&lt;/li>
+<span class='line'> 92</span>  * &lt;li>"Ringout" - remote party is ringing.&lt;/li>
+<span class='line'> 93</span>  * &lt;li>"Ringin" - incoming call.&lt;/li>
+<span class='line'> 94</span>  * &lt;li>"Proceed" - if already on a call in CTI mode and there's an incoming call it may be in "Proceed" state.&lt;/li>
+<span class='line'> 95</span>  * &lt;li>"Connected" - call is connected.&lt;/li>
+<span class='line'> 96</span>  * &lt;li>"Hold" - call is held.&lt;/li>
+<span class='line'> 97</span>  * &lt;li>"RemHold" - call is held on a shared-line device.&lt;/li>
+<span class='line'> 98</span>  * &lt;li>"Resume" - n/a.&lt;/li>
+<span class='line'> 99</span>  * &lt;li>"Busy" - remote line busy.&lt;/li>
+<span class='line'>100</span>  * &lt;li>"Reorder" - call failed.&lt;/li>
+<span class='line'>101</span>  * &lt;li>"Conference"&lt;/li>
+<span class='line'>102</span>  * &lt;li>"Dialing" - dialing number.&lt;/li>
+<span class='line'>103</span>  * &lt;li>"RemInUse" - call on a shared-line device.&lt;/li>
+<span class='line'>104</span>  * &lt;li>"HoldRevert"&lt;/li>
+<span class='line'>105</span>  * &lt;li>"Whisper"&lt;/li>
+<span class='line'>106</span>  * &lt;li>"Parked"&lt;/li>
+<span class='line'>107</span>  * &lt;li>"ParkRevert"&lt;/li>
+<span class='line'>108</span>  * &lt;li>"ParkRetrieved"&lt;/li>
+<span class='line'>109</span>  * &lt;li>"Preservation" - call is in preservation mode.&lt;/li>
+<span class='line'>110</span>  * &lt;li>"WaitingForDigits"&lt;/li
+<span class='line'>111</span>  * >&lt;li>"Spoof_Ringout"&lt;/li>&lt;/ul>
+<span class='line'>112</span>  * @property {Number} numericState Numeric representation of callState - subject to change, do not use.
+<span class='line'>113</span>  * @property {String} callType One of the following: &lt;ul>&lt;li>"None"&lt;/li>&lt;li>"Incoming"&lt;/li>&lt;li>"Outgoing"&lt;/li>&lt;li>"Forwarded"&lt;/li>&lt;/ul>
+<span class='line'>114</span>  * @property {String} calledPartyDirectoryNumber &lt;b>Deprecated&lt;/b> (since 3.0.2) Use participants and localParticipant instead. &lt;br>
+<span class='line'>115</span>  * The translated directory number of the called party.
+<span class='line'>116</span>  * @property {String} calledPartyNumber &lt;b>Deprecated&lt;/b> (since 3.0.2) Use participants and localParticipant instead. &lt;br>
+<span class='line'>117</span>  * The number of the called party.
+<span class='line'>118</span>  * @property {String} calledPartyName &lt;b>Deprecated&lt;/b> (since 3.0.2) Use participants and localParticipant instead. &lt;br>
+<span class='line'>119</span>  * The name of the called party. 
+<span class='line'>120</span>  * @property {String} callingPartyDirectoryNumber &lt;b>Deprecated&lt;/b> (since 3.0.2) Use participants and localParticipant instead. &lt;br>
+<span class='line'>121</span>  * The translated directory number of the calling party. 
+<span class='line'>122</span>  * @property {String} callingPartyNumber &lt;b>Deprecated&lt;/b> (since 3.0.2) Use participants and localParticipant instead. &lt;br>
+<span class='line'>123</span>  * The number of the calling party.
+<span class='line'>124</span>  * @property {String} callingPartyName &lt;b>Deprecated&lt;/b> (since 3.0.2) Use participants and localParticipant instead. &lt;br>
+<span class='line'>125</span>  * The name of the calling party.
+<span class='line'>126</span>  * @property {Number} lineId Not yet implemented.
+<span class='line'>127</span>  * @property {String} mediaState Not implemented.
+<span class='line'>128</span>  * @property {String} videoDirection One of the following: &lt;ul>&lt;li>"Inactive"&lt;/li>&lt;li>"SendRecv"&lt;/li>&lt;li>"SendOnly"&lt;/li>&lt;li>"RecvOnly"&lt;/li>&lt;/ul>
+<span class='line'>129</span>  * @property {Boolean} isConference true if the call is a conference call.
+<span class='line'>130</span>  * @property {Number} maxParticipants Maximum number of participants on a conference call.  This parameter is not set if the call is not a conference.
+<span class='line'>131</span>  * @property {callcapability[]} capabilities A map that has capability name as the key and true as the value. 
+<span class='line'>132</span>  * Call capabilities indicate operations you can perform on the call, and they should be used to control enabling/disabling/state/access to parts of the UI. Important capabilities are:
+<span class='line'>133</span>  * &lt;ul>
+<span class='line'>134</span>  * &lt;li>canOriginateCall - can create new call&lt;/li>
+<span class='line'>135</span>  * &lt;li>canAnswerCall - call can be answered&lt;/li>
+<span class='line'>136</span>  * &lt;li>canHold - call can be Held&lt;/li>
+<span class='line'>137</span>  * &lt;li>canResume - call can be Resumed&lt;/li>
+<span class='line'>138</span>  * &lt;li>canEndCall - call can be Ended&lt;/li>
+<span class='line'>139</span>  * &lt;li>canSendDigit - can send a DTMF digit to the call&lt;/li>
+<span class='line'>140</span>  * &lt;li>canDirectTransfer - can tranfer call&lt;/li>
+<span class='line'>141</span>  * &lt;li>canJoinAcrossLine - can join this call with another call on the same line with this capability also set&lt;/li>
+<span class='line'>142</span>  * &lt;li>canImmediateDivert - can iDivert (e.g. to voicemail)&lt;/li>
+<span class='line'>143</span>  * &lt;li>canUpdateVideoCapability - can update the videoDirection on the call. See {@link $.fn.cwic-updateConversation} examples.&lt;/li>
+<span class='line'>144</span>  * &lt;li>canMuteAudio - can mute audio on the call&lt;/li>
+<span class='line'>145</span>  * &lt;li>canUnmuteAudio - can unmute audio on the call&lt;/li>
+<span class='line'>146</span>  * &lt;li>canMuteVideo - can mute video on the call&lt;/li>
+<span class='line'>147</span>  * &lt;li>canUnmuteVideo - can unmute video on the call&lt;/li>
+<span class='line'>148</span>  * &lt;/ul>
+<span class='line'>149</span>  * @property {participant[]} participants Array of all remote participants on the call.
+<span class='line'>150</span>  * @property {participant} participant Remote participant (first entry in participants list).
+<span class='line'>151</span>  * @property {participant} localParticipant Local participant (your line info).
+<span class='line'>152</span>  * @property {String} callEvent Since: 2.1.1 &lt;br>
+<span class='line'>153</span>  * The last call event to occur. The callEvent property can be used to check for error conditions, or to determine if call attributes have changed. 
+<span class='line'>154</span>  * Important events are:&lt;ul>
+<span class='line'>155</span>  * &lt;li>"evTransferOrConferenceCancelled" - Indicates that attempt to join a conference, or to transfer a call, has been cancelled or has failed.&lt;/li>
+<span class='line'>156</span>  * &lt;li>"evPreservation" - Indicates that a call is preserved because the local endpoint has lost call control, e.g. lost connection to CUCM.&lt;/li>
+<span class='line'>157</span>  * &lt;li>"evConferenceParticipantInfoChanged" - For conference calls you will receive this event if the contents of the participant list changes,
+<span class='line'>158</span>  * e.g. a new participant added or removed from the list of participants. Note that this occurs only for conference calls in the Connected state.&lt;/li>
+<span class='line'>159</span>  * &lt;/ul>
+<span class='line'>160</span>  */</span><span class="WHIT">
+<span class='line'>161</span> 
+<span class='line'>162</span> </span><span class="COMM">/**
+<span class='line'>163</span>  * @name participant
+<span class='line'>164</span>  * @namespace
+<span class='line'>165</span>  * @property {} name
+<span class='line'>166</span>  * @property {} [number] Untranslated number for other participant
+<span class='line'>167</span>  * @property {} [translatedNumber] Number for other participant as translated using available Cisco Unified Communications Manager dial rules
+<span class='line'>168</span>  * @property {} [directoryNumber] Local line number as represented in Cisco Unified Communications Manager directory
+<span class='line'>169</span>  * @property {} [externalNumber] Local line number as reachable from an external number (Cisco Unified Communications Manager external representation)
+<span class='line'>170</span>  */</span><span class="WHIT">
+<span class='line'>171</span> 
+<span class='line'>172</span> </span><span class="COMM">/**
+<span class='line'>173</span>  * @name registration
+<span class='line'>174</span>  * @namespace
+<span class='line'>175</span>  * @property {Boolean} authenticate The original authenticate argument passed to registerPhone
+<span class='line'>176</span>  * @property {String} user The Cisco Unified Communications Manager end user name
+<span class='line'>177</span>  * @property {String} mode One of &lt;ul>&lt;li>"SoftPhone"&lt;/li>&lt;li>"DeskPhone"&lt;/li>&lt;/ul>
+<span class='line'>178</span>  * @property {Boolean} useCcmcip
+<span class='line'>179</span>  * @property {device{}} devices Map keyed by device name of all devices available to authenticated user
+<span class='line'>180</span>  * @property {device} device The selected device
+<span class='line'>181</span>  * @property {line} line The selected line
+<span class='line'>182</span>  * @property {String|Object} password Cleartext password or encrypted password Object
+<span class='line'>183</span>  * @property {String} [password.encrpyted] Encrypted password
+<span class='line'>184</span>  * @property {String} [password.cipher] Cipher used to encrypt password
+<span class='line'>185</span>  * @property {String|Array|Object} cucm Original cucm parameter
+<span class='line'>186</span>  * @property {String|Array} [cucm.ccmcip] ccmcip addresses to attempt connection with
+<span class='line'>187</span>  * @property {String|Array} [cucm.tftp] tftp addresses to attempt connection with
+<span class='line'>188</span>  * @property {Object} successfulCucm
+<span class='line'>189</span>  * @property {String} [successfulCucm.cti] Address of successful cti connection
+<span class='line'>190</span>  * @property {String} [successfulCucm.tftp] Address of  successful tftp connection
+<span class='line'>191</span>  * Object representing Cisco Unified Communications Manager registration.  Many properties are set in the initial call to {@link $.fn.cwic-registerPhone}
+<span class='line'>192</span>  */</span><span class="WHIT">
+<span class='line'>193</span> 
+<span class='line'>194</span> </span><span class="COMM">// EVENTS</span><span class="WHIT">
+<span class='line'>195</span> 
+<span class='line'>196</span> </span><span class="COMM">/**
+<span class='line'>197</span>  * A conversation has just started. Note the conversation may not be connected yet, for example it is in the Alerting state.
+<span class='line'>198</span>  * The conversation container is passed as an extra event data.
+<span class='line'>199</span>  * @name $.fn.cwic#conversationStart
+<span class='line'>200</span>  * @event
+<span class='line'>201</span>  * @param {Object} event
+<span class='line'>202</span>  * @param {call} conversation
+<span class='line'>203</span>  * @param {DomNode} container
+<span class='line'>204</span>  */</span><span class="WHIT">
+<span class='line'>205</span> </span><span class="COMM">/**
+<span class='line'>206</span>  * One or more properties of a conversation have changed, such as state or participants.
+<span class='line'>207</span>  * @name $.fn.cwic#conversationUpdate
+<span class='line'>208</span>  * @event
+<span class='line'>209</span>  * @param {Object} event
+<span class='line'>210</span>  * @param {call} conversation
+<span class='line'>211</span>  * @param {jQueryNodeArray} container
+<span class='line'>212</span>  */</span><span class="WHIT">
+<span class='line'>213</span> </span><span class="COMM">/**
+<span class='line'>214</span>  * A conversation has ended.  The conversation was terminated by the local user, all participants left the conversation, or an error occurred (media failure for example).
+<span class='line'>215</span>  * @name $.fn.cwic#conversationEnd
+<span class='line'>216</span>  * @event
+<span class='line'>217</span>  * @param {Object} event
+<span class='line'>218</span>  * @param {call} conversation
+<span class='line'>219</span>  */</span><span class="WHIT">
+<span class='line'>220</span> </span><span class="COMM">/**
+<span class='line'>221</span>  * A new conversation is being received, but has not yet started.  The newly created conversation container is passed as an extra event data.&lt;br>
+<span class='line'>222</span>  * The application is responsible for attaching the container to the DOM and for managing the container lifetime.&lt;br>
+<span class='line'>223</span>  * In the case the new conversation is accepted by calling startConversation, a conversationStart event is triggered afterwards.&lt;br>
+<span class='line'>224</span>  * @name $.fn.cwic#conversationIncoming
+<span class='line'>225</span>  * @event
+<span class='line'>226</span>  * @param {Object} event
+<span class='line'>227</span>  * @param {call} conversation
+<span class='line'>228</span>  * @param {jQueryNodeArray} container
+<span class='line'>229</span>  */</span><span class="WHIT">
+<span class='line'>230</span> </span><span class="COMM">/**
+<span class='line'>231</span>  * Called when the phone changes state.
+<span class='line'>232</span>  * @name $.fn.cwic#system
+<span class='line'>233</span>  * @event
+<span class='line'>234</span>  * @param {Object} event
+<span class='line'>235</span>  * @param {Object} event.phone
+<span class='line'>236</span>  * @param {String} event.phone.status One of &lt;ul>
+<span class='line'>237</span>  * &lt;li>"eIdle"&lt;/li>
+<span class='line'>238</span>  * &lt;li>"eFetchingDeviceConfig"&lt;/li>
+<span class='line'>239</span>  * &lt;li>"eRegistering"&lt;/li>
+<span class='line'>240</span>  * &lt;li>"eReady"&lt;/li>
+<span class='line'>241</span>  * &lt;li>"eRecoveryPending"&lt;/li>
+<span class='line'>242</span>  * &lt;li>"eAwaitingIpAddress"&lt;/li>
+<span class='line'>243</span>  * &lt;li>"eConnectedButNoDeviceReady"&lt;/li>&lt;/ul>
+<span class='line'>244</span>  * @param {Boolean} event.phone.ready true if phone is ready (status "eReady"), false if it is logged out or in the process of registering or recovering
+<span class='line'>245</span>  * @param {registration} event.phone.registration An updated copy of the registration object passed to {@link $.fn.cwic-registerPhone}
+<span class='line'>246</span>  */</span><span class="WHIT">
+<span class='line'>247</span> </span><span class="COMM">/**
+<span class='line'>248</span>  * @name $.fn.cwic#error
+<span class='line'>249</span>  * @event
+<span class='line'>250</span>  * @param {Object|$.fn.cwic-errorMapEntry} event An arbitrary error event or pre-defined cwic error object.
+<span class='line'>251</span>  * @param {Object} event.code 
+<span class='line'>252</span>  * @param {String} [event.message] 
+<span class='line'>253</span>  * @param {String[]} [event.details] An array of additional information.
+<span class='line'>254</span>  */</span><span class="WHIT">
+<span class='line'>255</span> 
+<span class='line'>256</span> </span></pre></body></html>

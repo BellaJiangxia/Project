@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.vastsoft.yingtai.dataMove.mapper.srcMapper.SrcMedicalHisMapper">
+<!-- 	<select id="selectDiagnosisShare" parameterType="map" resultType="TDiagnosisShare"> -->
+<!-- 		select * from ( -->
+<!-- 			select *, -->
+<!-- 				ROW_NUMBER () OVER (ORDER BY id) AS RowNumber -->
+<!-- 			from T_DIAGNOSIS_SHARE -->
+<!-- 		)as tmp_t  -->
+<!-- 		<if test="minRow !=null and maxRow !=null"> -->
+<!-- 			where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectDiagnosisShareCount" resultType="int"> -->
+<!-- 		select count(id) from T_DIAGNOSIS_SHARE -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectDiagnosisMsg" parameterType="map" resultType="TDiagnosisMsg"> -->
+<!-- 		select * from ( -->
+<!-- 			select *, -->
+<!-- 				ROW_NUMBER () OVER (ORDER BY id) AS RowNumber -->
+<!-- 			from T_DIAGNOSIS_MSG -->
+<!-- 		)as tmp_t  -->
+<!-- 		<if test="minRow !=null and maxRow !=null"> -->
+<!-- 			where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+
+<!-- 	<select id="selectDiagnosisMsgCount" resultType="int"> -->
+<!-- 		select count(id) from T_DIAGNOSIS_MSG -->
+<!-- 	</select> -->
+
+	<select id="selectMedicalHisImgByMedicalHisId" parameterType="long" resultType="TMedicalHisImg">
+		select * from T_MEDICAL_HIS_IMG where medical_his_id= #{medical_his_id}
+	</select>
+
+	<select id="selectDiagnosisV1ByMedicalHisId" parameterType="long" resultType="TDiagnosis_V1">
+		select * from T_DIAGNOSIS where MEDICAL_HIS_ID = #{medical_his_id}
+	</select>
+
+	<select id="selectMedicalHis" parameterType="map" resultType="TMedicalHis">
+		select* from (
+			select *,
+				ROW_NUMBER () OVER (ORDER BY id) AS RowNumber
+			from T_MEDICAL_HIS 
+		)as tmp_t 
+		<if test="minRow !=null and maxRow !=null">
+			where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+		</if>
+	</select>
+
+	<select id="selectMedicalHisCount" resultType="int">
+		select count(id) from T_MEDICAL_HIS
+	</select>
+</mapper>

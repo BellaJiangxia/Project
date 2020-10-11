@@ -1,0 +1,70 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="modal-header">
+	<h4 class="modal-title">选择病人</h4>
+</div>
+<div class="modal-body" data-ng-init="initData();">
+	<div class="form-inline" style="width: 100%;padding-bottom: 15px;" >
+		<input class="form-control" type="text" style="width: 130px;" placeholder="病人姓名" ng-model="searchOpt.patient_name"/>
+		<input class="form-control" type="text" style="width: 180px;" placeholder="病人身份证号" ng-model="searchOpt.identity_id"/>
+		<select class="form-control" style="width: 100px;" ng-model="searchOpt.gender" ng-options="g.code as g.name for g in listGender">
+			<option value="">--病人性别--</option>
+		</select> 
+		<button class="btn btn-primary" ng-click="queryThisOrgPatientOrgMapper();">
+			<span class="glyphicon glyphicon-search"></span>
+			检索
+		</button>
+	</div>
+	<table class="table table-hover table-striped table-bordered" data-click-to-select="true">
+		<thead>
+			<tr class="bg-primary">
+				<th>病人姓名</th>
+				<th>身份证号</th>
+				<th>性别</th>
+				<th>年龄</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr style="cursor: pointer" ng-repeat="p in listPatientOrgMapper" ng-click="clickPoMapper(p);"
+				ng-style="(p.id == selectedPoMapper.id)?{'background-color': '#99CCFF'}:{'background-color': 'white'}">
+				<td>{{p.patient_name}}</td>
+				<td>{{p.patient_identity_id}}</td>
+				<td>{{p.patient_genderStr}}</td>
+				<td>{{p.patientAge}} 岁</td>
+				<!-- <td>
+					<button class="btn btn-primary btn-sm" title="查看病例详情" ng-click="showMedicalHisDetail(medicalHis)">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</td> -->
+			</tr>
+		</tbody>
+	</table>
+	<div style="text-align: right;">
+		<span style="font-size: 18px;float: left;">共 {{searchOpt.spu.totalRow}} 条记录</span>
+		<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="queryThisOrgPatientOrgMapper();"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-info" ng-click="ok();" ng-disabled="!selectedPoMapper">
+		<i class="glyphicon glyphicon-ok"></i>
+		提交
+	</button>
+	<button class="btn btn-warning" ng-click="cancel();">
+		<i class="glyphicon glyphicon-remove"></i>
+		取消
+	</button>
+</div>
+</body>
+</html>

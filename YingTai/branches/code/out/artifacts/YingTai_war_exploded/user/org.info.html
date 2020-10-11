@@ -1,0 +1,132 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="container">
+<div class="panel panel-primary">
+	  <div class="panel-heading" style="line-height: 40px;">
+		  	<span style="font-size: 20px">新建机构</span>
+		</div>
+
+<form class="form-horizontal" name="orgForm" novalidate style="margin: 5px 10px;">
+  <!--<div class="form-group" ng-if="org.status===12">-->
+    <!--<uib-alert type="danger" class="col-sm-offset-2 col-sm-7">拒绝原因:  {{org.note}}</uib-alert>-->
+  <!--</div>-->
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label">LOGO</label>
+    <div class="col-sm-5">
+    		<img class="img-thumbnail" ng-src="common!image.action?fileType=16&imageId={{org.logo_file_id || ''}}" style="width: 100px;height:100px;">
+	      <div class="fileUpload btn btn-primary" ng-show="!notEdit">
+				    <span class="glyphicon glyphicon-picture"> 上传LOGO</span>
+				    <input type="file" accept="image/*" class="upload" upload-change change="uploadFile" file-type="16" file-bind="4">
+				</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">机构名称<b style="color:red">*</b></label>
+    <div class="col-sm-5">
+      <input type="text" class="form-control" name="orgName" ng-model="org.org_name" placeholder="机构名称（必填）" required>
+    </div>
+  </div>
+  <div class="form-group" ng-show="org.org_code">
+    <label class="col-sm-3 control-label">机构编号</label>
+    <div class="col-sm-5">
+      <span class="form-control" data-ng-bind="org.org_code"></span>
+    </div>
+  </div>
+  <div class="form-group" ng-show="org.creator_name">
+    <label class="col-sm-3 control-label">创建人</label>
+    <div class="col-sm-5">
+      <span class="form-control" data-ng-bind="org.creator_name"></span>
+    </div>
+  </div>
+  <div class="form-group" ng-show="org.create_time">
+    <label class="col-sm-3 control-label">创建时间</label>
+    <div class="col-sm-5">
+      <span class="form-control" data-ng-bind="org.create_time | date:'yyyy-MM-dd HH:mm:ss'"></span>
+   	</div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">机构类型<b style="color:red">*</b></label>
+    <div class="col-sm-5">
+      <label class="radio-inline" ng-repeat="t in types">
+        <input type="radio" name="orgProperty" value="{{t.code}}" ng-model="org.org_property" ng-change="changType(t)">{{t.name}}
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">机构级别<b style="color:red">*</b></label>
+    <div class="col-sm-5">
+    	<div class="btn-group" dropdown>
+	      <button id="single-button" type="button" class="btn btn-default" dropdown-toggle>
+	        	<span data-ng-bind="default_ol"></span><span class="caret"></span>
+	      </button>
+	      <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+	        <li ng-repeat="l in levels">
+	          <a href ng-click="setLevel(l)">{{l.value}}</a>
+	        </li>
+	      </ul>
+	    </div>
+    </div>
+  </div>
+  <div class="form-group" ng-if="org.org_property==11">
+    <label class="col-sm-3 control-label">机构证件</label>
+    <div class="col-sm-5">
+      <div ng-show="org.scan_file_ids">
+	      <img ng-repeat="sfid in org.scan_file_ids.split(',')" class="img-thumbnail" ng-src="common!image.action?fileType=17&imageId={{sfid}}" style="width: 100%;height:240px;">
+    	</div>
+      <div class="fileUpload btn btn-primary" ng-show="!notEdit">
+			    <span class="glyphicon glyphicon-picture"> 上传证件</span>
+			    <input type="file" multiple accept="image/*" class="upload" upload-change change="uploadFile" file-type="17" file-bind="5">
+			</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-3 control-label">机构描述</label>
+    <div class="col-sm-5">
+			<textarea rows="4" class="form-control" ng-model="org.description" style="resize:none" placeholder="机构描述"></textarea>
+    </div>
+  </div>
+  
+	<uib-alert type="info" class="col-sm-offset-3 col-sm-5" ng-show="msg">{{msg}}</uib-alert>
+  <div class="form-group">
+    <div class="col-sm-offset-6 col-sm-3">
+      <button ng-if="!org.id" class="btn btn-success" ng-click="saveOrg()" ng-disabled="orgForm.orgName.$invalid" ><span class="glyphicon glyphicon-save"></span> 保存</button>
+      <button ng-if="org.status==12" class="btn btn-success" ng-click="resubmit()" ng-disabled="orgForm.orgName.$invalid" ><span class="glyphicon glyphicon-save"></span> 再次申请</button>
+      <a type="button" ui-sref="myOrg.list" class="btn btn-warning"><span class="glyphicon glyphicon-remove"> 取消</span></a>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+
+<script type="text/ng-template" id="orgView.html">
+        <div class="modal-header">
+            <h3 class="modal-title">请您核对机构信息并确定是否创建？</h3>
+        </div>
+        <div class="modal-body">
+					<h4><label>机构名称: </label><span class="text-primary" style="margin-left:10px;font-weight: bold;" data-ng-bind="org.org_name"></span></h4>
+					<h4><label>机构类型: </label><span class="text-primary" style="margin-left:10px;font-weight: bold;" data-ng-bind="org.property_name"></span></h4>
+					<h4><label>机构级别: </label><span class="text-primary" style="margin-left:10px;font-weight: bold;" data-ng-bind="org.level_name"></span></h4>
+					<h4>
+						<label>是否公开机构信息: </label>
+						<span  style="margin-left: 40px;" ng-repeat="g in publicStatus" class="radio" ng-init="org.is_public=12">
+							<label><input type="radio" name='gender' value='{{g.code}}' ng-model="org.is_public" />{{g.name}}</label>
+						</span>
+					</h4>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">确定</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">取消</button>
+        </div>
+</script>
+</body>
+</html>

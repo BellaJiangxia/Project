@@ -1,0 +1,36 @@
+<div class="modal-header" data-ng-init="initData();">
+	<h3 class="modal-title">请选择一个共享机构进入</h3>
+</div>
+<div class="modal-body">
+	<div class="alert alert-danger" role="alert" ng-show="!listRelateOrg || listRelateOrg.length<=0">
+		<span class="glyphicon glyphicon-warning-sign"></span>当前没有合作机构提供病例共享！
+	</div>
+	<div>
+		<table class="table table-hover table-striped table-bordered" data-click-to-select="true">
+			<thead>
+				<tr class="bg-primary">
+					<th>机构名称</th>
+					<th>机构编号</th>
+					<th>机构类型</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr style="cursor: pointer" ng-repeat="o in listRelateOrg" 
+					ng-style="o.relation_org_id==selectedOrg.relation_org_id?{'background-color': '#99CCFF'}:{'background-color': 'white'}"
+					ng-click="selectOrgRelationClick(o);">
+					<td>{{o.relation_org_name}}</td>
+					<td>{{o.relation_org_code}}</td>
+					<td>{{o.relation_org_type_name}}</td>
+				</tr>
+			</tbody>
+		</table>
+<!-- 		<label class="control-label"> -->
+<!-- 			<input name="allcheck" type="checkbox" value="不指定审核人"  -->
+<!-- 				ng-model="unspecified" ng-change="unspeci()"/>不指定审核人 -->
+<!-- 		</label> -->
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary glyphicon glyphicon-ok" ng-click="ok()" ng-if="selectedOrg">确定</button>
+	<button class="btn btn-warning glyphicon glyphicon-remove" ng-click="cancel()">取消</button>
+</div>

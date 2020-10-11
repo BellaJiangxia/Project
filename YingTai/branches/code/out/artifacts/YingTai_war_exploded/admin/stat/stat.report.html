@@ -1,0 +1,94 @@
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h4><span class="glyphicon glyphicon-th-list"></span>
+				报告统计
+			</h4>
+		</div>
+		<div class="panel-body">
+			<div class="form-inline" data-ng-init="initData()">
+				<form action="" role="form">
+					<input type="text" class="form-control" style="width: 150px;" placeholder="病历号" ng-model="searchOpt.medicalHisNum" />
+					<input type="text" class="form-control" style="width: 150px;" placeholder="来源机构" ng-model="searchOpt.requestOrgName" /> 
+					<input type="text" class="form-control" style="width: 150px;" placeholder="诊断机构" ng-model="searchOpt.diagnosisOrgName" /> 
+					<input type="text" class="form-control" style="width: 150px;" placeholder="报告机构" ng-model="searchOpt.publishOrgName" /> 
+					<select class="form-control" ng-model="searchOpt.deviceTypeId" ng-change="queryPartList(searchOpt.deviceTypeId)"
+						ng-options="d.id as d.value for d in listDeviceType">
+						<option value="">--影像类型--</option>
+					</select>
+					<select class="form-control" style="width: 110px;" ng-if="searchOpt.deviceTypeId !=0" ng-model="searchOpt.partTypeId">
+						<option value="0">部位类型</option>
+						<option ng-repeat="part in arrayPart" value="{{part.id}}" >{{part.value}}</option>
+					</select> 
+					 <input type="text" class="form-control" style="width: 150px;" placeholder="申请人" ng-model="searchOpt.requestUserName" />
+					 <input type="text" class="form-control" style="width: 150px;" placeholder="报告医生" ng-model="searchOpt.acceptUserName" />
+					 <input type="text" class="form-control" style="width: 150px;" placeholder="审核医生" ng-model="searchOpt.vertifyUserName" />
+					 <div class="input-group" style="width:160px">
+			       		<date-selector ng-model="searchOpt.start" placeholder="起始日期"></date-selector>
+					</div>
+			       	<div class="input-group" style="width:160px">
+			       		<date-selector ng-model="searchOpt.end" placeholder="结束日期"></date-selector>
+					</div>
+					<select class="form-control" style="width: 110px;" ng-model="searchOpt.fom">
+						<option value="-1">阴阳性</option>
+						<option value="0">无</option>
+						<option value="1">阴性</option>
+						<option value="2">阳性</option>
+					</select>
+					<a class="btn btn-primary" href="javascript:void(0);" ng-click="statReport()">
+						<span class="glyphicon glyphicon-search"></span>
+						检索
+					</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:void(0);" ng-click="statReport()">
+						<span class="glyphicon glyphicon-refresh"></span>
+						刷新
+					</a>
+				</form>
+			</div>
+			<table class="table table-hover table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>病历号</th>
+						<th>来源机构</th>
+						<th>诊断机构</th>
+						<th>报告机构</th>
+				 		<th>影像类型</th>
+						<th>检查部位</th>
+						<th>申请人</th>
+						<th>报告人</th>
+						<th>审核人</th>
+						<th>报告时间</th>
+						<th>阴阳性</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="report in listReport">
+						<td><a ng-href="#/diagnosis/detail/{{report.id}}">{{report.medical_his_num}}</a></td>
+						<td>{{report.request_org_name}}</td>
+						<td>{{report.diagnosis_org_name}}</td>
+						<td>{{report.publish_org_name}}</td>
+						<td>{{report.device_name}}</td>
+						<td>{{report.part_name}}</td>
+						<td>{{report.request_user_name}}</td>
+						<td>{{report.accept_user_name}}</td>
+						<td>{{report.verify_user_name}}</td>
+						<td>{{report.report_timeStr}}</td>
+						<td>{{report.f_o_mStr}}</td>
+						<td>
+							<a class="btn btn-success btn-xs" ng-href="#/diagnosis/report/{{report.id}}" title="查看报告">
+								<span class="glyphicon glyphicon-zoom-in"></span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer" align="right">
+			<span style="font-size: 18px;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+				items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+				ng-model="searchOpt.spu.currPage" ng-change="statReport()"
+				previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>

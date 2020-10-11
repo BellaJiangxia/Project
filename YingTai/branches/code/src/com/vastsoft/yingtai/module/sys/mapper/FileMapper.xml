@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.sys.mapper.FileMapper">
+	<select id="queryFileMgrByIdsStr" parameterType="List" resultType="TFile">
+		select * from T_FILE_MGR where id in 
+		<foreach  item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<insert id="addFileMgr" parameterType="TFile" useGeneratedKeys="true" keyProperty="id">
+		insert into T_FILE_MGR (
+			path,
+			ori_name,
+			create_time,
+			status,
+			thumbnail_path,
+			file_type
+		) values (
+			#{path},
+			#{ori_name},
+			#{create_time},
+			#{status},
+			#{thumbnail_path},
+			#{file_type}
+		)
+	</insert>
+	
+	<select id="queryFileMgrById" parameterType="long" resultType="TFile">
+		select * from T_FILE_MGR where id=#{lFileId}
+	</select>
+	
+	<delete id="deleteFileMgrById" parameterType="long">
+		delete from T_FILE_MGR where id=#{id}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.vastsoft.yingtai.module.user.mapper.UserMapper">
+    <select id="selectFOrgUserMapperByUserIdAndOrgId" parameterType="TOrgUserMapping" resultType="FOrgUserMapping">
+        select t1.*,t2.user_name as user_name,
+        	t2.status as user_status,
+        	t2.MOBILE as user_mobile,
+        	t2.EMAIL as user_email,
+        	t2.TYPE as user_type,
+        	t2.IDENTITY_ID as user_identity_id,
+        	t3.ORG_NAME as org_name,
+        	t3.PERMISSION as org_permission
+		from T_ORG_USER_MAPPING t1
+			LEFT JOIN T_BASE_USER t2 on t1.USER_ID=t2.ID
+			LEFT JOIN T_ORGANIZATION t3 on t1.ORG_ID= t3.ID
+		WHERE t1.ORG_ID=#{org_id} and t1.USER_ID=#{user_id}
+    </select>
+    
+    <delete id="deleteMapper" parameterType="TOrgUserMapping">
+		delete from T_ORG_USER_MAPPING where USER_ID=#{user_id} and ORG_ID=#{org_id}
+    </delete>
+    
+    <delete id="deleteUserOrgMappingByUserId" parameterType="long">
+		delete from T_ORG_USER_MAPPING where USER_ID=#{user_id}
+    </delete>
+    
+    <update id="modifyBaseUserStatus" parameterType="TBaseUser">
+		update T_BASE_USER set status=#{status} where id=#{id} and status!=4
+    </update>
+    
+    <select id="queryBaseUserByIdForUpdate" parameterType="long" resultType="TBaseUser">
+		select * from T_BASE_USER with(XLOCK) where id=#{id} and status!=4
+    </select>
+    
+	<insert id="insertUser" parameterType="TBaseUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO [T_BASE_USER]
+           ([MOBILE]
+           ,[PWD]
+           ,[TYPE]
+           ,[STATUS]
+           ,[CREATE_TIME]
+           ,[USER_NAME]
+           ,[BIRTHDAY]
+           ,[IDENTITY_ID]
+           ,[EMAIL]
+           ,[GENDER]
+           ,[PHOTO_FILE_ID]
+           ,[GRADE])
+     VALUES
+           (#{mobile}
+           ,#{pwd}
+           ,#{type}
+           ,#{status}
+           ,#{create_time}
+           ,#{user_name}
+           ,#{birthday,jdbcType=DATE}
+           ,#{identity_id,jdbcType=VARCHAR}
+           ,#{email,jdbcType=VARCHAR}
+           ,#{gender,jdbcType=NUMERIC}
+           ,#{photo_file_id,jdbcType=NUMERIC}
+           ,#{grade,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="addAdmin" parameterType="TAdminUser">
+		INSERT INTO [T_ADMIN_USER]
+           ([PERMISSION],[ID])
+     	VALUES
+           (#{permission},#{id})
+	</insert>
+	
+	<insert id="registerGeneral" parameterType="TGeneralUser">
+		INSERT INTO [T_GENERAL_USER]
+           ([ID],[NOTE],[SECTION])
+     	VALUES
+           (#{id},#{note,jdbcType=VARCHAR},#{section,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="registerDoctor" parameterType="TDoctorUser">
+		INSERT INTO [T_DOCTOR_USER]
+           ([ID]
+           ,[STARTWORK_TIME]
+           ,[WORK_YEARS]
+           ,[HOSPITAL]
+           ,[SECTION]
+           ,[NOTE]
+           ,[SCAN_FILE_IDS]
+           ,sign_file_id
+           ,[unit_phone]
+           ,[job_note]
+           ,identify_file_id
+           ,qualification_id
+           ,device_opreator_id)
+     VALUES
+           (#{id}
+           ,#{startwork_time,jdbcType=DATE}
+           ,#{work_years,jdbcType=NUMERIC}
+           ,#{hospital,jdbcType=VARCHAR}
+           ,#{section,jdbcType=VARCHAR}
+           ,#{note,jdbcType=VARCHAR}
+           ,#{scan_file_ids,jdbcType=NUMERIC}
+           ,#{sign_file_id,jdbcType=NUMERIC}
+           ,#{unit_phone,jdbcType=VARCHAR}
+           ,#{job_note,jdbcType=VARCHAR}
+           ,#{identify_file_id,jdbcType=NUMERIC}
+           ,#{qualification_id,jdbcType=NUMERIC}
+           ,#{device_opreator_id,jdbcType=NUMERIC})
+	</insert>
+	
+	<insert id="insertOrg2User" parameterType="TOrgUserMapping">
+		INSERT INTO [T_ORG_USER_MAPPING]
+           ([ORG_ID]
+           ,[USER_ID]
+           ,[STATUS]
+           ,[CREATE_TIME]
+           ,[PERMISSION]
+           ,[NOTE])
+     VALUES
+           (#{org_id}
+           ,#{user_id}
+           ,#{status}
+           ,#{create_time}
+           ,#{permission,jdbcType=VARCHAR}
+           ,#{note,jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertUserChange" parameterType="TUserChange" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO [T_USER_CHANGE]
+           ([USER_TYPE]
+           ,[USER_NAME]
+           ,[IDENTITY_ID]
+           ,[BIRTHDAY]
+           ,[USER_GENDER]
+           ,[PHOTO_FILE_ID]
+           ,[STARTWORK_TIME]
+           ,[WORK_YEARS]
+           ,[GRADE]
+           ,[HOSPITAL]
+           ,[SECTION]
+           ,[SCAN_FILE_IDS]
+           ,[VERIFY_USER_ID]
+           ,[VERIFY_TIME]
+           ,[NOTE]
+           ,[CHANGE_TIME]
+           ,[CHANGE_STATUS]
+           ,[USER_ID]
+           ,sign_file_id
+           ,[unit_phone]
+           ,[job_note]
+           ,identify_file_id
+           ,qualification_id
+           ,device_opreator_id)
+     VALUES
+           (#{user_type,jdbcType=NUMERIC}
+           ,#{user_name,jdbcType=VARCHAR}
+           ,#{identity_id,jdbcType=VARCHAR}
+           ,#{birthday,jdbcType=VARCHAR}
+           ,#{user_gender,jdbcType=NUMERIC}
+           ,#{photo_file_id,jdbcType=NUMERIC}
+           ,#{startwork_time,jdbcType=DATE}
+           ,#{work_years,jdbcType=NUMERIC}
+           ,#{grade,jdbcType=VARCHAR}
+           ,#{hospital,jdbcType=VARCHAR}
+           ,#{section,jdbcType=VARCHAR}
+           ,#{scan_file_ids,jdbcType=VARCHAR}
+           ,#{verify_user_id,jdbcType=NUMERIC}
+           ,#{verify_time,jdbcType=DATE}
+           ,#{note,jdbcType=VARCHAR}
+           ,#{change_time}
+           ,#{change_status}
+           ,#{user_id}
+           ,#{sign_file_id,jdbcType=NUMERIC}
+           ,#{unit_phone,jdbcType=VARCHAR}
+           ,#{job_note,jdbcType=VARCHAR}
+           ,#{identify_file_id,jdbcType=NUMERIC}
+           ,#{qualification_id,jdbcType=NUMERIC}
+           ,#{device_opreator_id,jdbcType=NUMERIC})
+	</insert>
+	
+	<update id="approveUserChange" parameterType="Map">
+		UPDATE [T_USER_CHANGE]
+	   SET [VERIFY_USER_ID] = #{verify_user_id}
+	      ,[VERIFY_TIME] = #{verify_time}
+	      ,[NOTE] = #{note}
+	      ,[CHANGE_STATUS] = #{change_status}
+	 	WHERE id=#{id}
+	</update>
+	
+	<update id="modifyUserInfo" parameterType="TBaseUser">
+		UPDATE [T_BASE_USER]
+			<set>
+				<if test="last_login_time!=null">[LAST_LOGIN_TIME] = #{last_login_time},</if>
+				<if test="last_dev_login_time!=null">[LAST_DEV_LOGIN_TIME] = #{last_dev_login_time},</if>
+				<if test="user_name!=null">[USER_NAME] = #{user_name},</if>
+				<if test="identity_id!=null">[IDENTITY_ID] = #{identity_id},</if>
+				<if test="birthday!=null">[BIRTHDAY] = #{birthday},</if>
+				<if test="gender!=null">[GENDER] = #{gender},</if>
+				<if test="photo_file_id!=null">[PHOTO_FILE_ID] = #{photo_file_id},</if>
+				<if test="status!=null">[STATUS]=#{status},</if>
+				<if test="type!=null">[TYPE]=#{type},</if>
+				<if test="grade!=null">[GRADE] = #{grade}</if>
+			</set>
+		 WHERE ID=#{id} and status!=4
+	</update>
+	
+	<update id="modifyUserEmailOrMobile" parameterType="Map">
+		UPDATE [T_BASE_USER]
+		<set>
+			<if test="mobile!=null">[MOBILE] = #{mobile},</if>
+			<if test="email!=null">[EMAIL] = #{email}</if>
+		</set>
+		 WHERE [ID] = #{id} and status!=4
+	</update>
+	
+	<update id="modifyDoctorInfo" parameterType="TDoctorUser">
+		UPDATE [T_DOCTOR_USER]
+		   SET [STARTWORK_TIME] = #{startwork_time, jdbcType=DATE}
+		      ,[WORK_YEARS] = #{work_years,jdbcType=NUMERIC}
+		      ,[HOSPITAL] = #{hospital,jdbcType=NVARCHAR}
+		      ,[SECTION] = #{section,jdbcType=NVARCHAR}
+		      ,[NOTE] = #{note, jdbcType=VARCHAR}
+		      ,[SCAN_FILE_IDS] = #{scan_file_ids, jdbcType=NUMERIC}
+		      ,sign_file_id=#{sign_file_id,jdbcType=NUMERIC}
+		      ,unit_phone=#{unit_phone,jdbcType=VARCHAR}
+          ,job_note=#{job_note,jdbcType=VARCHAR}
+          ,identify_file_id=#{identify_file_id,jdbcType=NUMERIC}
+          ,qualification_id=#{qualification_id,jdbcType=NUMERIC}
+          ,device_opreator_id=#{device_opreator_id,jdbcType=NUMERIC}
+		 WHERE [ID] = #{id}
+	</update>
+	
+	<update id="modifyGeneralInfo" parameterType="TGeneralUser">
+		UPDATE [T_GENERAL_USER]
+		   SET [SECTION] = #{section,jdbcType=VARCHAR}
+		      ,[NOTE] = #{note,jdbcType=VARCHAR}
+		 WHERE [ID] = #{id}
+	</update>
+	
+	<update id="modifyUserPwd" parameterType="Map">
+		UPDATE [T_BASE_USER]
+		   SET [PWD] = #{new_pwd} 
+		 WHERE [ID] = #{id} AND [PWD] = #{old_pwd} and status!=4
+	</update>
+	
+	<update id="resetUserPwd" parameterType="Map">
+		UPDATE [T_BASE_USER]
+		   SET [PWD] = #{new_pwd} 
+		 WHERE [ID] = #{id} and status!=4
+	</update>
+	
+	<update id="approveUser" parameterType="Map">
+		UPDATE [T_ORG_USER_MAPPING]
+		   SET [STATUS] = #{status}
+		      ,[NOTE] = #{note,jdbcType=VARCHAR}
+		 WHERE [ID]=#{id} 
+	</update>
+	
+	<update id="authorizeAdmin" parameterType="Map">
+		UPDATE [T_ADMIN_USER]
+		   SET [PERMISSION] = #{permission}
+		 WHERE [ID] = #{id}
+	</update> 
+		 
+	<update id="authorizeUser" parameterType="Map">
+		UPDATE [T_ORG_USER_MAPPING]
+		   SET [PERMISSION] = #{permission}
+		 WHERE [ID] = #{id}
+	</update>
+	
+	<update id="modifyMapper" parameterType="TOrgUserMapping">
+		UPDATE [T_ORG_USER_MAPPING]
+		   SET [STATUS] = #{status}
+		   		,[NOTE]=#{note}
+		      ,[CREATE_TIME] = #{create_time}
+		 WHERE [ID] = #{id}
+	</update>
+	
+	<update id="approveUserByAdmin" parameterType="Map">
+		UPDATE [T_BASE_USER]
+		   SET [STATUS] = #{status}
+		   		,[NOTE]=#{note}
+		 WHERE [ID] = #{id} and status!=4
+	</update>
+	
+	<update id="modifyDoctorVarify" parameterType="Map">
+		update T_DOCTOR_USER 
+		set VERIFY_USER_ID=#{verify_user_id},
+				VERIFY_TIME=#{varify_time}
+				where id=#{id}
+	</update>
+	
+	<update id="modifyGeneralVarify">
+		update T_GENERAL_USER 
+		set VERIFY_USER_ID=#{verify_user_id},
+				VERIFY_TIME=#{varify_time,jdbcType=DATE}
+			where id=#{id}
+	</update>
+	
+	<delete id="deleteOrg2User" parameterType="Long">
+		DELETE FROM [T_ORG_USER_MAPPING] WHERE [ID] = #{id}
+	</delete>
+	
+	<delete id="deleteDoctorById" parameterType="Long">
+		delete from T_DOCTOR_USER where id=#{id}
+	</delete>
+	
+	<delete id="deleteGeneralById" parameterType="Long">
+		delete from T_GENERAL_USER where id=#{id}
+	</delete>
+	
+	<select id="loginUser" parameterType="Map" resultType="TBaseUser">
+		select * from T_BASE_USER where (MOBILE=#{login_name} OR [EMAIL]=#{login_name}) AND PWD=#{pwd} and status!=4
+	</select>
+	
+	<select id="queryBaseUserById" parameterType="Long" resultType="TBaseUser">
+		select * from T_BASE_USER where ID=#{id} 
+	</select>
+	
+	<select id="queryAdminUserById" parameterType="Long" resultType="TAdminUser">
+		select * from T_ADMIN_USER where ID=#{id}
+	</select>
+	
+	<select id="queryAdminUserByIdAndLock" parameterType="Long" resultType="TAdminUser"> 
+		select * from T_ADMIN_USER WITH(XLOCK) where ID=#{id} 
+	</select>
+	
+	<select id="selectUserByLoginName" parameterType="String" resultType="TBaseUser">
+		select * from T_BASE_USER where (MOBILE=#{loginName} OR EMAIL=#{loginName}) and status !=4
+	</select>
+	
+	<select id="queryUserByIdAndLock" parameterType="Long" resultType="TBaseUser">
+		select * from T_BASE_USER WITH(XLOCK) where ID=#{id} and status!=4
+	</select>
+	
+	<select id="queryGeneralUserById" parameterType="Long" resultType="TGeneralUser">
+		select * from T_GENERAL_USER where ID=#{id}
+	</select>
+	
+	<select id="queryGeneralUserAndLock" parameterType="Long" resultType="TGeneralUser">
+		select * from T_GENERAL_USER WITH(XLOCK) where ID=#{id}
+	</select>
+	
+	<select id="queryDoctorUserById" parameterType="Long" resultType="TDoctorUser">
+		select * from T_DOCTOR_USER where ID=#{id}
+	</select>
+	
+	<select id="queryDoctorUserAndLock" parameterType="Long" resultType="TDoctorUser">
+		select * from T_DOCTOR_USER WITH(XLOCK) where ID=#{id}
+	</select>
+	
+	<select id="queryBaseUsersByOrg" parameterType="Map" resultType="TBaseUser">
+		select t1.* from T_ORG_USER_MAPPING t0
+			left join T_BASE_USER t1 on t0.USER_ID=t1.ID
+		where t0.ORG_ID=#{org_id} and t1.STATUS=#{status} and t1.TYPE=#{type}
+	</select>
+	
+	<select id="selectMapperByUser" parameterType="Map" resultType="TOrgUserMapping">
+		SELECT * FROM [T_ORG_USER_MAPPING] WHERE [ORG_ID]=#{org_id} AND [USER_ID]=#{user_id} 
+			<if test="status !=null">
+				AND [STATUS]=#{status}
+			</if>
+	</select>
+	
+	<select id="selectMapperByUserAndLock" parameterType="Map" resultType="TOrgUserMapping">
+		SELECT * FROM [T_ORG_USER_MAPPING] WITH(XLOCK) WHERE [ORG_ID]=#{org_id} AND [USER_ID]=#{user_id}
+	</select>
+	
+	<select id="selectMapperByOrg" parameterType="Map" resultType="TOrgUserMapping">
+		select a.*,b.USER_NAME as v_user_name,b.MOBILE as v_mobile from (select *
+		,row_number() over(order by case STATUS when 11 then 1 when 1 then 2 when 12 then 3 when 0 then 4 end,ID) rn 
+		from T_ORG_USER_MAPPING where ORG_ID=#{org_id}
+			<if test="status!=null">
+				 and STATUS=#{status}
+			</if>)a
+		 ,(select ID,USER_NAME,MOBILE from T_BASE_USER 
+		 <where>
+		 	<if test="user_name!=null">user_name like '%'+#{user_name}+'%'</if>
+		 	<if test="mobile!=null">mobile like '%'+#{mobile}+'%'</if>
+		 </where>) b
+		where b.ID=a.USER_ID and a.rn>=#{begin_idx} <![CDATA[ and a.rn<#{end_idx} ]]>
+	</select>
+	
+	<select id="selectMapperCountByOrg" parameterType="Map" resultType="Integer">
+		select count(1) from (select USER_ID from T_ORG_USER_MAPPING where ORG_ID=#{org_id}
+			<if test="status!=null">
+					 and STATUS=#{status}
+			</if>)a
+		 ,(select ID,USER_NAME,MOBILE from T_BASE_USER 
+		 <where>
+		 	<if test="user_name!=null">user_name like '%'+#{user_name}+'%'</if>
+		 	<if test="mobile!=null">mobile like '%'+#{mobile}+'%'</if>
+		 </where>) b where b.ID=a.USER_ID
+	</select>
+	
+	<select id="searchDoctorsByOrgIdAndPermission" parameterType="Map" resultType="TDoctorUser">
+		select t0.*,t1.*
+		from T_DOCTOR_USER t0
+			LEFT JOIN T_BASE_USER t1 ON t0.ID=t1.ID
+			LEFT JOIN T_ORG_USER_MAPPING t2 ON t2.USER_ID=t0.ID
+		where t2.org_id=#{org_id} and t1.status=#{user_status}
+			and t2.status=#{org_user_status}
+			and t2.permission like '%'+#{permission}+'%'
+			<if test="self_id !=null">
+				and t0.id!=#{self_id}
+			</if>
+	</select>
+	
+	<select id="selectAdminList" parameterType="Map" resultType="TAdminUser">
+		select * from (select b.*,a.PERMISSION,
+		ROW_NUMBER() over(order by b.CREATE_TIME desc,b.ID) rn
+		 from T_ADMIN_USER a,T_BASE_USER b
+		where a.ID=b.ID
+		<if test="user_name!=null">
+			and b.USER_NAME like '%'+#{user_name}+'%'		
+		</if> 
+		<if test="mobile!=null">
+			and b.MOBILE like '%'+#{mobile}+'%'
+		</if>)t
+		<where>
+			<if test="begin_idx!=null">
+			 t.rn>=#{begin_idx} <![CDATA[ and t.rn<#{end_idx} ]]>
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectAdminCount" parameterType="Map" resultType="Integer">
+		select COUNT(1) from T_ADMIN_USER a,T_BASE_USER b
+		where a.ID=b.ID 
+		<if test="user_name!=null">
+			and b.USER_NAME like '%'+#{user_name}+'%'		
+		</if> 
+		<if test="mobile!=null">
+			and b.MOBILE like '%'+#{mobile}+'%'
+		</if>
+	</select>
+	
+	<select id="selectUserListByAdmin" parameterType="Map" resultType="TBaseUser">
+		select t.* from (select a.*,ROW_NUMBER() over(order by a.STATUS,a.CREATE_TIME desc,a.ID) rn 
+			from T_BASE_USER a where a.TYPE!=1 and a.TYPE!=9999
+			<if test="mobile!=null">
+			 and a.MOBILE like '%'+#{mobile}+'%'
+			</if>
+			<if test="user_name!=null">
+				and a.USER_NAME like '%'+#{user_name}+'%'
+			</if>
+			<if test="status!=null">
+				and a.STATUS=#{status}
+			</if>)t
+		where t.rn>=#{begin_idx} <![CDATA[ and t.rn<#{end_idx} ]]>
+	</select>
+	
+	<select id="selectUserCountByAdmin" parameterType="Map" resultType="Integer">
+		select count(1) from T_BASE_USER a
+		where a.TYPE!=1 and a.TYPE!=9999
+			<if test="mobile!=null">
+			  and a.MOBILE like '%'+#{mobile}+'%'
+			</if>
+			<if test="user_name!=null">
+				and a.USER_NAME like '%'+#{user_name}+'%'
+			</if>
+			<if test="status!=null">
+				and a.STATUS=#{status}
+			</if>
+	</select>
+	
+	<select id="selectUserChangeList" parameterType="Map" resultType="TUserChange">
+		select * from (select b.MOBILE,b.USER_NAME c_user_name,b.TYPE c_type,a.USER_NAME
+		,a.USER_TYPE,a.CHANGE_TIME,a.VERIFY_TIME,a.CHANGE_STATUS,a.USER_ID,a.ID
+		,(select USER_NAME from T_BASE_USER where ID=a.VERIFY_USER_ID) VERIFY_USER_NAME
+		,ROW_NUMBER() over(order by case a.CHANGE_STATUS when 11 then 1 when 12 then 2 when 1 then 3 else 4 end,a.ID) rn
+		from T_USER_CHANGE a,T_BASE_USER b
+		where a.USER_ID=b.ID
+		<if test="user_id!=null">
+			and a.USER_ID=#{user_id}
+		</if>
+		<if test="status!=null">
+			and a.CHANGE_STATUS=#{status} 
+		</if>
+		<if test="user_name!=null">
+			and b.USER_NAME like '%'+#{user_name}+'%'
+		</if>
+		<if test="mobile!=null">
+			 and b.MOBILE like '%'+#{mobile}+'%'
+	  </if>)t
+	  <where>
+			<if test="begin_idx!=null">
+				rn>=#{begin_idx} <![CDATA[ and rn<#{end_idx} ]]>
+			</if>
+		</where> 
+	</select>
+	
+	<select id="selectUserChangeCount" parameterType="Map" resultType="Integer">
+		select COUNT(1) from T_USER_CHANGE a,T_BASE_USER b
+		where a.USER_ID=b.ID 
+		<if test="user_id!=null">
+			and a.USER_ID=#{user_id}
+		</if>
+		<if test="status!=null">
+			and a.CHANGE_STATUS=#{status} 
+		</if>
+		<if test="user_name!=null">
+			and b.USER_NAME like '%'+#{user_name}+'%'
+		</if>
+		<if test="mobile!=null">
+			 and b.MOBILE like '%'+#{mobile}+'%'
+	  </if>
+	</select>
+
+	<select id="selectUserChangeByUser" parameterType="Long" resultType="TUserChange">
+		select t.*,c.startwork_time,c.work_years,c.hospital,c.section,c.scan_file_ids,c.sign_file_id,c.unit_phone,c.job_note,c.identify_file_id,c.qualification_id,c.device_opreator_id
+		 from(select b.mobile,b.email,b.grade,a.photo_file_id,a.user_name c_user_name,a.user_type c_type,a.user_gender c_gender,a.birthday c_birthday,a.identity_id c_identity_id
+		,a.grade c_grade,a.scan_file_ids c_scan_file_ids,a.startwork_time c_startwork_time,a.work_years c_work_years,a.hospital c_hospital
+		,a.section c_section,b.user_name,b.type user_type,b.gender user_gender,b.birthday,b.identity_id,a.user_id,a.ID,a.sign_file_id c_sign_file_id
+		,a.unit_phone c_unit_phone,a.job_note c_job_note,a.identify_file_id c_identify_file_id,a.qualification_id c_qualification_id,a.device_opreator_id c_device_opreator_id
+		 from t_user_change a,t_base_user b
+		where a.user_id=b.id and a.id=#{id})t left join t_doctor_user c on c.id=t.user_id
+	</select>
+	
+	<select id="selectUserChangeByIdAndLock" parameterType="Long" resultType="TUserChange">
+		select * from T_USER_CHANGE WITH(XLOCK) where id=#{id}
+	</select>
+	
+	<select id="selectUserLiteByOrg" parameterType="Map" resultType="TBaseUser">
+	    select b.user_name,b.photo_file_id,b.grade v_grade,b.type,c.job_note v_job_note from T_ORG_USER_MAPPING a 
+		 	left join T_BASE_USER b on b.id=a.user_id
+		 	left join T_DOCTOR_USER c on c.id=a.user_id
+		 	where a.org_id=#{org_id}
+		 		<if test="mapping_status!=null">
+		 		    and a.status=#{mapping_status}
+		 		</if>
+		 		<if test="user_status!=null">
+		 		    and b.status=#{user_status}
+		 		</if>
+	</select>
+	
+	<select id="selectUserConfigByUserId" parameterType="long" resultType="TUserConfig">
+	    select * from T_USER_CONFIG where user_id=#{user_id}
+	</select>
+	
+	<select id="selectUserConfigByUserIdForUpdate" parameterType="long" resultType="TUserConfig">
+	    select * from T_USER_CONFIG WITH(XLOCK) where user_id=#{user_id}
+	</select>
+	
+	<insert id="insertUserConfig" parameterType="TUserConfig">
+		insert into T_USER_CONFIG (
+			user_id,
+			sms_config
+		) values (
+			#{user_id},
+			#{sms_config}
+		)
+	</insert>
+	
+	<update id="updateUserConfig" parameterType="TUserConfig">
+	    update T_USER_CONFIG set sms_config=#{sms_config} where user_id=#{user_id}
+	</update>
+</mapper>

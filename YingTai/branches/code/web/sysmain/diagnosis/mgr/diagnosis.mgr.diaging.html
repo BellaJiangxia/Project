@@ -1,0 +1,78 @@
+<div class="form-inline" style="margin-top: 10px;">
+	<option-pers ng-model="searchOpt" on-search="initData();"></option-pers>
+			<!-- <input type="text" class="form-control" style="width: 120px;" placeholder="病人姓名" ng-model="searchOpt.sickerName" /> 
+			<select class="form-control" ng-model="searchOpt.gender" 
+				ng-options="g.code as g.name for g in listGender">
+				<option value="">--性别--</option>
+			</select> -->
+			<input type="text" class="form-control" style="width: 160px;" placeholder="病历号" ng-model="searchOpt.medicalHisNum" /> 
+			<select class="form-control" ng-model="searchOpt.deviceTypeId"
+				ng-options="d.id as d.value for d in listDeviceType">
+				<option value="">--影像类型--</option>
+			</select> 
+			<select class="form-control" ng-model="searchOpt.requestOrgId" ng-options="org.id as org.org_name for org in arrayOrg">
+				<option value="">--申请机构--</option>
+			</select>
+			<!-- <select class="form-control" style="width: 110px;" ng-if="statTypeMap.index==6" ng-model="searchOpt.status">
+				<option value="">--诊断状态--</option>
+				<option value="1">等待诊断</option>
+				<option value="2">已被撤销</option>
+				<option value="3">已被拒绝</option>
+				<option value="4">正在诊断</option>
+				<option value="5">诊断结束</option>
+			</select> -->
+			<button class="btn btn-primary" ng-click="searchDiagnosis()">
+				<span class="glyphicon glyphicon-search"></span>
+				检索
+			</button>
+			<button class="btn btn-info" ng-click="searchDiagnosis()">
+				<span class="glyphicon glyphicon-refresh"></span>
+				刷新
+			</button>
+		</div>
+		<br />
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr class="bg-primary">
+					<th>病历号</th>
+					<th>病人姓名</th>
+					<th>影像类型</th>
+					<th>申请机构</th>	
+					<th>接受申请医生</th>
+					<th>正在诊断医生</th>
+					<th>状态</th>
+					<!-- <th>操作</th> -->
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="diagnosis in listDiagnosis">
+					<td><a href ng-click="showRequestDetailDialog({diagnosisId:diagnosis.id});" title="申请详情">{{diagnosis.case_his_num}}</a></td>
+					<td>{{diagnosis.patient_name}}</td>
+					<td>{{diagnosis.device_name}}</td>
+					<td>{{diagnosis.request_org_name}}</td>
+					<td>{{diagnosis.accept_user_name}}</td>
+					<td>{{diagnosis.curr_headle_user_name}}</td>
+					<td>{{diagnosis.statusStr}}</td>
+					<!-- <td>
+						<a href="javascript:void(0);" style="margin-left: 5px;" class="btn btn-success btn-sm" 
+							ng-click="acceptDiagnosis(diagnosis)" title="开始诊断">
+							<span class="glyphicon glyphicon-edit"></span>
+						</a>
+						<a href="javascript:void(0);" style="margin-left: 5px;" class="btn btn-danger btn-sm" 
+							ng-click="rejectDiagnosis(diagnosis)" title="拒绝诊断">
+							<span class="glyphicon glyphicon-remove-sign"></span>
+						</a>
+						<a ng-href="#/diagnosis/report/{{diagnosis.id}}" style="margin-left: 5px;" class="btn btn-info btn-sm" ng-if="diagnosis.status == 5" title="查看报告">
+							<span class="glyphicon glyphicon-zoom-in" ></span>
+						</a>
+					</td> -->
+				</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+						items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+						ng-model="searchOpt.spu.currPage" ng-change="searchDiagnosis()"
+						previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>

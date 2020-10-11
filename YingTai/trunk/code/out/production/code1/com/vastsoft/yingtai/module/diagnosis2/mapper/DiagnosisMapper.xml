@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.vastsoft.yingtai.module.diagnosis2.mapper.DiagnosisMapper">
+
+	<select id="queryUserIdByDiagnosisId" parameterType="Long" resultType="long">
+		select CURR_USER_ID from T_DIAGNOSIS_HANDLE where DIAGNOSIS_ID=#{diagnosis_id}
+	</select>
+
+	<select id="selectDiagnosisCount" parameterType="Map" resultType="int">
+		select count(id) 
+		from T_DIAGNOSIS_V2
+		where 1=1
+			<if test="request_tranfer_flag == 'false'">
+				and id not in (select new_request_id from T_REQUEST_TRANFER)			
+			</if>
+			<if test="patient_gender !=null">
+				and patient_gender=#{patient_gender}
+			</if>
+			<if test="patient_name !=null">
+				and patient_name like #{patient_name}+'%'
+			</if>
+			<if test="case_his_num !=null">
+				and case_his_num like #{case_his_num}+'%'
+			</if>
+			<if test="verify_user_id !=null">
+				and verify_user_id=#{verify_user_id}
+			</if>
+			<if test="dicom_img_device_type_id !=null">
+				and dicom_img_device_type_id=#{dicom_img_device_type_id}
+			</if>
+			<if test="dicom_img_id !=null">
+				and dicom_img_id=#{dicom_img_id}
+			</if>
+			<if test="dicom_img_mark_char !=null">
+				and dicom_img_mark_char=#{dicom_img_mark_char}
+			</if>
+			<if test="id !=null">
+				and id=#{id}
+			</if>
+			<if test="publish_report_org_id !=null">
+				and PUBLISH_REPORT_ORG_ID=#{publish_report_org_id}
+			</if>
+			<if test="case_his_id !=null">
+				and CASE_HIS_ID=#{case_his_id}
+			</if>
+			<if test="request_org_id!=null">
+				and request_org_id=#{request_org_id}
+			</if>
+			<if test="request_user_id!=null">
+				and request_user_id=#{request_user_id}
+			</if>
+			<if test="accept_user_id !=null">
+				and accept_user_id=#{accept_user_id}
+			</if>
+			<if test="verify_user_id !=null">
+				and verify_user_id=#{verify_user_id}
+			</if>
+			<if test="diagnosis_org_id!=null">
+				and diagnosis_org_id=#{diagnosis_org_id}
+			</if>
+			<if test="diagnosis_product_id!=null">
+				and diagnosis_product_id=#{diagnosis_product_id}
+			</if>
+			<if test="start!=null and end!=null">
+				and create_time between #{start} and #{end}
+			</if>
+			<if test="sick_key_words !=null">
+				and (PIC_CONCLUSION like '%'+#{sick_key_words}+'%' or PIC_OPINION like '%'+#{sick_key_words}+'%')
+			</if>
+			<if test="status!=null">
+				and status=#{status}
+			</if>
+			<if test="print_user_id !=null">
+				and print_user_id=#{print_user_id}
+			</if>
+	</select>
+
+	<select id="selectDiagnosis" parameterType="Map" resultType="FDiagnosis">
+		select * from (
+			SELECT
+				t1.*,
+				t4.USER_NAME AS REQUEST_USER_NAME,
+				t4.TYPE AS REQUEST_USER_TYPE,
+				t5.ORG_NAME AS DIAGNOSIS_ORG_NAME,
+				t6.DESCRIPTION AS PRODUCT_DESCRIPTION,
+				t7.ORG_NAME AS PUBLISH_ORG_NAME,
+				t8.ORG_NAME AS REQUEST_ORG_NAME,
+				t9.VALUE AS device_name,
+				T11.USER_NAME AS accept_user_name,
+				T12.USER_NAME AS VERIFY_USER_NAME,
+				T13.SYS_DEDUCT AS SYS_DEDUCT,
+				t15.USER_NAME as curr_headle_user_name,
+				<if test="curr_user_id !=null">
+					SELECT COUNT(1) AS newMsgCount FROM T_DIAGNOSIS_MSG WHERE STATUS=2 and RECV_USER_ID=#{curr_user_id} and DIAGNOSIS_ID=t1.ID,
+				</if>
+				ROW_NUMBER () OVER (ORDER BY t1.urgent_level desc,t1.create_time desc) AS RowNumber
+			FROM T_DIAGNOSIS_V2 t1
+				LEFT JOIN T_BASE_USER t4 ON t1.REQUEST_USER_ID = t4.ID
+				LEFT JOIN T_ORGANIZATION t5 ON t1.DIAGNOSIS_ORG_ID = t5.ID
+				LEFT JOIN T_ORG_PRODUCT t6 ON t1.DIAGNOSIS_PRODUCT_ID = t6.ID
+				LEFT JOIN T_ORGANIZATION t7 ON t1.PUBLISH_REPORT_ORG_ID = t7.ID
+				LEFT JOIN T_ORGANIZATION t8 ON t1.REQUEST_ORG_ID = t8.ID
+				LEFT JOIN T_DIC_VALUE t9 ON T1.DICOM_IMG_DEVICE_TYPE_ID = T9.ID
+				LEFT JOIN T_BASE_USER T11 ON T1.accept_user_id = T11.ID
+				LEFT JOIN T_BASE_USER T12 ON T1.VERIFY_USER_ID = T12.ID
+				LEFT JOIN T_FINANCE_FREEZE T13 ON T1.ID=T13.DIAGNOSIS_ID
+				LEFT JOIN T_DIAGNOSIS_HANDLE t14 on t1.curr_handle_id=t14.id
+				LEFT JOIN T_BASE_USER t15 on t14.CURR_USER_ID=t15.id
+			where 1=1
+				<if test="request_tranfer_flag == 'false'">
+					and t1.id not in (select new_request_id from T_REQUEST_TRANFER)
+				</if>
+				<if test="patient_gender !=null">
+					and t1.patient_gender=#{patient_gender}
+				</if>
+				<if test="patient_name !=null">
+					and t1.patient_name like #{patient_name}+'%'
+				</if>
+				<if test="case_his_num !=null">
+					and t1.CASE_HIS_NUM like #{case_his_num}+'%'
+				</if>
+				<if test="verify_user_id !=null">
+					and t1.verify_user_id=#{verify_user_id}
+				</if>
+				<if test="dicom_img_device_type_id !=null">
+					and t1.dicom_img_device_type_id=#{dicom_img_device_type_id}
+				</if>
+				<if test="dicom_img_id !=null">
+					and t1.dicom_img_id=#{dicom_img_id}
+				</if>
+				<if test="dicom_img_mark_char !=null">
+					and t1.dicom_img_mark_char=#{dicom_img_mark_char}
+				</if>
+				<if test="id !=null">
+					and t1.id=#{id}
+				</if>
+				<if test="publish_report_org_id !=null">
+					and t1.publish_report_org_id=#{publish_report_org_id}
+				</if>
+				<if test="case_his_id !=null">
+					and t1.case_his_id=#{case_his_id}
+				</if>
+				<if test="request_org_id!=null">
+					and t1.request_org_id=#{request_org_id}
+				</if>
+				<if test="request_user_id!=null">
+					and t1.request_user_id=#{request_user_id}
+				</if>
+				<if test="accept_user_id !=null">
+					and t1.accept_user_id=#{accept_user_id}
+				</if>
+				<if test="verify_user_id !=null">
+					and t1.verify_user_id=#{verify_user_id}
+				</if>
+				<if test="diagnosis_org_id!=null">
+					and t1.diagnosis_org_id=#{diagnosis_org_id}
+				</if>
+				<if test="diagnosis_product_id!=null">
+					and t1.diagnosis_product_id=#{diagnosis_product_id}
+				</if>
+				<if test="start!=null and end!=null">
+					and t1.create_time between #{start} and #{end}
+				</if>
+				<if test="sick_key_words !=null">
+					and (t1.PIC_CONCLUSION like '%'+#{sick_key_words}+'%' or t1.PIC_OPINION like '%'+#{sick_key_words}+'%')
+				</if>
+				<if test="status!=null">
+					and t1.status=#{status}
+				</if>
+				<if test="print_user_id !=null">
+					and t1.print_user_id=#{print_user_id}
+				</if>
+		)as tmp_t 
+		<if test="minRow !=null and maxRow !=null">
+			where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+		</if>
+	</select>
+
+	<insert id="insertDiagnosis" parameterType="TDiagnosis" useGeneratedKeys="true" keyProperty="id">
+		insert into T_DIAGNOSIS_V2 (
+			about_case_ids,
+			CASE_HIS_ID,
+			REQUEST_USER_ID,
+			REQUEST_ORG_ID,
+			DIAGNOSIS_ORG_ID,
+			DIAGNOSIS_PRODUCT_ID,
+			STATUS,
+			CREATE_TIME,
+			DICOM_IMG_DEVICE_TYPE_ID,
+			PUBLISH_REPORT_ORG_ID,
+			dicom_img_id,
+			case_his_num,
+			case_symptom,
+			case_enter_time,
+			case_leave_time,
+			case_hospitalized_num,
+			case_reception_section,
+			case_reception_doctor,
+			case_eaf_list,
+			case_source_type,
+			case_type,
+			patient_id,
+			patient_name,
+			patient_identity_id,
+			patient_gender,
+			patient_birthday,
+			patient_home_address,
+			patient_born_address,
+			patient_work,
+			patient_sick_his,
+			patient_source_type,
+			dicom_img_mark_char,
+			dicom_img_checklist_num,
+			dicom_img_check_time,
+			dicom_img_check_pro,
+			request_class,
+			urgent_level,
+			product_name,
+			product_charge_type,
+			charge_amount,
+			product_unit_price,
+			total_price
+		)values(
+			#{about_case_ids,jdbcType=VARCHAR},
+			#{case_his_id},
+			#{request_user_id},
+			#{request_org_id},
+			#{diagnosis_org_id},
+			#{diagnosis_product_id},
+			#{status},
+			#{create_time},
+			#{dicom_img_device_type_id},
+			#{publish_report_org_id},
+			#{dicom_img_id},
+			#{case_his_num},
+			#{case_symptom,jdbcType=VARCHAR},
+			#{case_enter_time,jdbcType=TIMESTAMP},
+			#{case_leave_time,jdbcType=TIMESTAMP},
+			#{case_hospitalized_num,jdbcType=VARCHAR},
+			#{case_reception_section,jdbcType=VARCHAR},
+			#{case_reception_doctor,jdbcType=VARCHAR},
+			#{case_eaf_list,jdbcType=VARCHAR},
+			#{case_source_type},
+			#{case_type},
+			#{patient_id},
+			#{patient_name},
+			#{patient_identity_id,jdbcType=VARCHAR},
+			#{patient_gender},
+			#{patient_birthday},
+			#{patient_home_address,jdbcType=VARCHAR},
+			#{patient_born_address,jdbcType=VARCHAR},
+			#{patient_work,jdbcType=VARCHAR},
+			#{patient_sick_his,jdbcType=VARCHAR},
+			#{patient_source_type},
+			#{dicom_img_mark_char},
+			#{dicom_img_checklist_num,jdbcType=VARCHAR},
+			#{dicom_img_check_time},
+			#{dicom_img_check_pro,jdbcType=VARCHAR},
+			#{request_class},
+			#{urgent_level},
+			#{product_name},
+			#{product_charge_type},
+			#{charge_amount},
+			#{product_unit_price},
+			#{total_price}
+		)
+	</insert>
+
+	<insert id="addDiagnosisHandle" parameterType="TDiagnosisHandle"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into T_DIAGNOSIS_HANDLE (
+			diagnosis_id,
+			curr_user_id,
+			next_user_id,
+			pic_opinion,
+			pic_conclusion,
+			org_id,
+			status,
+			create_time,
+			f_o_m,
+			can_tranfer
+		)values(
+			#{diagnosis_id},
+			#{curr_user_id},
+			#{next_user_id,jdbcType=NUMERIC},
+			#{pic_opinion,jdbcType=VARCHAR},
+			#{pic_conclusion,jdbcType=VARCHAR},
+			#{org_id},
+			#{status},
+			#{create_time},
+			#{f_o_m},
+			#{can_tranfer}
+		)
+	</insert>
+
+	<update id="updateDiagnosis" parameterType="TDiagnosis">
+		update T_DIAGNOSIS_V2 set
+			HANDLE_TIME=#{handle_time,jdbcType=TIMESTAMP},
+			STATUS=#{status},
+			NOTE=#{note,jdbcType=VARCHAR},
+			ACCEPT_USER_ID=#{accept_user_id,jdbcType=NUMERIC},
+			VERIFY_USER_ID=#{verify_user_id,jdbcType=NUMERIC},
+			CURR_HANDLE_ID=#{curr_handle_id,jdbcType=NUMERIC}
+		where id=#{id}
+	</update>
+
+	<select id="selectDiagnosisByIdForUpdate" parameterType="long" resultType="TDiagnosis">
+		select * from T_DIAGNOSIS_V2 WITH(UPDLOCK) where id=#{id}
+	</select>
+	
+	<select id="queryHandleById" parameterType="long" resultType="TDiagnosisHandle">
+		select * from T_DIAGNOSIS_HANDLE where id=#{lHandleId}
+	</select>
+
+	<select id="selectDiagnosisById" parameterType="long" resultType="TDiagnosis">
+		select * from T_DIAGNOSIS_V2 where id=#{id}
+	</select>
+
+	<delete id="deleteHandleById" parameterType="long">
+		delete from T_DIAGNOSIS_HANDLE where id=#{lHandleId}
+	</delete>
+
+	<select id="queryHandleByIdForUpdate" parameterType="long"
+		resultType="TDiagnosisHandle">
+		select * from T_DIAGNOSIS_HANDLE WITH(UPDLOCK) where id=#{id}
+	</select>
+
+	<update id="updateHandle" parameterType="TDiagnosisHandle">
+		update T_DIAGNOSIS_HANDLE set 
+			next_user_id=#{next_user_id,jdbcType=NUMERIC},
+			pic_opinion=#{pic_opinion,jdbcType=VARCHAR},
+			pic_conclusion=#{pic_conclusion,jdbcType=VARCHAR},
+			transfer_time=#{transfer_time,jdbcType=TIMESTAMP},
+			f_o_m=#{f_o_m},
+			status=#{status}
+		where id=#{id}
+	</update>
+	
+	<select id="searchDiagnosisHandleCount" parameterType="Map" resultType="int">
+		select count(t0.ID)
+		from T_DIAGNOSIS_HANDLE t0
+			LEFT JOIN T_DIAGNOSIS_V2 t1 ON t0.DIAGNOSIS_ID=t1.ID
+		where 1=1
+			<if test="request_org_id !=null">
+				and t1.REQUEST_ORG_ID =#{request_org_id}
+			</if>
+			<if test="dicom_img_device_type_id !=null">
+				and t1.dicom_img_device_type_id =#{dicom_img_device_type_id}
+			</if>
+			<if test="patient_gender !=null">
+				and t1.patient_gender =#{patient_gender}
+			</if>
+			<if test="patient_name !=null">
+				and t1.patient_name like #{patient_name}+'%'
+			</if>
+			<if test="case_his_num !=null">
+				and t1.case_his_num like #{case_his_num}+'%'
+			</if>
+			<if test="next_user_id !=null">
+				and t0.next_user_id=#{next_user_id}
+			</if>
+			<if test="diagnosis_id !=null">
+				and t0.diagnosis_id=#{diagnosis_id}
+			</if>
+			<if test="id !=null">
+				and t0.id=#{id}
+			</if>
+			<if test="curr_user_id!=null">
+				and t0.curr_user_id=#{curr_user_id}
+			</if>
+			<if test="org_id!=null">
+				and t0.org_id=#{org_id}
+			</if>
+			<if test="status !=null">
+				and t0.status=#{status}
+			</if>
+			<if test="contain_status !=null">
+			    and t0.status in (${contain_status})
+			</if>
+			<if test="exclude_status !=null">
+			    and t0.status not in (${exclude_status})
+			</if>
+			<if test="start!=null and end!=null">
+				and t0.create_time between #{start} and #{end}
+			</if>
+			<if test="exclude_curr_user_ids !=null">
+			    and t0.curr_user_id not in (#{exclude_curr_user_ids})
+			</if>
+	</select>
+	
+	<select id="searchDiagnosisHandle" parameterType="Map" resultType="FDiagnosisHandle">
+	    select * from (
+			SELECT
+				t0.*,
+				t1.CASE_HIS_ID as case_his_id,
+				t1.case_his_num AS case_his_num,
+				t1.patient_name AS patient_name,
+				t1.patient_birthday AS patient_birthday,
+				t1.patient_gender AS patient_gender,
+				t1.DICOM_IMG_DEVICE_TYPE_ID as device_type_id,
+				t4.VALUE AS device_type_name,
+				t6.ORG_NAME AS request_org_name,
+				t7.USER_NAME AS curr_user_name,
+				t8.USER_NAME AS next_user_name,
+				ROW_NUMBER () OVER (ORDER BY 
+					<choose>
+						<when test="order_by !=null">
+							t0.${order_by}
+						</when>
+						<otherwise>
+							t0.CREATE_TIME desc
+						</otherwise>
+					</choose>
+					) AS RowNumber
+			FROM T_DIAGNOSIS_HANDLE t0
+				LEFT JOIN T_DIAGNOSIS_V2 t1 ON t0.DIAGNOSIS_ID=t1.ID
+				LEFT JOIN T_DIC_VALUE t4 ON t1.DICOM_IMG_DEVICE_TYPE_ID=t4.ID
+				LEFT JOIN T_ORGANIZATION t6 ON t1.REQUEST_ORG_ID=t6.ID
+				LEFT JOIN T_BASE_USER t7 ON t0.CURR_USER_ID=t7.ID
+				LEFT JOIN T_BASE_USER t8 ON t0.NEXT_USER_ID=t8.ID
+			WHERE 1=1
+				<if test="request_org_id !=null">
+					and t1.REQUEST_ORG_ID =#{request_org_id}
+				</if>
+				<if test="dicom_img_device_type_id !=null">
+					and t1.dicom_img_device_type_id =#{dicom_img_device_type_id}
+				</if>
+				<if test="patient_gender !=null">
+					and t1.patient_gender =#{patient_gender}
+				</if>
+				<if test="patient_name !=null">
+					and t1.patient_name like #{patient_name}+'%'
+				</if>
+				<if test="case_his_num !=null">
+					and t1.case_his_num like #{case_his_num}+'%'
+				</if>
+				<if test="next_user_id !=null">
+					and t0.next_user_id=#{next_user_id}
+				</if>
+				<if test="diagnosis_id !=null">
+					and t0.diagnosis_id=#{diagnosis_id}
+				</if>
+				<if test="id !=null">
+					and t0.id=#{id}
+				</if>
+				<if test="curr_user_id!=null">
+					and t0.curr_user_id=#{curr_user_id}
+				</if>
+				<if test="org_id!=null">
+					and t0.org_id=#{org_id}
+				</if>
+				<if test="status !=null">
+					and t0.status=#{status}
+				</if>
+				<if test="contain_status !=null">
+				    and t0.status in (${contain_status})
+				</if>
+				<if test="exclude_status !=null">
+				    and t0.status not in (${exclude_status})
+				</if>
+				<if test="start!=null and end!=null">
+					and t0.create_time between #{start} and #{end}
+				</if>
+				<if test="exclude_curr_user_ids !=null">
+				    and t0.curr_user_id not in (${exclude_curr_user_ids})
+				</if>
+		) as tmp_t 
+			<if test="minRow !=null and maxRow !=null">
+				where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+			</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

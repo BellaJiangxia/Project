@@ -1,0 +1,14 @@
+<div style="overflow: auto;">
+	<div>
+		<label>影像所见：</label>
+		<div>
+			<p ng-repeat="po in r.pic_opinions track by $index">&emsp;&emsp;{{po}}</p>
+		</div>
+	</div>
+	<div>
+		<label>诊断意见：</label>
+		<div>
+			<p ng-repeat="pc in r.pic_conclusions track by $index">&emsp;&emsp;{{pc}}</p>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,96 @@
+<div class="container-fluid">
+	<uib-alert type="info" ng-show="msg">{{msg}}</uib-alert>
+  	<div class="panel panel-primary">
+  		<div class="panel-heading"><h4>机构账户</h4></div>
+		<div class="panel-body" style="padding:5px">	
+			<uib-tabset>
+			    <uib-tab heading="账户余额" select="loadAccount()">
+			    	<form class="form-horizontal" novalidate style="margin: 5px 10px;">
+						  <div class="form-group">
+						    <label class="col-sm-3 control-label">账户余额</label>
+						    <div class="col-sm-5">
+						      <p class="form-control-static text-danger" data-ng-bind="account.amount"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-sm-3 control-label">账户状态</label>
+						    <div class="col-sm-5">
+						      <p class="form-control-static text-danger" data-ng-bind="account.accountStatus.name"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-sm-3 control-label">交易金额</label>
+						    <div class="col-sm-5">
+						      <input type="text" class="form-control" ng-model="trans.money">
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <div class="col-sm-offset-6">
+						      <a type="button" class="btn btn-success" ng-click="accountRequest(1)"><span class="glyphicon glyphicon-ok"></span> 充值</a>
+						      <a type="button" class="btn btn-info" ng-click="accountRequest(2)"><span class="glyphicon glyphicon-save"></span> 取现</a>
+						    </div>
+						  </div>
+						</form>
+			    </uib-tab>
+			    <uib-tab heading="操作记录" select="loadAccountLog()">
+			    	<table class="table table-bordered table-hover">
+				      <thead>
+				        <tr class="bg-primary">
+				          <th>操作人</th>
+				          <th>金额</th>
+				          <th>操作类型</th>
+				          <th>收支类型</th>
+				          <th>操作时间</th>
+				          <th>操作说明</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				        <tr ng-repeat="o in records.rows">
+								 <td>{{o.v_opeaator_name}}</td>
+								 <td>{{o.price}}</td>
+								 <td>{{o.opeartType.name}}</td>
+								 <td>{{o.opeartType.reType.name}}</td>
+				         <td>{{o.operat_timeStr}}</td>
+				         <td>{{o.description}}</td>
+				        </tr>
+				      </tbody>
+				 		</table>
+				 		<div class="panel-footer">
+				    	<div style="text-align: right">
+						    <uib-pagination class="pagination-md" style="margin:0px" total-items="records.total" ng-model="records.pageIdx" ng-change="loadAccountLog()" max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+				    	</div>
+				    </div>
+			    </uib-tab>
+			    <uib-tab heading="提现充值申请记录" select="loadRequest()">
+			    	<table class="table table-bordered table-hover">
+				      <thead>
+				        <tr class="bg-primary">
+				          <th class="col-xs-2" style="text-align: center">申请类型</th>
+				          <th class="col-xs-1" style="text-align: center">申请金额</th>
+				          <th class="col-xs-2" style="text-align: center">申请时间</th>
+				          <th class="col-xs-1" style="text-align: center">状态</th>
+				          <th class="col-xs-1" style="text-align: center">操作</th>
+				        </tr>
+				      </thead>
+				      <tbody>
+				        <tr ng-repeat="o in req.rows">
+								 <td class="col-xs-2">{{o.type.name}}</td>
+								 <td class="col-xs-1">{{o.price}}</td>
+				         <td class="col-xs-2">{{o.create_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+				         <td class="col-xs-1">{{o.status.name}}</td>
+				         <td class="col-xs-1">
+				         	<a class="btn-link" ng-show="o.can_cancel" href="#" ng-click="cancelReq(o.id)">撤销</a>
+				         </td>
+				        </tr>
+				      </tbody>
+				 		</table>
+				 		<div class="panel-footer">
+				    	<div style="text-align: right">
+						    <uib-pagination class="pagination-md" style="margin:0px" total-items="req.total" ng-model="req.pageIdx" ng-change="loadRequest()" max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+				    	</div>
+				    </div>
+			    </uib-tab>
+		  	</uib-tabset>
+	  	</div>
+	</div>
+</div>

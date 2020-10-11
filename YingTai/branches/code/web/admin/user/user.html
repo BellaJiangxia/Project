@@ -1,0 +1,90 @@
+<div class="container-fluid">
+	<uib-alert ng-show="msg" type="info">{{msg}}</uib-alert>
+  	<div class="panel panel-primary">
+  		<div class="panel-heading">平台用户列表</div>
+  		<div style="padding:5px">
+			<uib-tabset>
+				<uib-tab heading="有效用户" select="loadUser(2)">
+			  		<div ng-include="template.url"></div>
+				</uib-tab>
+				<uib-tab select="loadUser(1)" active="tab.isActive">
+					<uib-tab-heading>
+						 <span>待审核用户 <span class="badge" style="background-color:#f00;color:#fff" ng-show="waitCount.a_user_count>0" data-ng-bind="waitCount.a_user_count"></span></span>
+					</uib-tab-heading>
+					<div ng-include="template.url"></div>
+				</uib-tab>
+				<uib-tab heading="已拒绝用户" select="loadUser(3)">
+					<div ng-include="template.url"></div>
+				</uib-tab>
+				<uib-tab heading="已禁用用户" select="loadUser(25)">
+					<div ng-include="template.url"></div>
+				</uib-tab>
+				<!-- <tab heading="已删除用户" select="loadUser(4)">
+					<div ng-include="template.url"></div>
+				</tab> -->
+				<uib-tab select="loadUserChange()" active="tab.isActive2">
+					<uib-tab-heading>
+						 <span>申请变更用户 <span class="badge" style="background-color:#f00;color:#fff" ng-show="waitCount.change_user_count>0" data-ng-bind="waitCount.change_user_count"></span></span>
+					</uib-tab-heading>
+					<form class="form-inline" style="margin: 5px 10px;">
+						<div class="form-group">
+					    <label>姓名</label>
+					    <input type="text" class="form-control" ng-model="query.userName" placeholder="姓名">
+					  </div> 
+					  <div class="form-group">
+					    <label>电话</label>
+					    <input type="text" class="form-control" ng-model="query.mobile" placeholder="电话号码">
+					  </div> 
+					  <div class="form-group">
+					     <a type="button" class="btn btn-success" ng-click="loadUserChange()"><span class="glyphicon glyphicon-search"></span> 查询</a>
+					  </div>
+					</form>
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr class="info">
+								<th class="col-md-1" style="text-align: center">电话号码</th>
+								<th class="col-md-1" style="text-align: center">原姓名</th>
+								<th class="col-md-1" style="text-align: center">变更姓名</th>
+								<th class="col-md-1" style="text-align: center">原类型</th>
+								<th class="col-md-1" style="text-align: center">变更类型</th>
+								<th class="col-md-2" style="text-align: center">申请时间</th>
+								<th class="col-md-2" style="text-align: center">审核时间</th>
+								<th class="col-md-1" style="text-align: center">审核人</th>
+								<th class="col-md-1" style="text-align: center">状态</th>
+								<th class="col-md-1" style="text-align: center">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="u in users">
+								<td class="col-md-1">{{u.mobile}}</td>
+								<td class="col-md-1">{{u.c_user_name}}</td>
+								<td class="col-md-1">{{u.user_name}}</td>
+								<td class="col-md-1">{{u.CUserType.name}}</td>
+								<td class="col-md-1">{{u.userType.name}}</td>
+								<td class="col-md-2">{{u.change_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+								<td class="col-md-2">{{u.verify_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+								<td class="col-md-1">{{u.verify_user_name}}</td>
+								<td class="col-md-1">{{u.userChangeStatus.name}}</td>
+								<td class="col-md-1">
+									<div ng-switch="u.userChangeStatus.code">
+										<a ng-switch-when="11" title="审核变更" class="btn btn-success btn-sm" ui-sref="info({action:'ac',id:u.id})">
+											<span class="glyphicon glyphicon-question-sign"></span>
+										</a>
+										<a ng-switch-default title="查看" class="btn btn-primary btn-sm" ui-sref="info({action:'v',id:u.user_id})">
+											<span class="glyphicon glyphicon-eye-open"></span>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="panel-footer">
+				   		<div style="text-align: right">
+					    	<uib-pagination class="pagination-md" total-items="total" ng-model="pageIdx" ng-change="loadUser(s)" max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+				   		</div>
+				   	</div>
+				</uib-tab>
+			</uib-tabset>
+		</div>
+	</div>
+</div>

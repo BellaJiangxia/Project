@@ -1,0 +1,276 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="container">
+	<uib-alert style="word-break: break-all;" type="{{adt.type}}" ng-show="adt.txt">{{adt.txt}}</uib-alert>
+	<div class="panel panel-primary">
+		<div class="panel-heading" >
+			<span style="font-size: 20px">用户信息</span>
+  		</div>
+		<form class="form-horizontal" name="frmUser" style="margin: 5px 10px;"
+			enctype="multipart/form-data" novalidate>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">本人照片<b style="color: red">*</b></label>
+				<div class="col-sm-5">
+					<img id="imgPhoto" class="img-thumbnail"
+						ng-src="common!image.action?fileType=14&imageId={{user.photo_file_id || ''}}"
+						style="width: 100px; height: 100px;">
+					<div class="fileUpload btn btn-primary" ng-show="!notEdit">
+						<span class="glyphicon glyphicon-picture"> 上传照片</span> <input
+							type="file" accept="image/*" class="upload" upload-change
+							change="uploadFile" file-type="14" file-bind="1">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">真实姓名<b
+					style="color: red">*</b></label>
+				<div class="col-sm-5">
+					<input type="text" class="form-control" name="userName"
+						ng-model="user.user_name" ng-disabled="notEdit" placeholder="真实姓名">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">手机号码<b
+					style="color: red">*</b></label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="mobile"
+						ng-model="user.mobile" readOnly>
+				</div>
+				<div class="col-sm-1">
+					<button class="btn btn-primary"
+						ng-disabled="notEdit||is_not_pass||isGuest"
+						ui-sref="loginName({name:'mobile'})">
+						<span class="glyphicon glyphicon-pencil"></span> 修改
+					</button>
+				</div>
+			</div>
+			<div class="form-group" ng-show="!isGuest">
+				<label class="col-sm-3 control-label">电子邮箱</label>
+				<div class="col-sm-4">
+					<input type="email" class="form-control" name="email"
+						ng-model="user.email" ng-readonly="true">
+				</div>
+				<div class="col-sm-1">
+					<button class="btn btn-primary"
+						ng-disabled="notEdit||is_not_pass||isGuest"
+						ui-sref="loginName({name:'email'})">
+						<span class="glyphicon glyphicon-pencil"></span> 修改
+					</button>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">个人类别<b style="color: red">*</b></label>
+				<div class="row col-sm-5" style="padding-right: 0px">
+		    	<div class="col-sm-4" style="padding-right:0px">
+				    <select class="form-control" ng-model="user.type" ng-options="t.name for t in UserType track by t.code" ng-disabled="notEdit" required>
+							<option value="">-请选择-</option>
+						</select>
+				  </div>
+				  <div class="col-sm-4" style="padding: 0px">
+				    <select class="form-control" ng-model="doc_grade.a" ng-options="s.name for s in detailList | filter:{userType:user.type,parent:null} track by s.name" ng-disabled="notEdit" required>
+							<option value="">-请选择-</option>
+						</select>
+				  </div>
+				  <div class="col-sm-4" style="padding: 0px">
+				    <select class="form-control" ng-model="doc_grade.b" ng-options="s.name for s in detailList | filter:{parent:doc_grade.a} track by s.name" ng-if="doc_grade.a"  ng-disabled="notEdit">
+							<option value="">-请选择-</option>
+						</select>
+				  </div>
+		    </div>
+			</div>
+			<div ng-show="isDoctor">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">执业医师证</label>
+					<div class="col-sm-5 checkbox">
+						<label><input type="checkbox" ng-model="chk.hasPC" ng-disabled="notEdit" ng-true-value="true" ng-false-value="false"> 有</label>
+						<label><input type="checkbox" ng-model="chk.hasPC" ng-disabled="notEdit" ng-true-value="false" ng-false-value="true"> 无</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">大型设备上岗证</label>
+					<div class="col-sm-5 checkbox">
+						<label><input type="checkbox" ng-model="chk.hasAC" ng-disabled="notEdit" ng-true-value="true" ng-false-value="false"> 有</label>
+						<label><input type="checkbox" ng-model="chk.hasAC" ng-disabled="notEdit" ng-true-value="false" ng-false-value="true"> 无</label>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label">性别</label>
+				<div class="col-sm-5">
+					<span ng-repeat="g in Gender"> <label class="radio-inline">
+							<input type="radio" name='gender' value='{{g.code}}'
+							ng-model="$parent.user.gender" ng-disabled="notEdit" />{{g.name}}
+					</label>
+					</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">出生年月</label>
+				<div class="col-sm-5">
+					<p class="input-group">
+						<input type="text" ng-readonly="true" class="form-control" placeholder="出生年月"
+							ng-disabled="notEdit" datepicker-popup="yyyy-MM-dd"
+							ng-model="user.birthday" show-weeks="false"
+							show-button-bar="false" is-open="isopenbd" /> <span
+							class="input-group-btn">
+							<button type="button" class="btn btn-default"
+								ng-click="isopenbd=!isopenbd" ng-disabled="notEdit">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">身份证号码</label>
+				<div class="col-sm-5">
+					<input type="text" name="identity_id" class="form-control"
+						ng-model="user.identity_id" maxlength="18" ng-disabled="notEdit"
+						ng-pattern="/(^\d{15}$)|(^\d{17}([0-9]|X)$)/"> <span
+						class="text-danger" ng-show="frmUser.identity_id.$error.pattern">身份证号不正确</span>
+				</div>
+			</div>
+			<div ng-show="isDoctor">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">工作单位<b style="color: red">*</b></label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" ng-model="user.hospital" ng-disabled="notEdit">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">单位科室<b style="color: red">*</b></label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" ng-model="user.section" ng-disabled="notEdit">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">单位电话</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control"
+									 ng-model="user.unit_phone" ng-disabled="notEdit">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">从业时间</label>
+					<div class="col-sm-5">
+						<p class="input-group">
+							<input type="text" class="form-control" ng-disabled="notEdit"
+								datepicker-popup="yyyy-MM-dd" ng-model="user.startwork_time"
+								show-weeks="false" show-button-bar="false" is-open="isopen" /> <span
+								class="input-group-btn">
+								<button type="button" class="btn btn-default"
+									ng-click="isopen=!isopen" ng-disabled="notEdit">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</span>
+						</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">工作年限</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control"
+							ng-model="user.work_years" ng-disabled="notEdit">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">个人简介</label>
+					<div class="col-sm-5">
+						<textarea class="form-control" ng-model="user.job_note"
+							ng-disabled="notEdit"></textarea>
+					</div>
+				</div>
+				<!--<div class="form-group">-->
+					<!--<label class="col-sm-3 control-label">身份证</label>-->
+					<!--<div class="col-sm-5">-->
+						<!--<img class="img-thumbnail" ng-show="user.identify_file_id>0"-->
+							<!--ng-src="common!image.action?fileType=15&imageId={{user.identify_file_id}}"-->
+							<!--style="width: 100%; height: 240px;">-->
+						<!--<div class="fileUpload btn btn-primary" ng-show="!notEdit">-->
+							<!--<span class="glyphicon glyphicon-picture"> 上传身份证</span> <input-->
+								<!--id="uploadBtn2" type="file" accept="image/*" class="upload"-->
+								<!--upload-change change="uploadFile" file-type="15" file-bind="2">-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<div class="form-group" ng-show="chk.hasPC">
+					<label class="col-sm-3 control-label">执业医师证</label>
+					<div class="col-sm-5">
+						<img class="img-thumbnail" ng-show="user.qualification_id>0"
+							ng-src="common!image.action?imageId={{user.qualification_id}}"
+							style="width: 100%; height: 240px;">
+						<div class="fileUpload btn btn-primary" ng-show="!notEdit">
+							<span class="glyphicon glyphicon-picture"> 上传执业医师证</span> <input
+								id="uploadBtn2" type="file" accept="image/*" class="upload"
+								upload-change change="uploadFile" file-type="15" file-bind="5">
+						</div>
+					</div>
+				</div>
+				<!--<div class="form-group">-->
+					<!--<label class="col-sm-3 control-label">职称证</label>-->
+					<!--<div class="col-sm-5">-->
+						<!--<div ng-show="user.scan_file_ids">-->
+							<!--<img ng-repeat="sfid in user.scan_file_ids.split(',')"-->
+								<!--class="img-thumbnail"-->
+								<!--ng-src="common!image.action?fileType=15&imageId={{sfid}}"-->
+								<!--style="width: 100%; height: 240px;">-->
+						<!--</div>-->
+						<!--<div class="fileUpload btn btn-primary" ng-show="!notEdit">-->
+							<!--<span class="glyphicon glyphicon-picture"> 上传职称证</span> <input-->
+								<!--id="uploadBtn3" type="file" multiple accept="image/*"-->
+								<!--class="upload" upload-change change="uploadFile" file-type="15"-->
+								<!--file-bind="3">-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<div class="form-group" ng-show="chk.hasAC">
+					<label class="col-sm-3 control-label">大型设备上岗证</label>
+					<div class="col-sm-5">
+						<img class="img-thumbnail" ng-show="user.device_opreator_id>0"
+							ng-src="common!image.action?imageId={{user.device_opreator_id}}"
+							style="width: 100%; height: 240px;">
+						<div class="fileUpload btn btn-primary" ng-show="!notEdit">
+							<span class="glyphicon glyphicon-picture"> 上传上岗证</span> <input
+								id="uploadBtn2" type="file" accept="image/*" class="upload"
+								upload-change change="uploadFile" file-type="15" file-bind="6">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">电子签名</label>
+					<div class="col-sm-5">
+						<img class="img-thumbnail" ng-show="user.sign_file_id>0"
+							ng-src="common!image.action?imageId={{user.sign_file_id}}"
+							style="width: 100%; height: 240px;">
+						<div class="fileUpload btn btn-primary" ng-show="!notEdit">
+							<span class="glyphicon glyphicon-picture"> 上传签名</span> <input
+								id="uploadBtn2" type="file" accept="image/*" class="upload"
+								upload-change change="uploadFile" file-type="21" file-bind="4">
+						</div>
+					</div>
+				</div>
+			</div>
+			<uib-alert type="danger" class="col-sm-offset-3 col-sm-5" ng-show="msg">{{msg}}</uib-alert>
+			<div class="form-group">
+				<div class="col-sm-offset-7 col-sm-1">
+					<button type="submit" class="btn btn-success" ng-click="saveUser()"
+						ng-disabled="notEdit||!user.type">
+						<span class="glyphicon glyphicon-save"></span> 保存
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

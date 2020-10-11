@@ -1,0 +1,29 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="modal-header">
+	<h3 class="modal-title">电子病历</h3>
+</div>
+<div class="modal-body">
+	<div data-ng-init="initData()">
+		<ul style="list-style-type: none;">
+			<li ng-repeat="elect in listElectMedical" >
+				<a href="javascript:void(0);" ng-click="itemClick(elect)">{{elect.name}}</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary glyphicon glyphicon-ok" ng-click="ok()" ng-if="selected.user||unspecified">确定</button>
+	<button class="btn btn-warning glyphicon glyphicon-remove" ng-click="cancel()">取消</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<div class="container-fluid">
+	<uib-alert ng-show="msg" type="info">{{msg}}</uib-alert>
+  <div class="panel panel-primary">
+  	<div class="panel-heading">后台用户列表</div>
+  	<form class="form-inline" style="margin: 5px 10px;">
+			<div class="form-group">
+		    <label>姓名</label>
+		    <input type="text" class="form-control" ng-model="userName" placeholder="姓名">
+		  </div> 
+		  <div class="form-group">
+		    <label>电话</label>
+		    <input type="text" class="form-control" ng-model="mobile" placeholder="电话号码">
+		  </div> 
+		  <div class="form-group">
+	      <a type="button" class="btn btn-success" ng-click="loadUser()"><span class="glyphicon glyphicon-search"></span> 查询</a>
+	      <a type="button" class="btn btn-success" ui-sref="adminuser.info({action:'a'})"><span class="glyphicon glyphicon-plus"></span> 添加后台用户</a>
+		  </div>
+		</form>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="info">
+          <th class="col-xs-1" style="text-align: center">姓名</th>
+          <th class="col-xs-1" style="text-align: center">类型</th>
+          <th class="col-xs-2" style="text-align: center">电话号码</th>
+          <th class="col-xs-4" style="text-align: center">拥有权限</th>
+          <th class="col-xs-2" style="text-align: center">创建时间</th>
+          <th class="col-xs-1" style="text-align: center">状态</th>
+          <th class="col-xs-1" style="text-align: center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="u in users">
+				 <td class="col-xs-1">{{u.user_name}}</td>
+				 <td class="col-xs-1">{{u.userType.name}}</td>
+				 <td class="col-xs-2">{{u.mobile}}</td>
+				 <td class="col-xs-4"><span title="{{u.permission}}">{{u.permission | subStr:20}}</span></td>
+         <td class="col-xs-2">{{u.create_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+         <td class="col-xs-1">{{u.status.name}}</td>
+         <td class="col-xs-1">
+         	<a ng-show=u.can_auth class="btn-link" ui-sref="adminuser.info({userId:u.user_id,action:'c'})" href="javascript:void(0);"><span title="用户授权" style="margin: 2px" class="glyphicon glyphicon-cog"></span></a>
+         	<a ng-show="u.can_disable" class="btn-link" ng-click="resetPwd(u.user_id)" href="javascript:void(0);"><span title="密码重置" style="margin: 2px" class="glyphicon glyphicon-repeat"></span></a>
+         	<a ng-show="u.can_enable" class="btn-link" style="color:green" ng-click="enableUser(u.user_id,true)" href="javascript:void(0);"><span title="启用" style="margin: 2px" class="glyphicon glyphicon-ok-circle"></span></a>
+         	<a ng-show="u.can_disable" class="btn-link" style="color:red" ng-click="enableUser(u.user_id,false)" href="javascript:void(0);"><span title="禁用" style="margin: 2px" class="glyphicon glyphicon-ban-circle"></span></a>
+         </td>
+        </tr>
+      </tbody>
+ 		</table>
+ 		<div class="panel-footer">
+    	<div style="text-align: right">
+		    <uib-pagination class="pagination-md" total-items="total" ng-model="pageIdx" ng-change="searchOrg()" 
+		    	max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页">
+		    </uib-pagination>
+    	</div>
+    </div>
+	</div>
+</div>

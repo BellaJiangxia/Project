@@ -1,0 +1,35 @@
+<div class="modal-heading" data-ng-init="initData()">
+	<div class="panel-heading">
+		<span class="glyphicon glyphicon-comment"></span>
+		聊天窗口
+	</div>
+</div>
+<div class="modal-body">
+	对话记录：
+	<div class="panel panel-default" style="margin-bottom: 5px;">
+		<div class="panel-body" style="height: 280px;overflow: auto;">
+			<div ng-repeat="m in listReportMsg">
+				<div ng-style="m.send_user_id==currUser.userId?{'text-align':'right'}:{'text-align':'left'}">
+					<p style="margin-bottom: 3px;">{{m.content}}</p>
+					<span style="color:Silver;font-size: 10px;">{{m.send_time | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+					<span ng-class="m.send_user_id==currUser.userId?'text-primary':'text-success'">
+						[{{m.send_org_name}}]&nbsp;&nbsp;{{m.send_user_id==currUser.userId?'我':m.send_user_name}}
+					</span>
+				</div>
+				<hr style="height: 1px;color: gray;margin: 2px 0px;">
+			</div>
+		</div>
+	</div>
+	发送内容：
+	<textarea class="form-control" rows="2" placeholder="请填写要发送的消息内容..." ng-model="pageContent.msgContent"></textarea>
+</div>
+<div class="modal-footer" align="right">
+	<button class="btn btn-warning" ng-click="cancel()">
+		<span class="glyphicon glyphicon-log-out"></span>
+		关闭
+	</button>
+	<button class="btn btn-info" ng-click="sendReportMsg();">
+		<span class="glyphicon glyphicon-open"></span>
+		发送
+	</button>
+</div>

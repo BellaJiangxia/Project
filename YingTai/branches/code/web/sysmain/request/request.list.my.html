@@ -1,0 +1,46 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-th-list"></span>
+		我的申请</h4>
+	</div>
+	<div class="panel-body">
+		<div style="margin-bottom: 10px;">
+			<ul class="nav nav-tabs">
+				<li role="presentation" ui-sref-active="active">
+					<a ui-sref="request.list.my.finish" role="button">
+						诊断结束
+						<span class="badge" style="color:white; background-color: red;" 
+		      				ng-if="diagnosisCount.unviewed_report_count>0" title="未打印报告数量">
+		      				{{diagnosisCount.unviewed_report_count}}
+		      			</span>
+					</a>
+				</li>
+				<li role="presentation" ui-sref-active="active">
+					<a ui-sref="request.list.my.waiting" role="button">
+						等待诊断
+<!-- 		      			<span class="badge" style="color:white; background-color: red;"  -->
+<!-- 		      				ng-if="diagnosisCount.waitDiagnosisCount>0"> -->
+<!-- 		      				{{diagnosisCount.waitDiagnosisCount}} -->
+<!-- 		      			</span> -->
+					</a>
+				</li>
+		      	<li role="presentation" ui-sref-active="active">
+					<a ui-sref="request.list.my.diaging" role="button">
+						正在诊断
+					</a>
+				</li>
+				<li role="presentation" ui-sref-active="active">
+					<a ui-sref="request.list.my.canceled" role="button">
+						已被撤销
+					</a>
+				</li>
+				<li role="presentation" ui-sref-active="active">
+					<a ui-sref="request.list.my.backed" role="button">
+						已被拒绝
+					</a>
+				</li>
+		    </ul>
+		</div>
+		<div ui-view></div>
+	</div>
+</div>

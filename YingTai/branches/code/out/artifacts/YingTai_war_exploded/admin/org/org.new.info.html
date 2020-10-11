@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="panel panel-default">
+	<div class="panel-heading"><span style="font-size: 16px;font-weight: bold;">基本信息</span>
+  </div>
+  <div class="form-horizontal" style="padding-top: 5px">
+		<div class="form-group">
+	    <label class="col-sm-3 control-label">LOGO<b style="color:red">*</b></label>
+	    <div class="col-sm-5">
+	    		<img class="img-thumbnail" ng-show="org.logo_file_id>0" ng-src="common!image.action?fileType=16&imageId={{org.logo_file_id}}" style="width: 100px;height:100px;">
+		      <div class="fileUpload btn btn-primary">
+					    <span class="glyphicon glyphicon-picture"> 上传LOGO</span>
+					    <input type="file" accept="image/*" class="upload" upload-change change="uploadFile" file-type="16" file-bind="4">
+					</div>
+	    </div>
+	  </div>
+	  <!--<div class="form-group">-->
+	  	<!--<label class="col-sm-3 control-label">机构角色<b style="color:red">*</b></label>-->
+	  	<!--<div class="col-md-5">-->
+	  	<!--<span ng-repeat="p in ots"> -->
+		  	<!--<label class="checkbox-inline">-->
+				 <!--<input type="checkbox" data-checklist-model="ot" data-checklist-value="p.code"> {{p.name}}-->
+				<!--</label>-->
+			<!--</span>-->
+     <!--</div>-->
+	  <!--</div>-->
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">机构类型<b style="color:red">*</b></label>
+	    <div class="col-sm-5">
+				<label class="radio-inline" ng-repeat="t in types">
+					<input type="radio" name="orgProperty" value="{{t.code}}" ng-model="org.org_property" ng-change="changType(t)">{{t.name}}
+				</label>
+	    </div>
+	  </div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">机构级别<b style="color:red">*</b></label>
+			<div class="col-sm-5">
+				<select class="form-control" ng-model="org.levels" ng-options="l.id as l.value for l in levels">
+					<option value="">--请选择--</option>
+				</select>
+			</div>
+		</div>
+	  <div class="form-group">
+	    <label class="col-sm-3 control-label">机构名称<b style="color:red">*</b></label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control" name="orgName" ng-model="org.org_name" placeholder="机构名称（必填）" required>
+	    </div>
+	  </div>
+	  <div class="form-group" ng-if="org.org_property==11">
+	    <label class="col-sm-3 control-label">机构证件<b style="color:red">*</b></label>
+	    <div class="col-sm-5">
+	      <div ng-show="org.scan_file_ids">
+		      <img ng-repeat="sfid in org.scan_file_ids.split(',')" class="img-thumbnail" ng-src="common!image.action?fileType=17&imageId={{sfid}}" style="width: 100%;height:240px;">
+	    	</div>
+	      <div class="fileUpload btn btn-primary" ng-show="!notEdit">
+				    <span class="glyphicon glyphicon-picture"> 上传证件</span>
+				    <input type="file" multiple accept="image/*" class="upload" upload-change change="uploadFile" file-type="17" file-bind="5">
+				</div>
+	    </div>
+	  </div>
+  </div>
+ </div>
+  	
+	<ul class="pager">
+	  <li class="">
+	    <a  ui-sref="org"><span class="glyphicon glyphicon-arrow-left"></span> 返回列表</a>
+	  </li>
+	  <li class="">
+	    <a href="javascript:void(0);" ng-click="goUser(true)">用户列表 <span class="glyphicon glyphicon-arrow-right"></span></a>
+	  </li>
+	</ul>
+
+<style type="text/css">
+	.fileUpload {
+		position: relative;
+		overflow: hidden;
+		margin: 10px;
+	}
+	.fileUpload input.upload {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		padding: 0;
+		font-size: 20px;
+		cursor: pointer;
+		opacity: 0;
+		filter: alpha(opacity=0);
+	}
+</style>
+</body>
+</html>

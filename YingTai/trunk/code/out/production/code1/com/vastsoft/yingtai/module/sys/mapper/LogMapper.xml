@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.sys.mapper.LogMapper">
+	<select id="searchSysLogList" parameterType="Map" resultType="FSysLog">
+		select *
+		from (
+			select ta.*,tb.USER_NAME as operator_name,tc.ORG_NAME as org_name,ROW_NUMBER() OVER (ORDER BY ta.CREATE_TIME DESC) AS RowNumber
+			from T_OPERATION_RECORD ta
+				left join T_BASE_USER tb on ta.OPERATOR_ID=tb.id
+				left join T_ORGANIZATION tc on ta.ORG_ID=tc.id
+			where 1=1 
+				<if test="operator_name !=null">
+					and tb.USER_NAME like '%'+#{operator_name}+'%'
+				</if>
+				<if test="org_name !=null">
+					and tc.ORG_NAME like '%'+#{org_name}+'%'
+				</if>
+				<if test="operator_type !=null">
+					and ta.OPERATOR_TYPE=#{operator_type}
+				</if>
+				<if test="inf_name !=null">
+					and ta.INF_NAME like #{inf_name}+'%'
+				</if>
+				<if test="status !=null">
+					and ta.STATUS=#{status}
+				</if>
+				<if test="start !=null and end!=null">
+					and ta.CREATE_TIME between #{start} and #{end}
+				</if>
+				and ta.OPERATOR_ID!=0 and ta.OPERATOR_ID is not null
+		)tmp_t where tmp_t.RowNumber>=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+	</select>
+
+	<select id="searchSysLogCount" parameterType="Map" resultType="int">
+		select count(1) 
+		from T_OPERATION_RECORD t0
+			left join T_BASE_USER t1 on t0.OPERATOR_ID=t1.id
+			left join T_ORGANIZATION t2 on t0.ORG_ID=t2.id
+		where 1=1 
+			<if test="operator_name !=null">
+				and t1.USER_NAME like '%'+#{operator_name}+'%'
+			</if>
+			<if test="org_name !=null">
+				and t2.ORG_NAME like '%'+#{org_name}+'%'
+			</if>
+			<if test="operator_type !=null">
+				and t0.OPERATOR_TYPE=#{operator_type}
+			</if>
+			<if test="inf_name !=null">
+				and t0.INF_NAME like #{inf_name}+'%'
+			</if>
+			<if test="status !=null">
+				and t0.STATUS=#{status}
+			</if>
+			<if test="start !=null and end!=null">
+				and t0.CREATE_TIME between #{start} and #{end}
+			</if>
+			and t0.OPERATOR_ID!=0 and t0.OPERATOR_ID is not null
+	</select>
+
+	<insert id="addLogRecord" parameterType="TOperationRecord" useGeneratedKeys="true" keyProperty="id">
+		insert into T_OPERATION_RECORD (
+			operator_id,
+			org_id,
+			operator_type,
+			inf_name,
+			params,
+			returns,
+			status,
+			description,
+			error_msg,
+			create_time
+		) values(
+			#{operator_id},
+			#{org_id},
+			#{operator_type},
+			#{inf_name},
+			#{params},
+			#{returns},
+			#{status},
+			#{description},
+			#{error_msg},
+			#{create_time}
+		)
+	</insert>
+</mapper>

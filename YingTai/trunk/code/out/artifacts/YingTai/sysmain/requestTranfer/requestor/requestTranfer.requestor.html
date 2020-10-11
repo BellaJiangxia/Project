@@ -1,0 +1,80 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-th-list"></span>
+		转诊申请管理</h4>
+	</div>
+	<div class="panel-body">
+		<ul class="nav nav-tabs">
+			<li role="presentation"  ui-sref-active="active">
+				<a ui-sref="requestTranfer.requestor.finish">
+					诊断结束
+				</a>
+			</li>
+			<li role="presentation"  ui-sref-active="active">
+				<a ui-sref="requestTranfer.requestor.waiting">
+					等待诊断
+<!--       			<span class="badge" style="color:white; background-color: red;"  -->
+<!--       				ng-if="diagnosisCount.waitDiagnosisCount>0"> -->
+<!--       				{{diagnosisCount.waitDiagnosisCount}} -->
+<!--       			</span> -->
+				</a>
+			</li>
+<!-- 	      	<li role="presentation"  ui-sref-active="active"> -->
+<!-- 				<a ui-sref="requestTranfer.requestor.accept_tranfer"> -->
+<!-- 					接受，并转交申请 -->
+<!-- 				</a> -->
+<!-- 			</li> -->
+	      	<li role="presentation"  ui-sref-active="active">
+				<a ui-sref="requestTranfer.requestor.diaging">
+					正在诊断
+				</a>
+			</li>
+			<li role="presentation"  ui-sref-active="active">
+				<a ui-sref="requestTranfer.requestor.canceled">
+					已被撤回
+				</a>
+			</li>
+			<li role="presentation"  ui-sref-active="active">
+				<a ui-sref="requestTranfer.requestor.backed">
+					已被拒绝
+				</a>
+			</li>
+	    </ul>
+	    <div class="tab-context">
+		    <div class="form-inline" style="margin-bottom: 10px;">
+				<input type="text" class="form-control" style="width: 120px;" placeholder="病人姓名" ng-model="searchOpt.new_patient_name"/> 
+				<select class="form-control" ng-model="searchOpt.new_patient_gender" ng-options="g.code as g.name for g in listGender">
+					<option value="">--性别--</option>
+				</select> 
+				<input type="text" class="form-control" style="width: 160px;" placeholder="病历号" ng-model="searchOpt.new_case_his_num"/> 
+				<select class="form-control" style="width: 120px;" ng-model="searchOpt.new_device_type_id"
+					ng-options="device.id as device.value for device in listDeviceType">
+					<option value="">--影像类型--</option>
+				</select> 
+				<select class="form-control" style="width: 180px;" ng-model="searchOpt.new_diagnosis_org_id"
+					ng-options="org.id as org.org_name for org in arrayOrg">
+					<option value="">--诊断机构--</option>
+				</select>
+				<select class="form-control" style="width: 100px;" ng-model="searchOpt.timelimit"
+					ng-options="tl.code as tl.name for tl in listTimeLimit">
+					<option value="">--全部--</option>
+				</select>
+				<button class="btn btn-primary" ng-click="searchReqtestTranfer();">
+					<span class="glyphicon glyphicon-search"></span> 检索
+				</button>
+				<button class="btn btn-info" ng-click="searchReqtestTranfer();">
+					<span class="glyphicon glyphicon-refresh"></span>
+					刷新
+				</button>
+			</div>
+		    <div ui-view></div>
+		    <div align="right">
+				<span class="pull-left" style="font-size: 18px;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+				<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+							items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+							ng-model="searchOpt.spu.currPage" ng-change="searchReport();"
+							previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+			</div>
+	    </div>
+	</div>
+</div>

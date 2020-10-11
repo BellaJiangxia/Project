@@ -1,0 +1,85 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>影泰远程影像诊断系统</title>
+
+<link href="../image/favicon.ico" type="image/x-icon" rel="shortcut icon"></link>
+
+<link rel="stylesheet" href="../css/bootstrap-3.3.6.min.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/bootstrap-theme-3.3.6.min.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/common.css" type="text/css"></link>
+
+<script type="text/javascript" src="../js/angular-1.5.6.min.js"></script>
+<!-- <script type="text/javascript" src="../js/angular-route-1.5.6.min.js"></script> -->
+<!-- <script type="text/javascript" src="../js/ui-bootstrap-tpls-1.3.3.min.js"></script> -->
+<!-- <script type="text/javascript" src="../js/ajax4struts.js"></script> -->
+<script type="text/javascript" src="../js/tripledes/tripledes.js"></script>
+<script type="text/javascript" src="../js/tripledes/mode-ecb.js"></script>
+<script type="text/javascript" src="../js/tripledes/custom-encrypt.js"></script>
+
+<script type="text/javascript" src="login.js"></script>
+<style type="text/css">
+form:focus {outline: 0;}
+</style>
+
+</head>
+
+<body style="background-image: url('../image/bg.jpg');background-attachment: fixed;background-size: cover;">
+	<div class="container-fluid" style="" ng-app="login" ng-controller="loginCtrl">
+		<div class="row" style="text-align: center; height: 120px; line-height: 120px;">
+			<h1 style="margin-top: 50px;">影泰远程影像诊断平台</h1>
+		</div>
+<!-- 			<hr /> -->
+		<div class="row">
+			<div class="bantouming container panel panel-default" style="width: 800px;">
+				<h3>登录</h3>
+				<hr />
+				<form novalidate tabindex="0" ng-keypress="keyPress($event)">
+					<div class="form-group form-group-lg">
+						<label for="inputUser" style="font-size: 18px;">用户名</label> <input id="inputUser" type="text" ng-model="loginInfo.name" class="form-control" placeholder="手机号码/电子邮箱">
+					</div>
+					<div class="form-group form-group-lg">
+						<label for="inputPwd" style="font-size: 18px;">密码</label> <input id="inputPwd" type="password" ng-model="loginInfo.pwd" class="form-control" placeholder="密码">
+					</div>
+					<div class="form-group form-group-lg">
+						<label for="inputCode" style="font-size: 18px;">验证码</label>
+						<div class="input-group">
+							<input id="inputCode" type="text" ng-model="loginInfo.code" class="form-control" placeholder="验证码">
+							<span class="input-group-addon" style="cursor: pointer;" ng-click="vcImage()">
+								<img ng-src="{{vcUrl}}">
+							</span>
+						</div>
+					</div>
+					<uib-alert class="alert-danger" ng-show="msg">{{msg}}</uib-alert>
+					<hr />
+					<div class="form-group form-group-lg">
+						<button type="button" class="btn btn-primary btn-lg" ng-click="login()">
+							<span class="glyphicon glyphicon-lock"></span> 登录
+						</button>
+						<a type="button" href="../register" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-user"></span> 注册</a>
+						<a type="button" class="btn btn-link btn-lg" href="findPwd.html">忘记密码</a>
+						<!-- <label class="checkbox-inline"> <input type="checkbox" ng-model="loginInfo.autoNext" ng-value="user.autoNext"> 自动登录
+						</label> -->
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="../attach/UniWebViewer.msi">
+							<span class="glyphicon glyphicon-inbox"></span>
+							View安装
+						</a>&emsp;&emsp;
+						<a target="_blank" href="http://yingtai.gkk.cn/"><i class="glyphicon glyphicon-book"></i> 教学平台</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row navbar-fixed-bottom" style="background-color: #eee;margin-left: 0px; margin-right: 0px;">
+			<span>成都影泰科技有限公司 &copy;2016版权所有</span>
+		</div>
+	</div>
+</body>
+
+</html>

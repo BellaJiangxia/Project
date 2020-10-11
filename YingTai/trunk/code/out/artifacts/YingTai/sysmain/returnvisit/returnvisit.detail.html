@@ -1,0 +1,73 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="panel panel-primary" >
+	<div class="panel-heading">
+		<span class="glyphicon glyphicon-list"></span>&nbsp;回访问卷详情
+	</div>
+	<div class="panel-body">
+		<div class="form">
+			<form class="form-inline" style="margin-left: 5px;">
+				<div class="form-group">
+					<label for="template_name">问卷名称</label>
+					<input type="text" class="form-control" id="template_name" data-ng-disabled="true" ng-model="template.visit_name">
+				</div>
+				<div class="form-group">
+					<label for="patient_name">受访人</label>
+					<input type="text" class="form-control" id="patient_name" data-ng-disabled="true" ng-model="template.patient_name">
+				</div>
+				<button type="button" class="btn btn-info pull-right" ng-click="goback()"><span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;返回</button>
+			</form>
+
+			<hr />
+			<div class="well" ng-repeat="q in template.listQA">
+				<div class="row">
+					<div class="col-sm-1">
+						<span class="control-label" style="font-size: 20px;">问题{{q.question_idx}}</span>
+					</div>
+					<div class="col-sm-9">
+						<div class="form-group">
+								<input class="form-control" data-ng-disabled="true" ng-model="q.question_name" placeholder="请录入问题" required="required"/>
+						</div>
+						<div class="form-group" ng-repeat="opt in q.listOpt" ng-if="q.question_type==2 || q.question_type==1">
+							<div class="input-group" style="width:500px;">
+								<span class="input-group-addon link">
+									<i ng-class="opt.checked==1?'text-danger glyphicon glyphicon-check':'glyphicon glyphicon-unchecked'"></i>
+								</span>
+								<input type="text" class="form-control" placeholder="请录入选项" data-ng-disabled="true" ng-model="opt.option_name">
+							</div>
+						</div>
+						<div class="form-group" ng-if="q.question_type == 3">
+								<div class="input-group" style="width:500px;">
+									<textarea class="form-control" rows="4" data-ng-disabled="true" ng-model="q.answer_text"></textarea>
+								</div>
+						</div>
+						<div class="form-group" ng-if="q.question_type == 4">
+								<div class="input-group" style="width:300px;">
+									<span class="input-group-addon" style="width:100px;"><span class="text-info glyphicon glyphicon-star"></span>&nbsp;得分</span>
+									<input type="text" class="form-control" data-ng-disabled="true" ng-model="q.answer_score">
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="btn-toolbar pull-right" role="toolbar">
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-info" ng-click="goback()"><span class="glyphicon glyphicon-circle-arrow-left"></span>&nbsp;返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

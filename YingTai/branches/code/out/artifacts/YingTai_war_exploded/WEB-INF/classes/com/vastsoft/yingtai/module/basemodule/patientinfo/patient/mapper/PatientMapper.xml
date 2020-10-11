@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.basemodule.patientinfo.patient.mapper.PatientMapper">
+	<update id="updatePatientOrgMapper" parameterType="TPatientOrgMapper">
+		update T_PATIENT_ORG_MAPPER set 
+			card_num = #{card_num,jdbcType=VARCHAR},
+			got_card_time = #{got_card_time,jdbcType=TIMESTAMP},
+			last_jz_time = #{last_jz_time,jdbcType=TIMESTAMP}
+		where id = #{id}
+	</update>
+
+	<select id="selectPatientByIdentityIdForUpdate" parameterType="String" resultType="TPatient">
+		select * from T_PATIENT WITH(UPDLOCK) WHERE identity_id = #{identity_id}
+	</select>
+
+	<select id="selectPatientByMobileForUpdate" parameterType="String" resultType="TPatient">
+		select * from T_PATIENT WITH(UPDLOCK) WHERE mobile = #{mobile}
+	</select>
+
+    <select id="selectPatientOrgMapperByOrgIdAndPatientIdForUpdate" parameterType="TPatientOrgMapper" resultType="TPatientOrgMapper">
+        select * from T_PATIENT_ORG_MAPPER WITH(UPDLOCK) where patient_id = #{patient_id} and org_id = #{org_id}
+    </select>
+    
+    <insert id="insertPatientOrgMapper" keyProperty="id" useGeneratedKeys="true" parameterType="TPatientOrgMapper">
+        INSERT INTO T_PATIENT_ORG_MAPPER (
+        	[patient_id],
+        	[org_id],
+        	[card_num],
+        	[got_card_time],
+        	[create_time],
+        	[source_type],
+        	[last_jz_time]
+        ) VALUES (
+			#{patient_id},
+			#{org_id},
+			#{card_num,jdbcType=VARCHAR},
+			#{got_card_time,jdbcType=TIMESTAMP},
+			#{create_time},
+			#{source_type},
+			#{last_jz_time,jdbcType=TIMESTAMP}
+		)
+    </insert>
+    
+    <insert id="insertPatient" parameterType="TPatient" keyProperty="id" useGeneratedKeys="true">
+        insert into T_PATIENT (
+        	name,
+        	phone_num,
+        	identity_id,
+        	home_address,
+        	gender,
+        	born_address,
+        	work,
+        	sick_his,
+        	create_time,
+        	status,
+        	source_type,
+        	create_user_id,
+        	birthday,
+        	mingzu,
+			marital_status,
+			contact_name,
+			contact_rela,
+			contact_addr,
+			contact_phone_num
+        ) values (
+        	#{name},
+        	#{phone_num,jdbcType=VARCHAR},
+        	#{identity_id,jdbcType=VARCHAR},
+        	#{home_address,jdbcType=VARCHAR},
+        	#{gender},
+        	#{born_address,jdbcType=VARCHAR},
+        	#{work,jdbcType=VARCHAR},
+        	#{sick_his,jdbcType=VARCHAR},
+        	#{create_time},
+        	#{status},
+        	#{source_type},
+        	#{create_user_id},
+        	#{birthday,jdbcType=TIMESTAMP},
+        	#{mingzu,jdbcType=VARCHAR},
+			#{marital_status,jdbcType=VARCHAR},
+			#{contact_name,jdbcType=VARCHAR},
+			#{contact_rela,jdbcType=VARCHAR},
+			#{contact_addr,jdbcType=VARCHAR},
+			#{contact_phone_num,jdbcType=VARCHAR}
+        ) 
+    </insert>
+    
+    <update id="updatePatient" parameterType="TPatient">
+        update T_PATIENT set 
+        	name=#{name},
+        	phone_num = #{phone_num,jdbcType=VARCHAR},
+        	identity_id = #{identity_id,jdbcType=VARCHAR},
+        	home_address = #{home_address,jdbcType=VARCHAR},
+        	gender = #{gender},
+        	born_address = #{born_address,jdbcType=VARCHAR},
+        	work = #{born_address,jdbcType=VARCHAR},
+        	sick_his = #{sick_his,jdbcType=VARCHAR},
+        	status = #{status},
+        	source_type = #{source_type},
+        	birthday = #{birthday,jdbcType=TIMESTAMP},
+        	mingzu = #{mingzu,jdbcType=VARCHAR},
+			marital_status = #{marital_status,jdbcType=VARCHAR},
+			contact_name = #{contact_name,jdbcType=VARCHAR},
+			contact_rela = #{contact_rela,jdbcType=VARCHAR},
+			contact_addr = #{contact_addr,jdbcType=VARCHAR},
+			contact_phone_num = #{contact_phone_num,jdbcType=VARCHAR}
+        where id =#{id}
+    </update>
+    
+    <select id="selectPatientByIdForUpdate" parameterType="long" resultType="TPatient">
+        select * from T_PATIENT WITH(XLOCK) where id = #{id}
+    </select>
+    
+    <select id="selectPatient" parameterType="map" resultType="TPatient">
+        select * from (
+	        select *,ROW_NUMBER () OVER (ORDER BY id DESC) AS RowNumber
+	        from T_PATIENT
+	        where 1=1
+	        <if test="id !=null">
+	            and id = #{id}
+	        </if>
+	        <if test="org_id !=null">
+	            and id in (select patient_id from T_PATIENT_ORG_MAPPER where org_id=#{org_id})
+	        </if>
+	        <if test="containIds !=null">
+	            and id in (#{containIds})
+	        </if>
+	        <if test="excludeIds !=null">
+	            and id not in (#{excludeIds})
+	        </if>
+	        <if test="name !=null">
+	            and name like #{name}+'%'
+	        </if>
+	        <if test="identity_id !=null">
+	            and identity_id = #{identity_id}
+	        </if>
+	        <if test="home_address !=null">
+	            and home_address like '%'+#{home_address}+'%'
+	        </if>
+	        <if test="gender !=null">
+	            and gender = #{gender}
+	        </if>
+	        <if test="born_address !=null">
+	            and born_address like '%'+#{born_address}+'%'
+	        </if>
+	        <if test="work !=null">
+	            and work like '%'+#{work}+'%'
+	        </if>
+	        <if test="sick_his !=null">
+	            and sick_his like '%'+#{sick_his}+'%'
+	        </if>
+	        <if test="create_start !=null and create_end !=null">
+	            and create_time between #{create_start} and #{create_start}
+	        </if>
+        ) as tmp_t 
+        	<if test="minRow !=null and maxRow !=null">
+        	    where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+        	</if>
+    </select>
+    
+    <select id="selectPatientCount" parameterType="map" resultType="int">
+        select count(id) from T_PATIENT
+        where 1=1
+        <if test="id !=null">
+            and id = #{id}
+        </if>
+        <if test="org_id !=null">
+            and id in (select patient_id from T_PATIENT_ORG_MAPPER where org_id=#{org_id})
+        </if>
+        <if test="containIds !=null">
+            and id in (#{containIds})
+        </if>
+        <if test="excludeIds !=null">
+            and id not in (#{excludeIds})
+        </if>
+        <if test="name !=null">
+            and name like #{name}+'%'
+        </if>
+        <if test="identity_id !=null">
+            and identity_id = #{identity_id}
+        </if>
+        <if test="home_address !=null">
+            and home_address like '%'+#{home_address}+'%'
+        </if>
+        <if test="gender !=null">
+            and gender = #{gender}
+        </if>
+        <if test="born_address !=null">
+            and born_address like '%'+#{born_address}+'%'
+        </if>
+        <if test="work !=null">
+            and work like '%'+#{work}+'%'
+        </if>
+        <if test="sick_his !=null">
+            and sick_his like '%'+#{sick_his}+'%'
+        </if>
+        <if test="create_start !=null and create_end !=null">
+            and create_time between #{create_start} and #{create_start}
+        </if>
+    </select>
+
+    <select id="selectPatientByOrgIdAndCardNum" parameterType="TPatientOrgMapper" resultType="TPatient">
+        select * 
+        from T_PATIENT 
+        where id in (
+        	select patient_id 
+        	from T_PATIENT_ORG_MAPPER 
+        	where org_id = #{org_id} and card_num = #{card_num}
+        )
+    </select>
+    
+    <select id="selectPatientOrgMapperCount" parameterType="map" resultType="int">
+        SELECT count(t1.id) FROM T_PATIENT_ORG_MAPPER T1
+        	LEFT JOIN T_PATIENT T2 ON T1.patient_id = T2.id
+        where 1=1
+        <if test="patient_id !=null">
+            and t1.patient_id = #{patient_id}
+        </if>
+        <if test="org_id !=null">
+            and t1.org_id = #{org_id}
+        </if>
+        <if test="card_num !=null">
+            and t1.card_num = #{card_num}
+        </if>
+        <if test="patient_name !=null">
+            and t2.name like concat(#{patient_name},'%')
+        </if>
+        <if test="identity_id !=null">
+            and t2.identity_id = #{identity_id}
+        </if>
+        <if test="gender !=null">
+            and t2.gender = #{gender}
+        </if>
+    </select>
+    
+    <select id="selectPatientOrgMapper" parameterType="map" resultType="FPatientOrgMapper">
+        select * from (
+	        SELECT t1.*,
+	        	t2.name as patient_name,
+	        	t2.identity_id as patient_identity_id,
+	        	t2.birthday as patient_birthday,
+	        	t2.gender as patient_gender,
+	        	t3.ORG_NAME as org_name,
+	        	t3.ORG_CODE as org_code,
+	        	t3.LOGO_FILE_ID as org_logo_file_id,
+	        	ROW_NUMBER () OVER (ORDER BY t1.id DESC) AS RowNumber
+	        FROM T_PATIENT_ORG_MAPPER T1
+	        	LEFT JOIN T_PATIENT T2 ON T1.patient_id = T2.id
+	        	LEFT JOIN T_ORGANIZATION T3 ON T1.org_id = T3.id
+	        where 1=1
+	        <if test="patient_id !=null">
+	            and t1.patient_id = #{patient_id}
+	        </if>
+	        <if test="org_id !=null">
+	            and t1.org_id = #{org_id}
+	        </if>
+	        <if test="card_num !=null">
+	            and t1.card_num = #{card_num}
+	        </if>
+	        <if test="patient_name !=null">
+	            and t2.name like concat(#{patient_name},'%')
+	        </if>
+	        <if test="identity_id !=null">
+	            and t2.identity_id = #{identity_id}
+	        </if>
+	        <if test="gender !=null">
+	            and t2.gender = #{gender}
+	        </if>
+        ) as tmp_t 
+        	<if test="minRow !=null and maxRow !=null">
+        	    where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+        	</if>
+    </select>
+</mapper>

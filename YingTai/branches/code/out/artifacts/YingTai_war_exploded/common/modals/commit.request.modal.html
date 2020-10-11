@@ -1,0 +1,144 @@
+<div class="modal-header">
+	<h3 class="modal-title">{{modelTitle}}</h3>
+</div>
+<div class="modal-body" data-ng-init="initData();" style="min-height: 500px;">
+	<div class="row" style="margin: 0px 0px;" ng-if="currStep==1">
+		<div class="col-sm-4" style="margin: 0px 0px;padding: 0px 0px;">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="请输入机构名称" aria-describedby="basic-addon2" 
+					ng-model="searchOrgOpt.org_name"/>
+				<span class="input-group-btn">
+					<button class="btn btn-info" type="button" ng-click="searchOrgOfCanRequestTo();">
+						<i class="glyphicon glyphicon-search"></i>
+						筛选
+					</button>
+				</span>
+			</div>
+			<hr />
+			<div class="list-group">
+				<button class="list-group-item" ng-repeat="org in arrayOrg" ng-class="org.id==selected.org.id?'active':'unactive'" 
+					ng-click="selectOrgClick(org);" title="{{org.description}}">
+					{{org.org_name}}
+	    			<img class="pull-right" style="display: inline-block;" alt="认证" ng-if="org.isVIP" src="{{org.isVIP?'../image/authentication.png':'../image/unauthentication.png'}}" 
+	    				width="25px" height="25px" title="{{org.isVIP?'此机构已通过影泰认证！':'此机构未通过影泰认证！'}}"/>
+				</button>
+			</div>
+			<p>共{{searchOrgOpt.spu.totalRow}}条记录</p>
+			<uib-pagination ng-if="request_class==20"  class="pagination-sm" style="margin-top:0px;margin-bottom:0px;" 
+					total-items="searchOrgOpt.spu.totalRow" items-per-page="searchOrgOpt.spu.perPageCount" max-size="5" 
+					boundary-links="true" ng-model="searchOrgOpt.spu.currPage" ng-change="searchOrgOfCanRequestTo();"
+					previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+		<div class="col-sm-8">
+			<div>
+				<table class="table table-hover table-striped table-bordered" data-click-to-select="true">
+					<thead>
+						<tr class="bg-primary">
+							<th>名称</th>
+							<th>计费类型</th>
+							<th>单价</th>
+							<th>简介</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="cursor: pointer" ng-repeat="product in arrayProduct" ng-click="selectedProductClick(product)"
+							ng-style="product.id==selected.product.id?{'background-color': '#99CCFF'}:{'background-color': 'white'}">
+							<td>{{product.name}}</td>
+							<td>{{product.charge_type_name}}</td>
+							<td>{{product.price}}</td>
+							<td>{{product.description}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+<!-- 			<p class="pull-right text-warning"> -->
+<!-- 				<i class="glyphicon glyphicon-warning-sign"></i> -->
+<!-- 				如果没有需要的服务可选，可试着先将病例保存之后再提交申请，如果已经保存，则说明该机构没有相应的服务！ -->
+<!-- 			</p> -->
+		</div>
+	</div>
+	<div class="panel panel-info" ng-if="currStep==2">
+		<div class="panel-body">
+			<div style="height: 400px;overflow: auto;">
+				<div class="form-inline" style="margin-bottom: 10px;" >
+					<input class="form-control" type="text" style="width: 130px;" placeholder="病人姓名" ng-model="searchOpt.patient_name"/>
+					<input class="form-control" type="text" style="width: 180px;" placeholder="病人身份证号" ng-model="searchOpt.patient_identity_id"/>
+					<select class="form-control" style="width: 100px;" ng-model="searchOpt.patient_gender"
+						ng-options="g.code as g.name for g in listGender">
+						<option value="">--性别--</option>
+					</select> 
+					<button class="btn btn-info" ng-click="searchMedicalHis()">
+						<span class="glyphicon glyphicon-search"></span>
+						检索
+					</button>
+				</div>
+				<table class="table table-hover table-striped table-bordered" data-click-to-select="true">
+					<thead>
+						<tr>
+							<th>选择</th>
+							<th>病历号</th>
+							<th>病人姓名</th>
+							<th>性别</th>
+							<th>身份证号</th>
+							<th>状态</th>
+							<!-- <th>操作</th> -->
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="cursor: pointer" ng-repeat="c in listCaseHistory" 
+							ng-click="c.check=!c.check"
+							ng-style="c.check?{'background-color': '#99CCFF'}:{'background-color': 'white'}">
+							<td><input type="checkbox" ng-model="c.check"/></td>
+							<td><a href ng-click="showMedicalHisDetail(c);">{{c.case_his_num}}</a></td>
+							<td>{{c.patient_name}}</td>
+							<td>{{c.patient_genderStr}}</td>
+							<td>{{c.patient_identity_id}}</td>
+							<td>{{c.statusStr}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<label class="checkbox-inline">
+					<input name="allcheck" type="checkbox" ng-model="selected.checkAll" ng-change="checkAll()"/>全选
+				</label>
+				<uib-pagination  class="pagination-sm pull-right" style="margin-top:0px;margin-bottom:0px;" 
+					total-items="searchOpt.spu.totalRow" items-per-page="searchOpt.spu.perPageCount" max-size="5" 
+					boundary-links="true" ng-model="searchOpt.spu.currPage" ng-change="searchMedicalHis()"
+					previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer" style="text-align: right;">
+	<div style="text-align: left;">
+		<label class="checkbox-inline">
+			<input type="checkbox" ng-model="selected.allow_reporter_publish_report"/> 允许以诊断机构的身份发布报告
+		</label>&emsp;
+		<label class="checkbox-inline">
+			<input type="checkbox" ng-model="selected.urgent_level"/> 急诊
+		</label>
+	</div>
+	<p>
+<!-- 		<span ng-if="selected.org">你选择的 机构：<b>{{selected.org.org_name}}</b></span> -->
+<!-- 		<span ng-if="selected.product">&gt;服务：<b>{{selected.product.name}}</b></span> -->
+		需要花费：单价：{{selected.product.price|moneyformat}}&nbsp;X&nbsp;
+		<input ng-model="selected.charge_amount" ng-change="onChargeAmountChanged(selected.charge_amount);" 
+			style="width: 50px;" ng-readonly="selected.product.charge_type == 30"/>&nbsp;=&nbsp;
+		<strong style="color: red;">{{selected.total_price | moneyformat}}</strong> 元
+	</p>
+	<span>
+		<button class="btn btn-primary" ng-if="currStep==1" ng-click="innerRelateMedicalHis(2);">
+			<i class="glyphicon glyphicon-retweet"></i>
+			关联历史病例
+		</button>
+		<button class="btn btn-info" ng-if="currStep==2" ng-click="innerRelateMedicalHis(1);">
+			<i class="glyphicon glyphicon-arrow-left"></i>
+			返回
+		</button>
+		&emsp;&emsp;
+		<button class="btn btn-success" ng-disabled="!selected.org || !selected.product" ng-click="ok();">
+			<i class="glyphicon glyphicon-ok"></i> 提交</button>
+		<button class="btn btn-warning" ng-click="cancel()"><i class="glyphicon glyphicon-remove"></i> 取消</button>
+	</span>
+</div>

@@ -1,0 +1,55 @@
+<div class="modal-header">
+	<h3 class="modal-title">转交诊断申请</h3>
+</div>
+<div class="modal-body" data-ng-init="initData();">
+	<div class="row" style="margin: 0px 0px;">
+		<div class="col-sm-4" style="margin: 0px 0px;padding: 0px 0px;">
+			<div class="list-group" >
+				<button class="list-group-item" ng-repeat="or in listOrgRelation" 
+					ng-class="or.relation_org_id==selected.friendOrgRelation.relation_org_id?'active':'unactive'" 
+					ng-click="selectOrgClick(or);" title="{{or.relation_org_description}}">
+					{{or.relation_org_name}}
+				</button>
+			</div>
+		</div>
+		<div class="col-sm-8">
+			<table class="table table-hover table-striped table-bordered" data-click-to-select="true">
+				<thead>
+					<tr class="bg-primary">
+						<th>名称</th>
+						<th>计费类型</th>
+						<th>单价</th>
+						<th>简介</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr style="cursor: pointer" ng-repeat="product in arrayProduct" ng-click="selectedProductClick(product)"
+						ng-style="product.id==selected.product.id?{'background-color': '#99CCFF'}:{'background-color': 'white'}">
+						<td>{{product.name}}</td>
+						<td>{{product.charge_type_name}}</td>
+						<td>{{product.price}}</td>
+						<td>{{product.description}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<p class="text-warning" ng-hide="(arrayProduct && arrayProduct.length>0)">
+				<i class="glyphicon glyphicon-warning-sign"></i>
+				选择的机构没有可以诊断此病例的服务！
+			</p>
+<!-- 			<p class="pull-right text-warning"> -->
+<!-- 				<i class="glyphicon glyphicon-warning-sign"></i> -->
+<!-- 				如果没有需要的服务可选，可试着先将病例保存之后再提交申请，如果已经保存，则说明该机构没有相应的服务！ -->
+<!-- 			</p> -->
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<p>
+<!-- 		<span ng-if="selected.friendOrgRelation">你选择的 机构：<b>{{selected.friendOrgRelation.relation_org_name}}</b></span> -->
+<!-- 		<span ng-if="selected.product">&gt;服务：<b>{{selected.product.name}}</b></span> -->
+		需要花费：<strong style="color: red;">{{selected.total_price | moneyformat}}</strong> 元
+	</p>
+	<button class="btn btn-success" ng-disabled="!selected.friendOrgRelation || !selected.product" ng-click="ok();">
+		<i class="glyphicon glyphicon-ok"></i> 提交</button>
+	<button class="btn btn-warning" ng-click="cancel()"><i class="glyphicon glyphicon-remove"></i> 取消</button>
+</div>

@@ -1,0 +1,40 @@
+<div class="container-fluid">
+	<uib-alert type="info" ng-show="msg">{{msg}}</uib-alert>
+  <div class="panel panel-primary">
+  	<div class="panel-heading">机构账户操作记录</div>
+  	<form class="form-inline" style="margin: 5px 10px;">
+		  <div class="form-group">
+	      <a type="button" class="btn btn-success" ui-sref="account"><span class="glyphicon glyphicon-arrow-left"></span> 返回</a>
+		  </div>
+		</form>
+   	<table class="table table-bordered table-hover">
+      <thead>
+        <tr class="info">
+          <th class="col-xs-1" style="text-align: center">操作人</th>
+          <th class="col-xs-1" style="text-align: center">金额</th>
+          <th class="col-xs-2" style="text-align: center">操作类型</th>
+          <th class="col-xs-2" style="text-align: center">操作时间</th>
+          <th class="col-xs-6" style="text-align: center">操作说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="o in records.rows">
+				 <td class="col-xs-1">{{o.v_opeaator_name}}</td>
+				 <td class="col-xs-1">{{o.price}}</td>
+				 <td class="col-xs-2">{{o.opeartType.name}}</td>
+         <td class="col-xs-2">{{o.operat_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+         <td class="col-xs-6">{{o.description}}</td>
+        </tr>
+      </tbody>
+ 		</table>
+ 		
+ 		<div class="panel-footer">
+    	<div style="text-align: right">
+		    <uib-pagination class="pagination-md" total-items="records.total" ng-model="records.pageIdx" 
+		    	ng-change="loadRecordByOrg()" max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" 
+		    	first-text="首页" last-text="尾页"></uib-pagination>
+    	</div>
+    </div>
+    
+	</div>
+</div>

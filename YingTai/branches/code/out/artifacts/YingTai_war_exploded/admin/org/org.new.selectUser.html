@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="modal-header bg-primary">
+	<h3 class="modal-title">请选择用户作为机构负责人</h3>
+</div>
+<div class="modal-body">
+	<div class="form-inline" style="margin: 5px 10px;">
+		<div class="form-group">
+			<label>姓名</label> <input type="text" class="form-control"
+				ng-model="query.userName" placeholder="姓名">
+		</div>
+		<div class="form-group">
+			<label>电话</label> <input type="text" class="form-control"
+				ng-model="query.mobile" placeholder="电话号码">
+		</div>
+		<div class="form-group">
+			<a type="button" class="btn btn-success" ng-click="queryUser()"><i class="glyphicon glyphicon-search"></i> 查询</a>
+		</div>
+	</div>
+	<table class="table table-bordered table-hover table-condensed" style="text-align: center;">
+		<thead>
+			<tr class="info">
+				<th style="text-align: center">选择</th>
+				<th style="text-align: center">姓名</th>
+				<th style="text-align: center">类型</th>
+				<th style="text-align: center">电话号码</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="u in users" ng-class="u.isSelected?'success':''" >
+				<td><input type="checkbox" ng-model="u.isSelected" ng-change="chkChange(u.isSelected,u)"></td>
+				<td>{{u.user_name}}</td>
+				<td>{{u.user_type.name}}</td>
+				<td>{{u.mobile}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="panel-footer">
+		<div style="text-align: right">
+			<uib-pagination class="pagination-sm" total-items="query.total" ng-model="query.pageIdx" ng-change="queryUser()"
+				max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+	
+</div>
+<div class="modal-footer">
+	<button class="btn btn-success" ng-click="ok()">确定</button>
+	<button class="btn btn-warning" ng-click="cancel()">取消</button>
+</div>
+</body>
+</html>

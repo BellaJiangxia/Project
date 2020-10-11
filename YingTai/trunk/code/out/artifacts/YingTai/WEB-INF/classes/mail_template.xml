@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+  <mail-templates>
+    <template name="mt_operat_code" description="验证码" file="mt_operat_code.html" />
+  </mail-templates>
+</config>

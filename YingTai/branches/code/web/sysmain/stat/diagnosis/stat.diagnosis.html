@@ -1,0 +1,41 @@
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4><i class="glyphicon glyphicon-th-list"></i>
+			诊断统计</h4>
+		</div>
+		<div class="panel-body">
+			<ul class="nav nav-tabs">
+				<!--<li role="presentation"  ui-sref-active="active">-->
+					<!--<a ui-sref="statDiagnosis.patient">-->
+						<!--病人统计-->
+					<!--</a>-->
+				<!--</li>-->
+				<li role="presentation"  ui-sref-active="active">
+					<a ui-sref="statDiagnosis.cost">
+						报告收入统计
+					</a>
+				</li>
+				<li role="presentation"  ui-sref-active="active">
+					<a ui-sref="statDiagnosis.doctor">
+						医生工作统计
+					</a>
+				</li>
+		      	<li role="presentation"  ui-sref-active="active">
+		      		<a ui-sref="statDiagnosis.sick">
+		      			病症统计
+		      		</a>
+		      	</li>
+				<li role="presentation"  ui-sref-active="active">
+					<a ui-sref="statDiagnosis.fom">
+						阴阳性统计
+					</a>
+				</li>
+				<li role="presentation"  ui-sref-active="active">
+					<a ui-sref="statDiagnosis.device">
+						仪器报告统计
+					</a>
+				</li>
+		    </ul>
+			<div class="tab-context" ui-view></div>
+		</div>
+	</div>

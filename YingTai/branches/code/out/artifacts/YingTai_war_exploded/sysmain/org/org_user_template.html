@@ -1,0 +1,61 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<form class="form-inline" novalidate style="margin: 5px 10px;">
+			<div class="form-group">
+		    <label>姓名</label>
+		    <input type="text" class="form-control" ng-model="$parent.query.userName" placeholder="姓名">
+		  </div> 
+		  <div class="form-group">
+		    <label>电话</label>
+		    <input type="text" class="form-control" ng-model="$parent.query.mobile" placeholder="电话号码">
+		  </div> 
+		  <div class="form-group">
+	      <a type="button" class="btn btn-primary" ng-click="$parent.loadUser()"><span class="glyphicon glyphicon-search"></span> 查询</a>
+		  </div>
+		</form>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="bg-primary">
+          <th class="col-xs-1" style="text-align: center">姓名</th>
+          <th class="col-xs-2" style="text-align: center">电话号码</th>
+          <th class="col-xs-3" style="text-align: center">拥有权限</th>
+          <th class="col-xs-2" style="text-align: center">加入时间</th>
+          <th class="col-xs-2" style="text-align: center">备注</th>
+          <th class="col-xs-1" style="text-align: center">状态</th>
+          <th class="col-xs-1" style="text-align: center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="u in users">
+				 <td class="col-xs-1">{{u.user_name}}</td>
+				 <td class="col-xs-2">{{u.mobile}}</td>
+				 <td class="col-xs-3"><span title="{{u.permission}}">{{u.permission | subStr:16}}</span></td>
+         <td class="col-xs-2">{{u.create_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+         <td class="col-xs-2">{{u.note}}</td>
+         <td class="col-xs-1">{{u.status.name}}</td>
+         <td class="col-xs-1">
+         	<a ng-show="u.can_approve" class="btn-link" ui-sref="org.userMgr({userId:u.user_id,flag:'A'})" href="javascript:void(0);"><span title="用户审核" class="glyphicon glyphicon-question-sign">&nbsp;</span></a>
+         	<a ng-show="u.is_mgr" class="btn-link" ui-sref="org.userMgr({userId:u.user_id})" href="#"><span title="管理权限" class="glyphicon glyphicon-cog">&nbsp;</span></a>
+         	<a ng-show="u.is_mgr" class="btn-link" ng-click="deleteUser(u.user_id)" href="#" style="color:red"><span title="删除用户" class="glyphicon glyphicon-trash">&nbsp;</span></a>
+         </td>
+        </tr>
+      </tbody>
+ 		</table>
+ 		
+ 		<div class="panel-footer">
+    	<div style="text-align: right">
+		    <uib-pagination class="pagination-md" style="margin:0px" total-items="$parent.query.total" ng-model="$parent.query.pageIdx" ng-change="$parent.loadUser()" max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+    	</div>
+    </div>
+    </body>
+    </html>
+    

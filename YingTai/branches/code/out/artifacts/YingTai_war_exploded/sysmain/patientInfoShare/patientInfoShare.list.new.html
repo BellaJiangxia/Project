@@ -1,0 +1,107 @@
+<!-- <div class="panel panel-primary" data-ng-init="initData();"> -->
+<!-- 	<div class="panel-heading"> -->
+<!-- 		<span class="glyphicon glyphicon-new-window"></span> -->
+<!-- 		搜索病例 -->
+<!-- 	</div> -->
+<!-- 	<div class="panel-body"> -->
+		<div data-ng-init="initData();">
+			<div style="text-align: center;">
+				<img width="350px" height="200px" alt="分布式存储检索引擎" src="../image/search.jpg" title="分布式存储检索引擎"/>
+			</div>
+			<div class="form-horizontal" style="font-size: 18px;margin-bottom: 100px;">
+				<div class="form-group form-horizontal">
+					<div class="col-sm-3" style="margin-top: 10px;">
+						<div class="pull-right">
+							<span uib-dropdown on-toggle="toggled(open)">
+								<a href id="caseHisNum-dropdown" uib-dropdown-toggle style="text-decoration: none;color: #333;font-weight: bold;">
+									{{remoteParam.name}}<b class="caret" ng-if="listRemoteParamsType.length>1"></b>
+								</a>
+								<ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="caseHisNum-dropdown">
+									<li ng-repeat="r in listRemoteParamsType">
+										<a href ng-click="selectRemoteParamClick(r);">
+											{{r.name}}
+										</a>
+									</li>
+								</ul>
+							</span>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div style="margin-top: 0px;">
+							<input type="text" class="form-control input-lg" placeholder="只支持字母，数字，'-'和'_'" 
+									ng-model="remoteParam.remoteParamValue" typeahead-show-hint="true" typeahead-min-length="0"
+									uib-typeahead="dicomImgNum.num as (dicomImgNum.num +'  '+ dicomImgNum.patient_name) for dicomImgNum in remoteParam.listDicomImgNum | filter:$viewValue"/>
+						</div>
+					</div>
+					<div class="col-sm-3">
+						<button class="btn btn-info btn- btn-lg" ng-disabled="!remoteParam.remoteParamValue" style="width: 150px;" ng-click="queryPatientData();">
+							<i class="fa fa-search"></i>
+							检索
+						</button>
+					</div>
+				</div>
+			</div>
+<!-- 			<div style="text-align: center;" ng-if="searchCaseHistoryTimes>0"> -->
+<!-- 				<hr style="margin-bottom: 0px;"/> -->
+<!-- 				<button class="btn btn-xs btn-default" style="border-top: 0px;border-bottom-left-radius: 20px;border-bottom-right-radius:20px;"  -->
+<!-- 					ng-click="searchHistoryCollapsed = !searchHistoryCollapsed"> -->
+<!-- 					&emsp;重新搜索 -->
+<!-- 					<i ng-class="!searchHistoryCollapsed?'glyphicon glyphicon-chevron-down':'glyphicon glyphicon-chevron-up'"></i>&nbsp;&nbsp; -->
+<!-- 				</button> -->
+<!-- 			</div> -->
+		</div>
+		<div ng-if="listCaseHistory&&listCaseHistory.length>0">
+			<table class="table table-hover table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>病历号</th>
+						<th>病人姓名</th>
+						<th>病人性别</th>
+						<th>病人年龄</th>
+						<th>症状</th>
+						<th>住院号</th>
+						<th>接诊科室</th>
+						<!-- <th>接诊医生</th> -->
+						<th>入院时间</th>
+						<th>出院时间</th>
+						<th>病例来源</th>
+						<!-- <th>修改人</th>
+						<th>修改时间</th> -->
+						<th>类型</th>
+						<!-- <th>状态</th> -->
+						<!-- <th>操作</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="c in listCaseHistory">
+						<td><a href="#/case/info/{{c.id}}">{{c.case_his_num}}</a></td>
+						<td>{{c.patient_name}}</td>
+						<td>{{c.patient_genderStr}}</td>
+						<td>{{c.patientAge}} 岁</td>
+						<td>{{c.symptom | limitTo:25:0}}</td>
+						<td>{{c.hospitalized_num}}</td>
+						<td>{{c.reception_section}}</td>
+						<!-- <td>{{c.reception_doctor}}</td> -->
+						<td>{{c.enter_time | date : 'yyyy-MM-dd'}}</td>
+						<td>{{c.leave_time | date : 'yyyy-MM-dd'}}</td>
+						<td>{{c.source_typeStr}}</td>
+						<!-- <td>{{c.modify_user_name}}</td>
+						<td>{{c.modify_time | date : 'yyyy-MM-dd'}}</td> -->
+						<td>{{c.typeStr}}</td>
+						<!-- <td><span ng-if="c.status==1">{{c.statusStr}}</span>
+							<a
+							ng-if="c.status!=1" ng-click="setMedicalHis(c)"
+							ng-href="#/request/list/medicalNum/{{c.medical_his_num}}">{{c.statusStr}}</a>
+						</td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+<!-- 	</div> -->
+<!-- 	<!-- <div class="panel-footer" style="text-align: right;"> -->
+<!-- 		<a class="btn btn-warning btn-sm" href="javascript:void(0);" ng-click="goback()"> -->
+<!-- 			<span class="glyphicon glyphicon-circle-arrow-left"></span> -->
+<!-- 			返回 -->
+<!-- 		</a> -->
+<!-- 	</div> -->
+<!-- </div> -->

@@ -1,0 +1,75 @@
+	<div class="form-inline" data-ng-init="initData()">
+		<form action="" role="form">
+			<select class="form-control" ng-model="searchOpt.type" ng-change="selectStatType()">
+				<option value="1">报告</option>
+				<option value="2">审核</option>
+			</select>
+			<select class="form-control" ng-if="searchOpt.diagnosisOrgId !=0" ng-model="searchOpt.doctorId">
+				<option value="0">--选择医生--</option>
+				<option ng-repeat="doctor in arrayDoctors" value="{{doctor.id}}" >{{doctor.user_name}}</option>
+			</select>
+			<select class="form-control" ng-model="searchOpt.requestOrgId">
+				<option value="0">--申请机构--</option>
+				<option ng-repeat="org in arrayOrg" value="{{org.id}}" >{{org.org_name}}</option>
+			</select> 
+			<select class="form-control" ng-model="searchOpt.deviceTypeId" ng-options="d.id as d.value for d in listDeviceType"><!-- ng-change="queryPartList(searchOpt.deviceTypeId)" -->
+				<option value="">--影像类型--</option>
+			</select> 
+			<!-- <select class="form-control" ng-if="searchOpt.deviceTypeId !=0" ng-model="searchOpt.partTypeId">
+				<option value="0">--部位类型--</option>
+				<option ng-repeat="part in arrayPart" value="{{part.id}}" >{{part.value}}</option>
+			</select> -->
+			<div class="input-group" style="width:160px">
+	       		<date-selector ng-model="searchOpt.start" placeholder="起始日期"></date-selector>
+			</div>
+	       	<div class="input-group" style="width:160px">
+	       		<date-selector ng-model="searchOpt.end" placeholder="结束日期"></date-selector>
+			</div>
+			<a class="btn btn-primary" href ng-click="statOrgFom()">
+				<span class="glyphicon glyphicon-search"></span>
+				检索
+			</a>
+		</form>
+	</div>
+	<br />
+	<table class="table table-hover table-striped table-bordered">
+		<thead>
+			<tr class="bg-primary">
+				<th>医生姓名</th>
+				<th>设备名称</th>
+				<th>人次数</th>
+				<th>部位数</th>
+				<th>曝光次数</th>
+				<th>类型</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="report in listReport" ng-class="$last ? 'bg-danger':''">
+				<td>{{report.user_name}}</td>
+				<td>{{report.device_name}}</td>
+				<td>{{report.count}}</td>
+				<td>{{report.body_part_amount}}</td>
+				<td>{{report.piece_amount}}</td>
+				<td>{{report.stat_type}}</td>
+			</tr>
+		</tbody>
+		<!--<tfoot class="bg-danger">-->
+			<!--<tr>-->
+				<!--<td>{{footing.user_name}}</td>-->
+				<!--<td>{{footing.device_name}}</td>-->
+				<!--<td>{{footing.count}}</td>-->
+				<!--<td>{{footing.body_part_amount}}</td>-->
+				<!--<td>{{footing.piece_amount}}</td>-->
+				<!--<td>{{footing.stat_type}}</td>-->
+			<!--</tr>-->
+		<!--</tfoot>-->
+	</table>
+	<div align="left">
+		<div style="display: inline-block;">
+			<button ng-disabled="searchOpt.spu.totalRow<=0" class="btn btn-info" ng-click="downloadStatDoctorWorkOfMyOrgDiagnosis();">
+				<i class="glyphicon glyphicon-cloud-download"></i>
+				导出列表
+			</button>
+		</div>
+		<span style="float: right;">共&nbsp;{{listReport.length}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+	</div>

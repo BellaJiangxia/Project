@@ -1,0 +1,247 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<title>影泰远程影像诊断平台-系统管理</title>
+<link href="../image/favicon.ico" type="image/x-icon" rel="shortcut icon"></link>
+
+<link rel="stylesheet" href="../css/bootstrap-3.3.6.min.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/bootstrap-theme-3.3.6.min.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/font-awesome.min.css" type="text/css"></link>
+
+<link rel="stylesheet" href="../css/ngDialog-theme-default-0.6.2.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/ngDialog-theme-plain-0.6.2.min.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/ngDialog-0.6.2.min.css" type="text/css"></link>
+
+<link rel="stylesheet" href="../css/vastsoft/vastsoft.css" type="text/css"></link>
+<link rel="stylesheet" href="../css/common.css" type="text/css"></link>
+
+<link rel="stylesheet" href="./index.css" type="text/css"></link>
+
+<script type="text/javascript" src="../js/vastsoft/tools.js"></script>
+<script type="text/javascript" src="../js/angular-1.5.6.js"></script>
+<script type="text/javascript" src="../js/angular-locale_zh-cn.js"></script>
+<script type="text/javascript" src="../js/angular-animate-1.5.6.min.js"></script>
+<script type="text/javascript" src="../js/angular-ui-router-0.2.18.min.js"></script>
+<script type="text/javascript" src="../js/angular-touch-1.5.6.min.js"></script>
+<script type="text/javascript" src="../js/angular-file-upload.min.js"></script>
+<script type="text/javascript" src="../js/angular-confirm.js"></script>
+<script type="text/javascript" src="../js/ui-bootstrap-tpls-1.3.3.min.js"></script>
+<script type="text/javascript" src="../js/ngDialog.min-0.6.2.js"></script>
+<script type="text/javascript" src="../js/echarts.js"></script>
+<script type="text/javascript" src="../js/checklist-model.js"></script>
+<script type="text/javascript" src="../js/tripledes/tripledes.js"></script>
+<script type="text/javascript" src="../js/tripledes/mode-ecb.js"></script>
+<script type="text/javascript" src="../js/tripledes/custom-encrypt.js"></script>
+<script type="text/javascript" src="../js/form_data.js"></script>
+
+<script type="text/javascript" src="../js/vastsoft/tools.js"></script>
+<script type="text/javascript" src="../js/vastsoft/directives.js"></script>
+<script type="text/javascript" src="../js/vastsoft/filters.js"></script>
+<script type="text/javascript" src="../js/vastsoft/services.js"></script>
+<script type="text/javascript" src="../js/vastsoft/dialogs.js"></script>
+
+<script type="text/javascript" src="../common/yingtai.common.js"></script>
+<script type="text/javascript" src="../common/services.js"></script>
+<script type="text/javascript" src="../common/util.js"></script>
+<script type="text/javascript" src="../common/directive/directives.js"></script>
+<script type="text/javascript" src="../common/ngDialog/ngDialog.js"></script>
+<!-- <script type="text/javascript" src="../common/diy.echarts.js"></script> -->
+
+<script type="text/javascript" src="../dicom/dicom.js"></script>
+
+<script type="text/javascript" src="message/message.js"></script>
+
+<script type="text/javascript" src="ngDialog/diy.medical.detail.dialog.js"></script>
+
+<script type="text/javascript" src="template/template.js"></script>
+<script type="text/javascript" src="dic/dic.js"></script>
+<script type="text/javascript" src="stat/stat.js"></script>
+
+<script type="text/javascript" src="qualityControl/qualityControl.js"></script>
+
+<script type="text/javascript" src="search/share/share.js"></script>
+<script type="text/javascript" src="search/medicalHis/medical.js"></script>
+<script type="text/javascript" src="search/report/report.js"></script>
+
+<script type="text/javascript" src="adminuser/adminuser.js"></script>
+<script type="text/javascript" src="user/user.js"></script>
+<script type="text/javascript" src="org/org.js"></script>
+
+<script type="text/javascript" src="log/log.js"></script>
+
+<script type="text/javascript" src="index.js"></script>
+
+</head>
+
+<body onload="DoOnLoad();" ng-app="main" ng-controller="mainCtrl">
+	<div id="spinner" ng-show="spinner.isShow"></div>
+	<div id="spinnershow" ng-show="spinner.isShow">
+		<img alt="loading" width="120px" height="120px" src="../image/loading.gif" />
+		<span style="color: white;">{{spinner.msg}}</span>
+	</div>
+	<div class="container-fluid" style="">
+		<div class="row" style="text-align: center;">
+			<h1>影泰远程影像诊断平台-系统管理</h1>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="container-fluid">
+				<div class="col-md-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="btn-group" uib-dropdown>
+								<button id="user-button" type="button" class="btn btn-link" uib-dropdown-toggle>
+									<span class="glyphicon glyphicon-user"></span> {{curr_user.userName}} <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu" aria-labelledby="user-button">
+									<li role="menuitem" ng-if="curr_user.userType.code!=9999"><a href="#/adminuser/info//">个人资料</a></li>
+									<li role="menuitem"><a href="#/adminuser/pwd">修改密码</a></li>
+									<li role="divider"></li>
+									<li role="menuitem"><a href="#" ng-click="logout()">退出</a></li>
+								</ul>
+							</div>
+							<hr />
+							<uib-accordion close-others="true">
+							    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+							    	<uib-accordion-heading>
+										后台管理
+									</uib-accordion-heading>
+									<div class="list-group menu-list-body">
+										<a class="list-group-item" href="#/adminuser/mgr">后台用户管理</a>
+										<a class="list-group-item" href="#/log">系统日志</a>
+										<a class="list-group-item" href="user!generateBBSToken.action" target="blank">BBS管理</a>
+									</div>
+							    </div>
+							    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+							    	<uib-accordion-heading>
+										平台管理
+										<span class="badge pull-right" style="background-color:#f00;color:#fff" 
+											ng-show="(waitCount.a_user_count+waitCount.change_user_count)+(waitCount.a_org_count+waitCount.change_org_count)>0">
+											{{(waitCount.a_user_count+waitCount.change_user_count)+(waitCount.a_org_count+waitCount.change_org_count)}}
+										</span>
+									</uib-accordion-heading>
+									<div class="list-group menu-list-body">
+										<a class="list-group-item" href="#/dic">系统配置管理</a>
+										<a class="list-group-item" href="#/user">平台用户管理
+											<span class="badge pull-right" style="background-color:#f00;color:#fff" 
+												ng-show="waitCount.a_user_count+waitCount.change_user_count>0" 
+												data-ng-bind="waitCount.a_user_count+waitCount.change_user_count"></span>
+										</a>
+										<a class="list-group-item" href="#/org">平台机构管理
+											<span class="badge pull-right" style="background-color:#f00;color:#fff" 
+												ng-show="waitCount.a_org_count+waitCount.change_org_count>0" 
+												data-ng-bind="waitCount.a_org_count+waitCount.change_org_count"></span>
+										</a>
+										<a class="list-group-item" href="#/account">平台账户管理</a>
+										<a class="list-group-item" href="#/template/public">公共模版管理</a>
+										<a class="list-group-item" href="#/qualityControl">质控管理</a>
+									</div>
+							    </div>
+							    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+							    	<uib-accordion-heading>
+										系统检索
+									</uib-accordion-heading>
+									<div class="list-group menu-list-body">
+<!-- 										<a class="list-group-item" href="#/medical/list">病历检索</a> -->
+										<a class="list-group-item" href="#/message">短信管理</a>
+										<a class="list-group-item" href="#/reportStat">报告检索</a>
+									</div>
+							    </div>
+							    <div uib-accordion-group class="panel-primary" template-url="templates/vs-accordion-heading.tamplate.html">
+							    	<uib-accordion-heading>
+										统计查询
+									</uib-accordion-heading>
+									<div class="list-group menu-list-body">
+										<a class="list-group-item" href="#/stat">系统总览</a>
+										<a class="list-group-item" href="#/sysFlowing">系统流水</a>
+										<a class="list-group-item" href="#/statReportSick">病症统计</a>
+										<a class="list-group-item" href="#/statFom">机构阴阳性统计</a>
+										<a class="list-group-item" href="#/statDeviceReport">仪器报告统计</a>
+										<a class="list-group-item" href="#/statReportCost">报告花费统计</a>
+										<a class="list-group-item" href="#/statReportDoctor">医生工作统计</a>
+									</div>
+							    </div>
+							</uib-accordion>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-10" ui-view></div>
+			</div>
+		</div>
+		<div class="navbar-fixed-bottom" style="background-color: #eee;margin-left: 0px; margin-right: 0px;">
+			<span>成都影泰科技有限公司 2015版权所有</span>
+		</div>
+	</div>
+<object onerror="DoOnLoadViewerMgrError()" id="ViewerMgr" classid="clsid:41E98327-AC47-4AA6-B083-7413B9111026"            
+        codebase="../WebViewerEC.cab#version=7,2,1545,0" width=0 height=0 hspace=0 vspace=0></object>
+<script type="text/javascript">
+      var DoOnLoad=function(){
+      	try {
+       	ViewerMgr.Setting('PostImageURL', '');
+           ViewerMgr.Setting('PostImageSessionID', 'c20i2n45uoccqy55uhacljuc');
+           ViewerMgr.Setting('LANGUAGE', '0');
+           ViewerMgr.Setting('PARAM1', '1');
+           ViewerMgr.Setting('UsePrintLayout', '1');
+           ViewerMgr.Setting('EnableProxy', '0');
+           ViewerMgr.Setting('ScreenResolutionX', '0');
+           ViewerMgr.Setting('ScreenResolutionY', '0');
+           ViewerMgr.Setting('KeepAlive', '1');
+           ViewerMgr.Setting('AutoStackModality', 'CT,MR,PT');
+           ViewerMgr.Setting('ApplyPRKOMode', '1');
+           ViewerMgr.Setting('MagnifyMode', '4');
+           ViewerMgr.Setting('GrayMonSize', '3.0');
+           ViewerMgr.Setting('CutLineMode', '0');
+           ViewerMgr.Setting('AutoSplitLocalizer', '1');
+           ViewerMgr.Setting('ECGDefHighPassFreq', '0.5');
+           ViewerMgr.Setting('ECGDefLowPassFreq', '40');
+           ViewerMgr.Setting('AutoSaveUserProfile', '1');
+           ViewerMgr.Setting('OST', '1');
+           ViewerMgr.Setting('VirtualDesktop', '1');
+           ViewerMgr.Setting('VirtualDesktopMenuItem', '0');
+           ViewerMgr.Setting('SyncLoopLayoutMax', '1');
+           ViewerMgr.Setting('FrameScrollBar', '1');
+           ViewerMgr.Setting('CDRSize', '600');
+           ViewerMgr.Setting('DVDRSize', '4300');
+           ViewerMgr.Setting('ViewerOnDisk', '1');
+           ViewerMgr.Setting('CheckDigitalSignature', '0');
+           ViewerMgr.Setting('DragOpenImageMode', '0');
+           ViewerMgr.Setting('OSTThumbSize', '1.0');
+           ViewerMgr.Setting('SmartLayoutMaxCol', '10');
+           ViewerMgr.Setting('SmartLayoutMaxRow', '10');
+           ViewerMgr.Setting('SamePatientMode', '0');
+           ViewerMgr.Setting('AllowCloneMeasurement', '1');
+           ViewerMgr.Setting('ShowOSTFrameAfterLoadingImage', '0');
+           ViewerMgr.Setting('DefPixelPaddingValue', '0');
+           ViewerMgr.Setting('DefPixelPaddingValueCount', '0');
+           ViewerMgr.Setting('ShowNextStudyAfterComplete', '0');
+           ViewerMgr.Setting('SaveImageHidePatientIDName', '0');
+           ViewerMgr.Setting('LargeICONThreshold', '3');
+           ViewerMgr.Setting('AutoTileModality', '');
+           ViewerMgr.Setting('DefTileColumn', '3');
+           ViewerMgr.Setting('DefTileRow', '3');
+           ViewerMgr.Setting('VideoRAMThreshold', '0');
+           ViewerMgr.Setting('MammoHPApplyPR', '0');
+           ViewerMgr.Setting('ApplyPR', '1');
+           ViewerMgr.Setting('DICOMDiskUnCompress', '0');
+           ViewerMgr.Setting('SeriesImageCountThreshold', '0');
+           ViewerMgr.Setting('VerticalAlignOverlayFactor', '75');
+           ViewerMgr.Setting('SyncZoomForDifferentSliceDirection', '1');
+           ViewerMgr.Setting('RamDiskPath', 'm:');
+           ViewerMgr.Setting('AllowSwapPixelDataToDisk', '1');
+           ViewerMgr.Setting('VolumeDllVersion', '');
+           ViewerMgr.Setting('MPRDllVersion', '1,1,10705,0');
+           ViewerMgr.Setting('SwapToDiskThreshold', '0');
+           ViewerMgr.Setting('ShowAnnROI', '0');
+	} catch (e) {
+		//alert("请使用IE10以上浏览器查看本网站，且暂不支持Windows10操作系统");
+	}
+};
+</script>
+</body>
+</html>

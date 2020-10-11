@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+	<div class="panel panel-success" data-ng-init="initData()">
+		<div class="panel-heading">
+			<h4><span class="glyphicon glyphicon-th-list"></span>
+				系统日志
+			</h4>
+		</div>
+		<div class="panel-body">
+			<div class="form-inline">
+				<form action="" role="form">
+					<input type="text" class="form-control" style="width: 100px;" placeholder="操作人" ng-model="searchOpt.peratorName" />
+					<input type="text" class="form-control" style="width: 100px;" placeholder="操作机构" ng-model="searchOpt.orgName" />
+					<select class="form-control" style="width: 125px;" ng-model="searchOpt.operType">
+						<option value="0">操作人类型</option>
+						<option value="9999" >超级管理员</option>
+						<option value="1" >普通管理员</option>
+						<option value="2" >普通用户</option>
+						<option value="3" >医生用户</option>
+						<option value="99" >注册用户</option>
+					</select> 
+					<select class="form-control" style="width: 110px;" ng-model="searchOpt.module">
+						<option value="0">操作模块</option>
+						<option value="1" >诊断模块</option>
+						<option value="2" >结算模块</option>
+						<option value="3" >病例模块</option>
+						<option value="4" >公共模块</option>
+						<option value="5" >机构模块</option>
+						<option value="6" >统计模块</option>
+						<option value="7" >文件模块</option>
+						<option value="8" >日志模块</option>
+						<option value="9" >系统模块</option>
+						<option value="10" >用户模块</option>
+					</select>  
+					<select class="form-control" style="width: 110px;" ng-model="searchOpt.status">
+						<option value="0">操作状态</option>
+						<option value="1" >成功</option>
+						<option value="2" >失败</option>
+					</select> 
+					<div class="input-group" style="width:160px">
+			       		<date-selector ng-model="searchOpt.start" placeholder="起始日期"></date-selector>
+					</div>
+			       	<div class="input-group" style="width:160px">
+			       		<date-selector ng-model="searchOpt.end" placeholder="结束日期"></date-selector>
+					</div>
+<!-- 			       	<div class="input-group" style="width:160px" ng-controller="dateSeletor"> -->
+<!-- 						<input id="datepicker" type="text" placeholder="起始日期" class="form-control" datepicker-popup="{{dateFormat}}" -->
+<!-- 							ng-model="searchOpt.start" datepicker-options="dateOptions" -->
+<!-- 							is-open="opened" date-disabled = "false" current-text="今天" clear-text="清除" close-text="关闭"> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 						    <button class="btn btn-info" type="button" ng-click="open($event)">选择</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+<!-- 			       	<div class="input-group" style="width:160px" ng-controller="dateSeletor"> -->
+<!-- 						<input type="text" placeholder="结束日期" class="form-control" datepicker-popup="{{dateFormat}}" ng-model="searchOpt.end" datepicker-options="dateOptions" is-open="opened" date-disabled = "false" current-text="今天" clear-text="清除" close-text="关闭"> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 						    <button class="btn btn-info" type="button" ng-click="open($event)">选择</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+					<a class="btn btn-primary" href="javascript:void(0);" ng-click="searchSysLogList()">
+						<span class="glyphicon glyphicon-search"></span>
+						检索
+					</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="javascript:void(0);" ng-click="searchSysLogList()">
+						<span class="glyphicon glyphicon-refresh"></span>
+						刷新
+					</a>
+				</form>
+			</div>
+			<table class="table table-hover table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>记录编号</th>
+						<th>操作人</th>
+						<th>操作机构</th>
+						<th>操作人类型</th>
+				 		<th>操作模块</th>
+						<th>操作描述</th>
+						<th>状态</th>
+						<th>时间</th>
+						<th>错误信息</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="log in listLog">
+						<td>{{log.id}}</td>
+						<td>{{log.operator_name}}</td>
+						<td>{{log.org_name}}</td>
+						<td>{{log.operator_typeStr}}</td>
+						<td>{{log.moduleName}}</td>
+						<td>{{log.description}}</td>
+						<td>{{log.statusStr}}</td>
+						<td>{{log.create_timeStr}}</td>
+						<td>{{log.error_msg}}</td>
+						<!-- <td>
+							<a class="btn btn-success btn-xs" ng-href="#/diagnosis/report/{{diagnosis.id}}" title="查看报告">
+								<span class="glyphicon glyphicon-zoom-in"></span>
+							</a>
+							<a class="btn btn-warning btn-xs" href="javascript:void(0);" ng-click="shareRequest(diagnosis.id)" ng-if="diagnosis.status == 5" title="分享此诊断">
+								<span class="glyphicon glyphicon-share"></span>
+							</a>
+						</td> -->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="panel-footer" align="right">
+			<span style="font-size: 18px;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+			<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+				items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+				ng-model="searchOpt.spu.currPage" ng-change="searchSysLogList()"
+				previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+		</div>
+	</div>
+</body>
+</html>

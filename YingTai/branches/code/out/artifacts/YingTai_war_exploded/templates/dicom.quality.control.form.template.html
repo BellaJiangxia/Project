@@ -1,0 +1,48 @@
+<div ng-controller="dicomQualityControlFormCtrl">
+	<div class="panel-heading">
+		<h4 style="text-align: center;font-weight: bold;">您需要先填写质量控制表</h4>
+	</div>
+	<div class="panel-body">
+		<h4 class="{{option.msg_class}}" style="text-align: center;">{{option.msg}}</h4>
+		<uib-tabset active="listQualityControlFormActived" justified="true" ng-repeat="qualityControlForm in listQualityControlForm">
+			<uib-tab index="$index">
+				<uib-tab-heading>
+					<i class="glyphicon glyphicon-bell text-danger" title="必填！" 
+						ng-if="qualityControlForm.qualityControlFormAnswer.form_question_enforceable==10"></i>
+					{{qualityControlForm.qualityControlFormAnswer.form_name}}
+				</uib-tab-heading>
+				<div style="margin-top: 10px;">
+					<div class="form-horizontal">
+						<div class="form-group" ng-repeat="ma in qualityControlForm.listMeasureAnswer">
+							<label class="control-label col-sm-2">问题 {{$index+1}}、</label>
+							<div class="col-sm-9">
+								<p class="form-control-static">{{ma.question}}</p>
+								<div ng-switch="ma.question_type">
+									<div ng-switch-when="10">
+										<p class="form-control-static">
+											<span class="label-font" uib-rating ng-model="ma.score" max="5"
+												on-hover="onScopeHover(ma,value);" on-leave="onScopeLeave(ma);"></span>&emsp;
+											分数：{{ma.percent}}
+										</p>
+									</div>
+									<div ng-switch-default>
+										<textarea rows="3" class="form-control" ng-model="ma.answer"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-1"></div>
+						</div>
+					</div>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+		<div class="row">
+			<label for="inputMedicalNum" class="control-label col-sm-2"></label>
+			<div class="col-sm-9">
+				<button class="btn btn-success" ng-click="commitAnswer();" title="提交"><i class="glyphicon glyphicon-ok"></i> 提交</button>
+				<button class="btn btn-warning" ng-click="ignoreForms();" ng-disabled="!canIgnore">下次再说</button>
+			</div>
+			<div class="col-sm-1"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="panel panel-primary">
+  	<div class="panel-heading">
+  		<h4 style="display:inline-block">人员管理</h4>
+  		<a type="button" class="btn btn-primary pull-right" ui-sref="org.users"><span class="glyphicon glyphicon-arrow-left"></span> 返回</a>
+  	</div>
+  	<div class="panel-body">
+  	<form class="form-inline" style="margin: 5px 10px;">
+		  <div class="form-group">
+	      
+		  </div>
+		</form>
+		<form class="form-horizontal">
+		  <div class="form-group">
+		    <label class="col-md-2 control-label">人员头像</label>
+		    <div class="col-md-4">
+		      <img class="img-thumbnail" ng-src="common!image.action?imageId={{user.photo_file_id}}" style="width: 100px;height:100px;">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-md-2 control-label">姓名</label>
+		    <div class="col-md-3">
+		      <span class="form-control" data-ng-bind="user.user_name" ></span>
+		    </div>
+		    <label class="col-md-2 control-label">用户状态</label>
+		    <div class="col-md-3">
+		      <span class="form-control" data-ng-bind="user.status.name" ></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-md-2 control-label">电话号码</label>
+		    <div class="col-md-3">
+		      <span class="form-control" data-ng-bind="user.mobile" ></span>
+		    </div>
+		    <label class="col-md-2 control-label">电子邮箱</label>
+		    <div class="col-md-3">
+		      <span class="form-control" data-ng-bind="user.email" ></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="col-md-2 control-label">用户类型</label>
+		    <div class="col-md-3">
+		      <span class="form-control" data-ng-bind="user.type.name" ></span>
+		    </div>
+		    <label class="col-md-2 control-label">身份证</label>
+		    <div class="col-md-3">
+		      <span class="form-control" data-ng-bind="user.identity_id" ></span>
+		    </div>
+		  </div>
+			<div class="form-group" ng-show="isApproved">
+				<label class="col-md-2 control-label">是否同意加入</label>
+				<div class="col-md-10">
+					<label class="radio-inline"> 
+						<input type="radio" name='ispass' ng-value="true" ng-model="ispass" />同意
+					</label>
+					<label class="radio-inline"> 
+						<input type="radio" name='ispass' ng-value="false" ng-model="ispass" />拒绝
+					</label>
+	      </div>
+	      <div class="col-sm-offset-2 col-md-8" ng-show="ispass!=null&&!ispass">
+	      	<textarea class="form-control" rows="3" ng-model="note" style="resize:none" placeholder="填写拒绝原因"></textarea>
+	      </div>
+			</div>	  
+		  <div class="form-group" ng-show="!isApproved || ispass">
+		  	<label class="col-md-2 control-label">用户权限</label>
+		    <div class="col-md-10">
+		      <div class="checkbox" ng-repeat="p in permission">
+		        <label>
+		          <input type="checkbox" data-checklist-model="ups" data-checklist-value="p.code"> {{p.name}}
+		        </label>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="form-group">
+				<div class="col-md-offset-2 col-md-2">
+					<a type="button" class="btn btn-primary" ng-click="saveUser()"><span class="glyphicon glyphicon-save"></span> 保存</a>
+				</div>		  	
+		  </div>
+		  <div class="form-group">
+		  		<uib-alert type="info" ng-show="msg">{{msg}}</uib-alert>
+		  </div>
+		</form>
+		</div>
+	</div>
+</div>

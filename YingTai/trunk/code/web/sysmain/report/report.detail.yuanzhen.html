@@ -1,0 +1,208 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+    	<h4 style="display:inline-block">报告详情</h4>
+     	<div class="pull-right">
+	     	<span ng-if="report.print_times>0" class="text-primary" style="font-size: 16px;">
+				本报告已经由<span ng-if="currOrg.id==report.diagnosis_org_id">&nbsp;{{report.request_org_name}}&nbsp;的</span>
+				<span>&nbsp;{{report.print_user_name}}&nbsp;打印</span>
+				<span ng-if="report.print_time">[{{report.print_time | date :'yyyy-MM-dd HH:mm:ss'}}]</span>
+			</span>
+			&emsp;
+	    	<a class="btn btn-primary pull-right" href ng-click="goback();">
+	    		<i class="glyphicon glyphicon-circle-arrow-left"></i>
+	    		返回
+	    	</a>
+     	</div>
+    </div>
+    <div class="panel-body">
+    	<uib-tabset>
+			<uib-tab>
+				<uib-tab-heading>
+					<i class="glyphicon glyphicon-filter"></i>
+					申请摘要
+				</uib-tab-heading>
+				<div class="panel panel-default" style="margin-top: 10px;">
+					<div class="panel-heading">
+				      	<span>申请时间：{{report.create_time | date :'yyyy-MM-dd HH:mm:ss'}}</span>
+					</div>
+					<div class="panel-body">
+						<table style="width: 100%">
+							<tbody>
+								<tr >
+									<td width="16%" align="right"><label>病人姓名：</label></td>
+									<td width="30%">{{report.patient_name}}</td>
+									<td width="14%" align="right"><label>病人性别：</label></td>
+									<td width="13%">{{report.patient_genderStr}}</td>
+									<td width="14%" align="right"><label>病人年龄：</label></td>
+									<td width="12%">{{report.patient_age}}</td>
+								</tr>
+								<tr>
+									<td align="right"><label>检查项目：</label></td>
+									<td>{{report.dicom_img_check_pro}}</td>
+									<td align="right"><label>检查设备：</label></td>
+									<td>{{report.device_type_name}}</td>
+									<td align="right"><label>检查部位：</label></td>
+									<td>{{report.part_type_name}}</td>
+								</tr>
+								<tr valign="top">
+									<td align="right" width="16"><label>症&emsp;&emsp;状：</label></td>
+									<td align="left" colspan="5">
+										<div style="padding: 5px 0px;">
+											<textarea class="form-control" rows="3" ng-readonly="true">{{report.case_symptom}}</textarea>
+										</div>
+									</td>
+								</tr>
+								<tr valign="top" ng-if="diagnosis.eaf_file_list&&diagnosis.eaf_file_list.length>0">
+									<td align="right"><label>电子申请单：</label></td>
+									<td align="left" colspan="5">
+										<div style="padding: 5px 0px;">
+											<ul class="list" style="padding-left: 20px;">
+												<li ng-repeat="f in diagnosis.eaf_file_list" style="list-style-type: decimal;">
+													<a href="javascript:void(0);" ng-click="showBrowse(f);" title="预览">{{f.ori_name}}</a>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+								<tr valign="top" ng-if="report.about_case_list&&report.about_case_list.length>0">
+									<td align="right"><label>历史病例：</label></td>
+									<td colspan="5">
+										<div style="padding: 5px 0px;">
+											<ul class="list" style="padding-left: 20px;">
+												<li ng-repeat="ach in report.about_case_list" style="list-style-type: decimal;">
+													<a href="javascript:void(0);" ng-click="showMedicalHisDetail(ach);" title="查看病例详细">
+														{{ach.case_his_num}}
+													</a>
+													&nbsp;&nbsp;&nbsp;
+													<span style="font-size: 12px;color: #39B3D7">{{ach.create_time | date : 'yyyy-MM-dd'}}</span>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="panel-footer">
+						<a ng-href="#/request/detail/{{report.diagnosis_id}}">
+							<span class="glyphicon glyphicon-eject"></span>
+							申请详情
+						</a>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<button class="btn btn-success btn-sm" ng-click="showDicomByImgId(report.dicom_img_id)"><span class="glyphicon glyphicon-file"></span>
+							查看图像
+						</button>
+					</div>
+				</div>
+			</uib-tab>
+			<uib-tab ng-repeat="handle in report.listDiagnosisHandle">
+				<uib-tab-heading>
+					<i class="glyphicon glyphicon-th-list"></i>
+					{{report.diagnosis_org_name}}-{{handle.curr_user_name}}的诊断
+				</uib-tab-heading>
+				<div class="form-horizontal" style="margin-top: 10px;">
+					<div class="form-group">
+						<label class="control-label col-sm-2">诊断时间：</label>
+						<div class="col-sm-10">
+							<p class="form-control-static">{{handle.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">阴阳性：</label>
+						<div class="col-sm-10">
+							<label class="radio-inline">
+								<input type="radio" value="1" name="handlefom{{$index}}" ng-model="handle.f_o_m" ng-disabled="true"/>阴性
+							</label>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<label class="radio-inline">
+								<input type="radio" value="2" name="handlefom{{$index}}" ng-model="handle.f_o_m" ng-disabled="true"/>阳性
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">影像所见：</label>
+						<div class="col-sm-10">
+							<textarea id="textareaHandle" class="form-control" rows="10"
+								ng-model="handle.pic_opinion" ng-readOnly="true"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2">诊断意见：</label>
+						<div class="col-sm-10">
+							<textarea id="textareaHandle" class="form-control" rows="10"
+								ng-model="handle.pic_conclusion" ng-readOnly="true"></textarea>
+						</div>
+					</div>
+				</div>
+			</uib-tab>
+		</uib-tabset>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<i class="glyphicon glyphicon-list"></i> 报告正文
+				<span class="pull-right">
+					<span ng-if="currOrg.id==report.request_org_id">{{report.diagnosis_org_name}}</span>
+					<span ng-if="currOrg.id==report.diagnosis_org_id">{{report.publish_user_name}}</span>
+					<span>&nbsp;&nbsp;&nbsp;{{report.create_time | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+				</span>
+			</div>
+			<div class="panel-body form-horizontal">
+				<div class="form-group" style="font-size: 16px;">
+					<label class="control-label col-sm-2">阴阳性：</label>
+					<div class="col-sm-10">
+						<label class="radio-inline">
+							<input type="radio" value="1" name="fom" ng-model="report.f_o_m" ng-disabled="true"/>阴性
+						</label>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<label class="radio-inline">
+							<input type="radio" value="2" name="fom" ng-model="report.f_o_m" ng-disabled="true"/>阳性
+						</label>
+					</div>
+				</div>
+				<div class="form-group" style="font-size: 16px;">
+					<label class="control-label col-sm-2">影像所见：</label>
+					<div class="col-sm-10">
+						<textarea id="textareaHandle" class="form-control" rows="15" style="font-size: 16px;"
+							ng-model="report.pic_opinion" ng-readOnly="true"></textarea>
+					</div>
+				</div>
+				<div class="form-group" style="font-size: 16px;">
+					<label class="control-label col-sm-2">诊断意见：</label>
+					<div class="col-sm-10">
+						<textarea id="textareaHandle" class="form-control" rows="10" style="font-size: 16px;"
+							ng-model="report.pic_conclusion" ng-readOnly="true"></textarea>
+					</div>
+				</div>
+				<div align="right">
+					<!-- <button class="btn btn-primary" ng-click="openVideo(diagnosis)" 
+						ng-if="(org.id==diagnosis.request_org_id&&user.id==diagnosis.request_user_id)||
+							(org.id==diagnosis.diagnosis_org_id&&user.id==diagnosis.verify_user_id)" 
+						title="请求视频">
+						<span class="glyphicon glyphicon-facetime-video"></span>
+					</button> -->
+					<button class="btn btn-success" ng-click="openChat(report);" 
+						ng-if="(currOrg.id==report.request_org_id && currUser.userId==report.request_user_id)||
+							(currOrg.id==report.diagnosis_org_id && currUser.userId==report.publish_user_id)" 
+						title="消息">
+						<span class="glyphicon glyphicon-comment"></span>
+					</button>
+					<button class="btn btn-warning" ng-click="modifyReport();" title="修改报告！当报告已经被打印则不可再修改！"
+						ng-if="(currOrg.id==report.diagnosis_org_id) && (currUser.userId==report.publish_user_id)" >
+						<span class="glyphicon glyphicon-warning-sign"></span>
+						修改报告
+					</button>
+					<div style="display: inline-block;" ng-if="currOrg.id==report.request_org_id">
+						<button class="btn btn-info" ng-click="printReport();">
+							<i class="glyphicon glyphicon-print"></i>
+							打印{{report.request_class==10?'诊断':'咨询'}}报告
+						</button>
+						<button class="btn btn-primary" ng-click="consult2DiagnosisReport();" 
+							ng-if="report.request_class==20">
+							<i class="glyphicon glyphicon-option-horizontal"></i>
+							打印诊断报告
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h4><span class="glyphicon glyphicon-th-list"></span>
+      回复列表
+    </h4>
+  </div>
+  <div class="panel-body">
+    <div class="form-inline">
+      <input type="text" class="form-control" style="width: 500px;" placeholder="患者姓名 或者 回复关键字" ng-model="searchOpt.keyword"/>
+      <select class="form-control" ng-model="searchOpt.isMine">
+        <option value="">本机构的</option>
+        <option value="true">我回复的</option>
+      </select>
+      <button class="btn btn-primary" ng-click="loadList()">
+        <span class="glyphicon glyphicon-search"></span> 检索
+      </button>
+    </div>
+
+    <br/>
+
+    <table class="table table-hover table-striped">
+      <thead>
+      <tr class="bg-primary">
+        <th width="10%">患者姓名</th>
+        <th width="50%">询问症状</th>
+        <th width="20%">问诊时间</th>
+        <th width="20%">回复时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="q in listInquriy">
+        <td>{{q.patient_name}}</td>
+        <td><a ui-sref="inquiry.detail({id:q.inquiry_id})">{{q.inquiry_content | limitTo:100}}</a></td>
+        <td>{{q.inquiry_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{q.last_read_time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div align="right">
+      <span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条数据</span>
+      <uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow"
+                      items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+                      ng-model="searchOpt.spu.currPage" ng-change="loadList()"
+                      previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+    </div>
+  </div>
+</div>

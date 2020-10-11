@@ -1,0 +1,38 @@
+<div style="overflow: auto;">
+   <div>
+		<table style="width: 100%;">
+			<tbody>
+				<tr>
+					<td width="15%" align="left"><label>模板名称：</label></td>
+					<td width="35%" align="left">{{template.template_name}}</td>
+					<td width="15%" align="left"><label>模板类型：</label></td>
+					<td width="35%" align="left">{{template.typeStr}}</td>
+				</tr>
+				<tr>
+					<td width="15%" align="left"><label>设&emsp;&emsp;备：</label></td>
+					<td width="35%" align="left">{{template.device_type_name}}</td>
+					<td width="15%" align="left"><label>部&emsp;&emsp;位：</label></td>
+					<td width="35%" align="left">{{template.part_type_name}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<label>影像所见：</label>
+		<div>
+			&emsp;&emsp;{{template.pic_opinionPreview}}
+		</div>
+	</div>
+	<div>
+		<label>诊断意见：</label>
+		<div>
+			&emsp;&emsp;{{template.pic_conclusionPreview}}
+		</div>
+	</div>
+<!-- 	<div> -->
+<!-- 		<label>模板备注：</label> -->
+<!-- 		<div> -->
+<!-- 			&emsp;&emsp;{{template.notePreview}} -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+</div>

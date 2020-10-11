@@ -1,0 +1,78 @@
+<form class="form-inline" data-ng-init="initData();">
+	<div class="form-group">
+		<label>机构名称</label>
+		<input type="text" class="form-control" ng-model="orgName" placeholder="机构名称">
+	</div> 
+	<div class="form-group">
+		<a type="button" class="btn btn-primary" ng-click="loadOrg()" href><span class="glyphicon glyphicon-search"></span> 查询</a>
+	</div>
+</form>
+<br/>
+<table class="table table-bordered table-hover">
+	<thead>
+		<tr class="bg-primary">
+			<th>合作机构名称</th>
+			<th>合作机构编号</th>
+			<th>合作机构身份</th>
+			<th>合作机构类型</th>
+			<th>达成合作时间</th>
+			<th>报告发布类型</th>
+			<th>对其共享病例库</th>
+<!-- 			<th>状态</th> -->
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="o in listOrgRelation">
+			<td>{{o.relation_org_name}}</td>
+			<td>{{o.relation_org_code}}</td>
+			<td><span ng-repeat="p in o.relation_org_permissionList">{{p.name}}&nbsp;</span></td>
+			<td title="{{o.relation_org_type_name">{{o.relation_org_type_name}}</td>
+			<td>{{o.org_relation.create_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+			<td>{{o.org_relation.publish_report_typeStr}}&nbsp;
+				<a class="glyphicon glyphicon-pencil" ng-if="o.org_relation.publish_report_type==3" href 
+					ng-click="modifyPublishReportOrg(o);" title="修改报告发布者身份"></a>
+			</td>
+			<td>
+				<label class="radio-inline">
+					<input type="radio" value="0" name="handlefom{{$index}}" ng-model="o.org_relation_config.share_patient_info" 
+						ng-click="openOrClosePiShare(o);"/>不共享
+				</label>
+				&nbsp;&nbsp;
+				<label class="radio-inline">
+					<input type="radio" value="1" name="handlefom{{$index}}" ng-model="o.org_relation_config.share_patient_info"
+						ng-click="openOrClosePiShare(o);"/>非完全共享
+				</label>
+				&nbsp;&nbsp;
+				<label class="radio-inline">
+					<input type="radio" value="2" name="handlefom{{$index}}" ng-model="o.org_relation_config.share_patient_info"
+						ng-click="openOrClosePiShare(o);"/>完全共享
+				</label>
+<!-- 				<switch id="share_patient_info" name="share_patient_info" ng-model="o.org_relation_config.share_patient_info"  -->
+<!-- 					class="green" on="是" off="否" ng-change="openOrClosePiShare(o.relation_org_id,o.org_relation_config.share_patient_info==1);"></switch> {{o.org_relation_config.share_patient_infoStr}}</td> -->
+<!-- 			<td>{{o.statusStr}}</td> -->
+			<td>
+<!-- 				<a class="btn btn-warning btn-sm" ng-if="o.org_relation_config.share_patient_info==1" title="关闭病例共享"  -->
+<!-- 					href ng-click="openOrClosePiShare(o.relation_org_id,false);"> -->
+<!-- 					<i class="fa fa-circle-o-notch fa-lg"></i> -->
+<!-- 				</a> -->
+<!-- 				<a class="btn btn-success btn-sm" ng-if="o.org_relation_config.share_patient_info!=1" href title="开启病例共享"  -->
+<!-- 					ng-click="openOrClosePiShare(o.relation_org_id,true);"> -->
+<!-- 					<i class="fa fa-share-alt fa-lg"></i> -->
+<!-- 				</a> -->
+	         	<a ng-if="o.org_relation.status==3" class="btn btn-primary btn-sm" ng-click="setReportOrg(o)" href title="设置报告发布者">
+	         		<i class="glyphicon glyphicon-duplicate"></i></a>
+	         	<a class="btn btn-danger btn-sm" ng-click="cancelFriend(o.org_relation.id);" href title="撤销合作">
+	         		<i class="glyphicon glyphicon-remove-circle"></i>
+	         	</a>
+         	</td>
+        </tr>
+	</tbody>
+</table>
+<div align="right">
+	<span style="font-size: 18px;float: left;">共&nbsp;{{searchOpt.spu.totalRow}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+	<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+				items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+				ng-model="searchOpt.spu.currPage" ng-change="loadOrg();"
+				previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+</div>

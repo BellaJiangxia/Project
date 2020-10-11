@@ -1,0 +1,73 @@
+<div class="panel panel-primary" data-ng-init="initData();">
+	<div class="panel-heading">
+			<h4 style="display:inline-block">分享详情</h4>
+			<a class="btn btn-primary pull-right" href="javascript:void(0);" ng-click="goback()">
+				<span class="glyphicon glyphicon-circle-arrow-left"></span>
+				返回
+			</a>
+	</div>
+	<div class="panel-body">
+		<div class="well">
+			<div class="row">
+				<div class="col-sm-12">
+					<a href="#/request/detail/{{report.diagnosis_id}}">
+						<span class="glyphicon glyphicon-arrow-left"></span>
+						更多病例详情
+					</a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a class="btn btn-link" href="javascript:void(0);" ng-click="viewReportDetail(report.id);">
+						<span class="glyphicon glyphicon-arrow-up"></span>
+						查看报告详情
+					</a>
+						
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3">
+					<label>病历号：</label>{{report.case_his_num}}
+				</div>
+				<div class="col-sm-3">
+					<label>病人年龄：</label>{{report.patient_age}}
+				</div>
+				<div class="col-sm-3">
+					<label>病人性别：</label>{{report.patient_genderStr}}
+				</div>
+				<div class="col-sm-3">
+					<!-- <label>诊断状态：</label><span class="text-danger">{{report.statusStr}}</span> -->
+				</div>
+			</div>
+			<div class="row" style="padding-left: 15px;">
+				<div style="width: 150px;">
+					<label>病人主要症状：</label>
+				</div>
+				<div style="width: 100%;padding-right: 15px">
+					<textarea id="textareaSickHis" class="form-control" rows="3"
+						ng-model="report.case_symptom" ng-readOnly="true"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				评论<span class="glyphicon glyphicon-arrow-down"></span>
+				<div class="pull-right">
+					<a href="javascript:void(0);" ng-click="writeSpeech();">我要发言</a>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="well" ng-repeat="speech in listSpeech" >
+					<p ng-repeat="cl in speech.content_lines track by $index">&emsp;&emsp;{{cl}}</p>
+					<hr style="margin: 1px 0px;"/>
+					<div class="pull-right">
+						<span style="color:ForestGreen;font-size: 12px;">by {{speech.speech_user_name}}</span>&nbsp;&nbsp;
+						<span style="color:Silver;font-size: 10px;">{{speech.speech_time|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+					</div>
+				</div>
+				<div align="right">
+					<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" max-size="searchOpt.spu.totalPage"
+						ng-model="searchOpt.spu.currPage" ng-change="queryReportShareSpeech();"
+						previous-text="上一页" next-text="下一页"></uib-pagination>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

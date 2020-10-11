@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-list"></span>
+			系统配置管理
+		</h4>
+	</div>
+	<div class="panel-body">
+		<div style="width: 100%">
+			<h4 style="color: orange;">
+				<span class="glyphicon glyphicon-info-sign"></span>
+				注意：系统配置影响到整个系统的运行，请谨慎操作！
+			</h4>
+			<h5 style="color: blue;">
+				部分字段只允许查看，系统会自动维护！
+			</h5>
+		</div>
+		<div class="btn-group inline">
+			<ul class="nav nav-pills">
+		      	<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[statTypeMap.sysConfig]">
+		      		<a href="javascript:void(0)" ng-click="selectStatType('sysConfig')">系统配置</a>
+		      	</li>
+				<li role="presentation" ng-class="{true: 'active', false: 'inactive'}[statTypeMap.checkpro]">
+					<a href="javascript:void(0)" ng-click="selectStatType('checkpro')">检查项目配置</a>
+				</li>
+		    </ul>
+		</div>
+		<div ui-view></div>
+	</div>
+</div>
+</body>
+</html>

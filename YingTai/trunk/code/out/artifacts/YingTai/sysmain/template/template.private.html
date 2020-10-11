@@ -1,0 +1,60 @@
+<div class="panel panel-primary" data-ng-init="initData()">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-list"></span>
+			私有模板
+		</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline">
+			<form action="" role="form">
+				<select class="form-control" ng-model="searchOpt.deviceTypeId" ng-change="queryPartList(searchOpt.deviceTypeId)"
+					ng-options="d.id as d.value for d in listDeviceType">
+					<option value="">--影像类型--</option>
+				</select> 
+				<select class="form-control" style="width: 110px;" ng-if="searchOpt.deviceTypeId !=0" ng-model="searchOpt.partTypeId">
+					<option value="0">部位类型</option>
+					<option ng-repeat="part in arrayPart" value="{{part.id}}" >{{part.value}}</option>
+				</select> 
+				<a class="btn btn-primary" href="javascript:void(0);" ng-click="searchMyTemplate()">
+					<span class="glyphicon glyphicon-search"></span>
+					检索
+				</a>
+				<a class="btn btn-success" href="#/template/new">
+					<span class="glyphicon glyphicon-plus"></span>
+					添加模板
+				</a>
+			</form>
+		</div>
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr class="bg-primary">
+					<th>模板名称</th>
+					<th>设备类型</th>
+			 		<th>部位类型</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="template in listTemplate">
+					<td>{{template.template_name}}</td>
+					<td>{{template.device_type_name}}</td>
+					<td>{{template.part_type_name}}</td>
+					<td>
+						<a ng-href="#/template/modify/{{template.id}}" title="查看或修改模板" class="col-xs-offset-2">
+							<span class="glyphicon glyphicon-pencil text-info"></span>
+						</a>
+						<a href="javascript:void(0);" title="删除模板" ng-click="deleteTemplate(template.id)" class="col-xs-offset-2">
+							<span class="glyphicon glyphicon-trash text-danger"></span>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-footer" align="right">
+		<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+					items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+					ng-model="searchOpt.spu.currPage" ng-change="searchMyTemplate()"
+					previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>

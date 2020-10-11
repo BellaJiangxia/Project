@@ -1,0 +1,53 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+	<div class="panel panel-primary" style="width: 100%">
+		<div class="panel-heading">
+			<span class="glyphicon glyphicon-th-list"></span>
+			申请统计
+		</div>
+		<div class="panel-body">
+			<div style="margin-bottom: 10px;">
+				<ul class="nav nav-tabs">
+					<li role="presentation"  ui-sref-active="active">
+						<a ui-sref="statRequest.patient" role="button" href="#/statRequest/patient">
+							病人统计
+						</a>
+					</li>
+					<li role="presentation"  ui-sref-active="active">
+						<a ui-sref="statRequest.sick" role="button" href="#/statRequest/sick">
+							病症统计
+						</a>
+					</li>
+					<li role="presentation" ui-sref-active="active">
+						<a ui-sref="statRequest.fom" role="button" href="#/statRequest/fom">
+							阴阳性统计
+						</a>
+					</li>
+					<li role="presentation" ui-sref-active="active">
+						<a ui-sref="statRequest.device" role="button" href="#/statRequest/device">
+							仪器报告统计
+						</a>
+					</li>
+					<li role="presentation" ui-sref-active="active">
+						<a ui-sref="statRequest.cost" role="button" href="#/statRequest/cost">
+							报告花费统计
+						</a>
+					</li>
+			    </ul>
+			</div>
+			<div ui-view>
+				<br />
+			</div>
+		</div>
+	</div>
+</body>
+</html>

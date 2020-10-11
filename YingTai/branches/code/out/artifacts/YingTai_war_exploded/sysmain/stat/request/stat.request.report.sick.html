@@ -1,0 +1,52 @@
+<div class="form-inline" data-ng-init="initData()">
+	<input type="text" class="form-control" style="width: 150px;" placeholder="病症" ng-model="searchOpt.sickName" /> 
+	<select class="form-control" style="width: 150px;" ng-model="searchOpt.diagnosisOrgId" 
+		ng-change="queryDoctorsInOrg(searchOpt.diagnosisOrgId)">
+		<option value="0">选择诊断机构</option>
+		<option ng-repeat="org in arrayOrg" value="{{org.id}}" >{{org.org_name}}</option>
+	</select>
+	<select class="form-control" style="width: 110px;" ng-model="searchOpt.deviceTypeId" ng-change="queryPartList(searchOpt.deviceTypeId)"
+		ng-options="d.id as d.value for d in listDeviceType">
+		<option value="">--影像类型--</option>
+	</select> 
+	<select class="form-control" style="width: 110px;" ng-if="searchOpt.deviceTypeId !=0" ng-model="searchOpt.partTypeId">
+		<option value="0">部位类型</option>
+		<option ng-repeat="part in arrayPart" value="{{part.id}}" >{{part.value}}</option>
+	</select>
+    <div style="width:160px">
+    	<date-selector ng-model="searchOpt.start" placeholder="起始日期"></date-selector>
+	</div>
+    <div style="width:160px">
+    	<date-selector ng-model="searchOpt.end" placeholder="结束日期"></date-selector>
+	</div>
+	<a class="btn btn-primary" href="javascript:void(0);" ng-click="statOrgFom()">
+		<span class="glyphicon glyphicon-search"></span>
+		检索
+	</a>
+</div>
+<br />
+<table class="table table-hover table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>病症</th>
+			<th>患病数量</th>
+			<th>病例总数</th>
+			<th>比例</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="report in listReport">
+			<td>{{report.sick_name}}</td>
+			<td>{{report.count}}</td>
+			<td>{{report.total}}</td>
+			<td>{{report.scale}}%</td>
+		</tr>
+	</tbody>
+</table>
+<div class="panel-footer" align="right">
+	<span style="font-size: 18px;">共&nbsp;{{listReport.length}}&nbsp;条记录&nbsp;&nbsp;&nbsp;</span>
+	<!-- <uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+		items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+		ng-model="searchOpt.spu.currPage" ng-change="statReport()"
+		previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination> -->
+</div>

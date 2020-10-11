@@ -1,0 +1,12 @@
+<div class="panel panel-primary" data-ng-init="initData()">
+	<div class="panel-heading">
+		申请详情
+		<button class="btn btn-warning btn-xs pull-right" ng-click="cancel();">
+    		<i class="glyphicon glyphicon-remove"></i>
+    		关闭
+    	</button>
+	</div>
+	<div class="panel-body">
+		<ng-include src="'../templates/request.detail.template.html'"></ng-include>
+	</div>
+</div>

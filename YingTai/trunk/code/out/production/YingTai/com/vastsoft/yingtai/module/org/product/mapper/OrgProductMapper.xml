@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.org.product.mapper.OrgProductMapper">
+	<insert id="insertProduct" parameterType="TOrgProduct" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO [T_ORG_PRODUCT](
+			[ORG_ID]
+           ,[NAME]
+           ,[PRICE]
+           ,[DEVICE_TYPE_ID]
+           ,[PART_TYPE_ID]
+           ,[DESCRIPTION]
+           ,[CREATOR_ID]
+           ,[CREATE_TIME]
+           ,[STATUS]
+           ,[charge_type]
+    	)VALUES(
+    		#{org_id}
+           ,#{name}
+           ,#{price}
+           ,#{device_type_id}
+           ,#{part_type_id}
+           ,#{description,jdbcType=VARCHAR}
+           ,#{creator_id}
+           ,#{create_time}
+           ,#{status}
+           ,#{charge_type}
+		)
+	</insert>
+	
+	<update id="modifyProductStatus" parameterType="Map">
+		UPDATE [T_ORG_PRODUCT]
+		   SET [STATUS] = #{status}
+		 WHERE [ID]=#{id}
+	</update>
+	
+	<select id="selectOrgProduct" parameterType="Map" resultType="FOrgProduct">
+		select * from (
+			select t1.*,
+				t2.USER_NAME as create_user_name,
+				t3.VALUE as device_type_name,
+				t4.VALUE as part_type_name,
+				ROW_NUMBER () OVER (ORDER BY t1.create_time desc) AS RowNumber
+			from T_ORG_PRODUCT t1
+				left join T_BASE_USER t2 on t1.CREATOR_ID = t2.id
+				left join T_DIC_VALUE t3 on t1.DEVICE_TYPE_ID = t3.id
+				left join T_DIC_VALUE t4 on t1.PART_TYPE_ID = t4.id
+			where 1=1
+				<if test="id !=null">
+					and t1.id = #{id}
+				</if>
+				<if test="org_id !=null">
+					and t1.ORG_ID=#{org_id}			
+				</if>
+				<if test="name !=null">
+					and t1.name = #{name}
+				</if>
+				<if test="like_name!=null">
+					and t1.name like '%'+#{like_name}+'%'
+				</if>
+				<if test="device_type_id!=null">
+					and t1.DEVICE_TYPE_ID=#{device_type_id}
+				</if>
+				<if test="part_type_id!=null">
+					and t1.PART_TYPE_ID=#{part_type_id}
+				</if>
+				<if test="status !=null">
+					and t1.STATUS=#{status}
+				</if>
+				<if test="exclude_statuses !=null">
+					and t1.status not in (#{exclude_statuses})
+				</if>
+				<if test="charge_type !=null">
+					and t1.charge_type = #{charge_type}
+				</if>
+		)as tmp_t 
+			<if test="minRow !=null and maxRow !=null">
+				where tmp_t.RowNumber >=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+			</if>
+	</select>
+	
+	<select id="selectOrgProductCount" parameterType="Map" resultType="Integer">
+		select count(id) from T_ORG_PRODUCT
+			where 1=1
+			<if test="id !=null">
+				and id = #{id}
+			</if>
+			<if test="org_id !=null">
+				and ORG_ID=#{org_id}			
+			</if>
+			<if test="name !=null">
+				and name = #{name}
+			</if>
+			<if test="like_name!=null">
+				and name like '%'+#{like_name}+'%'
+			</if>
+			<if test="device_type_id!=null">
+				and DEVICE_TYPE_ID=#{device_type_id}
+			</if>
+			<if test="part_type_id!=null">
+				and PART_TYPE_ID=#{part_type_id}
+			</if>
+			<if test="status !=null">
+				and STATUS=#{status}
+			</if>
+			<if test="exclude_statuses !=null">
+				and status not in (#{exclude_statuses})
+			</if>
+			<if test="charge_type !=null">
+				and charge_type = #{charge_type}
+			</if>
+	</select>
+	
+	<select id="selectProductById" parameterType="Map" resultType="TOrgProduct">
+		select * from T_ORG_PRODUCT where ID=#{id}<!--  and ORG_ID=#{org_id} and STATUS=#{status} -->
+	</select>
+	
+	<select id="selectProductByIdAndLock" parameterType="Long" resultType="TOrgProduct">
+		SELECT * FROM [T_ORG_PRODUCT] WITH(XLOCK) where ID=#{id}
+	</select>
+</mapper>

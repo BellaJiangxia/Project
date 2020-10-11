@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+  <sms-sender class="com.vastsoft.util.service.sms.chuangri_api.ChuangRiSms">
+    <cfg debug_only="false" url="http://web.cr6868.com/asmx/smsservice.aspx" user="成都影泰科技有限公司" pwd="FDE42AB8ECB1762EEB9E31A4B0FD" type="pt"/>
+  </sms-sender>
+</config>

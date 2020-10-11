@@ -1,0 +1,92 @@
+<div class="panel panel-primary" data-ng-init="initData()">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-stats"></span>
+			系统流水
+		</h4>
+	</div>
+	<div class="panel-body">
+		<div class="form-inline">
+			<form action="" role="form">
+				<select class="form-control" style="width: 110px;" ng-model="searchOpt.type">
+					<option value="0">收支类型</option>
+					<option value="1">收入</option>
+					<option value="2">支出</option>
+				</select>
+				<select class="form-control" style="width: 150px;" ng-model="searchOpt.request_org_id">
+					<option value="0">申请机构</option>
+					<option ng-repeat="org in arrayOrg" value="{{org.id}}">{{org.org_name}}</option>
+				</select>
+				<select class="form-control" style="width: 150px;" ng-model="searchOpt.diagnosis_org_id">
+					<option value="0">诊断机构</option>
+					<option ng-repeat="org in arrayOrg" value="{{org.id}}">{{org.org_name}}</option>
+				</select>
+				<div class="input-group" style="width:160px">
+		       		<date-selector ng-model="searchOpt.start" placeholder="起始日期"></date-selector>
+				</div>
+		       	<div class="input-group" style="width:160px">
+		       		<date-selector ng-model="searchOpt.end" placeholder="结束日期"></date-selector>
+				</div>
+<!-- 				<div class="form-group" style="width:160px"> -->
+<!-- 			       	<div class="input-group" ng-controller="dateSeletor"> -->
+<!-- 						<input id="datepicker" type="text" placeholder="起始日期" class="form-control" datepicker-popup="{{dateFormat}}" -->
+<!-- 							ng-model="searchOpt.start" datepicker-options="dateOptions"  -->
+<!-- 							is-open="opened" date-disabled = "false" current-text="今天" clear-text="清除" close-text="关闭"> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 						    <button class="btn btn-info" type="button" ng-click="open($event)">选择</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+<!-- 			    </div> -->
+<!-- 			   	<div class="form-group" style="width:160px"> -->
+<!-- 			       	<div class="input-group" ng-controller="dateSeletor"> -->
+<!-- 						<input id="datepicker" type="text" placeholder="结束日期" class="form-control" datepicker-popup="{{dateFormat}}" -->
+<!-- 							ng-model="searchOpt.end" datepicker-options="dateOptions"  -->
+<!-- 							is-open="opened" date-disabled = "false" current-text="今天" clear-text="清除" close-text="关闭"> -->
+<!-- 						<span class="input-group-btn"> -->
+<!-- 						    <button class="btn btn-info" type="button" ng-click="open($event)">选择</button> -->
+<!-- 						</span> -->
+<!-- 					</div> -->
+<!-- 			    </div> -->
+				<a class="btn btn-primary" href="javascript:void(0);" ng-click="searchSysAccountFlowing()">
+					<span class="glyphicon glyphicon-search"></span>
+					检索
+				</a>
+				<a class="btn btn-success" href="javascript:void(0);" ng-click="downloadSysAccountFlowing()">
+					<span class="glyphicon glyphicon-save"></span>
+					导出结果
+				</a>
+			</form>
+		</div>
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>记录编号</th>		
+					<th>操作类型</th>
+					<th>申请机构</th>
+					<th>诊断机构</th>
+					<th>操作人</th>
+					<th>收支类型</th>
+			 		<th>金额</th>
+					<th>时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="flowing in listFlowing">
+					<td>{{flowing.id}}</td>
+					<td>{{flowing.opeartType.name}}</td>
+					<td>{{flowing.request_org_name}}</td>
+					<td>{{flowing.diagnosis_org_name}}</td>
+					<td>{{flowing.v_opeaator_name}}</td>
+					<td>{{flowing.opeartType.reType.name}}</td>
+					<td>￥{{flowing.price}}</td>
+					<td>{{flowing.operat_timeStr}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-footer" align="right">
+		<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+					items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+					ng-model="searchOpt.spu.currPage" ng-change="searchSysAccountFlowing()"
+					previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>

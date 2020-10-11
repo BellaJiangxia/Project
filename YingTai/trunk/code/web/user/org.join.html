@@ -1,0 +1,76 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="container">
+	<div class="alert alert-danger" role="alert" ng-show="msg">
+		{{msg}}
+	</div>
+	<div class="panel panel-primary">
+	  <div class="panel-heading" >
+		  	<h4>机构列表</h4>
+		  	<form class="form-inline" style="margin: 10px 0px;">
+					<div class="form-group">
+						<div class="input-group">
+      				<div class="input-group-btn" dropdown>
+      					 <button id="single-button" type="button" class="btn btn-default" dropdown-toggle>
+				        	{{st.name}}<span class="caret"></span>
+						      </button>
+						      <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+						      	<li role="menuitem" ng-repeat="t in searchType">
+						          <a href ng-click="setSearchType(t)">{{t.name}}</a>
+						        </li>
+						      </ul>
+      				</div>
+      				<input type="text" class="form-control" ng-model="queryStr">
+     				</div>
+					</div>  
+					
+				  <div class="form-group">
+			      <a type="button" class="btn btn-primary" ng-click="searchOrg()"><span class="glyphicon glyphicon-search"></span> 查询</a>
+				  </div>
+				  <a type="button" ui-sref="myOrg.list" class="btn btn-primary pull-right "><span class="glyphicon glyphicon-arrow-left">返回</span></a>
+				</form>
+		</div>
+	  <table class="table table-bordered table-hover">
+      <thead>
+        <tr class="bg-primary">
+          <th class="col-xs-3" style="text-align: center">机构名称</th>
+          <th class="col-xs-1" style="text-align: center">机构编号</th>
+          <th class="col-xs-1" style="text-align: center">创建人</th>
+          <th class="col-xs-2" style="text-align: center">创建时间</th>
+          <th class="col-xs-1" style="text-align: center">机构类型</th>
+          <th class="col-xs-1" style="text-align: center">机构级别</th>
+          <th class="col-xs-2" style="text-align: center">机构简介</th>
+          <th class="col-xs-1" style="text-align: center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="o in orgs">
+				 <td class="col-xs-3"><a ng-if="o.is_public>10" ui-sref="orgDetail({id:o.id})">{{o.org_name}}</a><span ng-if="o.is_public<=10" data-ng-bind="o.org_name"></span></td>
+				 <td class="col-xs-1">{{o.org_code}}</td>
+         <td class="col-xs-1">{{o.creator_name}}</td>
+         <td class="col-xs-2">{{o.create_time | date:"yyyy-MM-dd HH:mm:ss"}}</td>
+         <td class="col-xs-1">{{o.type_name}}</td>
+         <td class="col-xs-1">{{o.level_name}}</td>
+         <td class="col-xs-2"><span title="{{o.description}}">{{o.description | subStr:10}}</span></td>
+         <td class="col-xs-1"><a class="btn-link" href="javascript:void(0);" ng-click="requestJoin(o.id)">申请加入</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="panel-footer">
+    	<div style="text-align: right">
+		    <uib-pagination class="pagination-md" total-items="total" ng-model="pageIdx" ng-change="searchOrg()" max-size="5" boundary-links="true" previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+    	</div>
+    </div>
+	</div>
+</div>
+</body>
+</html>

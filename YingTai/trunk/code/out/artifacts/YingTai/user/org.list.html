@@ -1,0 +1,38 @@
+<div class="container">
+	<uib-alert type="danger" ng-show="msg">{{msg}}</uib-alert>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+		  	<span style="font-size: 20px">我的机构</span>
+		  	<span class="pull-right">
+				<button class="btn btn-info" ui-sref="myOrg.info" ng-disabled="!isValidaUser">创建机构</button>
+				<button class="btn btn-success" ui-sref="myOrg.join" ng-disabled="!isValidaUser">加入机构</button>
+			</span>
+		</div>
+		<div class="panel-body">
+			<h4 class="text-danger" ng-if="orgs.length==0">尚未隶属于任何机构组织，请<a ui-sref="myOrg.info">创建</a>或<a ui-sref="myOrg.join">加入</a>机构组织</h4>
+			<div ng-class="(orgs && orgs.length>1)?'col-sm-6':''" ng-repeat="o in orgs">
+				<div class="well">
+					<div class="media">
+						<div class="media-left" >
+							<img ng-src="common!image.action?fileType=16&imageId={{o.logo_file_id || ''}}"
+								 class="media-object" style="width:60px;height: 60px;">
+						</div>
+						<div class="media-body">
+							<div class="pull-right">
+								<button class="btn btn-success" ng-click="entryOrg(o.id)" ng-if="o.status.code==1">
+									<i class="glyphicon glyphicon-log-in"></i> 进入机构</button>
+								<button class="btn btn-danger" ui-sref="myOrg.info({id:o.id})" ng-if="o.status.code==12">
+									<i class="glyphicon glyphicon-repeat"></i> 再次申请</button>
+							</div>
+							<h4 class="media-heading">{{o.org_name}}
+								&emsp;<a href style="color: gray;" ng-click="quitOrg(o.id);" title="退出此机构！" ng-if="o.status.code==1">退出</a>
+								<span ng-if="o.status.code!=1" class="text-danger">{{o.status.name}}</span>
+							</h4>
+							<p>创建人：{{o.creator}}&emsp;<span style="color: gray;font-size: 12px;">{{o.create_date | date:"yyyy-MM-dd"}}</span></p>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</div>
+</div>

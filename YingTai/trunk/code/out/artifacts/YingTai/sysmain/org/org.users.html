@@ -1,0 +1,23 @@
+<div class="container-fluid">
+	<uib-alert class="alert-info" ng-show="msg">{{msg}}</uib-alert>
+	<div class="panel panel-primary">
+	  	<div class="panel-heading"><h4>人员列表</h4></div>
+	  	<div class="panel-body">
+  			<uib-tabset>
+				<uib-tab heading="有效用户" select="loadUser(1)">
+			  		<div ng-include="template.url"></div>
+				</uib-tab>
+				<uib-tab select="loadUser(11)" active="tab.isActive">
+					<uib-tab-heading>
+						 <span>待审核用户 <i class="badge" style="background-color:#f00;color:#fff" 
+						 	ng-show="diagnosisCount.joiningUserCount>0" data-ng-bind="diagnosisCount.joiningUserCount"></i></span>
+					</uib-tab-heading>
+					<div ng-include="template.url"></div>
+				</uib-tab>
+				<uib-tab heading="已拒绝用户" select="loadUser(12)">
+					<div ng-include="template.url"></div>
+				</uib-tab>
+			</uib-tabset>
+ 		</div>
+	</div>
+</div>

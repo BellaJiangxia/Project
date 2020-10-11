@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
+<body>
+<div class="panel panel-primary" data-ng-init="initData()">
+	<div class="panel-heading">
+		<h4><span class="glyphicon glyphicon-stats"></span>
+			病人来源统计
+		</h4>
+	</div>
+	<div class="panel-body">
+		<table class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>机构ID</th>		
+					<th>机构名称</th>
+					<th>病例份数</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="source in listSource">
+					<td>{{source.org_id}}</td>
+					<td>{{source.org_name}}</td>
+					<td>{{source.count}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="panel-footer" align="right">
+		<uib-pagination style="margin-top:0px;margin-bottom:0px;" total-items="searchOpt.spu.totalRow" 
+				items-per-page="searchOpt.spu.perPageCount" max-size="10" boundary-links="true"
+				ng-model="searchOpt.spu.currPage" ng-change="statPerOrgMedicalHis()"
+				previous-text="上一页" next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+	</div>
+</div>
+</body>
+</html>

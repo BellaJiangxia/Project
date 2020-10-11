@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"  
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.vastsoft.yingtai.module.financel.mapper.FinanceMapper">
+	<select id="queryAccountByOrgId" parameterType="long" resultType="TFinanceAccount">
+		select * from T_FINANCE_ACCOUNT where org_id=#{lOrgId}
+	</select>
+	
+	<select id="queryAccountById" parameterType="long" resultType="TFinanceAccount">
+		select * from T_FINANCE_ACCOUNT where id=#{lAccountId}
+	</select>
+	
+	<select id="queryAccountByIdForUpdate" parameterType="long" resultType="TFinanceAccount">
+		select * from T_FINANCE_ACCOUNT WITH(UPDLOCK) where id=#{lAccountId}
+	</select>
+	
+	<select id="queryAccountByOrgIdForUpdate" parameterType="long" resultType="TFinanceAccount">
+		select * from T_FINANCE_ACCOUNT WITH(UPDLOCK) where org_id=#{lOrgId}
+	</select>
+	
+	<insert id="addAccount" parameterType="TFinanceAccount" useGeneratedKeys="true" keyProperty="id">
+		insert into T_FINANCE_ACCOUNT (
+			org_id,
+			amount,
+			description,
+			create_Time,
+			status
+		) values(
+			#{org_id},
+			#{amount},
+			#{description,jdbcType=VARCHAR},
+			#{create_Time},
+			#{status}
+		)
+	</insert>
+	
+	<update id="modifyAccount" parameterType="TFinanceAccount">
+		update T_FINANCE_ACCOUNT set 
+			amount=#{amount},
+			status=#{status}
+		where id=#{id}
+	</update>
+	
+	<select id="searchAccountList" resultType="TFinanceAccount" parameterType="Map">
+		select * from(select a.*,b.ORG_NAME v_org_name,b.ORG_CODE v_org_code,ROW_NUMBER() OVER(order by a.CREATE_TIME desc,a.ID) rn 
+		from T_FINANCE_ACCOUNT a,T_ORGANIZATION b
+		where a.ORG_ID=b.ID and b.STATUS=1
+			<if test="status !=null">
+  				and a.status=#{status} 
+  		</if>
+  		<if test="start !=null and end!=null">
+	   			and a.CREATE_TIME between #{start} and #{end}
+  		</if>
+  		<if test="org_name!=null">
+  				and b.ORG_NAME like '%'+#{org_name}+'%'
+  		</if>
+  		<if test="org_code!=null">
+  				and b.ORG_CODE like '%'+#{org_code}+'%'
+  		</if>)t 
+		where t.rn>=#{minRow} <![CDATA[ and t.rn<#{maxRow} ]]>
+	</select>
+	
+	<select id="searchAccountCount" parameterType="Map" resultType="int">
+		select count(a.ID) from T_FINANCE_ACCOUNT a,T_ORGANIZATION b
+		where a.ORG_ID=b.ID and b.STATUS=1
+			<if test="status !=null">
+  				and a.status=#{status} 
+  		</if>
+  		<if test="start !=null and end!=null">
+	   			and a.CREATE_TIME between #{start} and #{end}
+  		</if>
+  		<if test="org_name!=null">
+  				and b.ORG_NAME like '%'+#{org_name}+'%'
+  		</if>
+  		<if test="org_code!=null">
+  				and b.ORG_CODE like '%'+#{org_code}+'%'
+  		</if>
+	</select>
+	
+	<select id="queryFreezeById" parameterType="long" resultType="TFinanceFreeze">
+        select * from T_FINANCE_FREEZE where id=#{lFreezeId}
+    </select>
+	
+	<update id="modifyFreezeStatus" parameterType="TFinanceFreeze" >
+		update T_FINANCE_FREEZE set status=#{status} where id=#{id}
+	</update>
+	
+	<insert id="addFreeze" parameterType="TFinanceFreeze" useGeneratedKeys="true" keyProperty="id">
+		insert into T_FINANCE_FREEZE (
+			account_id,
+			diagnosis_id,
+			price,
+			create_time,
+			sys_deduct,
+			status
+		) values(
+			#{account_id},
+			#{diagnosis_id},
+			#{price},
+			#{create_time},
+			#{sys_deduct},
+			#{status}
+		)
+	</insert>
+	
+	<select id="queryFreezeByDiagnosisIdForUpdate" parameterType="long" resultType="TFinanceFreeze">
+		select * from T_FINANCE_FREEZE WITH(UPDLOCK) where diagnosis_id=#{diagnosis_id}
+	</select>
+	
+	<select id="queryFreezeByDiagnosisId" parameterType="long" resultType="TFinanceFreeze">
+		select * from T_FINANCE_FREEZE where diagnosis_id=#{lDiagnosisId}
+	</select>
+	
+	<select id="queryFinacalRequestByIdForUpdate" parameterType="long" resultType="TFinanceRequest">
+		select * from T_FINANCE_REQUEST WITH(UPDLOCK) where id=#{lFinacalRequestId}
+	</select>
+	
+	<update id="modifyFinacalRequestStatus" parameterType="TFinanceRequest">
+		update T_FINANCE_REQUEST set 
+			status=#{status}
+			,[confirm_id] = #{confirm_id}
+      ,[confirm_time] = #{confirm_time}
+      where id=#{id}
+	</update>
+	
+	<delete id="removeFinanceRequestById" parameterType="long">
+		delete from T_FINANCE_REQUEST where id=#{lRequestId}
+	</delete>
+	
+	<insert id="addFinanceRequest" parameterType="TFinanceRequest" useGeneratedKeys="true" keyProperty="id">
+		insert into T_FINANCE_REQUEST (
+			org_id,
+			operation_type,
+			price,
+			create_time,
+			status,
+			note,
+     	[REQUSETOR_ID]
+		) values(
+			#{org_id},
+			#{operation_type},
+			#{price},
+			#{create_time},
+			#{status},
+			#{note},
+			#{requsetor_id}
+		)
+	</insert>
+	
+	<select id="searchRequestList" parameterType="Map" resultType="TFinanceRequest">
+		select * from(select a.*,b.ORG_NAME v_org_name,b.ORG_CODE v_org_code,ROW_NUMBER() OVER(order by a.CREATE_TIME desc,a.ID) rn 
+		from T_FINANCE_REQUEST a,T_ORGANIZATION b
+		where a.ORG_ID=b.ID
+			<if test="org_id!=null">
+				and a.org_id=#{org_id}
+			</if>
+			<if test="status !=null">
+  				and a.status=#{status} 
+  		</if>
+  		<if test="type!=null">
+  				and a.OPERATION_TYPE=#{type}
+  		</if>
+  		<if test="start !=null and end!=null">
+	   			and a.CREATE_TIME between #{start} and #{end}
+  		</if>
+  		<if test="org_name!=null">
+  				and b.ORG_NAME like '%'+#{org_name}+'%'
+  		</if>
+  		<if test="org_code!=null">
+  				and b.ORG_CODE like '%'+#{org_code}+'%'
+  		</if>)t 
+		where t.rn>=#{minRow} <![CDATA[ and t.rn<#{maxRow} ]]>
+
+	</select>
+	
+	<select id="searchRequestCount" parameterType="Map" resultType="int">
+		select COUNT(1) from T_FINANCE_REQUEST a,T_ORGANIZATION b
+		where a.ORG_ID=b.ID
+			<if test="org_id!=null">
+				and a.org_id=#{org_id}
+			</if>
+			<if test="status !=null">
+  				and a.status=#{status} 
+  		</if>
+  		<if test="type!=null">
+  				and a.OPERATION_TYPE=#{type}
+  		</if>
+  		<if test="start !=null and end!=null">
+	   			and a.CREATE_TIME between #{start} and #{end}
+  		</if>
+  		<if test="org_name!=null">
+  				and b.ORG_NAME like '%'+#{org_name}+'%'
+  		</if>
+  		<if test="org_code!=null">
+  				and b.ORG_CODE like '%'+#{org_code}+'%'
+  		</if>
+	</select>
+	
+	<insert id="addAccountRecord" parameterType="TFinanceRecord" useGeneratedKeys="true" keyProperty="id">
+		insert into T_FINANCE_RECORD (
+			price,
+			account_id,
+			operator_id,
+			operat_type,
+			description,
+			operat_time,
+			RE_TYPE,
+			note,
+			request_org_id,
+			diagnosis_org_id
+		) values(
+			#{price},
+			#{account_id},
+			#{operator_id},
+			#{operat_type},
+			#{description},
+			#{operat_time},
+			#{re_type},
+			#{note},
+			#{request_org_id},
+			#{diagnosis_org_id}
+		)
+	</insert>
+	
+	<select id="searchAccountRecordList" parameterType="Map" resultType="FFinanceRecord">
+	    select * from (
+	    	select t1.*,t2.ORG_NAME request_org_name,t3.ORG_NAME diagnosis_org_name,
+	    	t4.USER_NAME v_opeaator_name, ROW_NUMBER() OVER(order by t1.operat_time desc) rn
+	    from T_FINANCE_RECORD t1 
+	    left join T_ORGANIZATION t2 on t1.request_org_id=t2.id
+	    left join T_ORGANIZATION t3 on t1.diagnosis_org_id = t3.id
+	    left join T_BASE_USER t4 on t1.OPERATOR_ID=t4.id
+	    where 1=1
+	    <if test="type!=null">
+			and t1.OPERAT_TYPE=#{type} 
+		</if>
+		<if test="account_id !=null">
+			and t1.ACCOUNT_ID=#{account_id} 
+		</if>
+		<if test="re_type !=null">
+			and t1.RE_TYPE in (${re_type})
+		</if>
+		<if test="request_org_id !=null">
+			and t1.request_org_id=#{request_org_id} 
+		</if>
+		<if test="diagnosis_org_id !=null">
+			and t1.diagnosis_org_id=#{diagnosis_org_id} 
+		</if>
+		<if test="start!=null and end!=null">
+			and t1.OPERAT_TIME>=#{start} <![CDATA[ and t1.OPERAT_TIME<=#{end} ]]>
+		</if>)t where t.rn>=#{minRow} <![CDATA[ and t.rn<#{maxRow} ]]>
+	</select>
+	
+	<select id="searchAccountRecordCount" parameterType="Map" resultType="Integer">
+		select count(id) 
+	    from T_FINANCE_RECORD
+	    where 1=1
+	    <if test="type!=null">
+			and OPERAT_TYPE=#{type} 
+		</if>
+		<if test="account_id !=null">
+			and ACCOUNT_ID=#{account_id} 
+		</if>
+		<if test="re_type !=null">
+			and RE_TYPE in (${re_type})
+		</if>
+		<if test="request_org_id !=null">
+			and request_org_id=#{request_org_id} 
+		</if>
+		<if test="diagnosis_org_id !=null">
+			and diagnosis_org_id=#{diagnosis_org_id} 
+		</if>
+		<if test="start!=null and end!=null">
+			and OPERAT_TIME>=#{start} <![CDATA[ and OPERAT_TIME<=#{end} ]]>
+		</if>
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

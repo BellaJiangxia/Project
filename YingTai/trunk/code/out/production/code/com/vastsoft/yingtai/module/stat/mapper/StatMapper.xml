@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN"
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.vastsoft.yingtai.module.stat.mapper.StatMapper">
+	<select id="selectStatDoctorWorkReportReport" parameterType="map" resultType="HashMap">
+        WITH temp_sql as (
+            SELECT
+                t2.USER_NAME as user_name,
+                t4.value as device_name,
+                t1.count as count,
+                t1.body_part_amount as body_part_amount,
+                t1.piece_amount as piece_amount,
+                '报告' as stat_type,
+                row_number ()OVER(order by t1.ACCEPT_USER_ID,t1.DEVICE_TYPE_ID) as rn
+            FROM (
+                SELECT
+                    t2.ACCEPT_USER_ID,
+					t2.DIAGNOSIS_ORG_ID,
+					t2.DICOM_IMG_DEVICE_TYPE_ID as DEVICE_TYPE_ID,
+                    SUM(CASE t2.product_charge_type WHEN 30 THEN 1 ELSE 0 END) as COUNT,
+                    SUM(CASE t2.product_charge_type WHEN 10 THEN t2.charge_amount ELSE 0 END) AS body_part_amount,
+                    SUM(CASE t2.product_charge_type WHEN 20 THEN t2.charge_amount ELSE 0 END) AS piece_amount
+                FROM T_report t1
+					left join T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id
+                WHERE t2.ACCEPT_USER_ID IS NOT NULL AND t2.ACCEPT_USER_ID!=0
+                    <if test="start !=null and end !=null">
+						and t1.CREATE_TIME between #{start} and #{end}
+                    </if>
+                    <if test="diagnosis_org_id !=null">
+						and t2.DIAGNOSIS_ORG_ID=#{diagnosis_org_id}
+                        <if test="doctor_id !=null">
+                          and t2.ACCEPT_USER_ID=#{doctor_id}
+                        </if>
+                    </if>
+                    <if test="request_org_id !=null">
+                        and t2.REQUEST_ORG_ID = #{request_org_id}
+                    </if>
+                    <if test="dicom_img_device_type_id !=null">
+                        and t2.DICOM_IMG_DEVICE_TYPE_ID=#{dicom_img_device_type_id}
+                    </if>
+                    GROUP BY t2.ACCEPT_USER_ID,t2.DIAGNOSIS_ORG_ID,t2.DICOM_IMG_DEVICE_TYPE_ID
+            ) t1
+                LEFT JOIN T_BASE_USER t2 ON t1.ACCEPT_USER_ID=t2.id
+                LEFT JOIN T_ORGANIZATION t3 ON t1.DIAGNOSIS_ORG_ID=t3.id
+                LEFT JOIN T_DIC_VALUE t4 ON t1.DEVICE_TYPE_ID=t4.id
+            WHERE 1=1
+                <if test="user_name !=null">
+                    and t2.USER_NAME like '%'+#{user_name}+'%'
+                </if>
+        )
+        SELECT * from temp_sql
+        UNION ALL
+        select
+            '合计：',
+            '',
+            SUM(count),
+            SUM(body_part_amount),
+            SUM(piece_amount),
+            MAX(stat_type),
+            -1
+        from temp_sql
+	</select>
+
+	<select id="selectStatDoctorWorkAuditReport" parameterType="map" resultType="HashMap">
+		WITH temp_sql as (
+			SELECT
+				t2.USER_NAME as user_name,
+				t4.value as device_name,
+				t1.count as count,
+				t1.body_part_amount as body_part_amount,
+				t1.piece_amount as piece_amount,
+				'审核' as stat_type,
+                row_number ()OVER(order by t1.VERIFY_USER_ID,t1.DEVICE_TYPE_ID) as rn
+			FROM (
+				SELECT
+				VERIFY_USER_ID,
+				DIAGNOSIS_ORG_ID,
+				DICOM_IMG_DEVICE_TYPE_ID as DEVICE_TYPE_ID,
+				SUM(CASE product_charge_type WHEN 30 THEN 1 ELSE 0 END) as COUNT,
+				SUM(CASE product_charge_type WHEN 10 THEN charge_amount ELSE 0 END) AS body_part_amount,
+				SUM(CASE product_charge_type WHEN 20 THEN charge_amount ELSE 0 END) AS piece_amount
+				FROM T_DIAGNOSIS_V2
+				WHERE
+				VERIFY_USER_ID IS NOT NULL AND VERIFY_USER_ID > 0
+					<if test="start !=null and end !=null">
+						and REQUEST_TIME between #{start} and #{end}
+					</if>
+					<if test="diagnosis_org_id !=null">
+						and DIAGNOSIS_ORG_ID=#{diagnosis_org_id}
+						<if test="doctor_id !=null">
+							and VERIFY_USER_ID=#{doctor_id}
+						</if>
+					</if>
+					<if test="request_org_id !=null">
+						and REQUEST_ORG_ID = #{request_org_id}
+					</if>
+					<if test="dicom_img_device_type_id !=null">
+						and DICOM_IMG_DEVICE_TYPE_ID=#{dicom_img_device_type_id}
+					</if>
+				GROUP BY VERIFY_USER_ID,DIAGNOSIS_ORG_ID,DICOM_IMG_DEVICE_TYPE_ID
+			) t1
+                LEFT JOIN T_BASE_USER t2 ON t1.VERIFY_USER_ID=t2.id
+                LEFT JOIN T_DIC_VALUE t4 ON t1.DEVICE_TYPE_ID=t4.id
+			WHERE 1=1
+                <if test="user_name !=null">
+                    and t2.USER_NAME like '%'+#{user_name}+'%'
+                </if>
+		)
+        SELECT * from temp_sql
+        UNION ALL
+        select
+            '合计',
+            '',
+            SUM(count),
+            SUM(body_part_amount),
+            SUM(piece_amount),
+            MAX(stat_type),
+            -1
+        from temp_sql
+	</select>
+
+	<select id="selectStatReportEarningFooting" parameterType="map" resultType="HashMap">
+		select
+		'合计' as case_num,
+		'报告数：' as patient_name,
+		count(t1.id) as patient_gender,
+		'部位数：' as dicom_img_device_type_name,
+		sum(CASE t2.product_charge_type WHEN 10 THEN t2.charge_amount ELSE 0 END ) as request_org_name,
+		'曝光次数：' as charge_type,
+		SUM(CASE t2.product_charge_type WHEN 20 THEN t2.charge_amount ELSE 0 END) as charge_amount,
+		'总收入：' as earn_price,
+		SUM(t2.total_price) as audit_doctor_name,
+		'' as report_time,
+		'' as dicom_img_check_pro,
+		-1 AS RowNumber
+		from t_report t1
+		LEFT JOIN T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id
+		where 1=1
+		<if test="diagnosis_org_id != null">
+			and t2.DIAGNOSIS_ORG_ID = #{diagnosis_org_id}
+		</if>
+		<if test="request_org_id != null">
+			and t2.REQUEST_ORG_ID = #{request_org_id}
+		</if>
+		<if test="charge_type != null">
+			and t2.product_charge_type = #{charge_type}
+		</if>
+		<if test="dicom_img_device_type_id != null">
+			and t1.DICOM_IMG_DEVICE_TYPE_ID = #{dicom_img_device_type_id}
+		</if>
+		<if test="source_type != null">
+			and t1.source_type = #{source_type}
+		</if>
+		<if test="start != null and end != null">
+			and t1.CREATE_TIME BETWEEN #{start} AND #{end}
+		</if>
+	</select>
+
+	<select id="selectStatReportEarning" parameterType="map" resultType="HashMap">
+		select * from (
+			select
+				t1.case_his_num as case_num,
+				t1.patient_name as patient_name,
+				(CASE t1.patient_gender WHEN 1 THEN '男' ELSE '女' END) as patient_gender,
+				(select value from T_DIC_VALUE where id = t1.DICOM_IMG_DEVICE_TYPE_ID) as dicom_img_device_type_name,
+				(select org_name from T_ORGANIZATION where id = t2.REQUEST_ORG_ID) as request_org_name,
+				(CASE t2.product_charge_type WHEN 10 THEN '按部位收费' WHEN 20 THEN '按曝光次数收费' WHEN 30 THEN '按人次收费' ELSE '' END) as charge_type,
+				t2.charge_amount as charge_amount,
+				t2.total_price as earn_price,
+				(select USER_NAME from t_base_user where id = t2.VERIFY_USER_ID) as audit_doctor_name,
+				t1.CREATE_TIME as report_time,
+				t1.dicom_img_check_pro as dicom_img_check_pro,
+				ROW_NUMBER () OVER (ORDER BY t1.CREATE_TIME DESC) AS RowNumber
+			from t_report t1
+			LEFT JOIN T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id
+			where 1=1
+			<if test="diagnosis_org_id != null">
+				and t2.DIAGNOSIS_ORG_ID = #{diagnosis_org_id}
+			</if>
+			<if test="request_org_id != null">
+				and t2.REQUEST_ORG_ID = #{request_org_id}
+			</if>
+			<if test="charge_type != null">
+				and t2.product_charge_type = #{charge_type}
+			</if>
+			<if test="dicom_img_device_type_id != null">
+				and t1.DICOM_IMG_DEVICE_TYPE_ID = #{dicom_img_device_type_id}
+			</if>
+			<if test="source_type != null">
+				and t1.source_type = #{source_type}
+			</if>
+			<if test="start != null and end != null">
+				and t1.CREATE_TIME BETWEEN #{start} AND #{end}
+			</if>
+		) t_tmp
+		<if test="minRow !=null and maxRow !=null">
+			WHERE t_tmp.RowNumber>=#{minRow} and t_tmp.RowNumber &lt;#{maxRow}
+		</if>
+	</select>
+
+	<select id="selectStatReportEarningCount" parameterType="map" resultType="long">
+		select count(t1.id)
+		from t_report t1
+			LEFT JOIN T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id
+
+		where 1=1
+			<if test="diagnosis_org_id != null">
+				and t2.DIAGNOSIS_ORG_ID = #{diagnosis_org_id}
+			</if>
+			<if test="request_org_id != null">
+				and t2.REQUEST_ORG_ID = #{request_org_id}
+			</if>
+			<if test="charge_type != null">
+				and t2.product_charge_type = #{charge_type}
+			</if>
+			<if test="dicom_img_device_type_id != null">
+				and t1.DICOM_IMG_DEVICE_TYPE_ID = #{dicom_img_device_type_id}
+			</if>
+			<if test="source_type != null">
+				and t1.source_type = #{source_type}
+			</if>
+			<if test="start != null and end != null">
+				and t1.CREATE_TIME BETWEEN #{start} AND #{end}
+			</if>
+	</select>
+
+	<select id="statReportSick" parameterType="Map" resultType="FStatReportSick">
+		SELECT
+			SUM(CASE WHEN (t1.PIC_OPINION LIKE '%'+#{sick_name}+'%' OR t1.PIC_CONCLUSION LIKE '%'+#{sick_name}+'%') THEN 1 ELSE 0 END) as count,
+			COUNT(t1.id) as total
+		FROM T_REPORT t1
+			LEFT JOIN T_DIAGNOSIS_V2 t2 on t1.diagnosis_id=t2.id
+		WHERE 1=1
+			<if test="start !=null and end !=null">
+				AND t1.CREATE_TIME BETWEEN #{start} AND #{end}
+			</if>
+			<if test="diagnosis_org_id !=null">
+				and t2.DIAGNOSIS_ORG_ID=#{diagnosis_org_id}
+			</if>
+			<if test="request_org_name !=null">
+				and t2.REQUEST_ORG_ID = #{request_org_name}
+			</if>
+			<if test="device_type_id !=null">
+				and t1.DICOM_IMG_DEVICE_TYPE_ID=#{device_type_id}
+			</if>
+	</select>
+
+	<select id="statAuditDoctor" parameterType="Map" resultType="FStatReportDoctor">
+		SELECT
+			t2.USER_NAME as USER_NAME,
+			t4.value as device_name,
+			t1.count as count,
+			t1.body_part_amount as body_part_amount,
+			t1.piece_amount as piece_amount
+		FROM (
+			SELECT
+				VERIFY_USER_ID,
+				DIAGNOSIS_ORG_ID,
+				DICOM_IMG_DEVICE_TYPE_ID as DEVICE_TYPE_ID,
+				SUM(CASE product_charge_type WHEN 30 THEN 1 ELSE 0 END) as COUNT,
+				SUM(CASE product_charge_type WHEN 10 THEN charge_amount ELSE 0 END) AS body_part_amount,
+				SUM(CASE product_charge_type WHEN 20 THEN charge_amount ELSE 0 END) AS piece_amount
+			FROM T_DIAGNOSIS_V2
+			WHERE
+				VERIFY_USER_ID IS NOT NULL AND VERIFY_USER_ID > 0
+				<if test="start !=null and end !=null">
+					and REQUEST_TIME between #{start} and #{end}
+				</if>
+				<if test="diagnosis_org_id !=null">
+					and DIAGNOSIS_ORG_ID=#{diagnosis_org_id}
+					<if test="user_id !=null">
+						and VERIFY_USER_ID=#{user_id}
+					</if>
+				</if>
+				<if test="request_org_name !=null">
+					and REQUEST_ORG_ID = #{request_org_name}
+				</if>
+				<if test="device_type_id !=null">
+					and DICOM_IMG_DEVICE_TYPE_ID=#{device_type_id}
+				</if>
+			GROUP BY VERIFY_USER_ID,DIAGNOSIS_ORG_ID,DICOM_IMG_DEVICE_TYPE_ID
+		) t1
+			LEFT JOIN T_BASE_USER t2 ON t1.VERIFY_USER_ID=t2.id
+			LEFT JOIN T_DIC_VALUE t4 ON t1.DEVICE_TYPE_ID=t4.id
+		WHERE 1=1
+			<if test="user_name !=null">
+			    and t2.USER_NAME like '%'+#{user_name}+'%'
+			</if>
+		ORDER BY t1.VERIFY_USER_ID,t1.DEVICE_TYPE_ID
+	</select>
+
+	<select id="statReportDoctor" parameterType="Map" resultType="FStatReportDoctor">
+		SELECT
+			t2.USER_NAME as USER_NAME,
+			t3.ORG_NAME as ORG_NAME,
+			t4.value as device_name,
+			t1.count as count,
+			t1.body_part_amount as body_part_amount,
+			t1.piece_amount as piece_amount
+		FROM (
+			SELECT
+				ACCEPT_USER_ID,
+				DIAGNOSIS_ORG_ID,
+				DICOM_IMG_DEVICE_TYPE_ID as DEVICE_TYPE_ID,
+				SUM(CASE product_charge_type WHEN 30 THEN 1 ELSE 0 END) as COUNT,
+				SUM(CASE product_charge_type WHEN 10 THEN charge_amount ELSE 0 END) AS body_part_amount,
+				SUM(CASE product_charge_type WHEN 20 THEN charge_amount ELSE 0 END) AS piece_amount
+			FROM T_DIAGNOSIS_V2
+			WHERE
+				ACCEPT_USER_ID IS NOT NULL AND ACCEPT_USER_ID!=0
+				<if test="start !=null and end !=null">
+					and CREATE_TIME between #{start} and #{end}
+				</if>
+				<if test="diagnosis_org_id !=null">
+					and DIAGNOSIS_ORG_ID=#{diagnosis_org_id}
+					<if test="user_id !=null">
+						and ACCEPT_USER_ID=#{user_id}
+					</if>
+				</if>
+				<if test="request_org_name !=null">
+					and REQUEST_ORG_ID = #{request_org_name}
+				</if>
+				<if test="device_type_id !=null">
+					and DICOM_IMG_DEVICE_TYPE_ID=#{device_type_id}
+				</if>
+			GROUP BY ACCEPT_USER_ID,DIAGNOSIS_ORG_ID,DICOM_IMG_DEVICE_TYPE_ID
+		) t1
+			LEFT JOIN T_BASE_USER t2 ON t1.ACCEPT_USER_ID=t2.id
+			LEFT JOIN T_ORGANIZATION t3 ON t1.DIAGNOSIS_ORG_ID=t3.id
+			LEFT JOIN T_DIC_VALUE t4 ON t1.DEVICE_TYPE_ID=t4.id
+		WHERE 1=1
+			<if test="user_name !=null">
+			    and t2.USER_NAME like '%'+#{user_name}+'%'
+			</if>
+		ORDER BY t1.ACCEPT_USER_ID,t1.DEVICE_TYPE_ID
+	</select>
+
+	<select id="statReportCost" parameterType="Map" resultType="FStatReportCost">
+		SELECT
+			t12.value as device_name,
+			t10.print_count as print_count,
+			t10.price_count as price_count
+		FROM(
+			select
+				t0.DICOM_IMG_DEVICE_TYPE_ID as DEVICE_TYPE_ID,
+				SUM(CASE WHEN t0.PRINT_TIMES>0 THEN 1 ELSE 0 END) as print_count,
+				SUM(t2.PRICE) as price_count
+			from T_REPORT t0
+				LEFT JOIN T_DIAGNOSIS_V2 t1 on t0.diagnosis_id = t1.id
+				LEFT JOIN T_FINANCE_FREEZE t2 on t1.id=t2.DIAGNOSIS_ID
+			where 1=1
+				<if test="start!=null and end !=null">
+					and t0.CREATE_TIME between #{start} and #{end}
+				</if>
+				<if test="diagnosis_org_id !=null">
+					and t1.diagnosis_org_id =#{diagnosis_org_id}
+				</if>
+				<if test="request_org_name !=null">
+					and t1.request_org_name =#{request_org_name}
+				</if>
+				<if test="device_type_id !=null">
+					and t0.DICOM_IMG_DEVICE_TYPE_ID=#{device_type_id}
+				</if>
+			GROUP BY t0.DICOM_IMG_DEVICE_TYPE_ID
+		) t10
+			LEFT JOIN T_DIC_VALUE t12 on t10.DEVICE_TYPE_ID = t12.id
+		ORDER BY t10.price_count desc
+	</select>
+
+	<select id="statDeviceReport" parameterType="Map" resultType="FStatDeviceReport">
+		select
+			t0.count as count,
+			t0.total as total,
+			t3.value as device_name
+		from (
+			select
+				t1.DICOM_IMG_DEVICE_TYPE_ID as DEVICE_TYPE_ID,
+				count(t1.id) as count,
+				(
+					select count(t1.id)
+					from T_REPORT t1
+						left join T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id
+					where 1=1
+						<if test="start !=null and end !=null">
+							and t1.CREATE_TIME BETWEEN #{start} and #{end}
+						</if>
+						<if test="diagnosis_org_id !=null">
+							and t2.diagnosis_org_id =#{diagnosis_org_id}
+						</if>
+						<if test="request_org_name !=null">
+							and t2.request_org_name =#{request_org_name}
+						</if>
+						<if test="device_type_id !=null">
+							and t1.DICOM_IMG_DEVICE_TYPE_ID=#{device_type_id}
+						</if>
+				) as total
+			from T_REPORT t1
+				left join T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id
+			where 1=1
+				<if test="start !=null and end !=null">
+					and t1.CREATE_TIME BETWEEN #{start} and #{end}
+				</if>
+				<if test="diagnosis_org_id !=null">
+					and t2.diagnosis_org_id =#{diagnosis_org_id}
+				</if>
+				<if test="request_org_name !=null">
+					and t2.request_org_name =#{request_org_name}
+				</if>
+				<if test="device_type_id !=null">
+					and t1.DICOM_IMG_DEVICE_TYPE_ID=#{device_type_id}
+				</if>
+			GROUP BY t1.DICOM_IMG_DEVICE_TYPE_ID
+		) t0 left join T_DIC_VALUE t3 on t0.DEVICE_TYPE_ID=t3.id
+	</select>
+
+	<select id="statReportOrgFom" parameterType="Map" resultType="FStatOrgFomData">
+		select
+			SUM(CASE WHEN t1.F_O_M=1 THEN 1 ELSE 0 END) as f_count,
+			SUM(CASE WHEN t1.F_O_M=2 THEN 1 ELSE 0 END) as m_count,
+			SUM(CASE WHEN t1.F_O_M=0 THEN 1 ELSE 0 END) as none_count,
+			count(t1.id) as total
+		from T_REPORT t1
+			left join T_DIAGNOSIS_V2 t2 on t1.diagnosis_id = t2.id
+		where 1=1
+			<if test="start !=null and end !=null">
+				and t1.CREATE_TIME BETWEEN #{start} and #{end}
+			</if>
+			<if test="diagnosis_org_id !=null">
+				and t2.diagnosis_org_id =#{diagnosis_org_id}
+			</if>
+			<if test="request_org_name !=null">
+				and t2.request_org_name =#{request_org_name}
+			</if>
+			<if test="device_type_id !=null">
+				and t1.DICOM_IMG_DEVICE_TYPE_ID=#{device_type_id}
+			</if>
+	</select>
+
+	<select id="queryOrgCaseHistoryTotal" parameterType="long" resultType="int">
+		select count(id) from T_CASE_HISTORY where ORG_ID=#{org_id}
+	</select>
+
+	<select id="queryCaseHistoryCountByArg" parameterType="Map" resultType="int">
+		select count(id) from T_CASE_HISTORY where 1=1
+			<if test="org_id !=null">
+				and ORG_ID=#{org_id}
+			</if>
+			<if test="start !=null and end !=null">
+				and CREATE_TIME between #{start} and #{end}
+			</if>
+	</select>
+
+	<select id="queryRequestCountByArg" parameterType="Map" resultType="int">
+		select count(id) from T_DIAGNOSIS_V2 where 1=1
+			<if test="org_id !=null">
+				and REQUEST_ORG_ID=#{org_id}
+			</if>
+			<if test="start !=null and end !=null">
+				and CREATE_TIME between #{start} and #{end}
+			</if>
+	</select>
+
+	<select id="queryDiagnosisCountByArg" parameterType="Map" resultType="int">
+		select count(id) from T_DIAGNOSIS_V2 where 1=1
+			<if test="org_id !=null">
+				and DIAGNOSIS_ORG_ID=#{org_id}
+			</if>
+			<if test="start !=null and end !=null">
+				and CREATE_TIME between #{start} and #{end}
+			</if>
+	</select>
+
+	<select id="queryOrgUserCountByArg" parameterType="Map" resultType="int">
+		select count(id) from T_ORG_USER_MAPPING where 1=1
+			<if test="org_id !=null">
+				and ORG_ID=#{org_id}
+			</if>
+			<if test="start !=null and end !=null">
+				and CREATE_TIME between #{start} and #{end}
+			</if>
+	</select>
+
+	<select id="statPerOrgCaseHistoryCount" resultType="int">
+		SELECT count(tmp_t.org_id) FROM (
+			select t0.org_id as org_id,
+				t1.ORG_NAME as org_name,
+				COUNT(t0.id) count,
+				ROW_NUMBER () OVER (ORDER BY t0.ORG_ID DESC) AS RowNumber 
+			from T_CASE_HISTORY t0 
+				LEFT JOIN T_ORGANIZATION t1 on t0.ORG_ID=t1.ID 
+			GROUP BY t0.ORG_ID,t1.ORG_NAME
+		) tmp_t
+	</select>
+
+	<select id="statPerOrgCaseHistory" parameterType="Map" resultType="FStatOrgMedicalHis">
+		SELECT * FROM (
+			select t0.org_id AS ORG_ID,
+				t1.ORG_NAME AS ORG_NAME,
+				COUNT(t0.id) count,
+				ROW_NUMBER () OVER (ORDER BY t0.ORG_ID DESC) AS RowNumber
+			from T_CASE_HISTORY t0
+				LEFT JOIN T_ORGANIZATION t1 on t0.ORG_ID=t1.ID
+			GROUP BY t0.ORG_ID,t1.ORG_NAME
+		) tmp_t
+			<if test="minRow !=null and maxRow !=null">
+				where tmp_t.RowNumber>=#{minRow} and tmp_t.RowNumber &lt;#{maxRow}
+			</if>
+	</select>
+
+	<select id="statDevicePartDiagnosisCount" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			(
+				SELECT
+					DEVICE_TYPE_ID,
+					COUNT (1) COUNT,
+					ROW_NUMBER () OVER (ORDER BY DEVICE_TYPE_ID) AS RowNumber
+				FROM
+					T_DIAGNOSIS_V2
+				GROUP BY
+					DEVICE_TYPE_ID
+			) tmp_t
+	</select>
+
+	<select id="statDevicePartDiagnosis" parameterType="Map" resultType="FStatDevicePartDiagnosis">
+		SELECT
+			t0.DEVICE_TYPE_ID,
+			t1.VALUE device_type_name,
+			t0.COUNT
+		FROM
+			(
+				SELECT
+					DEVICE_TYPE_ID,
+					COUNT (1) COUNT,
+					ROW_NUMBER () OVER (ORDER BY DEVICE_TYPE_ID) AS RowNumber
+				FROM
+					T_DIAGNOSIS_V2
+				GROUP BY
+					DEVICE_TYPE_ID
+			) t0
+		LEFT JOIN T_DIC_VALUE t1 ON t0.DEVICE_TYPE_ID = t1.id
+			<if test="minRow !=null and maxRow !=null">
+				WHERE t0.RowNumber>=#{minRow} and t0.RowNumber &lt;#{maxRow}
+			</if>
+	</select>
+
+	<select id="statDiagnosisDoctorCount" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			(
+				SELECT
+					ACCEPT_USER_ID,
+					COUNT (1) COUNT,
+					ROW_NUMBER () OVER (ORDER BY ACCEPT_USER_ID) AS RowNumber
+				FROM
+					T_DIAGNOSIS_V2
+				WHERE ACCEPT_USER_ID IS NOT NULL
+				GROUP BY
+					ACCEPT_USER_ID
+			) t0
+	</select>
+
+	<select id="statDiagnosisDoctor" parameterType="Map" resultType="FStatDiagnosisDoctor">
+		SELECT
+			t0.ACCEPT_USER_ID doctor_id,
+			t1.USER_NAME doctor_name,
+			t0.COUNT
+		FROM
+			(
+				SELECT
+					ACCEPT_USER_ID,
+					COUNT (1) COUNT,
+					ROW_NUMBER () OVER (ORDER BY ACCEPT_USER_ID) AS RowNumber
+				FROM
+					T_DIAGNOSIS_V2
+				WHERE ACCEPT_USER_ID IS NOT NULL
+				GROUP BY
+					ACCEPT_USER_ID
+			) t0
+		LEFT JOIN T_BASE_USER t1 ON t0.ACCEPT_USER_ID = t1.id
+		WHERE t1.id is not null
+		<if test="minRow !=null and maxRow !=null">
+			and t0.RowNumber>=1 and t0.RowNumber &lt;10
+		</if>
+	</select>
+</mapper>
