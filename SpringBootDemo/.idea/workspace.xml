@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="WebSocket:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="39c877f2-0683-4c2b-a6bc-1f5afcb6289e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Tag Library Descriptor" />
+        <option value="Jsp File" />
+        <option value="spring-beans.schema" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:\CompanySoftWare\Idea\IntelliJ IDEA 2020.2\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hd3UHmggtqviaTAtdF7pjyzkUK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MyProject\WebSocket\src\main\resources\templates" />
+      <recent name="D:\MyProject\WebSocket\src\main\resources" />
+      <recent name="D:\MyProject\WebSocket\src\main\webapp\WEB-INF" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="controller" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MyProject\WebSocket\src\main\resources" />
+      <recent name="D:\MyProject\WebSocket\src\main\webapp\static" />
+      <recent name="D:\MyProject\WebSocket\src\main\webapp\WEB-INF" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.WebSocketApplication (1)">
+    <configuration name="WebSocketApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="WebSocket" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.winmine.WebSocket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.winmine.WebSocket.WebSocketApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebSocketApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="WebSocket" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.demo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.WebSocketApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebSocketApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="WebSocket" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.winmine.WebSocket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.winmine.WebSocket.WebSocketApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.WebSocketApplication (1)" />
+        <item itemvalue="Spring Boot.WebSocketApplication" />
+        <item itemvalue="Spring Boot.WebSocketApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39c877f2-0683-4c2b-a6bc-1f5afcb6289e" name="Default Changelist" comment="" />
+      <created>1600327157124</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600327157124</updated>
+      <workItem from="1600327159765" duration="9923000" />
+      <workItem from="1600354334568" duration="3002000" />
+      <workItem from="1600357371025" duration="1095000" />
+      <workItem from="1600392088883" duration="16303000" />
+      <workItem from="1602466782356" duration="601000" />
+      <workItem from="1602480529207" duration="242000" />
+      <workItem from="1602726881897" duration="6095000" />
+      <workItem from="1602762827041" duration="5860000" />
+      <workItem from="1602811054931" duration="5486000" />
+      <workItem from="1602839433824" duration="887000" />
+      <workItem from="1602840659142" duration="1294000" />
+      <workItem from="1603071121804" duration="6016000" />
+      <workItem from="1603159566581" duration="216000" />
+      <workItem from="1603333765315" duration="3000" />
+      <workItem from="1603334913531" duration="1789000" />
+      <workItem from="1603336752956" duration="1983000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600401624087">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1600401624087" />
+    <state x="355" y="141" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1600332069343">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="355" y="141" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1600332069343" />
+    <state x="282" y="253" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1600331795368">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="282" y="253" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1280.680@0.0.1280.680" timestamp="1600331795368" />
+    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1603337137851">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1603337137851" />
+    <state width="1237" height="164" key="GridCell.Tab.0.bottom" timestamp="1603336703410">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="164" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
+    <state width="1237" height="164" key="GridCell.Tab.0.center" timestamp="1603336703410">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="164" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
+    <state width="1237" height="164" key="GridCell.Tab.0.left" timestamp="1603336703410">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="164" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
+    <state width="1237" height="164" key="GridCell.Tab.0.right" timestamp="1603336703410">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="164" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
+    <state width="1237" height="164" key="GridCell.Tab.1.bottom" timestamp="1603336703411">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="164" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603336703411" />
+    <state width="1237" height="164" key="GridCell.Tab.1.center" timestamp="1603336703410">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="164" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
+    <state width="1237" height="164" key="GridCell.Tab.1.left" timestamp="1603336703410">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="164" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
+    <state width="1237" height="164" key="GridCell.Tab.1.right" timestamp="1603336703410">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="164" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
+    <state width="1237" height="145" key="GridCell.Tab.2.bottom" timestamp="1603101572914">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="145" key="GridCell.Tab.2.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603101572914" />
+    <state width="1237" height="145" key="GridCell.Tab.2.center" timestamp="1603101572914">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="145" key="GridCell.Tab.2.center/0.0.1280.680@0.0.1280.680" timestamp="1603101572914" />
+    <state width="1237" height="145" key="GridCell.Tab.2.left" timestamp="1603101572914">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="145" key="GridCell.Tab.2.left/0.0.1280.680@0.0.1280.680" timestamp="1603101572914" />
+    <state width="1237" height="145" key="GridCell.Tab.2.right" timestamp="1603101572914">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="145" key="GridCell.Tab.2.right/0.0.1280.680@0.0.1280.680" timestamp="1603101572914" />
+    <state x="221" y="83" key="IDE.errors.dialog" timestamp="1600327748473">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="221" y="83" key="IDE.errors.dialog/0.0.1280.680@0.0.1280.680" timestamp="1600327748473" />
+    <state x="121" y="0" key="SettingsEditor" timestamp="1603337153084">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="121" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1603337153084" />
+    <state x="338" y="72" width="605" height="536" key="find.popup" timestamp="1603098757333">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="338" y="72" width="605" height="536" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1603098757333" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java</url>
+          <line>68</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java</url>
+          <line>24</line>
+          <properties class="com.winmine.WebSocket.service.WebSocketServer" method="sendMessage">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/WebSocket$DemoApplication.ic" NAME="DemoApplication Coverage Results" MODIFIED="1600334880217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.demo.*</FILTER>
+    </SUITE>
+  </component>
+</project>
