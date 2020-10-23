@@ -9,7 +9,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39c877f2-0683-4c2b-a6bc-1f5afcb6289e" name="Default Changelist" comment="" />
+    <list default="true" id="39c877f2-0683-4c2b-a6bc-1f5afcb6289e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/component/LoginConfigurer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/component/LoginHandlerInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/entity/UserInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/WebSocketApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/config/WebSocketConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/controller/SocketController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/webSocket.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/WebSocket-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/WebSocket-1.0-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/WebSocket/WebSocketApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/WebSocket/WebSocketApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/WebSocket/config/WebSocketConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/WebSocket/config/WebSocketConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/WebSocket/controller/SocketController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/WebSocket/controller/SocketController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/WebSocket/service/WebSocketServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/WebSocket/service/WebSocketServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/webSocket.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebSocket/target/WebSocket-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/WebSocket-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebSocket/target/WebSocket-1.0-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/WebSocket-1.0-SNAPSHOT.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebSocket/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/classes/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebSocket/target/classes/templates/webSocket.html" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/classes/templates/webSocket.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebSocket/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/maven-archiver/pom.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,10 +69,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="D:\CompanySoftWare\Idea\IntelliJ IDEA 2020.2\plugins\maven\lib\maven3" />
+        <option name="localRepository" value="D:\CompanySoftWare\Maven\repository" />
+        <option name="mavenHome" value="D:\CompanySoftWare\Maven\apache-maven-3.6.0" />
+        <option name="userSettingsFile" value="D:\CompanySoftWare\Maven\apache-maven-3.6.0\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -53,32 +101,65 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../WebSocket" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Global Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\MyProject\WebSocket\src\main\resources\templates" />
-      <recent name="D:\MyProject\WebSocket\src\main\resources" />
-      <recent name="D:\MyProject\WebSocket\src\main\webapp\WEB-INF" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="controller" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\MyProject\WebSocket\src\main\resources" />
       <recent name="D:\MyProject\WebSocket\src\main\webapp\static" />
       <recent name="D:\MyProject\WebSocket\src\main\webapp\WEB-INF" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="controller" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MyProject\WebSocket\src\main\resources\templates" />
+      <recent name="D:\MyProject\WebSocket\src\main\resources" />
+      <recent name="D:\MyProject\WebSocket\src\main\webapp\WEB-INF" />
+    </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.WebSocketApplication (1)">
-    <configuration name="WebSocketApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="WebSocket" />
+  <component name="RunManager" selected="Spring Boot.SpringbootApplication (1)">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringbootApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="SpringBootDemo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.winmine.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringbootApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="SpringBootDemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.winmine.WebSocket.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.winmine.WebSocket.SpringbootApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebSocketApplication " type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="SpringBootDemo" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.winmine.WebSocket.*" />
@@ -86,19 +167,7 @@
         </pattern>
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.winmine.WebSocket.WebSocketApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WebSocketApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="WebSocket" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.example.demo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.demo.WebSocketApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -119,8 +188,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.WebSocketApplication (1)" />
-        <item itemvalue="Spring Boot.WebSocketApplication" />
+        <item itemvalue="Spring Boot.SpringbootApplication" />
+        <item itemvalue="Spring Boot.WebSocketApplication " />
         <item itemvalue="Spring Boot.WebSocketApplication" />
       </list>
     </recent_temporary>
@@ -149,6 +218,10 @@
       <workItem from="1603333765315" duration="3000" />
       <workItem from="1603334913531" duration="1789000" />
       <workItem from="1603336752956" duration="1983000" />
+      <workItem from="1603347720806" duration="5494000" />
+      <workItem from="1603416015245" duration="11036000" />
+      <workItem from="1603434511231" duration="4849000" />
+      <workItem from="1603462951907" duration="5021000" />
     </task>
     <servers />
   </component>
@@ -156,82 +229,102 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1600401624087">
+    <state x="121" y="0" key="#Project_Structure" timestamp="1603435473313">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1600401624087" />
+    <state x="121" y="0" key="#Project_Structure/0.0.1280.680@0.0.1280.680" timestamp="1603435473313" />
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603349042352">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1603349042352" />
     <state x="355" y="141" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1600332069343">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="355" y="141" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1600332069343" />
+    <state x="446" y="46" key="#com.intellij.ide.util.MemberChooser" timestamp="1603423862952">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="446" y="46" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1603423862952" />
     <state x="282" y="253" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1600331795368">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="282" y="253" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1280.680@0.0.1280.680" timestamp="1600331795368" />
-    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1603337137851">
+    <state x="371" y="87" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603421794105">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1603337137851" />
-    <state width="1237" height="164" key="GridCell.Tab.0.bottom" timestamp="1603336703410">
+    <state x="371" y="87" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680@0.0.1280.680" timestamp="1603421794105" />
+    <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1603435807002">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="164" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
-    <state width="1237" height="164" key="GridCell.Tab.0.center" timestamp="1603336703410">
+    <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1603435807002" />
+    <state width="1237" height="252" key="GridCell.Tab.0.bottom" timestamp="1603467979505">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="164" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
-    <state width="1237" height="164" key="GridCell.Tab.0.left" timestamp="1603336703410">
+    <state width="1237" height="252" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603467979505" />
+    <state width="1237" height="252" key="GridCell.Tab.0.center" timestamp="1603467979505">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="164" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
-    <state width="1237" height="164" key="GridCell.Tab.0.right" timestamp="1603336703410">
+    <state width="1237" height="252" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1603467979505" />
+    <state width="1237" height="252" key="GridCell.Tab.0.left" timestamp="1603467979505">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="164" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
-    <state width="1237" height="164" key="GridCell.Tab.1.bottom" timestamp="1603336703411">
+    <state width="1237" height="252" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1603467979505" />
+    <state width="1237" height="252" key="GridCell.Tab.0.right" timestamp="1603467979505">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="164" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603336703411" />
-    <state width="1237" height="164" key="GridCell.Tab.1.center" timestamp="1603336703410">
+    <state width="1237" height="252" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1603467979505" />
+    <state width="1237" height="252" key="GridCell.Tab.1.bottom" timestamp="1603467979285">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="164" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
-    <state width="1237" height="164" key="GridCell.Tab.1.left" timestamp="1603336703410">
+    <state width="1237" height="252" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603467979285" />
+    <state width="1237" height="252" key="GridCell.Tab.1.center" timestamp="1603467979285">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="164" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
-    <state width="1237" height="164" key="GridCell.Tab.1.right" timestamp="1603336703410">
+    <state width="1237" height="252" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1603467979285" />
+    <state width="1237" height="252" key="GridCell.Tab.1.left" timestamp="1603467979285">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="164" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1603336703410" />
-    <state width="1237" height="145" key="GridCell.Tab.2.bottom" timestamp="1603101572914">
+    <state width="1237" height="252" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1603467979285" />
+    <state width="1237" height="252" key="GridCell.Tab.1.right" timestamp="1603467979285">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="145" key="GridCell.Tab.2.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603101572914" />
-    <state width="1237" height="145" key="GridCell.Tab.2.center" timestamp="1603101572914">
+    <state width="1237" height="252" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1603467979285" />
+    <state width="1237" height="252" key="GridCell.Tab.2.bottom" timestamp="1603467979285">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="145" key="GridCell.Tab.2.center/0.0.1280.680@0.0.1280.680" timestamp="1603101572914" />
-    <state width="1237" height="145" key="GridCell.Tab.2.left" timestamp="1603101572914">
+    <state width="1237" height="252" key="GridCell.Tab.2.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603467979285" />
+    <state width="1237" height="252" key="GridCell.Tab.2.center" timestamp="1603467979285">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="145" key="GridCell.Tab.2.left/0.0.1280.680@0.0.1280.680" timestamp="1603101572914" />
-    <state width="1237" height="145" key="GridCell.Tab.2.right" timestamp="1603101572914">
+    <state width="1237" height="252" key="GridCell.Tab.2.center/0.0.1280.680@0.0.1280.680" timestamp="1603467979285" />
+    <state width="1237" height="252" key="GridCell.Tab.2.left" timestamp="1603467979285">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="145" key="GridCell.Tab.2.right/0.0.1280.680@0.0.1280.680" timestamp="1603101572914" />
+    <state width="1237" height="252" key="GridCell.Tab.2.left/0.0.1280.680@0.0.1280.680" timestamp="1603467979285" />
+    <state width="1237" height="252" key="GridCell.Tab.2.right" timestamp="1603467979285">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="252" key="GridCell.Tab.2.right/0.0.1280.680@0.0.1280.680" timestamp="1603467979285" />
     <state x="221" y="83" key="IDE.errors.dialog" timestamp="1600327748473">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="221" y="83" key="IDE.errors.dialog/0.0.1280.680@0.0.1280.680" timestamp="1600327748473" />
-    <state x="121" y="0" key="SettingsEditor" timestamp="1603337153084">
+    <state x="121" y="0" key="SettingsEditor" timestamp="1603437194375">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="121" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1603337153084" />
-    <state x="338" y="72" width="605" height="536" key="find.popup" timestamp="1603098757333">
+    <state x="121" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1603437194375" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2" timestamp="1603420127290">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="338" y="72" width="605" height="536" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1603098757333" />
+    <state x="233" y="73" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1603420127290" />
+    <state x="338" y="72" width="605" height="536" key="find.popup" timestamp="1603435556887">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="338" y="72" width="605" height="536" key="find.popup/0.0.1280.680@0.0.1280.680" timestamp="1603435556887" />
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1603434583371">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="303" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1603434583371" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -240,24 +333,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java</url>
           <line>20</line>
           <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java</url>
-          <line>25</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java</url>
-          <line>68</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/winmine/WebSocket/service/WebSocketServer.java</url>
-          <line>24</line>
-          <properties class="com.winmine.WebSocket.service.WebSocketServer" method="sendMessage">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
