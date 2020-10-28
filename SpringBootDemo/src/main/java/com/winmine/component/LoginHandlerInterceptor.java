@@ -21,6 +21,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     static {
         NOT_INTERCEPT_URI.add("/user/login.html");
         NOT_INTERCEPT_URI.add("/user/login");
+        NOT_INTERCEPT_URI.add("/user/showList");
     }
 
     /**

@@ -1,0 +1,196 @@
+2020-10-28 09:39:15.029 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 14572 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-10-28 09:39:15.031 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-10-28 09:39:15.210 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-10-28 09:39:15.288 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4a9788fa: startup date [Wed Oct 28 09:39:15 CST 2020]; root of context hierarchy
+2020-10-28 09:39:17.065 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-10-28 09:39:17.073 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-10-28 09:39:17.074 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-10-28 09:39:17.180 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-10-28 09:39:17.180 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1893 ms
+2020-10-28 09:39:17.298 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-10-28 09:39:17.302 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-10-28 09:39:17.836 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-10-28 09:39:17.837 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-10-28 09:39:17.837 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login.html]}" onto public java.lang.String com.winmine.controller.UserController.login()
+2020-10-28 09:39:17.839 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public java.lang.String com.winmine.controller.UserController.login(com.winmine.entity.User)
+2020-10-28 09:39:17.845 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-10-28 09:39:17.846 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-10-28 09:39:17.945 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4a9788fa: startup date [Wed Oct 28 09:39:15 CST 2020]; root of context hierarchy
+2020-10-28 09:39:18.766 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-10-28 09:39:18.866 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-10-28 09:39:18.896 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-10-28 09:39:18.906 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-10-28 09:39:18.921 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-10-28 09:39:18.938 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-10-28 09:39:18.943 [restartedMain] INFO  com.winmine.Application - Started Application in 4.176 seconds (JVM running for 6.613)
+2020-10-28 09:40:21.224 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-10-28 09:40:21.224 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-10-28 09:40:21.247 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 23 ms
+2020-10-28 09:40:25.132 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login.html
+2020-10-28 09:40:25.149 [http-nio-8088-exec-2] INFO  org.thymeleaf.TemplateEngine - [THYMELEAF] INITIALIZING TEMPLATE ENGINE
+2020-10-28 09:40:25.195 [http-nio-8088-exec-2] INFO  org.thymeleaf.templateresolver.AbstractTemplateResolver - [THYMELEAF] INITIALIZING TEMPLATE RESOLVER: org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver
+2020-10-28 09:40:25.195 [http-nio-8088-exec-2] INFO  org.thymeleaf.templateresolver.AbstractTemplateResolver - [THYMELEAF] TEMPLATE RESOLVER INITIALIZED OK
+2020-10-28 09:40:25.195 [http-nio-8088-exec-2] INFO  org.thymeleaf.messageresolver.AbstractMessageResolver - [THYMELEAF] INITIALIZING MESSAGE RESOLVER: org.thymeleaf.spring4.messageresolver.SpringMessageResolver
+2020-10-28 09:40:25.195 [http-nio-8088-exec-2] INFO  org.thymeleaf.messageresolver.AbstractMessageResolver - [THYMELEAF] MESSAGE RESOLVER INITIALIZED OK
+2020-10-28 09:40:25.211 [http-nio-8088-exec-2] INFO  org.thymeleaf.TemplateEngine - [THYMELEAF] TEMPLATE ENGINE INITIALIZED
+2020-10-28 09:43:36.722 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 拦截/user/showList
+2020-10-28 09:44:01.807 [Thread-16] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4a9788fa: startup date [Wed Oct 28 09:39:15 CST 2020]; root of context hierarchy
+2020-10-28 09:44:01.812 [Thread-16] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-10-28 09:44:08.201 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 15504 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-10-28 09:44:08.202 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-10-28 09:44:08.410 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-10-28 09:44:08.501 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4a9788fa: startup date [Wed Oct 28 09:44:08 CST 2020]; root of context hierarchy
+2020-10-28 09:44:10.472 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-10-28 09:44:10.481 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-10-28 09:44:10.482 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-10-28 09:44:10.599 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-10-28 09:44:10.599 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2098 ms
+2020-10-28 09:44:10.720 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-10-28 09:44:10.725 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-10-28 09:44:11.175 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-10-28 09:44:11.176 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-10-28 09:44:11.178 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public java.lang.String com.winmine.controller.UserController.login(com.winmine.entity.User)
+2020-10-28 09:44:11.178 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login.html]}" onto public java.lang.String com.winmine.controller.UserController.login()
+2020-10-28 09:44:11.184 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-10-28 09:44:11.184 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-10-28 09:44:11.288 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4a9788fa: startup date [Wed Oct 28 09:44:08 CST 2020]; root of context hierarchy
+2020-10-28 09:44:12.166 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-10-28 09:44:12.271 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-10-28 09:44:12.300 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-10-28 09:44:12.308 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-10-28 09:44:12.321 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-10-28 09:44:12.339 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-10-28 09:44:12.347 [restartedMain] INFO  com.winmine.Application - Started Application in 4.436 seconds (JVM running for 5.68)
+2020-10-28 09:44:14.945 [http-nio-8088-exec-2] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-10-28 09:44:14.945 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-10-28 09:44:14.970 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 25 ms
+2020-10-28 09:44:14.983 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 09:48:33.172 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 09:48:51.174 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 09:49:25.488 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 09:49:29.136 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 09:52:31.697 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 09:52:41.256 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:05:20.702 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:06:09.776 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:06:33.840 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:07:00.955 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:08:38.066 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:08:48.089 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:08:58.748 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:23:11.308 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login.html
+2020-10-28 10:23:11.327 [http-nio-8088-exec-1] INFO  org.thymeleaf.TemplateEngine - [THYMELEAF] INITIALIZING TEMPLATE ENGINE
+2020-10-28 10:23:11.360 [http-nio-8088-exec-1] INFO  org.thymeleaf.templateresolver.AbstractTemplateResolver - [THYMELEAF] INITIALIZING TEMPLATE RESOLVER: org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver
+2020-10-28 10:23:11.360 [http-nio-8088-exec-1] INFO  org.thymeleaf.templateresolver.AbstractTemplateResolver - [THYMELEAF] TEMPLATE RESOLVER INITIALIZED OK
+2020-10-28 10:23:11.360 [http-nio-8088-exec-1] INFO  org.thymeleaf.messageresolver.AbstractMessageResolver - [THYMELEAF] INITIALIZING MESSAGE RESOLVER: org.thymeleaf.spring4.messageresolver.SpringMessageResolver
+2020-10-28 10:23:11.360 [http-nio-8088-exec-1] INFO  org.thymeleaf.messageresolver.AbstractMessageResolver - [THYMELEAF] MESSAGE RESOLVER INITIALIZED OK
+2020-10-28 10:23:11.373 [http-nio-8088-exec-1] INFO  org.thymeleaf.TemplateEngine - [THYMELEAF] TEMPLATE ENGINE INITIALIZED
+2020-10-28 10:23:13.173 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login.html
+2020-10-28 10:23:16.772 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login.html
+2020-10-28 10:23:31.583 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login.html
+2020-10-28 10:24:19.468 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login.html
+2020-10-28 10:24:50.443 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login.html
+2020-10-28 10:25:17.679 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login.html
+2020-10-28 10:34:09.949 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:38:27.797 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 10:39:01.365 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:10:00.612 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:10:18.170 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:11:09.043 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:11:35.295 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:11:46.314 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:16:11.642 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:16:37.787 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:16:41.739 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:16:48.002 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:16:54.362 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:17:01.639 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:17:04.656 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:23:00.009 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:23:05.639 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:23:18.395 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:23:28.240 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:23:36.160 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:23:44.460 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:24:05.861 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:24:37.870 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:24:45.755 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:25:08.670 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:25:12.761 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:25:21.800 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:25:25.671 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:25:37.697 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:26:37.946 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:27:23.029 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:27:27.125 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:27:29.062 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:27:32.469 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:27:47.639 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:29:05.155 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:32:08.892 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:36:12.980 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 11:43:49.084 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 13:54:57.428 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 13:58:16.784 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:02:46.204 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:04:34.855 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:04:49.195 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:05:57.789 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:08:34.538 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:10:56.032 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:12:01.079 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:13:57.807 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:19:58.567 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:20:31.765 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:21:24.713 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:27:04.825 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:31:44.212 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:32:37.833 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:32:53.043 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:35:43.358 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:36:45.845 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:39:25.710 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:42:37.240 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:42:51.692 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:43:04.388 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:46:17.020 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:47:25.701 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:49:12.348 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:50:56.312 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:51:09.224 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:53:20.654 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:53:26.525 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:53:33.530 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:54:50.953 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 14:59:51.276 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:07:02.884 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:08:28.572 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:09:29.778 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:09:52.014 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:14:40.634 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:16:09.812 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:16:49.027 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:18:14.541 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:21:57.357 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:25:11.050 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:27:39.047 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:32:28.709 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:36:15.582 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:40:02.559 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:41:46.959 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:42:10.078 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:43:08.802 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:44:16.861 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:47:05.275 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:47:36.663 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:51:22.101 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:54:43.943 [http-nio-8088-exec-6] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:54:56.081 [http-nio-8088-exec-9] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:56:07.794 [http-nio-8088-exec-7] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 15:57:29.998 [http-nio-8088-exec-8] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 16:00:03.332 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 16:02:03.774 [http-nio-8088-exec-10] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 16:04:03.306 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 16:05:34.125 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 16:08:07.575 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList
+2020-10-28 16:09:12.218 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/showList

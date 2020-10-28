@@ -2,6 +2,8 @@ package com.winmine.controller;
 
 import com.winmine.entity.User;
 import com.winmine.entity.UserInfo;
+import com.winmine.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,6 +12,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author 姜霞
@@ -19,14 +22,25 @@ import javax.servlet.http.HttpSession;
 @RequestMapping(value = "/user")
 public class UserController {
 
+    @Autowired
+    private UserService service;
+
+    // 显示出所有使用者
+    @RequestMapping("/showList")
+    @ResponseBody
+    public List<User> showList() throws Exception {
+        List<User> users = service.geUsers();
+        System.out.println(users);
+        return users;
+    }
+
     @RequestMapping(value = "/login.html")
-    public String index() {
+    public String login() {
         return "login";
     }
 
     @RequestMapping(value = "/login")
     public String login(User user) {
-        //查询数据库，我这里直接写死
         User dbUser = new User(1, "zhangsan", "123456", "admin");
         if (dbUser.getPassword().equals(user.getPassword())) {
             UserInfo userInfo = new UserInfo(dbUser.getId(), dbUser.getUsername(), dbUser.getRole());
