@@ -18,7 +18,6 @@
       <el-container style="margin-top:-10px">
         <el-link type="primary" style="margin-left:195px;">忘记密码?</el-link>
       </el-container>
-
     </el-card>
   </el-form>
 </template>
@@ -40,6 +39,8 @@ export default {
       }
     };
     return {
+      errorMsg: "",
+      displayStsates: 'none',
       tableRules: {
         userName: [{validator: checkUser, trigger: "blur"}],
         passWord: [{validator: vapass, trigger: "blur"}]
@@ -47,7 +48,7 @@ export default {
       rulesForm: {
         userName: 'zhangsan',
         passWord: '123',
-      }
+      },
     }
   },
   methods: {
@@ -72,7 +73,11 @@ export default {
           })
         } else {
           return response.json().then(data => {
-            console.log(Promise.reject(data))
+            this.$message({
+              showClose: true,
+              message: data.message+",请检查你的用户名密码",
+              type: 'error'
+            });
           })
         }
       })
@@ -84,3 +89,5 @@ export default {
   }
 }
 </script>
+<style scoped>
+</style>

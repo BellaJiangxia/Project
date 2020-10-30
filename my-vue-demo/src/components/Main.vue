@@ -1,8 +1,8 @@
 <template>
-  <el-form style="top:0px;float:left;position:absolute;height:100%">
+  <el-form style="top:0px;float:left;position:absolute;height:113%">
     <el-col :span="12" style="width:245px;height:100%">
       <el-menu
-        style="height:113%"
+        style="height:100%"
         default-active="2"
         v-for="(item,index) in menuArr"
         menu-trigger="click"

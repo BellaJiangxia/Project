@@ -10,6 +10,11 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      // 主页面重定向到登录页面
+      redirect:'/login',
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login

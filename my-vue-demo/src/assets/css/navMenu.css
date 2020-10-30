@@ -1,3 +1,4 @@
+
 .el-submenu > .el-submenu__title .el-submenu__icon-arrow {
   -webkit-transform: rotateZ(-90deg);
   -ms-transform: rotate(-90deg);
@@ -11,16 +12,18 @@
   transform: rotateZ(0deg);
 }
 
+/*一级目录箭头*/
 .el-submenu__icon-arrow {
   right: 220px;
   margin-top: -5px;
 }
 
+/*一级目录箭头和图标颜色*/
 .el-submenu__title i {
   color: white !important;
 }
 
-/*一级目录高度*/
+/*一级目录格子高度*/
 .el-submenu {
   /*height: calc(11.1vh) !important;*/
 }
