@@ -4,6 +4,7 @@ import com.winmine.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 姜霞
@@ -11,15 +12,21 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper {
-     // 1, 查数据
+    //查数据
     public List<User> getUsers() throws Exception;
 
-    // 2，编辑用户
+    //编辑用户
     public void updateUser(User user) throws Exception;
 
-    // 3, 新增用户
+    //新增用户
     public void addUser(User user) throws Exception;
 
-    //4, 删除用户
+    //删除用户
     public void deleteUser(Integer id) throws Exception;
+
+    // 根据用户名获取用户信息
+    public User selectUserByLoginName(String username);
+
+    // 用户登录
+    public User loginUser(Map<String, Object> map);
 }

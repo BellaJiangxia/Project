@@ -5,6 +5,8 @@ import com.winmine.entity.UserInfo;
 import com.winmine.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -29,26 +31,22 @@ public class UserController {
     @RequestMapping("/showList")
     @ResponseBody
     public List<User> showList() throws Exception {
-        List<User> users = service.geUsers();
+        List<User> users = service.getUsers();
         System.out.println(users);
         return users;
     }
 
-    @RequestMapping(value = "/login.html")
-    public String login() {
-        return "login";
-    }
-
     @RequestMapping(value = "/login")
-    public String login(User user) {
-        User dbUser = new User(1, "zhangsan", "123456", "admin");
-        if (dbUser.getPassword().equals(user.getPassword())) {
-            UserInfo userInfo = new UserInfo(dbUser.getId(), dbUser.getUsername(), dbUser.getRole());
-            HttpSession session = getRequest().getSession();
-            session.setAttribute("user_info_in_the_session", userInfo);
-            return "admin";
+    @ResponseBody
+    public boolean login(@RequestBody User user, HttpSession session, Model model) throws Exception {
+        boolean isSuccess = service.checkLoginInfo(user);
+        if (isSuccess == true) {
+            session = getRequest().getSession();
+            session.setAttribute("user_info_in_the_session", isSuccess);
+            return true;
+        } else {
+            return false;
         }
-        return "login";
     }
 
     @RequestMapping(value = "/userInfo")

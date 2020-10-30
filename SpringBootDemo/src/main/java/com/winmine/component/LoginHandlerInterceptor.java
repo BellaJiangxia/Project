@@ -19,7 +19,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     private static final Set<String> NOT_INTERCEPT_URI = new HashSet<>();//不拦截的URI
 
     static {
-        NOT_INTERCEPT_URI.add("/user/login.html");
         NOT_INTERCEPT_URI.add("/user/login");
         NOT_INTERCEPT_URI.add("/user/showList");
     }

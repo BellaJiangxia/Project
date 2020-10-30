@@ -9,11 +9,13 @@ import java.util.List;
  * @date 2020/10/27 17:03
  */
 public interface UserService {
-    public List<User> geUsers() throws Exception;
+    public List<User> getUsers() throws Exception;
 
     public void updateUser(User user) throws Exception;
 
     public void addUser(User user) throws Exception;
 
     public void deleteUser(Integer id) throws Exception;
+
+    public boolean checkLoginInfo(User user) throws Exception;
 }

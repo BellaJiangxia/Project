@@ -16,4 +16,6 @@ public interface UserService {
     public void addUser(User user) throws Exception;
 
     public void deleteUser(Integer id) throws Exception;
+
+    public boolean checkLoginInfo(User user) throws Exception;
 }

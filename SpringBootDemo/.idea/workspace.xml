@@ -10,36 +10,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39c877f2-0683-4c2b-a6bc-1f5afcb6289e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/mapper/UserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static.assets/css/bootstrap-3.3.6.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static.assets/css/bootstrap-theme-3.3.6.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static.assets/css/bootstrap-theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static.assets/js/jquery-1.7.2.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/winmine/Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/common/StringUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/winmine/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2020-10-28/debug-log.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-28/debug-log.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2020-10-28/error-log.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-28/error-log.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/2020-10-28/info-log.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/2020-10-28/info-log.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/component/LoginHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/winmine/component/LoginHandlerInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/winmine/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/winmine/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/winmine/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/winmine/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/winmine/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/winmine/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/component/LoginHandlerInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/component/LoginHandlerInterceptor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/component/LoginHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/component/LoginHandlerInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/controller/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/mapper/UserMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/winmine/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/winmine/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebSocket/target/WebSocket-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/WebSocket-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebSocket/target/WebSocket-1.0-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/WebSocket-1.0-SNAPSHOT.jar.original" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebSocket/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/classes/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebSocket/target/classes/templates/webSocket.html" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/classes/templates/webSocket.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebSocket/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../WebSocket/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my-vue-demo/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../my-vue-demo/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my-vue-demo/src/components/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../my-vue-demo/src/components/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my-vue-demo/src/components/Test.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../my-vue-demo/src/components/Main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../my-vue-demo/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../my-vue-demo/src/router/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +102,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../spring-vue-demo-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/winmine/mapper" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Global Libraries" />
@@ -107,13 +113,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MyProject\SpringBootDemo\src\main\java\com\winmine\mapper" />
+      <recent name="D:\MyProject\SpringBootDemo\src\main\resources\mapper" />
       <recent name="D:\MyProject\SpringBootDemo\src\main\resources\templates" />
       <recent name="D:\MyProject\SpringBootDemo\src\main\resources\static.assets\js" />
       <recent name="D:\MyProject\SpringBootDemo\src\main\resources\static.assets\css" />
-      <recent name="D:\MyProject\WebSocket\src\main\resources" />
-      <recent name="D:\MyProject\WebSocket\src\main\webapp\static" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.winmine.common" />
       <recent name="controller" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -124,19 +131,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.Application">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="SpringBootDemo" />
       <extension name="coverage">
@@ -214,7 +208,12 @@
       <workItem from="1603705950421" duration="521000" />
       <workItem from="1603706511165" duration="82000" />
       <workItem from="1603763496394" duration="10183000" />
-      <workItem from="1603849025196" duration="6561000" />
+      <workItem from="1603849025196" duration="7163000" />
+      <workItem from="1603894738676" duration="2166000" />
+      <workItem from="1603935160090" duration="10764000" />
+      <workItem from="1603951793419" duration="8631000" />
+      <workItem from="1603962609425" duration="783000" />
+      <workItem from="1604021974898" duration="1532000" />
     </task>
     <servers />
   </component>
@@ -234,70 +233,74 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="355" y="141" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1600332069343" />
-    <state x="446" y="46" key="#com.intellij.ide.util.MemberChooser" timestamp="1603789593669">
+    <state x="446" y="46" key="#com.intellij.ide.util.MemberChooser" timestamp="1603940248470">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="446" y="46" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1603789593669" />
+    <state x="446" y="46" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1603940248469" />
     <state x="282" y="253" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1600331795368">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="282" y="253" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1280.680@0.0.1280.680" timestamp="1600331795368" />
-    <state x="371" y="87" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603705231841">
+    <state x="371" y="87" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1603956445903">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="371" y="87" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680@0.0.1280.680" timestamp="1603705231841" />
+    <state x="371" y="87" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680@0.0.1280.680" timestamp="1603956445903" />
+    <state width="452" height="438" key="DebuggerActiveHint" timestamp="1603950357707">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="452" height="438" key="DebuggerActiveHint/0.0.1280.680@0.0.1280.680" timestamp="1603950357707" />
     <state x="421" y="95" key="FileChooserDialogImpl" timestamp="1603706537568">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="95" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1603706537568" />
-    <state width="1237" height="162" key="GridCell.Tab.0.bottom" timestamp="1603850889864">
+    <state width="1237" height="220" key="GridCell.Tab.0.bottom" timestamp="1604021986841">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.0.center" timestamp="1603850889864">
+    <state width="1237" height="220" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1604021986841" />
+    <state width="1237" height="220" key="GridCell.Tab.0.center" timestamp="1604021986841">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.0.left" timestamp="1603850889864">
+    <state width="1237" height="220" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1604021986841" />
+    <state width="1237" height="220" key="GridCell.Tab.0.left" timestamp="1604021986841">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.0.right" timestamp="1603850889864">
+    <state width="1237" height="220" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1604021986841" />
+    <state width="1237" height="220" key="GridCell.Tab.0.right" timestamp="1604021986841">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.1.bottom" timestamp="1603850889864">
+    <state width="1237" height="220" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1604021986841" />
+    <state width="1237" height="221" key="GridCell.Tab.1.bottom" timestamp="1603963669529">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.1.center" timestamp="1603850889864">
+    <state width="1237" height="221" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603963669529" />
+    <state width="1237" height="221" key="GridCell.Tab.1.center" timestamp="1603963669529">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.1.left" timestamp="1603850889864">
+    <state width="1237" height="221" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1603963669529" />
+    <state width="1237" height="221" key="GridCell.Tab.1.left" timestamp="1603963669529">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.1.right" timestamp="1603850889864">
+    <state width="1237" height="221" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1603963669529" />
+    <state width="1237" height="221" key="GridCell.Tab.1.right" timestamp="1603963669529">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.2.bottom" timestamp="1603850889864">
+    <state width="1237" height="221" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1603963669529" />
+    <state width="1237" height="221" key="GridCell.Tab.2.bottom" timestamp="1603963669529">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.2.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.2.center" timestamp="1603850889864">
+    <state width="1237" height="221" key="GridCell.Tab.2.bottom/0.0.1280.680@0.0.1280.680" timestamp="1603963669529" />
+    <state width="1237" height="221" key="GridCell.Tab.2.center" timestamp="1603963669529">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.2.center/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.2.left" timestamp="1603850889864">
+    <state width="1237" height="221" key="GridCell.Tab.2.center/0.0.1280.680@0.0.1280.680" timestamp="1603963669529" />
+    <state width="1237" height="221" key="GridCell.Tab.2.left" timestamp="1603963669529">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.2.left/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
-    <state width="1237" height="162" key="GridCell.Tab.2.right" timestamp="1603850889864">
+    <state width="1237" height="221" key="GridCell.Tab.2.left/0.0.1280.680@0.0.1280.680" timestamp="1603963669529" />
+    <state width="1237" height="221" key="GridCell.Tab.2.right" timestamp="1603963669529">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="162" key="GridCell.Tab.2.right/0.0.1280.680@0.0.1280.680" timestamp="1603850889864" />
+    <state width="1237" height="221" key="GridCell.Tab.2.right/0.0.1280.680@0.0.1280.680" timestamp="1603963669529" />
     <state x="221" y="83" key="IDE.errors.dialog" timestamp="1600327748473">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -335,6 +338,9 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SpringBootDemo$Application.ic" NAME="Application Coverage Results" MODIFIED="1603936945023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.winmine.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/WebSocket$DemoApplication.ic" NAME="DemoApplication Coverage Results" MODIFIED="1600334880217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.example.demo.*</FILTER>
     </SUITE>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.winmine.mapper.UserMapper">
+    <select id="getUsers" resultType="com.winmine.entity.User">
+        select * from T_BASE_USER
+    </select>
+    <insert id="addUser" parameterType="com.winmine.entity.User">
+        insert into T_BASE_USER(user_name,password,role) values(#{user_name},#{password},${role})
+    </insert>
+    <delete id="deleteUser" parameterType="com.winmine.entity.User">
+        delete from T_BASE_USER where id = #{id}
+    </delete>
+    <select id="selectUserByLoginName" resultType="com.winmine.entity.User">
+        select * from T_BASE_USER where username = #{userName}
+    </select>
+    <select id="loginUser" parameterType="Map" resultType="com.winmine.entity.User">
+        select * from T_BASE_USER where (USER_NAME=#{login_name}) AND PWD=#{pwd}
+    </select>
+</mapper>

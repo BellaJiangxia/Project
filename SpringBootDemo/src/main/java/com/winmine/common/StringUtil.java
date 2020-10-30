@@ -1,4 +1,4 @@
-package com.vastsoft.util;
+package com.winmine.common;
 
 public class StringUtil {
 
