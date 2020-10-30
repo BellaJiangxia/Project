@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import Test from '@/components/Test'
+import Main from '@/components/Main'
 
 Vue.use(Router)
 
 export default new Router({
   // vue默认hash模式，即地址栏url中的#符号，history没有#符号
-  mode:'history',
+  mode: 'history',
   routes: [
     {
       path: '/login',
@@ -15,9 +15,9 @@ export default new Router({
       component: Login
     },
     {
-      path: '/test',
-      name: 'test',
-      component: Test
+      path: '/main',
+      name: 'main',
+      component: Main
     }
   ]
 })

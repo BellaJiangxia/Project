@@ -1,0 +1,8 @@
+html,
+body,
+#app {
+  width: calc(100vw);
+  height: calc(100vh);
+  margin: 0;
+  padding: 0;
+}

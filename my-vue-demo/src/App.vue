@@ -1,27 +1,24 @@
 <template>
   <div id="app">
-    <img src="./assets/background.jpg" style="width:100%;height: 100%;">
+    <img src="./assets/img/background.jpg" style="width:100%;height:100%;opacity:0.5">
     <router-view/>
   </div>
 </template>
-
 <script>
+import $ from 'jquery'
+import '@/assets/css/global.css'
+
 export default {
   name: 'App',
   data() {
     return {}
   },
-  // fetch实现跨域
-  created() {
-    fetch("/api/user/showList", {
-      method: "POST",
-    }).then(res => {
-      console.log(res);
-    })
+  mounted() {
+    // 实现APP的高度占满全屏
+    console.log($('#app').height($(window).height()))
   }
 }
 </script>
-
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -30,9 +27,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   position: relative;
-  width:100%;
-  height: calc(100vh);
 }
+
 /*隐藏滚轮*/
 ::-webkit-scrollbar {
   display: none;

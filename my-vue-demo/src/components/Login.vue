@@ -1,66 +1,85 @@
 <template>
-  <div>
-    <div style="display:flex;justify-content:center;z-index:9999;top:20%;right:10%;position:absolute">
-      <el-card style="width: 330px;height:285px">
-        <div slot="header" class="clearfix">
-          <span>登录</span>
-        </div>
-        <table style="width:100%;border-collapse:separate;
-            border-spacing:0px 15px;margin-top: -10px">
-          <tr>
-            <td style="width:170px">用户名</td>
-            <td style="width:440px;padding-right:15px">
-              <el-input v-model="user.username" placeholder="请输入用户名"></el-input>
-            </td>
-          </tr>
-          <tr>
-            <td style="width:170px">密码</td>
-            <td style="width:440px;padding-right:15px">
-              <el-input type="password" v-model="user.password" placeholder="请输入密码" @keydown.enter.native="doLogin"></el-input>
-              <!-- @keydown.enter.native="doLogin"当按下enter键的时候也会执行doLogin方法-->
-            </td>
-          </tr>
-          <tr style="height:70px">
-            <!-- 占两行-->
-            <td>
-              <!-- 点击事件的两种不同的写法v-on:click和 @click-->
-              <!--<el-button style="width: 300px" type="primary" v-on:click="doLogin">登录</el-button>-->
-              <el-button style="width: 90px;margin-right:-120px" type="primary" @click="doLogin">登录</el-button>
-            </td>
-            <!-- 占两行-->
-            <td>
-              <!-- 点击事件的两种不同的写法v-on:click和 @click-->
-              <!--<el-button style="width: 300px" type="primary" v-on:click="doLogin">登录</el-button>-->
-              <el-button style="width: 90px;margin-left:80px" type="primary">注册</el-button>
-            </td>
-          </tr>
-        </table>
-      </el-card>
-    </div>
-  </div>
+  <el-form :rules="tableRules" ref="rulesForm" :model="rulesForm"
+           style="display:flex;justify-content:center;z-index:9999;top:20%;right:10%;position:absolute">
+    <el-card style="width: 300px;height:330px">
+      <div slot="header" class="clearfix">
+        <span>登录</span>
+      </div>
+      <el-form-item label="用户名：" prop="userName" style="margin-top:-10px">
+        <el-input v-model="rulesForm.userName" placeholder="请输入用户名"></el-input>
+      </el-form-item>
+      <el-form-item label="密码：" prop="passWord" style="margin-top:-10px">
+        <el-input v-model="rulesForm.passWord" placeholder="请输入密码"></el-input>
+      </el-form-item>
+      <el-form-item style="margin-top:-5px">
+        <el-button type="primary" @click="onSubmit">登录</el-button>
+        <el-button @click="onRegister">注册</el-button>
+      </el-form-item>
+      <el-container style="margin-top:-10px">
+        <el-link type="primary" style="margin-left:195px;">忘记密码?</el-link>
+      </el-container>
+
+    </el-card>
+  </el-form>
 </template>
 <script>
 export default {
-  //单页面中不支持前面的data:{}方式
   data() {
-    //相当于以前的function data(){},这是es5之前的写法，新版本可以省略掉function
-    return{
-      //之前是在里面直接写username，password等等，但是这里要写return
-      //因为一个组件不管要不要被其他组件用，只要这样定义了，它就会认为可能这个组件会在其他的组件中使用
-      //比如说在这里定义了一个变量，然后把这个组件引入到A组件中，A组件中修改了这个变量
-      //同时这个组件也在B组件中引用了，这时候A里面一修改，B里面也变了，它们用的是一个值
-      //可是一般来说可能希望在不同的组件中引用的时候，使用不同的值，所以这里要用return
-      //这样在A组件和B组件分别引用这个变量的时候是不会互相影响的
-      user:{
-        username:'zhangsan',
-        password:'123',
-        //为了登录方便，可以直接在这里写好用户名和密码的值
+    const checkUser = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error("用户名不能为空"));
+      } else {
+        callback();
+      }
+    };
+    const vapass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      tableRules: {
+        userName: [{validator: checkUser, trigger: "blur"}],
+        passWord: [{validator: vapass, trigger: "blur"}]
+      },
+      rulesForm: {
+        userName: 'zhangsan',
+        passWord: '123',
       }
     }
   },
-  methods:{
-    doLogin(){//一点击登录按钮，这个方法就会执行
-      alert(JSON.stringify(this.user))//可以直接把this.user对象传给后端进行校验用户名和密码
+  methods: {
+    // 登录
+    onSubmit() {
+      const user ={
+        userName:this.rulesForm.userName,
+        passWord:this.rulesForm.passWord
+      }
+      // fetch实现跨域
+      fetch("/api/user/login", {
+        method: "POST",
+        headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+        // body: JSON.stringify({ username:userPhone, password: userPassword})
+        body: JSON.stringify(user)
+      }).then(response =>{
+           if (response.status == 200) {
+             response.json().then(data => {
+               if(data == true){
+                 this.$router.push('/main')
+               }
+             })
+          }else {
+            return response.json().then(data => {
+              console.log(Promise.reject(data))
+            })
+          }
+      })
+    },
+    // 注册
+    onRegister() {
+      alert(JSON.stringify(this.user))
     }
   }
 }
