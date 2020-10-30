@@ -53,9 +53,9 @@ export default {
   methods: {
     // 登录
     onSubmit() {
-      const user ={
-        userName:this.rulesForm.userName,
-        passWord:this.rulesForm.passWord
+      const user = {
+        userName: this.rulesForm.userName,
+        passWord: this.rulesForm.passWord
       }
       // fetch实现跨域
       fetch("/api/user/login", {
@@ -63,18 +63,18 @@ export default {
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
         // body: JSON.stringify({ username:userPhone, password: userPassword})
         body: JSON.stringify(user)
-      }).then(response =>{
-           if (response.status == 200) {
-             response.json().then(data => {
-               if(data == true){
-                 this.$router.push('/main')
-               }
-             })
-          }else {
-            return response.json().then(data => {
-              console.log(Promise.reject(data))
-            })
-          }
+      }).then(response => {
+        if (response.status == 200) {
+          response.json().then(data => {
+            if (data == true) {
+              this.$router.push('/main')
+            }
+          })
+        } else {
+          return response.json().then(data => {
+            console.log(Promise.reject(data))
+          })
+        }
       })
     },
     // 注册

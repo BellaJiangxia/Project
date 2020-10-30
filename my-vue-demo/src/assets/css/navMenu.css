@@ -1,0 +1,36 @@
+.el-submenu > .el-submenu__title .el-submenu__icon-arrow {
+  -webkit-transform: rotateZ(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotateZ(-90deg);
+  color: white;
+}
+
+.el-submenu.is-opened > .el-submenu__title .el-submenu__icon-arrow {
+  -webkit-transform: rotateZ(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotateZ(0deg);
+}
+
+.el-submenu__icon-arrow {
+  right: 220px;
+  margin-top: -5px;
+}
+
+.el-submenu__title i {
+  color: white !important;
+}
+
+/*一级目录高度*/
+.el-submenu {
+  /*height: calc(11.1vh) !important;*/
+}
+
+/*一级目录字体大小*/
+.el-submenu__title span {
+  font-size:18px;
+}
+
+/*二级目录字体大小*/
+.el-submenu .el-menu-item {
+  font-size:16px;
+}

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/img/background.jpg" style="width:100%;height:100%;opacity:0.5">
+    <img src="./assets/img/background.jpg" style="width:100%;height:113%">
     <router-view/>
   </div>
 </template>
