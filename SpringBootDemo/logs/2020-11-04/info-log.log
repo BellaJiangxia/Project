@@ -1,0 +1,796 @@
+2020-11-04 10:25:53.621 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 9540 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:25:53.623 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:25:53.855 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:25:53.967 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65ffd5b8: startup date [Wed Nov 04 10:25:53 CST 2020]; root of context hierarchy
+2020-11-04 10:25:55.523 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:25:56.480 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:25:56.490 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:25:56.491 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:25:56.598 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:25:56.598 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2631 ms
+2020-11-04 10:25:56.696 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:25:56.700 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:25:57.178 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 10:25:57.179 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 10:25:57.180 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 10:25:57.187 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 10:25:57.188 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 10:25:57.284 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65ffd5b8: startup date [Wed Nov 04 10:25:53 CST 2020]; root of context hierarchy
+2020-11-04 10:25:57.886 [restartedMain] INFO  org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer - ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2020-11-04 10:25:58.339 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 10:25:58.476 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 10:25:58.512 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:25:58.519 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:25:58.531 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 10:25:58.547 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 10:25:58.552 [restartedMain] INFO  com.winmine.Application - Started Application in 5.345 seconds (JVM running for 8.016)
+2020-11-04 10:27:13.105 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 10:27:13.105 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 10:27:13.130 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 25 ms
+2020-11-04 10:27:13.146 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 10:27:41.876 [Thread-16] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65ffd5b8: startup date [Wed Nov 04 10:25:53 CST 2020]; root of context hierarchy
+2020-11-04 10:27:41.881 [Thread-16] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 10:27:47.691 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 8200 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:27:47.693 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:27:47.887 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:27:47.981 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 10:27:47 CST 2020]; root of context hierarchy
+2020-11-04 10:27:48.895 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:27:49.924 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:27:49.932 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:27:49.933 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:27:50.040 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:27:50.041 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2060 ms
+2020-11-04 10:27:50.148 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:27:50.153 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:27:50.153 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'safetyFilter' to: [/*]
+2020-11-04 10:27:50.647 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 10:27:50.647 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 10:27:50.649 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 10:27:50.653 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 10:27:50.653 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 10:27:50.741 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 10:27:47 CST 2020]; root of context hierarchy
+2020-11-04 10:27:51.354 [restartedMain] INFO  org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer - ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2020-11-04 10:27:51.844 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 10:27:51.971 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 10:27:51.995 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:27:52.005 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:27:52.015 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 10:27:52.031 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 10:27:52.035 [restartedMain] INFO  com.winmine.Application - Started Application in 4.597 seconds (JVM running for 5.801)
+2020-11-04 10:27:57.535 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 10:27:57.535 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 10:27:57.555 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 20 ms
+2020-11-04 10:33:22.137 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 10:27:47 CST 2020]; root of context hierarchy
+2020-11-04 10:33:22.145 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 10:33:27.265 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 17384 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:33:27.273 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:33:27.458 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:33:27.567 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@653c1cd4: startup date [Wed Nov 04 10:33:27 CST 2020]; root of context hierarchy
+2020-11-04 10:33:28.549 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:33:29.443 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:33:29.451 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:33:29.453 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:33:29.558 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:33:29.558 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1991 ms
+2020-11-04 10:33:29.684 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:33:29.690 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:33:29.691 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'safetyFilter' to: [/*]
+2020-11-04 10:33:30.114 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 10:33:30.116 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 10:33:30.116 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 10:33:30.121 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 10:33:30.121 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 10:33:30.204 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@653c1cd4: startup date [Wed Nov 04 10:33:27 CST 2020]; root of context hierarchy
+2020-11-04 10:33:30.872 [restartedMain] INFO  org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer - ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2020-11-04 10:33:31.316 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 10:33:31.433 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 10:33:31.460 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:33:31.468 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:33:31.478 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 10:33:31.491 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 10:33:31.495 [restartedMain] INFO  com.winmine.Application - Started Application in 4.5 seconds (JVM running for 5.573)
+2020-11-04 10:33:37.008 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 10:33:37.008 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 10:33:37.028 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 20 ms
+2020-11-04 10:33:55.364 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 10:40:54.208 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@653c1cd4: startup date [Wed Nov 04 10:33:27 CST 2020]; root of context hierarchy
+2020-11-04 10:40:54.215 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 10:40:59.670 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 3092 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:40:59.670 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:40:59.778 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:40:59.818 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5d1c87b9: startup date [Wed Nov 04 10:40:59 CST 2020]; root of context hierarchy
+2020-11-04 10:41:00.661 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:41:01.468 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:41:01.475 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:41:01.477 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:41:01.608 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:41:01.608 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1790 ms
+2020-11-04 10:41:01.725 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:41:01.729 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:41:02.249 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 10:41:02.249 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 10:41:02.250 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 10:41:02.254 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 10:41:02.254 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 10:41:02.333 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5d1c87b9: startup date [Wed Nov 04 10:40:59 CST 2020]; root of context hierarchy
+2020-11-04 10:41:02.936 [restartedMain] INFO  org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer - ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2020-11-04 10:41:03.398 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 10:41:03.547 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 10:41:03.572 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:41:03.580 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:41:03.592 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 10:41:03.607 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 10:41:03.611 [restartedMain] INFO  com.winmine.Application - Started Application in 4.171 seconds (JVM running for 5.433)
+2020-11-04 10:41:16.751 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 10:41:16.751 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 10:41:16.774 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 23 ms
+2020-11-04 10:41:16.792 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 10:41:23.272 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 10:41:35.509 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 10:43:06.814 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@5d1c87b9: startup date [Wed Nov 04 10:40:59 CST 2020]; root of context hierarchy
+2020-11-04 10:43:06.820 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 10:43:12.752 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 15480 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:43:12.753 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:43:12.917 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:43:12.983 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@522a1d56: startup date [Wed Nov 04 10:43:12 CST 2020]; root of context hierarchy
+2020-11-04 10:43:13.821 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:43:14.619 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:43:14.626 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:43:14.627 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:43:14.728 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:43:14.728 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1745 ms
+2020-11-04 10:43:14.822 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:43:14.827 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:43:15.207 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+2020-11-04 10:49:17.508 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 13648 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:49:17.509 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:49:17.683 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:49:17.752 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 10:49:17 CST 2020]; root of context hierarchy
+2020-11-04 10:49:18.649 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:49:19.484 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:49:19.492 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:49:19.493 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:49:19.582 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:49:19.583 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1831 ms
+2020-11-04 10:49:19.701 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:49:19.705 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:49:20.229 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 10:49:20.230 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 10:49:20.232 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 10:49:20.240 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 10:49:20.240 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 10:49:20.332 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 10:49:17 CST 2020]; root of context hierarchy
+2020-11-04 10:49:21.557 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 10:49:21.661 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 10:49:21.687 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:49:21.694 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:49:21.704 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 10:49:21.718 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 10:49:21.722 [restartedMain] INFO  com.winmine.Application - Started Application in 4.458 seconds (JVM running for 5.476)
+2020-11-04 10:49:37.084 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 10:49:37.084 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 10:49:37.104 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 20 ms
+2020-11-04 10:49:37.124 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 10:53:53.192 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 10:49:17 CST 2020]; root of context hierarchy
+2020-11-04 10:53:53.198 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 10:53:58.920 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 8460 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:53:58.921 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:53:59.095 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:53:59.158 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 10:53:59 CST 2020]; root of context hierarchy
+2020-11-04 10:53:59.992 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:54:00.872 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:54:00.880 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:54:00.881 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:54:00.974 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:54:00.975 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1817 ms
+2020-11-04 10:54:01.080 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:54:01.085 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:54:01.513 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 10:54:01.516 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 10:54:01.517 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 10:54:01.521 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 10:54:01.521 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 10:54:01.605 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 10:53:59 CST 2020]; root of context hierarchy
+2020-11-04 10:54:02.541 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 10:54:02.650 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 10:54:02.681 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:54:02.688 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:54:02.699 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 10:54:02.715 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 10:54:02.720 [restartedMain] INFO  com.winmine.Application - Started Application in 4.123 seconds (JVM running for 5.182)
+2020-11-04 10:54:11.388 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 10:54:11.388 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 10:54:11.421 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 33 ms
+2020-11-04 10:54:11.437 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 10:54:37.908 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 10:53:59 CST 2020]; root of context hierarchy
+2020-11-04 10:54:37.912 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 10:54:42.490 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 17200 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:54:42.490 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:54:42.651 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:54:42.716 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 10:54:42 CST 2020]; root of context hierarchy
+2020-11-04 10:54:43.568 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:54:44.365 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:54:44.372 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:54:44.373 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:54:44.472 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:54:44.472 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1756 ms
+2020-11-04 10:54:44.567 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:54:44.571 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:54:45.015 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 10:54:45.015 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 10:54:45.018 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 10:54:45.023 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 10:54:45.023 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 10:54:45.097 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 10:54:42 CST 2020]; root of context hierarchy
+2020-11-04 10:54:45.963 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 10:54:46.074 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 10:54:46.104 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:54:46.104 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:54:46.124 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 10:54:46.133 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 10:54:46.133 [restartedMain] INFO  com.winmine.Application - Started Application in 3.896 seconds (JVM running for 4.883)
+2020-11-04 10:54:49.995 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 10:54:49.995 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 10:54:50.023 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 28 ms
+2020-11-04 10:54:50.039 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 10:56:33.476 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 10:54:42 CST 2020]; root of context hierarchy
+2020-11-04 10:56:33.481 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 10:56:37.951 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 17268 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 10:56:37.953 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 10:56:38.110 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 10:56:38.201 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b96fef4: startup date [Wed Nov 04 10:56:38 CST 2020]; root of context hierarchy
+2020-11-04 10:56:39.080 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 10:56:39.950 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 10:56:39.957 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 10:56:39.958 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 10:56:40.056 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 10:56:40.056 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1855 ms
+2020-11-04 10:56:40.159 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 10:56:40.163 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 10:56:40.577 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 10:56:40.579 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 10:56:40.579 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 10:56:40.583 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 10:56:40.583 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 10:56:40.656 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b96fef4: startup date [Wed Nov 04 10:56:38 CST 2020]; root of context hierarchy
+2020-11-04 10:56:41.563 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 10:56:41.661 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 10:56:41.687 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:56:41.694 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 10:56:41.704 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 10:56:41.718 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 10:56:41.722 [restartedMain] INFO  com.winmine.Application - Started Application in 4.052 seconds (JVM running for 5.09)
+2020-11-04 10:56:47.331 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 10:56:47.331 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 10:56:47.352 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 21 ms
+2020-11-04 10:56:47.368 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:06:01.157 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2b96fef4: startup date [Wed Nov 04 10:56:38 CST 2020]; root of context hierarchy
+2020-11-04 11:06:01.163 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:06:05.956 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 15176 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:06:05.958 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:06:06.136 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:06:06.271 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@48fe9a7f: startup date [Wed Nov 04 11:06:06 CST 2020]; root of context hierarchy
+2020-11-04 11:06:07.410 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:06:08.471 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:06:08.477 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:06:08.478 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:06:08.571 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:06:08.571 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2300 ms
+2020-11-04 11:06:08.670 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:06:08.674 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:06:09.153 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:06:09.155 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:06:09.155 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:06:09.160 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:06:09.160 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:06:09.250 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@48fe9a7f: startup date [Wed Nov 04 11:06:06 CST 2020]; root of context hierarchy
+2020-11-04 11:06:10.178 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:06:10.273 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:06:10.303 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:06:10.313 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:06:10.323 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:06:10.339 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:06:10.342 [restartedMain] INFO  com.winmine.Application - Started Application in 4.685 seconds (JVM running for 5.811)
+2020-11-04 11:06:17.340 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:06:17.340 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:06:17.369 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 29 ms
+2020-11-04 11:06:17.387 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:10:27.151 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@48fe9a7f: startup date [Wed Nov 04 11:06:06 CST 2020]; root of context hierarchy
+2020-11-04 11:10:27.156 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:10:32.826 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 14736 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:10:32.827 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:10:33.037 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:10:33.162 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@25fe9105: startup date [Wed Nov 04 11:10:33 CST 2020]; root of context hierarchy
+2020-11-04 11:10:34.115 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:10:34.957 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:10:34.967 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:10:34.968 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:10:35.067 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:10:35.067 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1906 ms
+2020-11-04 11:10:35.170 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:10:35.174 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:10:35.623 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:10:35.623 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:10:35.623 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:10:35.623 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:10:35.623 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:10:35.703 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@25fe9105: startup date [Wed Nov 04 11:10:33 CST 2020]; root of context hierarchy
+2020-11-04 11:10:36.594 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:10:36.699 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:10:36.728 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:10:36.736 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:10:36.746 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:10:36.761 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:10:36.768 [restartedMain] INFO  com.winmine.Application - Started Application in 4.31 seconds (JVM running for 5.524)
+2020-11-04 11:10:45.894 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:10:45.894 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:10:45.922 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 28 ms
+2020-11-04 11:10:45.938 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:11:06.117 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@25fe9105: startup date [Wed Nov 04 11:10:33 CST 2020]; root of context hierarchy
+2020-11-04 11:11:06.122 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:11:11.038 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 17572 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:11:11.039 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:11:11.192 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:11:11.273 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@11943150: startup date [Wed Nov 04 11:11:11 CST 2020]; root of context hierarchy
+2020-11-04 11:11:12.083 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:11:12.890 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:11:12.897 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:11:12.897 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:11:12.999 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:11:12.999 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1726 ms
+2020-11-04 11:11:13.103 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:11:13.108 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:11:13.580 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:11:13.582 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:11:13.582 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:11:13.589 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:11:13.589 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:11:13.669 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@11943150: startup date [Wed Nov 04 11:11:11 CST 2020]; root of context hierarchy
+2020-11-04 11:11:14.643 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:11:14.748 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:11:14.777 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:11:14.784 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:11:14.795 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:11:14.810 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:11:14.814 [restartedMain] INFO  com.winmine.Application - Started Application in 4.075 seconds (JVM running for 5.319)
+2020-11-04 11:11:53.923 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@11943150: startup date [Wed Nov 04 11:11:11 CST 2020]; root of context hierarchy
+2020-11-04 11:11:53.933 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:11:58.561 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 1740 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:11:58.563 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:11:58.719 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:11:58.792 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 11:11:58 CST 2020]; root of context hierarchy
+2020-11-04 11:11:59.608 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:12:00.463 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:12:00.472 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:12:00.472 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:12:00.579 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:12:00.579 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1787 ms
+2020-11-04 11:12:00.694 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:12:00.701 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:12:01.167 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:12:01.168 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:12:01.168 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:12:01.174 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:12:01.174 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:12:01.252 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 11:11:58 CST 2020]; root of context hierarchy
+2020-11-04 11:12:02.367 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:12:02.479 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:12:02.506 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:12:02.514 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:12:02.523 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:12:02.539 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:12:02.543 [restartedMain] INFO  com.winmine.Application - Started Application in 4.249 seconds (JVM running for 5.276)
+2020-11-04 11:12:06.571 [http-nio-8088-exec-2] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:12:06.571 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:12:06.593 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 22 ms
+2020-11-04 11:12:06.609 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:12:11.732 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:12:46.143 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 11:11:58 CST 2020]; root of context hierarchy
+2020-11-04 11:12:46.152 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:13:03.814 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 18352 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:13:03.815 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:13:03.999 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:13:04.085 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 11:13:04 CST 2020]; root of context hierarchy
+2020-11-04 11:13:04.900 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:13:05.644 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:13:05.653 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:13:05.653 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:13:05.753 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:13:05.753 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1668 ms
+2020-11-04 11:13:05.833 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:13:05.843 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:13:06.253 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:13:06.257 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:13:06.257 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:13:06.262 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:13:06.263 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:13:06.346 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 11:13:04 CST 2020]; root of context hierarchy
+2020-11-04 11:13:07.220 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:13:07.325 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:13:07.352 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:13:07.359 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:13:07.370 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:13:07.384 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:13:07.388 [restartedMain] INFO  com.winmine.Application - Started Application in 3.848 seconds (JVM running for 4.943)
+2020-11-04 11:13:16.222 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:13:16.222 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:13:16.243 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 21 ms
+2020-11-04 11:13:16.253 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:14:08.204 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 11:13:04 CST 2020]; root of context hierarchy
+2020-11-04 11:14:08.209 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:14:20.364 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 11964 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:14:20.365 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:14:20.538 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:14:20.599 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 11:14:20 CST 2020]; root of context hierarchy
+2020-11-04 11:14:21.422 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:14:22.208 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:14:22.219 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:14:22.223 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:14:22.333 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:14:22.333 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1734 ms
+2020-11-04 11:14:22.441 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:14:22.445 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:14:22.866 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:14:22.867 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:14:22.869 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:14:22.875 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:14:22.875 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:14:22.948 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 11:14:20 CST 2020]; root of context hierarchy
+2020-11-04 11:14:23.814 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:14:23.917 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:14:23.946 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:14:23.954 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:14:23.964 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:14:23.989 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:14:23.993 [restartedMain] INFO  com.winmine.Application - Started Application in 3.855 seconds (JVM running for 4.842)
+2020-11-04 11:14:43.131 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 11:14:20 CST 2020]; root of context hierarchy
+2020-11-04 11:14:43.135 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:16:21.647 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 9496 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:16:21.652 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:16:21.812 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:16:21.862 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 11:16:21 CST 2020]; root of context hierarchy
+2020-11-04 11:16:22.767 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:16:23.646 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:16:23.655 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:16:23.655 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:16:23.768 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:16:23.769 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1907 ms
+2020-11-04 11:16:23.885 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:16:23.891 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:16:24.316 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:16:24.317 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:16:24.318 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:16:24.322 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:16:24.322 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:16:24.385 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 11:16:21 CST 2020]; root of context hierarchy
+2020-11-04 11:16:25.249 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:16:25.351 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:16:25.379 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:16:25.386 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:16:25.398 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:16:25.415 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:16:25.420 [restartedMain] INFO  com.winmine.Application - Started Application in 4.038 seconds (JVM running for 4.992)
+2020-11-04 11:16:30.595 [http-nio-8088-exec-2] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:16:30.595 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:16:30.617 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 22 ms
+2020-11-04 11:16:30.630 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:17:08.011 [Thread-18] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@d740bcd: startup date [Wed Nov 04 11:16:21 CST 2020]; root of context hierarchy
+2020-11-04 11:17:08.017 [Thread-18] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:17:14.471 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 7768 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:17:14.473 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:17:14.662 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:17:14.745 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@496a8934: startup date [Wed Nov 04 11:17:14 CST 2020]; root of context hierarchy
+2020-11-04 11:17:15.802 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:17:16.788 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:17:16.794 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:17:16.796 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:17:16.893 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:17:16.893 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2148 ms
+2020-11-04 11:17:17.033 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:17:17.041 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:17:17.606 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:17:17.608 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:17:17.608 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:17:17.613 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:17:17.613 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:17:17.698 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@496a8934: startup date [Wed Nov 04 11:17:14 CST 2020]; root of context hierarchy
+2020-11-04 11:17:19.016 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:17:19.164 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:17:19.193 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:17:19.201 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:17:19.213 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:17:19.229 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:17:19.235 [restartedMain] INFO  com.winmine.Application - Started Application in 5.101 seconds (JVM running for 6.422)
+2020-11-04 11:17:53.491 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:17:53.491 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:17:53.514 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 23 ms
+2020-11-04 11:17:53.529 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:32:58.167 [Thread-20] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@496a8934: startup date [Wed Nov 04 11:17:14 CST 2020]; root of context hierarchy
+2020-11-04 11:32:58.173 [Thread-20] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:33:02.968 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 11220 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:33:02.969 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:33:03.147 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:33:03.224 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@252f6d32: startup date [Wed Nov 04 11:33:03 CST 2020]; root of context hierarchy
+2020-11-04 11:33:04.239 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:33:05.452 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:33:05.466 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:33:05.467 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:33:05.583 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:33:05.583 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2359 ms
+2020-11-04 11:33:05.694 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:33:05.700 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:33:06.221 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:33:06.222 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:33:06.223 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:33:06.228 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:33:06.228 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:33:06.315 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@252f6d32: startup date [Wed Nov 04 11:33:03 CST 2020]; root of context hierarchy
+2020-11-04 11:33:07.515 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:33:07.643 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:33:07.682 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:33:07.702 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:33:07.729 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:33:07.753 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:33:07.761 [restartedMain] INFO  com.winmine.Application - Started Application in 5.097 seconds (JVM running for 6.267)
+2020-11-04 11:33:54.072 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:33:54.072 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:33:54.102 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 30 ms
+2020-11-04 11:33:54.117 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:35:00.454 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@252f6d32: startup date [Wed Nov 04 11:33:03 CST 2020]; root of context hierarchy
+2020-11-04 11:35:00.459 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:35:19.912 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 18664 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:35:19.914 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:35:20.140 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:35:20.238 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 11:35:20 CST 2020]; root of context hierarchy
+2020-11-04 11:35:21.349 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:35:22.446 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:35:22.455 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:35:22.456 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:35:22.579 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:35:22.579 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2342 ms
+2020-11-04 11:35:22.772 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:35:22.778 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:35:23.488 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:35:23.489 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:35:23.491 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:35:23.498 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:35:23.498 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:35:23.611 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 11:35:20 CST 2020]; root of context hierarchy
+2020-11-04 11:35:24.688 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:35:24.810 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:35:24.840 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:35:24.848 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:35:24.857 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:35:24.872 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:35:24.877 [restartedMain] INFO  com.winmine.Application - Started Application in 5.341 seconds (JVM running for 6.785)
+2020-11-04 11:35:26.789 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:35:26.789 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:35:26.818 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 29 ms
+2020-11-04 11:35:26.834 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:36:05.059 [Thread-21] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@12af9301: startup date [Wed Nov 04 11:35:20 CST 2020]; root of context hierarchy
+2020-11-04 11:36:05.065 [Thread-21] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 11:36:10.121 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 19292 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 11:36:10.122 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 11:36:10.296 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 11:36:10.387 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@f360caf: startup date [Wed Nov 04 11:36:10 CST 2020]; root of context hierarchy
+2020-11-04 11:36:11.305 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 11:36:12.208 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 11:36:12.216 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 11:36:12.217 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 11:36:12.316 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 11:36:12.316 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1929 ms
+2020-11-04 11:36:12.418 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 11:36:12.423 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 11:36:12.987 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 11:36:12.990 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 11:36:12.991 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 11:36:12.998 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 11:36:12.998 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 11:36:13.096 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@f360caf: startup date [Wed Nov 04 11:36:10 CST 2020]; root of context hierarchy
+2020-11-04 11:36:14.064 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 11:36:14.175 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 11:36:14.203 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:36:14.210 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 11:36:14.224 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 11:36:14.241 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 11:36:14.248 [restartedMain] INFO  com.winmine.Application - Started Application in 4.445 seconds (JVM running for 5.623)
+2020-11-04 11:36:20.061 [http-nio-8088-exec-2] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 11:36:20.061 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 11:36:20.106 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 45 ms
+2020-11-04 11:36:20.120 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 11:37:11.537 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 13:44:43.176 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@f360caf: startup date [Wed Nov 04 11:36:10 CST 2020]; root of context hierarchy
+2020-11-04 13:44:43.182 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 13:44:47.553 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 16576 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 13:44:47.554 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 13:44:47.710 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 13:44:47.813 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 13:44:47 CST 2020]; root of context hierarchy
+2020-11-04 13:44:48.733 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 13:44:49.588 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 13:44:49.597 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 13:44:49.598 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 13:44:49.711 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 13:44:49.711 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1898 ms
+2020-11-04 13:44:49.816 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 13:44:49.822 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 13:44:50.315 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 13:44:50.316 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 13:44:50.317 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 13:44:50.322 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 13:44:50.322 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 13:44:50.403 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 13:44:47 CST 2020]; root of context hierarchy
+2020-11-04 13:44:51.629 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 13:44:51.749 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 13:44:51.772 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 13:44:51.778 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 13:44:51.786 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 13:44:51.799 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 13:44:51.803 [restartedMain] INFO  com.winmine.Application - Started Application in 4.513 seconds (JVM running for 5.457)
+2020-11-04 13:50:40.562 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@1ca6b8ad: startup date [Wed Nov 04 13:44:47 CST 2020]; root of context hierarchy
+2020-11-04 13:50:40.566 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 13:50:45.372 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 8936 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 13:50:45.374 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 13:50:49.956 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 1460 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 13:50:49.957 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 13:50:50.117 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 13:50:50.201 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6463930e: startup date [Wed Nov 04 13:50:50 CST 2020]; root of context hierarchy
+2020-11-04 13:50:51.042 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 13:50:51.954 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 13:50:51.964 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 13:50:51.964 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 13:50:52.062 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 13:50:52.062 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1861 ms
+2020-11-04 13:50:52.169 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 13:50:52.173 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 13:50:52.616 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 13:50:52.620 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 13:50:52.621 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 13:50:52.628 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 13:50:52.628 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 13:50:52.715 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6463930e: startup date [Wed Nov 04 13:50:50 CST 2020]; root of context hierarchy
+2020-11-04 13:50:53.860 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 13:50:53.961 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 13:50:53.987 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 13:50:53.994 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 13:50:54.005 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 13:50:54.018 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 13:50:54.022 [restartedMain] INFO  com.winmine.Application - Started Application in 4.337 seconds (JVM running for 5.365)
+2020-11-04 13:51:20.693 [http-nio-8088-exec-2] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 13:51:20.693 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 13:51:20.717 [http-nio-8088-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 24 ms
+2020-11-04 13:51:20.736 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 13:53:09.473 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 13:53:25.137 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 13:53:37.213 [http-nio-8088-exec-4] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 13:54:41.311 [http-nio-8088-exec-5] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:00:53.103 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@6463930e: startup date [Wed Nov 04 13:50:50 CST 2020]; root of context hierarchy
+2020-11-04 14:00:53.109 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 14:00:58.381 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 16656 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 14:00:58.383 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 14:00:58.560 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 14:00:58.637 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@18786c2f: startup date [Wed Nov 04 14:00:58 CST 2020]; root of context hierarchy
+2020-11-04 14:00:59.549 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 14:01:00.390 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 14:01:00.397 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 14:01:00.398 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 14:01:00.515 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 14:01:00.515 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1878 ms
+2020-11-04 14:01:00.619 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 14:01:00.624 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 14:01:01.159 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 14:01:01.160 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 14:01:01.162 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 14:01:01.169 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 14:01:01.169 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 14:01:01.243 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@18786c2f: startup date [Wed Nov 04 14:00:58 CST 2020]; root of context hierarchy
+2020-11-04 14:01:02.227 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 14:01:02.342 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 14:01:02.374 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 14:01:02.383 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 14:01:02.395 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 14:01:02.408 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 14:01:02.418 [restartedMain] INFO  com.winmine.Application - Started Application in 4.324 seconds (JVM running for 5.377)
+2020-11-04 14:01:08.432 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 14:01:08.433 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 14:01:08.458 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 25 ms
+2020-11-04 14:01:08.472 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:01:23.841 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:02:07.820 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@18786c2f: startup date [Wed Nov 04 14:00:58 CST 2020]; root of context hierarchy
+2020-11-04 14:02:07.826 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 14:02:12.574 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 7136 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 14:02:12.575 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 14:02:12.741 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 14:02:12.814 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65ffd5b8: startup date [Wed Nov 04 14:02:12 CST 2020]; root of context hierarchy
+2020-11-04 14:02:13.706 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 14:02:14.514 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 14:02:14.521 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 14:02:14.522 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 14:02:14.630 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 14:02:14.630 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1816 ms
+2020-11-04 14:02:14.740 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 14:02:14.744 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 14:02:15.276 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 14:02:15.277 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 14:02:15.280 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 14:02:15.288 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 14:02:15.288 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 14:02:15.375 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65ffd5b8: startup date [Wed Nov 04 14:02:12 CST 2020]; root of context hierarchy
+2020-11-04 14:02:16.404 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 14:02:16.519 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 14:02:16.545 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 14:02:16.556 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 14:02:16.565 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 14:02:16.579 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 14:02:16.585 [restartedMain] INFO  com.winmine.Application - Started Application in 4.291 seconds (JVM running for 5.349)
+2020-11-04 14:02:19.832 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 14:02:19.832 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 14:02:19.860 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 28 ms
+2020-11-04 14:02:19.874 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:02:26.232 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:04:56.994 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@65ffd5b8: startup date [Wed Nov 04 14:02:12 CST 2020]; root of context hierarchy
+2020-11-04 14:04:56.999 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 14:05:01.556 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 12056 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 14:05:01.558 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 14:05:01.734 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 14:05:01.812 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@18786c2f: startup date [Wed Nov 04 14:05:01 CST 2020]; root of context hierarchy
+2020-11-04 14:05:02.734 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 14:05:03.561 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 14:05:03.568 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 14:05:03.568 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 14:05:03.674 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 14:05:03.674 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1862 ms
+2020-11-04 14:05:03.779 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 14:05:03.783 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 14:05:04.229 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 14:05:04.231 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 14:05:04.232 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 14:05:04.237 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 14:05:04.238 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 14:05:04.307 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@18786c2f: startup date [Wed Nov 04 14:05:01 CST 2020]; root of context hierarchy
+2020-11-04 14:05:05.204 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 14:05:05.310 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 14:05:05.338 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 14:05:05.345 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 14:05:05.356 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 14:05:05.369 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 14:05:05.373 [restartedMain] INFO  com.winmine.Application - Started Application in 4.122 seconds (JVM running for 5.196)
+2020-11-04 14:05:16.735 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 14:05:16.735 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 14:05:16.757 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 22 ms
+2020-11-04 14:05:16.772 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:05:25.592 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:05:43.181 [http-nio-8088-exec-3] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:06:37.037 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@18786c2f: startup date [Wed Nov 04 14:05:01 CST 2020]; root of context hierarchy
+2020-11-04 14:06:37.045 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-11-04 14:06:41.787 [restartedMain] INFO  com.winmine.Application - Starting Application on LAPTOP-T84R5PL0 with PID 19048 (D:\MyProject\SpringBootDemo\target\classes started by YTJX in D:\MyProject\SpringBootDemo)
+2020-11-04 14:06:41.788 [restartedMain] INFO  com.winmine.Application - No active profile set, falling back to default profiles: default
+2020-11-04 14:06:41.957 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 5.3.5.Final
+2020-11-04 14:06:42.026 [restartedMain] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2bd8c66e: startup date [Wed Nov 04 14:06:42 CST 2020]; root of context hierarchy
+2020-11-04 14:06:42.879 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-11-04 14:06:43.724 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat initialized with port(s): 8088 (http)
+2020-11-04 14:06:43.732 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2020-11-04 14:06:43.733 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet Engine: Apache Tomcat/8.5.23
+2020-11-04 14:06:43.829 [localhost-startStop-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2020-11-04 14:06:43.829 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1803 ms
+2020-11-04 14:06:43.931 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.ServletRegistrationBean - Mapping servlet: 'dispatcherServlet' to [/]
+2020-11-04 14:06:43.936 [localhost-startStop-1] INFO  org.springframework.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-04 14:06:44.390 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/userInfo]}" onto public java.lang.String com.winmine.controller.UserController.userInfo()
+2020-11-04 14:06:44.391 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/showList]}" onto public java.util.List<com.winmine.entity.User> com.winmine.controller.UserController.showList() throws java.lang.Exception
+2020-11-04 14:06:44.393 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/user/login]}" onto public boolean com.winmine.controller.UserController.login(com.winmine.entity.User,org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2020-11-04 14:06:44.401 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-11-04 14:06:44.401 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-11-04 14:06:44.491 [restartedMain] INFO  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2bd8c66e: startup date [Wed Nov 04 14:06:42 CST 2020]; root of context hierarchy
+2020-11-04 14:06:45.535 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-11-04 14:06:45.635 [restartedMain] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-11-04 14:06:45.659 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8088"]
+2020-11-04 14:06:45.666 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8088"]
+2020-11-04 14:06:45.677 [restartedMain] INFO  org.apache.tomcat.util.net.NioSelectorPool - Using a shared selector for servlet write/read
+2020-11-04 14:06:45.692 [restartedMain] INFO  org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer - Tomcat started on port(s): 8088 (http)
+2020-11-04 14:06:45.698 [restartedMain] INFO  com.winmine.Application - Started Application in 4.179 seconds (JVM running for 5.205)
+2020-11-04 14:06:55.016 [http-nio-8088-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-04 14:06:55.016 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-11-04 14:06:55.040 [http-nio-8088-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 24 ms
+2020-11-04 14:06:55.057 [http-nio-8088-exec-1] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:07:03.439 [http-nio-8088-exec-2] INFO  com.winmine.component.LoginHandlerInterceptor - 不拦截/user/login
+2020-11-04 14:07:46.526 [Thread-19] INFO  org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2bd8c66e: startup date [Wed Nov 04 14:06:42 CST 2020]; root of context hierarchy
+2020-11-04 14:07:46.530 [Thread-19] INFO  org.springframework.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown

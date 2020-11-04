@@ -1,15 +1,21 @@
 package com.winmine.component;
 
-import com.winmine.entity.UserInfo;
+import com.winmine.entity.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * @author 姜霞
  * @create 2020-10-23 14:00
@@ -34,10 +40,9 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             log.info("不拦截" + uri);
             return true;
         }
-        log.info("拦截" + uri);
         HttpSession session = request.getSession();
-        UserInfo userInfo = (UserInfo) session.getAttribute("user_info_in_the_session");
-        if (userInfo == null) {
+        User user = (User) session.getAttribute("user_info_in_the_session");
+        if (user == null) {
             throw new RuntimeException("用户未登陆");
         }
         return true;
@@ -56,5 +61,9 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object object, Exception ex) throws Exception {
+    }
+
+    private HttpServletRequest getRequest() {
+        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     }
 }

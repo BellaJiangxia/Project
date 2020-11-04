@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 姜霞
@@ -38,11 +41,31 @@ public class UserController {
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public boolean login(@RequestBody User user, HttpSession session, Model model) throws Exception {
+    public boolean login(@RequestBody User user, Model model,HttpServletRequest request) throws Exception {
         boolean isSuccess = service.checkLoginInfo(user);
         if (isSuccess == true) {
-            session = getRequest().getSession();
-            session.setAttribute("user_info_in_the_session", isSuccess);
+            HttpSession session = getRequest().getSession();
+            HashMap<String, HttpSession> sessionMap=(HashMap<String, HttpSession>)session.getAttribute("sessionMap");
+            if(null!=sessionMap){
+                Set<String> keySet = sessionMap.keySet();
+                for (String key : keySet) {
+                if(key.equals(user.getUserName()))
+                {
+                    sessionMap.remove(user.getUserName());
+                    session.invalidate();
+                    sessionMap.put(user.getUserName(), session);
+                    session.setAttribute("sessionMap", sessionMap);
+                }else{
+                    sessionMap.put(user.getUserName(), session);
+                    session.setAttribute("sessionMap", sessionMap);
+                }
+                }
+
+            }else{
+                HashMap<String, HttpSession> map=new HashMap<String, HttpSession>();
+                map.put(user.getUserName(), session);
+                session.setAttribute("sessionMap", map);
+            }
             return true;
         } else {
             return false;
