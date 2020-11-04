@@ -73,9 +73,8 @@ export default {
           })
         } else {
           return response.json().then(data => {
-            this.$message({
-              showClose: true,
-              message: data.message+",请检查你的用户名密码",
+            this.$alert(data.message+',请检查你的用户名密码', '错误提示', {
+              confirmButtonText: '确定',
               type: 'error'
             });
           })

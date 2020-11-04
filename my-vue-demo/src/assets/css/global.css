@@ -5,4 +5,9 @@ body,
   height: calc(100vh);
   margin: 0;
   padding: 0;
+  border: 0;
+  /*禁止图片缩放*/
+  background-image: url('../img/background.jpg');
+  background-size: 100%;
+  background-repeat:no-repeat;
 }
