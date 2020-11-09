@@ -1,7 +1,7 @@
 <template>
   <el-form :rules="tableRules" ref="rulesForm" :model="rulesForm"
            style="display:flex;justify-content:center;z-index:9999;top:20%;right:10%;position:absolute">
-    <el-card style="width: 310px;height:345px">
+    <el-card style="width: 315px;height:345px;margin-top:60px">
       <div slot="header" class="clearfix">
         <span>登录</span>
       </div>
@@ -12,8 +12,8 @@
         <el-input v-model="rulesForm.passWord" placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item style="margin-top:-5px">
-        <el-button type="primary" @click="onSubmit">登录</el-button>
-        <el-button @click="onRegister">注册</el-button>
+        <el-button type="primary" @click="onSubmit" style="width:80px;margin-right:20px">登录</el-button>
+        <el-button @click="onRegister" style="width:80px">注册</el-button>
       </el-form-item>
       <el-container style="margin-top:-10px">
         <el-link type="primary" style="margin-left:195px;">忘记密码?</el-link>
@@ -67,7 +67,8 @@ export default {
       }).then(response => {
         if (response.status == 200) {
           response.json().then(data => {
-            if (data == true) {
+            if (data.code == 0) {
+              console.log(data)
               this.$router.push('/main')
             }
           })

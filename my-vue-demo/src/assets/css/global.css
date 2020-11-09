@@ -1,13 +1,11 @@
 html,
 body,
 #app {
-  width: calc(100vw);
-  height: calc(100vh);
-  margin: 0;
-  padding: 0;
-  border: 0;
-  /*禁止图片缩放*/
-  background-image: url('../img/background.jpg');
-  background-size: 100%;
-  background-repeat:no-repeat;
+  width:100%;
+  height:100%;
+  background-size:cover;/*这个用来实现不缩放（默认的）,缩放是cover*/
+  position:absolute;/*这一行必须要有，但上一行不是必须的，因为auto是默认值*/
+  background-image: url('../img/bg1.jpg');
+  background-repeat:repeat;/*这一行也可以没有，因为repeat是默认值*/
+  background-attachment: fixed;
 }
