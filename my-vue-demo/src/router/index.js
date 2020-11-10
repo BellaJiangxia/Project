@@ -4,6 +4,9 @@ import Login from '@/components/sys/login'
 import Main from '@/components/sys/main'
 import CaseManagement from '@/components/sys/case/caseManagement'
 import CooperateOrgan from '@/components/sys/organ/cooperateOrgan'
+import MyApply from '@/components/sys/process/apply/myApply'
+import OrganApply from '@/components/sys/process/apply/organApply'
+import ModifyApply from '@/components/sys/process/apply/modifyApply'
 
 Vue.use(Router)
 
@@ -27,7 +30,10 @@ export default new Router({
       component: Main,
       children:[
         {path:'/caseManagement',component: CaseManagement},
-        {path:'/cooperateOrgan',component: CooperateOrgan}
+        {path:'/cooperateOrgan',component: CooperateOrgan},
+        {path:'/myApply',component: MyApply},
+        {path:'/organApply',component: OrganApply},
+        {path:'/modifyApply',component: ModifyApply},
       ]
     }
   ]

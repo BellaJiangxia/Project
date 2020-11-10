@@ -41,9 +41,9 @@
                   <span>远诊申请</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="2-1" style="padding-left:35px">我的申请</el-menu-item>
-                  <el-menu-item index="2-2" style="padding-left:35px">机构申请</el-menu-item>
-                  <el-menu-item index="2-3" style="padding-left:63px">修改报告申请</el-menu-item>
+                  <el-menu-item index="/myApply" style="padding-left:35px">我的申请</el-menu-item>
+                  <el-menu-item index="/organApply" style="padding-left:35px">机构申请</el-menu-item>
+                  <el-menu-item index="/modifyApply" style="padding-left:63px">修改报告申请</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu class="submenu-popper" index="3">
@@ -136,6 +136,15 @@
             <div v-if="this.adminleftnavnum === '/cooperateOrgan'">
               <v-organ></v-organ>
             </div>
+            <div v-if="this.adminleftnavnum === '/myApply'">
+              <v-my-apply></v-my-apply>
+            </div>
+            <div v-if="this.adminleftnavnum === '/organApply'">
+              <v-organ-apply></v-organ-apply>
+            </div>
+            <div v-if="this.adminleftnavnum === '/modifyApply'">
+              <v-modify-apply></v-modify-apply>
+            </div>
           </el-col>
         </el-row>
       </el-main>
@@ -149,10 +158,16 @@
 import '@/assets/css/navMenu.css'
 import vCase from '@/components/sys/case/caseManagement'
 import vOrgan from '@/components/sys/organ/cooperateOrgan'
+import vMyApply from '@/components/sys/process/apply/myApply'
+import vModifyApply from '@/components/sys/process/apply/modifyApply'
+import vOrganApply from '@/components/sys/process/apply/organApply'
 export default {
   components: {
     vCase,
-    vOrgan
+    vOrgan,
+    vMyApply,
+    vModifyApply,
+    vOrganApply
   },
   data() {
     return {
@@ -226,6 +241,6 @@ export default {
   height:calc(100vh);
 }
 .col3 {
-  background-color: thistle;
+  background-color: #AEAAA9;
 }
 </style>
