@@ -12,13 +12,15 @@
           <el-col :span="11" style="opacity: 0.7">
             <el-menu
               style="height:100%;border:none;top:20px;"
-              default-active="2"
+              router
+              default-active="$route.path"
               v-for="(item,index) in menuArr"
               menu-trigger="click"
               ref="elMenu"
               class="el-menu-vertical-demo"
               @open="handleOpen"
               @close="handleClose"
+              @select="selectItems"
               background-color="#519ED6"
               text-color="#fff"
               active-text-color="#ffd04b">
@@ -28,9 +30,9 @@
                   <span>病人病历</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="1-1" style="padding-left:35px">病例管理
+                  <el-menu-item index="/caseManagement" style="padding-left:35px">病例管理
                   </el-menu-item>
-                  <el-menu-item index="1-2" style="padding-left:73px">合作机构病例库</el-menu-item>
+                  <el-menu-item index="/cooperateOrgan" style="padding-left:73px">合作机构病例库</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu class="submenu-popper" index="2">
@@ -128,8 +130,11 @@
         <!-- 第二列布局 -->
         <el-row style="width:110%;height:100%;margin-top:-20px;">
           <el-col :span="24" class="col3">
-            <div>
+            <div v-if="this.adminleftnavnum === '/caseManagement'">
               <v-case></v-case>
+            </div>
+            <div v-if="this.adminleftnavnum === '/cooperateOrgan'">
+              <v-organ></v-organ>
             </div>
           </el-col>
         </el-row>
@@ -142,15 +147,18 @@
 
 <script>
 import '@/assets/css/navMenu.css'
-import vCase from '@/components/sys/case/caseInfo'
+import vCase from '@/components/sys/case/caseManagement'
+import vOrgan from '@/components/sys/organ/cooperateOrgan'
 export default {
   components: {
-    vCase
+    vCase,
+    vOrgan
   },
   data() {
     return {
       menuArr: [1],
-      indexArr: []
+      indexArr: [],
+      adminleftnavnum:""
     }
   },
   methods: {
@@ -182,6 +190,10 @@ export default {
     },
     handleClose(key, keyPath) {
       // console.log(key, keyPath);
+    },
+    selectItems(index){
+      this.adminleftnavnum=index;
+      console.log(this.adminleftnavnum);
     }
   }
 }

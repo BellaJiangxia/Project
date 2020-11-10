@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/sys/login'
 import Main from '@/components/sys/main'
+import CaseManagement from '@/components/sys/case/caseManagement'
+import CooperateOrgan from '@/components/sys/organ/cooperateOrgan'
 
 Vue.use(Router)
 
@@ -22,7 +24,11 @@ export default new Router({
     {
       path: '/main',
       name: 'main',
-      component: Main
+      component: Main,
+      children:[
+        {path:'/caseManagement',component: CaseManagement},
+        {path:'/cooperateOrgan',component: CooperateOrgan}
+      ]
     }
   ]
 })
